@@ -9,6 +9,8 @@
   endif
   assign space_transparent = se_stts.space_transparent_header -%}
 
+{{ 'yo-header.css' | asset_url | stylesheet_tag }}
+
 {%- style -%}
   {%- assign opnav  = se_stts.opnav | divided_by: 100.0 -%}
   .t4s-header__wrapper {
@@ -16,6 +18,16 @@
     --h-text-color-rgb  : {{ se_stts.clnav | color_to_rgb | remove: 'rgba(' | remove: 'rgb(' | remove: ')' }};
     --h-text-color-hover: {{ se_stts.clnav_hover }};
     --h-bg-color        : {{ se_stts.bgnav | color_modify: 'alpha', opnav }};
+    --yo-header-surface: rgba(17, 17, 17, 0.92);
+    --yo-header-surface-stuck: rgba(250, 244, 238, 0.94);
+    --yo-header-border: rgba(255, 255, 255, 0.14);
+    --yo-header-border-stuck: rgba(34, 34, 34, 0.08);
+    --yo-header-shadow: 0 14px 34px rgba(17, 12, 8, 0.16);
+    --yo-header-shadow-stuck: 0 12px 28px rgba(17, 12, 8, 0.1);
+    --yo-header-pill: rgba(255, 255, 255, 0.08);
+    --yo-header-pill-hover: rgba(255, 244, 244, 0.18);
+    --yo-header-nav-spacing: 0.24em;
+    --yo-header-nav-size: 11px;
     background-color: var(--h-bg-color);
   }
   .t4s-count-box {
@@ -40,6 +52,10 @@
       --h-text-color-rgb  : {{ se_stts.clnavtr | color_to_rgb | remove: 'rgba(' | remove: 'rgb(' | remove: ')' }};
       --h-text-color-hover: {{ se_stts.clnavtr_hover }};
       --h-bg-color        : {{ se_stts.bgnavtr | color_modify: 'alpha', opnavtr }};
+      --yo-header-border: rgba(255, 255, 255, 0.18);
+      --yo-header-shadow: 0 18px 44px rgba(14, 10, 7, 0.18);
+      --yo-header-pill: rgba(255, 255, 255, 0.06);
+      --yo-header-pill-hover: rgba(255, 255, 255, 0.14);
     }
     .t4s-section-header {
         margin-top: var(--h-space-tr);
@@ -214,34 +230,34 @@
 
 <div data-header-options='{ "isTransparent": {{ h_transparent }},"isSticky": {{ se_stts.sticky_header }},"hideScroldown": {{ se_stts.scroll_header }} }' class="t4s-header__wrapper t4s-pr t4s-header-layout_{{ se_stts.layout }} {% if h__bgimg != blank %} lazyloadt4s t4s-header__bgimg" data-bgset="{{ h__bgimg | image_url: width: 1 }}" data-ratio="{{ h__bgimg.aspect_ratio }}" data-sizes="auto"{% else %}"{% endif %}>
   <div class="t4s-container">
-    <div data-header-height class="t4s-row t4s-gx-15 t4s-gx-md-30 t4s-align-items-center">
+    <div data-header-height class="t4s-row t4s-gx-15 t4s-gx-md-30 t4s-align-items-center t4s-header-inline__inner">
     {%- case se_stts.layout -%}
 
       {%- when 'logo_left' -%}
-        <div class="t4s-col-md-4 t4s-col-3 t4s-d-lg-none t4s-col-item">{%- render 'push_menu' -%}</div>
-        <div class="t4s-col-lg-2 t4s-col-md-4 t4s-col-6 t4s-text-center t4s-text-lg-start t4s-col-item">{%- render 't4s_logo', tag: 'div', isTransparent: h_transparent -%}</div>
-        <div class="t4s-col t4s-d-none t4s-d-lg-block t4s-col-item">{%- render 'menu_blocks', placement: 'bottom', admin_sp: admin_sp, se_blocks: se_blocks, se_stts: se_stts -%}</div>
-        <div class="t4s-col-lg-auto t4s-col-md-4 t4s-col-3 t4s-text-end t4s-col-group_btns t4s-col-item t4s-lh-1">{%- render 't4s_group_btns', se_stts: se_stts -%}</div>
+        <div class="t4s-col-md-4 t4s-col-3 t4s-d-lg-none t4s-col-item t4s-header-inline__menu-toggle">{%- render 'push_menu' -%}</div>
+        <div class="t4s-col-lg-2 t4s-col-md-4 t4s-col-6 t4s-text-center t4s-text-lg-start t4s-col-item t4s-header-inline__logo">{%- render 't4s_logo', tag: 'div', isTransparent: h_transparent -%}</div>
+        <div class="t4s-col t4s-d-none t4s-d-lg-block t4s-col-item t4s-header-inline__nav">{%- render 'menu_blocks', placement: 'bottom', admin_sp: admin_sp, se_blocks: se_blocks, se_stts: se_stts -%}</div>
+        <div class="t4s-col-lg-auto t4s-col-md-4 t4s-col-3 t4s-text-end t4s-col-group_btns t4s-col-item t4s-lh-1 t4s-header-inline__actions">{%- render 't4s_group_btns', se_stts: se_stts -%}</div>
     
       {%- when 'logo_center' -%}
-        <div class="t4s-col-md-4 t4s-col-3 t4s-d-lg-none t4s-col-item">{%- render 'push_menu' -%}</div>
-        <div class="t4s-col-5 t4s-d-none t4s-d-lg-block t4s-col-item">{%- render 'menu_blocks', placement: 'bottom', admin_sp: admin_sp, se_blocks: se_blocks, se_stts: se_stts -%}</div>
-        <div class="t4s-col-lg-2 t4s-col-md-4 t4s-col-6 t4s-text-center t4s-col-item">{%- render 't4s_logo', tag: 'div', isTransparent: h_transparent -%}</div>
-        <div class="t4s-col-lg-5 t4s-col-md-4 t4s-col-3 t4s-text-end t4s-col-group_btns t4s-col-item t4s-lh-1">{%- render 't4s_group_btns', se_stts: se_stts -%}</div>
+        <div class="t4s-col-md-4 t4s-col-3 t4s-d-lg-none t4s-col-item t4s-header-inline__menu-toggle">{%- render 'push_menu' -%}</div>
+        <div class="t4s-col-5 t4s-d-none t4s-d-lg-block t4s-col-item t4s-header-inline__nav">{%- render 'menu_blocks', placement: 'bottom', admin_sp: admin_sp, se_blocks: se_blocks, se_stts: se_stts -%}</div>
+        <div class="t4s-col-lg-2 t4s-col-md-4 t4s-col-6 t4s-text-center t4s-col-item t4s-header-inline__logo">{%- render 't4s_logo', tag: 'div', isTransparent: h_transparent -%}</div>
+        <div class="t4s-col-lg-5 t4s-col-md-4 t4s-col-3 t4s-text-end t4s-col-group_btns t4s-col-item t4s-lh-1 t4s-header-inline__actions">{%- render 't4s_group_btns', se_stts: se_stts -%}</div>
       
       {%- when 'menu_split' -%}
-        <div class="t4s-col-md-4 t4s-col-3 t4s-d-lg-none t4s-col-item">{%- render 'push_menu' -%}</div>
-        <div class="t4s-col-lg-2 t4s-d-lg-block t4s-d-none t4s-col-group_btns t4s-col-item t4s-lh-1">{%- render 't4s_group_btns_split', se_stts: se_stts, isSplit1: true -%}</div>
-        <div class="t4s-col t4s-d-none t4s-d-lg-block t4s-col-item">{%- render 'menu_splits', placement: 'bottom', admin_sp: admin_sp, se_blocks: se_blocks, se_stts: se_stts, isSplit1: true -%}</div>
-        <div class="t4s-col-lg-auto t4s-col-md-4 t4s-col-6 t4s-text-center t4s-col-item">{%- render 't4s_logo', tag: 'div', isTransparent: h_transparent -%}</div>
-        <div class="t4s-col t4s-d-none t4s-d-lg-block t4s-col-item">{%- render 'menu_splits', placement: 'bottom', admin_sp: admin_sp, se_blocks: se_blocks, se_stts: se_stts, isSplit1: false -%}</div>
-        <div class="t4s-col-lg-2 t4s-col-md-4 t4s-col-3 t4s-text-end t4s-col-group_btns t4s-col-item t4s-lh-1">{%- render 't4s_group_btns_split', se_stts: se_stts, isSplit1: false -%}</div>
+        <div class="t4s-col-md-4 t4s-col-3 t4s-d-lg-none t4s-col-item t4s-header-inline__menu-toggle">{%- render 'push_menu' -%}</div>
+        <div class="t4s-col-lg-2 t4s-d-lg-block t4s-d-none t4s-col-group_btns t4s-col-item t4s-lh-1 t4s-header-inline__actions">{%- render 't4s_group_btns_split', se_stts: se_stts, isSplit1: true -%}</div>
+        <div class="t4s-col t4s-d-none t4s-d-lg-block t4s-col-item t4s-header-inline__nav">{%- render 'menu_splits', placement: 'bottom', admin_sp: admin_sp, se_blocks: se_blocks, se_stts: se_stts, isSplit1: true -%}</div>
+        <div class="t4s-col-lg-auto t4s-col-md-4 t4s-col-6 t4s-text-center t4s-col-item t4s-header-inline__logo">{%- render 't4s_logo', tag: 'div', isTransparent: h_transparent -%}</div>
+        <div class="t4s-col t4s-d-none t4s-d-lg-block t4s-col-item t4s-header-inline__nav">{%- render 'menu_splits', placement: 'bottom', admin_sp: admin_sp, se_blocks: se_blocks, se_stts: se_stts, isSplit1: false -%}</div>
+        <div class="t4s-col-lg-2 t4s-col-md-4 t4s-col-3 t4s-text-end t4s-col-group_btns t4s-col-item t4s-lh-1 t4s-header-inline__actions">{%- render 't4s_group_btns_split', se_stts: se_stts, isSplit1: false -%}</div>
 
       {%- else -%}
-        <div class="t4s-col-md-4 t4s-col-3 t4s-d-lg-none t4s-col-item">{%- render 'push_menu' -%}</div>
-        <div class="t4s-col-lg-auto t4s-col-md-4 t4s-col-6 t4s-text-center t4s-text-lg-start t4s-col-item">{%- render 't4s_logo', tag: 'div', isTransparent: h_transparent -%}</div>
-        <div class="t4s-col t4s-d-none t4s-d-lg-block t4s-col-item">{%- render 'menu_blocks', placement: 'bottom', admin_sp: admin_sp, se_blocks: se_blocks, se_stts: se_stts -%}</div>
-        <div class="t4s-col-lg-auto t4s-col-md-4 t4s-col-3 t4s-text-end t4s-col-group_btns t4s-col-item t4s-lh-1">{%- render 't4s_group_btns', se_stts: se_stts, isfrmSearch: 'true' -%}</div>
+        <div class="t4s-col-md-4 t4s-col-3 t4s-d-lg-none t4s-col-item t4s-header-inline__menu-toggle">{%- render 'push_menu' -%}</div>
+        <div class="t4s-col-lg-auto t4s-col-md-4 t4s-col-6 t4s-text-center t4s-text-lg-start t4s-col-item t4s-header-inline__logo">{%- render 't4s_logo', tag: 'div', isTransparent: h_transparent -%}</div>
+        <div class="t4s-col t4s-d-none t4s-d-lg-block t4s-col-item t4s-header-inline__nav">{%- render 'menu_blocks', placement: 'bottom', admin_sp: admin_sp, se_blocks: se_blocks, se_stts: se_stts -%}</div>
+        <div class="t4s-col-lg-auto t4s-col-md-4 t4s-col-3 t4s-text-end t4s-col-group_btns t4s-col-item t4s-lh-1 t4s-header-inline__actions">{%- render 't4s_group_btns', se_stts: se_stts, isfrmSearch: 'true' -%}</div>
 
     {%- endcase -%}
     </div>
