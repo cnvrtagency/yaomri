@@ -1,0 +1,517 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "top": {
+      "type": "top-collections",
+      "blocks": {
+        "69bbe0dd-0a50-42e8-986b-0d5e6c5cfa67": {
+          "type": "cat",
+          "settings": {
+            "collection": "default-3",
+            "icon": ""
+          }
+        },
+        "863873b6-012e-4a34-90e3-eead750fa3ce": {
+          "type": "cat",
+          "disabled": true,
+          "settings": {
+            "collection": "bag",
+            "icon": ""
+          }
+        },
+        "fc07bff9-6d08-423c-8802-9a03c34f3a31": {
+          "type": "cat",
+          "settings": {
+            "collection": "decor",
+            "icon": ""
+          }
+        },
+        "a286cc0b-0c90-4b1a-862c-a1136f283aac": {
+          "type": "cat",
+          "settings": {
+            "collection": "denim",
+            "icon": ""
+          }
+        },
+        "23c84729-8fcb-488c-9541-00e283af6afe": {
+          "type": "cat",
+          "settings": {
+            "collection": "dress",
+            "icon": ""
+          }
+        },
+        "5f1d751a-fdac-43d4-ad9d-55da0c297244": {
+          "type": "cat",
+          "settings": {
+            "collection": "hats",
+            "icon": ""
+          }
+        },
+        "0f0e1f7c-788c-46c0-9fb4-1ec7ce88da01": {
+          "type": "cat",
+          "settings": {
+            "collection": "frontpage",
+            "icon": ""
+          }
+        },
+        "70189b51-5562-4924-b642-a1deba7741ee": {
+          "type": "cat",
+          "settings": {
+            "collection": "sale",
+            "icon": ""
+          }
+        },
+        "560f5822-3eeb-4070-a2cd-b5738881a4c1": {
+          "type": "cat",
+          "settings": {
+            "collection": "shoes",
+            "icon": ""
+          }
+        },
+        "be9b8b8f-6cac-47ab-b809-a2fe640a75a7": {
+          "type": "cat",
+          "settings": {
+            "collection": "women",
+            "icon": ""
+          }
+        }
+      },
+      "block_order": [
+        "69bbe0dd-0a50-42e8-986b-0d5e6c5cfa67",
+        "863873b6-012e-4a34-90e3-eead750fa3ce",
+        "fc07bff9-6d08-423c-8802-9a03c34f3a31",
+        "a286cc0b-0c90-4b1a-862c-a1136f283aac",
+        "23c84729-8fcb-488c-9541-00e283af6afe",
+        "5f1d751a-fdac-43d4-ad9d-55da0c297244",
+        "0f0e1f7c-788c-46c0-9fb4-1ec7ce88da01",
+        "70189b51-5562-4924-b642-a1deba7741ee",
+        "560f5822-3eeb-4070-a2cd-b5738881a4c1",
+        "be9b8b8f-6cac-47ab-b809-a2fe640a75a7"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_top_collections": false,
+        "source": "2",
+        "menu": "main-menu",
+        "sort_collections": "alphabetical",
+        "box_border": "top",
+        "content_align": "center",
+        "hidden_mobile": false,
+        "space_item": 30,
+        "fontf": "inherit",
+        "text_cl": "#222222",
+        "text_cl_hover": "#56cfe1",
+        "text_fs": 14,
+        "text_lh": 45,
+        "text_fw": 400,
+        "text_ls": 0,
+        "font_italic": false,
+        "nav_btn": true,
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "",
+        "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": "",
+        "pd_mb": ""
+      }
+    },
+    "heading_template": {
+      "type": "heading-template",
+      "blocks": {
+        "3_bAQxPm": {
+          "type": "3",
+          "settings": {
+            "breadcrumb_color": "#f2f2f2",
+            "brc_mgb": 5
+          }
+        },
+        "1_NDA36q": {
+          "type": "1",
+          "settings": {
+            "heading": "",
+            "fontf": "inherit",
+            "text_cl": "#ffffff",
+            "text_fs": 20,
+            "text_lh": 0,
+            "text_fw": 400,
+            "text_ls": 0,
+            "font_italic": false,
+            "font_uppercase": false,
+            "text_shadow": false,
+            "text_mgb": 0,
+            "hidden_mobile": false,
+            "text_fs_mb": 20,
+            "text_lh_mb": 0,
+            "text_ls_mb": 0,
+            "text_mgb_mobile": 0
+          }
+        }
+      },
+      "block_order": [
+        "3_bAQxPm",
+        "1_NDA36q"
+      ],
+      "custom_css": [
+        ".page-head {padding-bottom: 10px !important; margin-bottom: 0 !important; padding-left: 25px !important;}",
+        "@media (max-width: 767px) {.page-head {padding-bottom: 0px !important; padding-left: 5px !important; }}"
+      ],
+      "settings": {}
+    },
+    "slideshow_amaD6L": {
+      "type": "slideshow",
+      "blocks": {
+        "image_parent_3RtiiB": {
+          "type": "image_parent",
+          "settings": {
+            "image": "{{ collection.metafields.custom.collection_image_desktop.value }}",
+            "image_mb": "{{ collection.metafields.custom.collection_image_mobile.value }}",
+            "image_position": "8",
+            "cl_img": "",
+            "link_img1": "",
+            "open_link": "_blank",
+            "animate_slide": "none",
+            "text_align": "start",
+            "text_align_mb": "center",
+            "content_width": "auto",
+            "cv_pos": 50,
+            "ch_pos": 50,
+            "cv_pos_mb": 50,
+            "ch_pos_mb": 50,
+            "bg_overlay": "#000000",
+            "bg_opacity": 0,
+            "bg_content_cl": "#ffffff",
+            "bg_content_op": 0,
+            "content_radius": 0,
+            "box_square": false,
+            "content_pd_tb": 15,
+            "content_pd_lr": 15,
+            "content_pd_tb_tb": 15,
+            "content_pd_lr_tb": 15,
+            "content_pd_tb_mb": 10,
+            "content_pd_lr_mb": 10,
+            "border_bl": false,
+            "br_color": "#222222",
+            "br_bg": "#ffffff",
+            "br_opacity": 50,
+            "br_style": "solid",
+            "br_pd": 20,
+            "br_pd_mb": 10,
+            "time_animation": 1,
+            "animation_delay": 40
+          }
+        }
+      },
+      "block_order": [
+        "image_parent_3RtiiB"
+      ],
+      "disabled": true,
+      "name": "Slideshow",
+      "settings": {
+        "se_height": "t4s_ratioadapt",
+        "custom_dk": true,
+        "height_dk": 600,
+        "custom_tb": true,
+        "height_tb": 400,
+        "custom_mb": true,
+        "height_mb": 250,
+        "eff": "slide",
+        "loop": false,
+        "au_time": 0,
+        "au_hover": false,
+        "nav_btn": false,
+        "btn_vi": "hover",
+        "btn_owl": "default",
+        "btn_icon": "0",
+        "btn_shape": "none",
+        "btn_cl": "dark",
+        "btn_size": "small",
+        "btn_hidden_mobile": false,
+        "nav_dot": false,
+        "dot_owl": "default",
+        "dots_position": "default",
+        "dots_cl": "dark",
+        "dots_round": false,
+        "dots_space": 10,
+        "dots_hidden_mobile": false,
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "",
+        "pd": "40px,40px,0px,40px",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": "",
+        "pd_mb": "0,0,0,0",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
+    "custom_liquid_b8PWya": {
+      "type": "custom-liquid",
+      "custom_css": [
+        "p {font-size: 14px; line-height: 25px; max-width: 90%; color: black; font-weight: 300; margin-right: auto;}",
+        "@media (max-width: 767px) {p {font-size: 14px; max-width: 90%; padding-left: 20px; }}"
+      ],
+      "name": "Custom Liquid",
+      "settings": {
+        "custom_liquid": "{{ collection.description | split: '<!-- split -->' | first }}",
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "",
+        "pd": "0,120px,0,40px",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": "",
+        "pd_mb": "0,0,0,0"
+      }
+    },
+    "heading_template_MM477X": {
+      "type": "heading-template",
+      "disabled": true,
+      "name": "Two column image + liquid",
+      "settings": {}
+    },
+    "main": {
+      "type": "main-collection",
+      "blocks": {
+        "filter_id": {
+          "type": "filter",
+          "settings": {
+            "style_filters": "sidebar"
+          }
+        },
+        "740319a4-8e19-4c70-b8a9-ada7cf235cbc": {
+          "type": "layout",
+          "disabled": true,
+          "settings": {}
+        },
+        "30594d23-d644-4653-9545-9ff769d2e6ab": {
+          "type": "sortby",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "filter_id",
+        "740319a4-8e19-4c70-b8a9-ada7cf235cbc",
+        "30594d23-d644-4653-9545-9ff769d2e6ab"
+      ],
+      "custom_css": [
+        ".t4s-product-title {font-size: 12px; text-transform: uppercase; min-height: 22px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;}",
+        ".t4s-product-price .money {font-size: 12px; text-transform: uppercase;}",
+        "@media (max-width: 767px) {.t4s-product-title {font-size: 12px; min-height: 38px; } .t4s-product-price .money {font-size: 12px; text-transform: uppercase; }}"
+      ],
+      "settings": {
+        "show_desc": false,
+        "position_desc": "2",
+        "product_des": "1",
+        "show_vendor": false,
+        "use_cdt": false,
+        "image_ratio": "rationt",
+        "image_size": "cover",
+        "image_position": "8",
+        "content_align": "default",
+        "limit": 20,
+        "enable_listing": true,
+        "enable_listing_default": false,
+        "col_dk": "6",
+        "col_tb": "2",
+        "col_mb": "2",
+        "space_h_item": "20",
+        "space_v_item": "30",
+        "space_h_item_mb": "10",
+        "space_v_item_mb": "10",
+        "layout_des": "1",
+        "use_pagination": "default",
+        "enable_bar_lm": true,
+        "btn_icon": false,
+        "button_style": "outline",
+        "btns_size": "large",
+        "btns_cl": "primary",
+        "button_effect": "sweep-to-right",
+        "btn_pos": "t4s-text-center",
+        "type_filters": "facets",
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "",
+        "pd": "0,40px,0px,40px",
+        "mg_tb": "",
+        "pd_tb": "0,20px,20px,20px",
+        "mg_mb": ",,30px,",
+        "pd_mb": ""
+      }
+    },
+    "sidebar": {
+      "type": "sidebar-collection",
+      "blocks": {
+        "c7bdf308-8019-4991-b58c-6d3e205a52eb": {
+          "type": "category",
+          "settings": {
+            "heading": "Product Categories",
+            "cat_source": "1",
+            "cat_link_list": "",
+            "count": true
+          }
+        },
+        "9d37e80a-1eda-4a65-bb08-199e6a933a16": {
+          "type": "collection",
+          "settings": {
+            "heading": "Sale Products",
+            "collection": "frontpage",
+            "limit_pr": 3,
+            "image_ratio": "t4s_ratioadapt",
+            "image_size": "t4s_cover",
+            "image_position": "t4s_position_8"
+          }
+        },
+        "c090f36e-d6ef-4a2a-ab04-cc78211dadb7": {
+          "type": "image",
+          "settings": {
+            "heading": "",
+            "img_effect": "zoom",
+            "b_link": "",
+            "open_link": "_self",
+            "content_align": "center",
+            "date": "2022/12/26",
+            "cdt_des": "1",
+            "countdown_pos": "2",
+            "cdt_size": "small",
+            "box_bdr": 0,
+            "bd_width": 0,
+            "space_item": 10,
+            "number_cl": "#ffffff",
+            "text_cl": "#222222",
+            "border_cl": "#000000",
+            "bg_cl": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "c7bdf308-8019-4991-b58c-6d3e205a52eb",
+        "9d37e80a-1eda-4a65-bb08-199e6a933a16",
+        "c090f36e-d6ef-4a2a-ab04-cc78211dadb7"
+      ],
+      "disabled": true,
+      "settings": {
+        "enable_drawer": false,
+        "space": 50,
+        "size": "medium",
+        "br_style": "none",
+        "brcolor": "#222222",
+        "sidebar_bdr": 0,
+        "sidebar_pd": 15
+      }
+    },
+    "custom_html_JWM9dB": {
+      "type": "custom-html",
+      "name": "Custom HTML",
+      "settings": {
+        "code": "<div style=\"width: 100%; height: 1px; background: #ddd; margin: 30px 0;\"></div>",
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "",
+        "pd": "20px,40px,4px,40px",
+        "mg_tb": "",
+        "pd_tb": "0,20px,0,20px",
+        "mg_mb": "",
+        "pd_mb": "",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
+    "custom_liquid_fwV7Db": {
+      "type": "custom-liquid",
+      "name": "Custom Liquid",
+      "settings": {
+        "custom_liquid": "<div class=\"bottom-content\">\n  {{ collection.description | split: '<!-- split -->' | last }}\n</div>\n\n<style>\n.bottom-content {\n\n  margin: 0 auto;\n\n  padding: 0px 0px 0px 0px;\n  font-family: 'Montserrat', sans-serif;\n  font-weight: 300;\n  font-size: 14px;\n  line-height: 25px;\n  color: rgb(120, 120, 120);\n}\n\n/* Headings */\n.bottom-content h2 {\n  font-size: 18px;\n  line-height: 1.4;\n  font-weight: 600;\n  color: #111;\n  margin: 30px 0 20px;\n  text-transform: uppercase;\n  border-top: 0px solid #eee;\n  border-bottom: 0px solid #eee;\n  padding: 0px 0;\n  letter-spacing: 1.5px;\n}\n\n.bottom-content h3 {\n  font-size: 16px;\n  line-height: 1.5;\n  font-weight: 600;\n  margin: 20px 0 12px;\n  color: #333;\n}\n\n/* Paragraphs just inherit base */\n.bottom-content p {\n  margin: 0 0 20px;\ncolor: black;\n}\n\n/* Mobile */\n@media (max-width: 600px) {\n  .bottom-content {\n    padding: px 10px;\n    font-size: 13px;\n    line-height: 22px;\n  }\n\n  .bottom-content h2 {\n    font-size: 14px;\n    margin: 0px 0px 0px 0px;\n    padding: 0 20px 15px 0;\n  }\n\n  .bottom-content h3 {\n    font-size: 15px;\n    margin: 15px 0 10px;\n    max-width: 250px;\n  }\n}\n</style>",
+        "layout": "t4s-container-fluid",
+        "cl_bg": "#ffffff",
+        "cl_bg_gradient": "",
+        "mg": "",
+        "pd": "0,40PX,0,40PX",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": "",
+        "pd_mb": "0,20PX,0,20PX"
+      }
+    },
+    "accordion_A6WEY4": {
+      "type": "accordion",
+      "blocks": {
+        "accor_item_WHHdq9": {
+          "type": "accor_item",
+          "repeater": "{{ collection.metafields.custom.collection_faqs.value }}",
+          "settings": {
+            "icon": "none",
+            "title": "{{ block.repeater.question.value }}",
+            "content": "{{ block.repeater.answer | metafield_tag }}"
+          }
+        }
+      },
+      "block_order": [
+        "accor_item_WHHdq9"
+      ],
+      "name": "Accordion",
+      "settings": {
+        "design_heading": "1",
+        "heading_align": "t4s-text-start",
+        "top_heading": "{{ collection.metafields.custom.faqtitle.value }}",
+        "icon_heading": "las la-gem",
+        "top_subheading": "",
+        "tophead_mb": 20,
+        "accor_des": "1",
+        "title_cl": "#222222",
+        "bg_title_cl": "rgba(0,0,0,0)",
+        "title_active_cl": "#222222",
+        "bg_title_active_cl": "rgba(0,0,0,0)",
+        "content_cl": "#878787",
+        "bg_content_cl": "#ffffff",
+        "content_align": "t4s-text-start",
+        "auto_active": false,
+        "layout": "t4s-container-fluid",
+        "custom_width": 1000,
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "",
+        "pd": "0,40px,40px,40px",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": "0,20px,20px,20px",
+        "use_cus_css": true,
+        "code_cus_css": "/* --- SECTION TITLES --- */\nh3.t4s-section-title.t4s-title {\n  font-size: 18px;\n  line-height: 1.4;\n  font-weight: 600;\n  color: #111;\n  margin: 30px 0 20px;\n  text-transform: uppercase;\n  border: none;\n  padding: 0;\n  letter-spacing: 1.5px;\n}\n\n/* --- ACCORDION WRAPPER RESET --- */\n.t4s-tabs.t4s-type-accordion {\n  text-align: left !important;\n  padding: 0 !important;\n  margin: 0 !important;\n}\n\n/* --- INDIVIDUAL ITEMS --- */\n.t4s-tab-wrapper {\n  text-align: left !important;\n  margin: 0 !important;\n  padding: 20px 0 !important; /* roomy above, moderate below */\n  border-bottom: 1px solid #e0e0e0;\n}\n\n/* optional top border for symmetry */\n.t4s-tab-wrapper:first-child {\n  border-top: 1px solid #e0e0e0;\n}\n\n/* --- ACCORDION TITLE (QUESTION) --- */\n.t4s-accor-title {\n  display: flex !important;\n  justify-content: flex-start !important;\n  align-items: center !important;\n  width: 100%;\n  text-align: left !important;\n  font-size: 13px;\n  line-height: 1.4;\n  font-weight: 600 !important;\n  color: #111;\n  text-transform: uppercase;\n  letter-spacing: 1px;\n  margin: 0;\n  padding: 15px 40px 16px 0; /* balanced spacing + right gap for icon */\n  background: none;\n  border: none;\n  text-decoration: none;\n  cursor: pointer;\n  position: relative;\n}\n\n/* --- TEXT WRAPPER --- */\n.t4s-accor-text {\n  display: flex !important;\n  align-items: center !important;\n  justify-content: flex-start !important;\n  flex: 1 !important;\n  flex-wrap: wrap !important;\n  text-align: left !important;\n  padding: 0 !important;\n  margin: 0 !important;\n}\n\n/* --- INNER SPANS --- */\n.t4s-accor-text span,\n.t4s-accor-title span[itemprop=\"name\"] {\n  display: inline-flex !important;\n  align-items: center !important;\n  text-align: left !important;\n  padding: 0 !important;\n  margin: 0 !important;\n  line-height: 1.6 !important;\n}\n\n/* --- CUSTOM + / – ICON (FLUSH TO EDGE) --- */\n.t4s-accor-title::after {\n  content: \"＋\";\n  display: inline-flex !important;\n  align-items: center !important;\n  justify-content: center !important;\n  font-size: 18px;\n  color: #888;\n  line-height: 1 !important;\n  height: 1em;\n  width: 34px;\n  flex-shrink: 0;\n  position: absolute;\n  right: 0;\n  top: 50%;\n  transform: translateY(-50%);\n  transition: transform 0.3s ease, color 0.3s ease;\n}\n\n.t4s-tab-wrapper.t4s-active .t4s-accor-title::after {\n  content: \"–\";\n  color: #000;\n}\n\n/* --- HIDE DEFAULT ICONS --- */\n.t4s-accor-icon,\n.t4s-accor-item-nav {\n  display: none !important;\n}\n\n/* --- CONTENT (ANSWER) --- */\n.t4s-tab-content {\n  display: none;\n  text-align: left !important;\n  border: none !important;\n  margin: 20px 0 0 0 !important;\n  padding: 0 !important;\n  font-size: 14px;\n  line-height: 1.7;\n  color: #222 !important;\n  background: none !important;\n}\n\n.t4s-tab-wrapper.t4s-active .t4s-tab-content {\n  display: block;\n}\n\n/* --- REMOVE INLINE DISPLAY OVERRIDES --- */\n.t4s-tab-content[style] {\n  display: none !important;\n}\n.t4s-tab-wrapper.t4s-active .t4s-tab-content[style] {\n  display: block !important;\n}\n\n/* --- UNIVERSAL LEFT RESET --- */\n.t4s-tabs.t4s-type-accordion,\n.t4s-tab-wrapper,\n.t4s-accor-title,\n.t4s-accor-text,\n.t4s-accor-text span,\n.t4s-accor-title span[itemprop=\"name\"] {\n  padding-left: 0 !important;\n  margin-left: 0 !important;\n  text-indent: 0 !important;\n}\n\n/* --- MOBILE FIXES --- */\n@media (max-width: 767px) {\n  .t4s-tabs.t4s-type-accordion,\n  .t4s-tab-wrapper,\n  .t4s-accor-title,\n  .t4s-tab-content {\n    padding-left: 0 !important;\n    margin-left: 0 !important;\n    text-align: left !important;\n  }\n\n  .t4s-tab-wrapper {\n    padding: 20px 0 !important; /* increased spacing between questions */\n  }\n\n  .t4s-accor-title {\n    font-size: 13.5px !important;\n    line-height: 1.8 !important;\n    padding: 14px 40px 14px 0;\n  }\n\n  .t4s-accor-text span,\n  .t4s-accor-title span[itemprop=\"name\"] {\n    line-height: 1.8 !important;\n  }\n\n  .t4s-accor-title::after {\n    font-size: 13px;\n    right: 0 !important;\n  }\n\n  .t4s-tab-content {\n    font-size: 14px;\n    margin: 8px 0 0 0 !important;\n    padding: 0 0 6px 0 !important;\n  }\n}\n/* --- MOBILE FIXES --- */\n@media (max-width: 767px) {\n  .t4s-tabs.t4s-type-accordion,\n  .t4s-tab-wrapper,\n  .t4s-accor-title,\n  .t4s-tab-content {\n    padding-left: 0 !important;\n    margin-left: 0 !important;\n    text-align: left !important;\n  }\n\n  /* Base spacing between questions */\n  .t4s-tab-wrapper {\n    padding: 18px 0 !important;\n  }\n\n  /* Remove bottom padding when open (so no extra gap below the answer) */\n  .t4s-tab-wrapper.t4s-active {\n    padding-bottom: 0 !important;\n  }\n\n  .t4s-accor-title {\n    font-size: 13.5px !important;\n    line-height: 1.8 !important;\n    padding: 14px 40px 14px 0;\n  }\n\n  .t4s-accor-text span,\n  .t4s-accor-title span[itemprop=\"name\"] {\n    line-height: 1.8 !important;\n  }\n\n  .t4s-accor-title::after {\n    font-size: 13px;\n    right: 0 !important;\n  }\n\n  .t4s-tab-content {\n    font-size: 14px;\n    margin: 20px 0 30px 0 !important;\n    padding: 0 !important; /* no extra space inside answer */\n  }\n}"
+      }
+    },
+    "collection_schema_i3RFBc": {
+      "type": "collection-schema",
+      "name": "Collection Schema",
+      "settings": {}
+    }
+  },
+  "order": [
+    "top",
+    "heading_template",
+    "slideshow_amaD6L",
+    "custom_liquid_b8PWya",
+    "heading_template_MM477X",
+    "main",
+    "sidebar",
+    "custom_html_JWM9dB",
+    "custom_liquid_fwV7Db",
+    "accordion_A6WEY4",
+    "collection_schema_i3RFBc"
+  ]
+}

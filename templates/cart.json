@@ -1,0 +1,124 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "heading": {
+      "type": "heading-template",
+      "blocks": {
+        "61658221-289a-451c-832e-472e370318ff": {
+          "type": "1",
+          "disabled": true,
+          "settings": {
+            "heading": "SHOPPING CART",
+            "fontf": "2",
+            "text_cl": "#ffffff",
+            "text_fs": 20,
+            "text_lh": 20,
+            "text_fw": 500,
+            "text_ls": 0,
+            "font_italic": false,
+            "font_uppercase": false,
+            "text_shadow": false,
+            "text_mgb": 0,
+            "hidden_mobile": false,
+            "text_fs_mb": 20,
+            "text_lh_mb": 20,
+            "text_ls_mb": 0,
+            "text_mgb_mobile": 0
+          }
+        }
+      },
+      "block_order": [
+        "61658221-289a-451c-832e-472e370318ff"
+      ],
+      "disabled": true,
+      "settings": {
+        "heading_fullwidth": false,
+        "use_specify_image": true,
+        "parallax": false,
+        "color": "#000000",
+        "overlay": 54,
+        "padding": 50,
+        "paddingmb": 50,
+        "mg_b": 0,
+        "mg_bmb": 0,
+        "content_align": "t4s-text-center",
+        "bg_pos": "center center",
+        "bg_repeat": "no-repeat",
+        "bg_size": "cover",
+        "use_cus_css": false,
+        "code_cus_css": ".SectionID {\nbackground-color:red\n}"
+      }
+    },
+    "main": {
+      "type": "main-cart",
+      "blocks": {
+        "5d8ed9ba-5120-4ca1-a8e8-67dd44b88bd2": {
+          "type": "price",
+          "settings": {}
+        },
+        "74a2487d-dac7-4195-9e12-0f6eb118b1a1": {
+          "type": "btn",
+          "settings": {
+            "title": "Return To Shop",
+            "url": "/",
+            "btn_icon": false,
+            "button_style": "default",
+            "btn_cl": "primary",
+            "button_effect": "default"
+          }
+        },
+        "2fef20ad-861c-4d15-aca6-4c26b6ee96f9": {
+          "type": "tax",
+          "settings": {}
+        },
+        "683a32d9-dc0c-4210-b04b-08b2c90dff29": {
+          "type": "btnck",
+          "settings": {
+            "btn_icon": true,
+            "button_style": "default",
+            "btn_size": "large",
+            "btn_cl": "dark",
+            "button_effect": "default",
+            "btn_icon2": false,
+            "button_style2": "outline",
+            "btn_size2": "large",
+            "btn_cl2": "dark",
+            "button_effect2": "default"
+          }
+        },
+        "5ae3c0ee-4bc7-4818-af8a-d10d3958189a": {
+          "type": "btnmr",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "5d8ed9ba-5120-4ca1-a8e8-67dd44b88bd2",
+        "74a2487d-dac7-4195-9e12-0f6eb118b1a1",
+        "2fef20ad-861c-4d15-aca6-4c26b6ee96f9",
+        "683a32d9-dc0c-4210-b04b-08b2c90dff29",
+        "5ae3c0ee-4bc7-4818-af8a-d10d3958189a"
+      ],
+      "custom_css": [],
+      "settings": {
+        "enable_calc_ship": false,
+        "enable_note": false,
+        "enable_rates": false,
+        "enable_discount": false,
+        "enable_gift_wrap": false,
+        "ship_df_country": "United States"
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "main"
+  ]
+}

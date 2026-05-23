@@ -1,0 +1,427 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_liquid_MhhB3G": {
+      "type": "custom-liquid",
+      "custom_css": [
+        "h1 {text-transform: uppercase; letter-spacing: 2px; font-size: 22px; margin-bottom: -40px; font-weight: 600;}",
+        "p {font-weight: 300; font-size: 15px; line-height: 1.6; padding-right: 30px;}",
+        "@media screen and (max-width: 767px) {h1 {font-size: 17px !important; letter-spacing: 1.5px !important; margin-bottom: -55px !important; margin-top: 10px; } p {font-weight: 300 !important; padding-right: 0px; }}"
+      ],
+      "name": "Custom Liquid",
+      "settings": {
+        "custom_liquid": "<nav class=\"breadcrumbs\" role=\"navigation\" aria-label=\"breadcrumbs\">\n  <a href=\"{{ routes.root_url }}\">Home</a>\n  <span class=\"breadcrumb-separator\">›</span>\n\n  {% assign handle = collection.handle %}\n\n  {% case handle %}\n\n    {% when 'bandeau-bikinis' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/bikinis\">Bikinis</a> › <span>Bandeau Bikinis</span>\n    {% when 'bikini-tops' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/bikinis\">Bikinis</a> › <span>Bikini Tops</span>\n    {% when 'bikini-bottoms' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/bikinis\">Bikinis</a> › <span>Bikini Bottoms</span>\n    {% when 'bikini-sets' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/bikinis\">Bikinis</a> › <span>Bikini Sets</span>\n    {% when 'halter-bikini-tops' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/bikinis\">Bikinis</a> › <span>Halter Bikini Tops</span>\n    {% when 'high-waisted-bikinis' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/bikinis\">Bikinis</a> › <span>High-Waisted Bikinis</span>\n    {% when 'thong-bikinis' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/bikinis\">Bikinis</a> › <span>Thong Bikinis</span>\n    {% when 'embellished-bikinis' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/bikinis\">Bikinis</a> › <span>Embellished Bikinis</span>\n    {% when 'bikinis' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <span>Bikinis</span>\n\n    {% when 'one-piece-swimsuits' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/swimsuits\">Swimsuits</a> › <span>One-Piece Swimsuits</span>\n    {% when 'high-cut-one-piece-swimsuits' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/swimsuits\">Swimsuits</a> › <span>High-Cut One Piece Swimsuits</span>\n    {% when 'belted-swimsuits' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/swimsuits\">Swimsuits</a> › <span>Belted Swimsuits</span>\n    {% when 'multiway-swimsuits' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/swimsuits\">Swimsuits</a> › <span>Multiway Swimsuits</span>\n    {% when 'embellished-swimsuits' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/swimsuits\">Swimsuits</a> › <span>Embellished Swimsuits</span>\n    {% when 'swimsuits' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <span>Swimsuits</span>\n\n    {% when 'embellished-swimwear' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <span>Embellished Swimwear</span>\n    {% when 'swimwear' %}\n      <span>Swimwear</span>\n\n    {% when 'linen-jumpsuits' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/resort-wear\">Resort Wear</a> › <span>Linen Jumpsuits</span>\n    {% when 'beach-cover-up-dresses' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/resort-wear\">Resort Wear</a> › <span>Beach Cover-Up Dresses</span>\n    {% when 'beach-cover-up-sets' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/resort-wear\">Resort Wear</a> › <span>Beach Cover-Up Sets</span>\n    {% when 'swimsuit-cover-up-dresses' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/resort-wear\">Resort Wear</a> › <span>Swimsuit Cover-Up Dresses</span>\n    {% when 'resort-wear' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <span>Resort Wear</span>\n\n    {% when 'the-amalfi-collection' %}\n      <span>The Amalfi Collection</span>\n    {% when 'the-layali-dubai-collection' %}\n      <span>The Layali Dubai Collection</span>\n    {% when 'the-multiway-collection' %}\n      <span>The Multiway Collection</span>\n    {% when 'the-sunset-mirage-collection' %}\n      <span>The Sunset Mirage Collection</span>\n\n    {% when 'sale' %}\n      <span>Sale</span>\n\n    {% else %}\n      <span>{{ collection.title }}</span>\n\n  {% endcase %}\n</nav>\n\n<h1>{{ collection.title }}</h1>\n<br><br>\n{{ collection.description | split: '<!-- split -->' | first }}",
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "",
+        "pd": "40px,40px,25px,40px",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": "",
+        "pd_mb": "20px,20px,10px,20px"
+      }
+    },
+    "1761463464c3e12b31": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_29f4237_M4xqMT": {
+          "type": "ai_gen_block_29f4237",
+          "settings": {
+            "image_width": 50,
+            "column_gap": 30,
+            "vertical_alignment": "center",
+            "background_color": "#f9f9f9",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "padding_horizontal": 0,
+            "image": "{{ closest.collection.metafields.custom.collection_image_desktop.value }}",
+            "image_aspect_ratio": "4/3",
+            "image_border_radius": 0,
+            "custom_liquid": "<nav class=\"breadcrumbs\" role=\"navigation\" aria-label=\"breadcrumbs\">\n  <a href=\"{{ routes.root_url }}\">Home</a>\n  <span class=\"breadcrumb-separator\">›</span>\n\n  {% assign handle = collection.handle %}\n\n  {% case handle %}\n\n    {% when 'bandeau-bikinis' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/bikinis\">Bikinis</a> › <span>Bandeau Bikinis</span>\n    {% when 'bikini-tops' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/bikinis\">Bikinis</a> › <span>Bikini Tops</span>\n    {% when 'bikini-bottoms' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/bikinis\">Bikinis</a> › <span>Bikini Bottoms</span>\n    {% when 'bikini-sets' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/bikinis\">Bikinis</a> › <span>Bikini Sets</span>\n    {% when 'halter-bikini-tops' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/bikinis\">Bikinis</a> › <span>Halter Bikini Tops</span>\n    {% when 'high-waisted-bikinis' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/bikinis\">Bikinis</a> › <span>High-Waisted Bikinis</span>\n    {% when 'thong-bikinis' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/bikinis\">Bikinis</a> › <span>Thong Bikinis</span>\n    {% when 'embellished-bikinis' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/bikinis\">Bikinis</a> › <span>Embellished Bikinis</span>\n    {% when 'bikinis' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <span>Bikinis</span>\n\n    {% when 'one-piece-swimsuits' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/swimsuits\">Swimsuits</a> › <span>One-Piece Swimsuits</span>\n    {% when 'high-cut-one-piece-swimsuits' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/swimsuits\">Swimsuits</a> › <span>High-Cut One Piece Swimsuits</span>\n    {% when 'belted-swimsuits' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/swimsuits\">Swimsuits</a> › <span>Belted Swimsuits</span>\n    {% when 'multiway-swimsuits' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/swimsuits\">Swimsuits</a> › <span>Multiway Swimsuits</span>\n    {% when 'embellished-swimsuits' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/swimsuits\">Swimsuits</a> › <span>Embellished Swimsuits</span>\n    {% when 'swimsuits' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <span>Swimsuits</span>\n\n    {% when 'embellished-swimwear' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <span>Embellished Swimwear</span>\n    {% when 'swimwear' %}\n      <span>Swimwear</span>\n\n    {% when 'linen-jumpsuits' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/resort-wear\">Resort Wear</a> › <span>Linen Jumpsuits</span>\n    {% when 'beach-cover-up-dresses' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/resort-wear\">Resort Wear</a> › <span>Beach Cover-Up Dresses</span>\n    {% when 'beach-cover-up-sets' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/resort-wear\">Resort Wear</a> › <span>Beach Cover-Up Sets</span>\n    {% when 'swimsuit-cover-up-dresses' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <a href=\"/collections/resort-wear\">Resort Wear</a> › <span>Swimsuit Cover-Up Dresses</span>\n    {% when 'resort-wear' %}\n      <a href=\"/collections/swimwear\">Swimwear</a> › <span>Resort Wear</span>\n\n    {% when 'the-amalfi-collection' %}\n      <span>The Amalfi Collection</span>\n    {% when 'the-layali-dubai-collection' %}\n      <span>The Layali Dubai Collection</span>\n    {% when 'the-multiway-collection' %}\n      <span>The Multiway Collection</span>\n    {% when 'the-sunset-mirage-collection' %}\n      <span>The Sunset Mirage Collection</span>\n\n    {% when 'sale' %}\n      <span>Sale</span>\n\n    {% else %}\n      <span>{{ collection.title }}</span>\n\n  {% endcase %}\n</nav>\n\n<h1>{{ collection.title }}</h1>\n<br><br>\n{{ collection.description | split: '<!-- split -->' | first }}",
+            "liquid_background_color": "rgba(0,0,0,0)",
+            "liquid_text_color": "#000000",
+            "liquid_padding": 30,
+            "liquid_border_radius": 0,
+            "liquid_border_width": 0,
+            "liquid_border_color": "#dddddd",
+            "liquid_font_size": 16,
+            "mobile_layout": "column",
+            "mobile_gap": 10,
+            "mobile_padding_top": 0,
+            "mobile_padding_bottom": 0,
+            "mobile_padding_horizontal": 0,
+            "mobile_image_aspect_ratio": "4/3",
+            "mobile_image_border_radius": 0,
+            "mobile_liquid_padding": 20,
+            "mobile_liquid_border_radius": 0,
+            "mobile_liquid_border_width": 0,
+            "mobile_liquid_font_size": 14
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_29f4237_M4xqMT"
+      ],
+      "disabled": true,
+      "custom_css": [
+        "h1 {text-transform: uppercase; letter-spacing: 2px; font-size: 22px; margin-bottom: -40px; font-weight: 600;}",
+        "p {font-weight: 300; font-size: 15px; line-height: 1.6; padding-right: 30px;}",
+        "@media screen and (max-width: 767px) {h1 {font-size: 17px !important; letter-spacing: 1.5px !important; margin-bottom: -55px !important; margin-top: 10px; } p {font-weight: 300 !important; padding-right: 0px; }}"
+      ],
+      "settings": {}
+    },
+    "scrolling_text_BjVE73": {
+      "type": "scrolling-text",
+      "blocks": {
+        "item_peTyfr": {
+          "type": "item",
+          "settings": {
+            "content": "<p><strong>10% Off </strong>Your First Ya Omri Order</p>"
+          }
+        },
+        "item_B4LXMk": {
+          "type": "item",
+          "settings": {
+            "content": "<p><strong> Free Worldwide Shipping </strong>On Orders Over $100</p>"
+          }
+        },
+        "item_eMha4x": {
+          "type": "item",
+          "settings": {
+            "content": "<p><strong>Fast & Free</strong> Shipping Within The UAE</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_peTyfr",
+        "item_B4LXMk",
+        "item_eMha4x"
+      ],
+      "custom_css": [
+        ".t4s-scrolling-text--text p {font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 400; margin: 0;}",
+        "@media (max-width: 767px) {.t4s-scrolling-text--text p {font-size: 12px; }}"
+      ],
+      "name": "Scrolling text",
+      "settings": {
+        "speed": 15,
+        "direction": "rtl",
+        "pause_when_hover": false,
+        "adding_border": false,
+        "cl": "#000000",
+        "cl_bg": "#fff4f4",
+        "cl_bg_gradient": "",
+        "mg": "",
+        "pd": "20px,,20px,",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": "-5px",
+        "pd_mb": ""
+      }
+    },
+    "custom_liquid_b8PWya": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "custom_css": [
+        "p {font-size: 14px; line-height: 25px; max-width: 90%; color: black; font-weight: 300; margin-right: auto;}",
+        "@media (max-width: 767px) {p {font-size: 14px; max-width: 90%; padding-left: 20px; }}"
+      ],
+      "name": "Custom Liquid",
+      "settings": {
+        "custom_liquid": "{{ collection.description | split: '<!-- split -->' | first }}",
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "",
+        "pd": "0,120px,0,40px",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": "",
+        "pd_mb": "0,0,0,0"
+      }
+    },
+    "top": {
+      "type": "top-collections",
+      "blocks": {
+        "cat_gLH9mm": {
+          "type": "cat",
+          "settings": {
+            "collection": "bikinis",
+            "icon": ""
+          }
+        }
+      },
+      "block_order": [
+        "cat_gLH9mm"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_top_collections": true,
+        "source": "2",
+        "menu": "main-menu",
+        "sort_collections": "alphabetical",
+        "box_border": "top",
+        "content_align": "center",
+        "hidden_mobile": false,
+        "space_item": 30,
+        "fontf": "inherit",
+        "text_cl": "#222222",
+        "text_cl_hover": "#56cfe1",
+        "text_fs": 14,
+        "text_lh": 45,
+        "text_fw": 400,
+        "text_ls": 0,
+        "font_italic": false,
+        "nav_btn": true,
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "",
+        "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": "",
+        "pd_mb": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "blocks": {
+        "filter_id": {
+          "type": "filter",
+          "settings": {
+            "style_filters": "sidebar"
+          }
+        },
+        "740319a4-8e19-4c70-b8a9-ada7cf235cbc": {
+          "type": "layout",
+          "disabled": true,
+          "settings": {}
+        },
+        "30594d23-d644-4653-9545-9ff769d2e6ab": {
+          "type": "sortby",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "filter_id",
+        "740319a4-8e19-4c70-b8a9-ada7cf235cbc",
+        "30594d23-d644-4653-9545-9ff769d2e6ab"
+      ],
+      "custom_css": [
+        ".t4s-product-title {font-size: 12px; text-transform: uppercase;}",
+        ".t4s-product-price .money {font-size: 12px; text-transform: uppercase;}",
+        "@media (max-width: 767px) {.t4s-product-title {font-size: 12px !important; } .t4s-product-price .money {font-size: 12px !important; text-transform: uppercase; }}"
+      ],
+      "settings": {
+        "show_desc": false,
+        "position_desc": "2",
+        "product_des": "1",
+        "show_vendor": false,
+        "use_cdt": false,
+        "image_ratio": "rationt",
+        "image_size": "cover",
+        "image_position": "8",
+        "content_align": "default",
+        "limit": 20,
+        "enable_listing": true,
+        "enable_listing_default": false,
+        "col_dk": "6",
+        "col_tb": "2",
+        "col_mb": "2",
+        "space_h_item": "20",
+        "space_v_item": "30",
+        "space_h_item_mb": "10",
+        "space_v_item_mb": "10",
+        "layout_des": "1",
+        "use_pagination": "default",
+        "enable_bar_lm": true,
+        "btn_icon": false,
+        "button_style": "outline",
+        "btns_size": "large",
+        "btns_cl": "primary",
+        "button_effect": "sweep-to-right",
+        "btn_pos": "t4s-text-center",
+        "type_filters": "facets",
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "",
+        "pd": "0,40px,0px,40px",
+        "mg_tb": "",
+        "pd_tb": "0,20px,20px,20px",
+        "mg_mb": "",
+        "pd_mb": "0,20px,20px,20px"
+      }
+    },
+    "sidebar": {
+      "type": "sidebar-collection",
+      "blocks": {
+        "c7bdf308-8019-4991-b58c-6d3e205a52eb": {
+          "type": "category",
+          "settings": {
+            "heading": "Product Categories",
+            "cat_source": "1",
+            "cat_link_list": "",
+            "count": true
+          }
+        },
+        "9d37e80a-1eda-4a65-bb08-199e6a933a16": {
+          "type": "collection",
+          "settings": {
+            "heading": "Sale Products",
+            "collection": "frontpage",
+            "limit_pr": 3,
+            "image_ratio": "t4s_ratioadapt",
+            "image_size": "t4s_cover",
+            "image_position": "t4s_position_8"
+          }
+        },
+        "c090f36e-d6ef-4a2a-ab04-cc78211dadb7": {
+          "type": "image",
+          "settings": {
+            "heading": "",
+            "img_effect": "zoom",
+            "b_link": "",
+            "open_link": "_self",
+            "content_align": "center",
+            "date": "2022/12/26",
+            "cdt_des": "1",
+            "countdown_pos": "2",
+            "cdt_size": "small",
+            "box_bdr": 0,
+            "bd_width": 0,
+            "space_item": 10,
+            "number_cl": "#ffffff",
+            "text_cl": "#222222",
+            "border_cl": "#000000",
+            "bg_cl": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "c7bdf308-8019-4991-b58c-6d3e205a52eb",
+        "9d37e80a-1eda-4a65-bb08-199e6a933a16",
+        "c090f36e-d6ef-4a2a-ab04-cc78211dadb7"
+      ],
+      "disabled": true,
+      "settings": {
+        "enable_drawer": false,
+        "space": 50,
+        "size": "medium",
+        "br_style": "none",
+        "brcolor": "#222222",
+        "sidebar_bdr": 0,
+        "sidebar_pd": 15
+      }
+    },
+    "custom_html_JWM9dB": {
+      "type": "custom-html",
+      "name": "Custom HTML",
+      "settings": {
+        "code": "<div style=\"width: 100%; height: 1px; background: #ddd; margin: 30px 0;\"></div>",
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "",
+        "pd": "20px,40px,4px,40px",
+        "mg_tb": "",
+        "pd_tb": "0,20px,0,20px",
+        "mg_mb": "",
+        "pd_mb": "",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
+    "custom_liquid_fwV7Db": {
+      "type": "custom-liquid",
+      "name": "Custom Liquid",
+      "settings": {
+        "custom_liquid": "<div class=\"bottom-content\">\n  {{ collection.description | split: '<!-- split -->' | last }}\n</div>\n\n<style>\n.bottom-content {\n  margin: 0 auto;\n  padding: 0px 0px 0px 0px;\n  font-weight: 300;\n  font-size: 14px;\n  line-height: 25px;\n  color: rgb(120, 120, 120);\n}\n\n/* Headings */\n.bottom-content h2 {\n  font-size: 18px;\n  line-height: 1.4;\n  font-weight: 600;\n  color: #111;\n  margin: 30px 0 20px;\n  text-transform: uppercase;\n  border-top: 0px solid #eee;\n  border-bottom: 0px solid #eee;\n  padding: 0px 0;\n  letter-spacing: 1.5px;\n}\n\n.bottom-content h3 {\n  font-size: 14px;\n  text-transform: uppercase;\n  line-height: 1.5;\n  font-weight: 600;\n  margin: 20px 0 12px;\n  color: #333;\n  letter-spacing: 1.5px;\n}\n\n/* Paragraphs just inherit base */\n.bottom-content p {\n  margin: 0 0 20px;\n  color: black;\n}\n\n/* Mobile */\n@media (max-width: 600px) {\n  .bottom-content {\n    padding: 0 10px;\n    font-size: 14px;\n    line-height: 22px;\n  }\n\n  .bottom-content h2 {\n    font-size: 14px;\n    margin: 0px 0px 0px 0px;\n    padding: 0 20px 15px 0;\n  }\n\n  .bottom-content h3 {\n    font-size: 13px;\n    margin: 15px 0 10px;\n    max-width: 250px;\n  }\n}\n</style>",
+        "layout": "t4s-container-fluid",
+        "cl_bg": "#ffffff",
+        "cl_bg_gradient": "",
+        "mg": "",
+        "pd": "0,120PX,20px,120PX",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": "",
+        "pd_mb": "0,10PX,20px,10PX"
+      }
+    },
+    "accordion_A6WEY4": {
+      "type": "accordion",
+      "blocks": {
+        "accor_item_WHHdq9": {
+          "type": "accor_item",
+          "repeater": "{{ collection.metafields.custom.collection_faqs.value }}",
+          "settings": {
+            "icon": "none",
+            "title": "{{ block.repeater.question.value }}",
+            "content": "{{ block.repeater.answer | metafield_tag }}"
+          }
+        }
+      },
+      "block_order": [
+        "accor_item_WHHdq9"
+      ],
+      "name": "Accordion",
+      "settings": {
+        "design_heading": "1",
+        "heading_align": "t4s-text-start",
+        "top_heading": "{{ collection.metafields.custom.faqtitle.value }}",
+        "icon_heading": "las la-gem",
+        "top_subheading": "",
+        "tophead_mb": 20,
+        "accor_des": "1",
+        "title_cl": "#222222",
+        "bg_title_cl": "rgba(0,0,0,0)",
+        "title_active_cl": "#222222",
+        "bg_title_active_cl": "rgba(0,0,0,0)",
+        "content_cl": "#878787",
+        "bg_content_cl": "#ffffff",
+        "content_align": "t4s-text-start",
+        "auto_active": false,
+        "layout": "t4s-container-fluid",
+        "custom_width": 1000,
+        "cl_bg": "#fff4f4",
+        "cl_bg_gradient": "",
+        "mg": "",
+        "pd": "40px,120px,40px,120px",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": "40px,20px,20px,20px",
+        "use_cus_css": true,
+        "code_cus_css": "/* --- SECTION TITLES --- */\nh3.t4s-section-title.t4s-title {\n  font-size: 18px !important;\n  line-height: 1.4;\n  font-weight: 600;\n  color: #111;\n  margin: 30px 0 20px;\n  text-transform: uppercase;\n  border: none;\n  padding: 0;\n  letter-spacing: 1.5px;\n}\n.t4s-section-title  {\nfont-size: 18px !important;\n}\n\n/* --- ACCORDION WRAPPER --- */\n.t4s-tabs.t4s-type-accordion {\n  text-align: left !important;\n  padding: 0 !important;\n  margin: 0 !important;\n}\n\n/* --- INDIVIDUAL ITEMS --- */\n.t4s-tab-wrapper {\n  text-align: left !important;\n  margin: 0 !important;\n  padding: 15px 0 0px 0 !important;\n  border-bottom: 1px solid #e0e0e0;\n}\n\n.t4s-tab-wrapper:first-child {\n  border-top: 1px solid #e0e0e0;\n}\n\n/* --- ACCORDION TITLE (QUESTION) --- */\n.t4s-accor-title {\n  display: block !important;\n  width: 100%;\n  text-align: left !important;\n  font-size: 13px;\n  line-height: 1.6;\n  font-weight: 600 !important;\n  color: #111;\n  text-transform: uppercase;\n  letter-spacing: 1px;\n  margin: 0 0 10px 0 !important;\n  padding: 0 !important;\n  background: none;\n  border: none;\n  text-decoration: none;\n  cursor: default !important;\n  position: relative;\n}\n\n/* --- REMOVE +/– ICONS --- */\n.t4s-accor-title::after,\n.t4s-accor-icon,\n.t4s-accor-item-nav {\n  display: none !important;\n}\n\n/* --- TEXT WRAPPER --- */\n.t4s-accor-text,\n.t4s-accor-text span,\n.t4s-accor-title span[itemprop=\"name\"] {\n  display: inline !important;\n  text-align: left !important;\n  padding: 0 !important;\n  margin: 0 !important;\n  line-height: 1.6 !important;\n}\n\n/* --- CONTENT (ANSWER) --- */\n.t4s-tab-content {\n  display: block !important; /* permanently visible */\n  text-align: left !important;\n  border: none !important;\n  margin: 0 0 20px 0 !important;\n  padding: 0 !important;\n  background: none !important;\n  color: #222 !important;\n\n  /* match site body text */\n  font-weight: 300;\n  font-size: 14px;\n  line-height: 25px;\n}\n\n/* --- REMOVE INLINE DISPLAY OVERRIDES --- */\n.t4s-tab-content[style] {\n  display: block !important;\n}\n\n/* --- UNIVERSAL LEFT RESET --- */\n.t4s-tabs.t4s-type-accordion,\n.t4s-tab-wrapper,\n.t4s-accor-title,\n.t4s-accor-text,\n.t4s-accor-text span,\n.t4s-accor-title span[itemprop=\"name\"] {\n  padding-left: 0 !important;\n  margin-left: 0 !important;\n  text-indent: 0 !important;\n}\n\n/* --- MOBILE --- */\n@media (max-width: 767px) {\n  .t4s-tab-wrapper {\n    padding: 10px 0 0px 0 !important;\n  }\n\n  .t4s-accor-title {\n    font-size: 13px !important;\n    line-height: 1.8 !important;\n    margin-bottom: 6px !important;\n  }\n\n  .t4s-tab-content {\n    font-size: 14px !important;\n    line-height: 22px !important;\n    margin-bottom: 00px !important;\n  }\n.t4s-section-title  {\nfont-size: 15px !important;\n}\n}"
+      }
+    },
+    "collection_schema_i3RFBc": {
+      "type": "collection-schema",
+      "name": "Collection Schema",
+      "settings": {}
+    }
+  },
+  "order": [
+    "custom_liquid_MhhB3G",
+    "1761463464c3e12b31",
+    "scrolling_text_BjVE73",
+    "custom_liquid_b8PWya",
+    "top",
+    "main",
+    "sidebar",
+    "custom_html_JWM9dB",
+    "custom_liquid_fwV7Db",
+    "accordion_A6WEY4",
+    "collection_schema_i3RFBc"
+  ]
+}

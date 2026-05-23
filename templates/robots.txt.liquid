@@ -1,0 +1,67 @@
+# ------------------------------------------------------------------------------
+# Shopify Robots.txt – PRODUCTION (BLOCK JUNK URLS)
+# ------------------------------------------------------------------------------
+
+User-agent: *
+
+# ----------------------------------------
+# BLOCK PARAMETER-BASED JUNK URLS
+# ----------------------------------------
+
+# ----------------------------------------
+# BLOCK COLLECTION → PRODUCT DUPLICATES
+# ----------------------------------------
+
+
+# ----------------------------------------
+# BLOCK SEARCH RESULTS
+# ----------------------------------------
+
+# ----------------------------------------
+# BLOCK SYSTEM / NON-SEO URLS
+# ----------------------------------------
+Disallow: /admin
+Disallow: /account
+Disallow: /cart
+Disallow: /carts
+Disallow: /checkout
+Disallow: /checkouts/
+Disallow: /orders
+
+# ----------------------------------------
+# ALLOW ALL SEO PAGES (EXPLICIT BUT SAFE)
+# ----------------------------------------
+Allow: /collections/
+Allow: /collections/*
+
+Allow: /products/
+Allow: /products/*
+
+Allow: /blogs/
+Allow: /blogs/*
+
+Allow: /pages/
+Allow: /pages/*
+
+# ----------------------------------------
+# SITEMAP
+# ----------------------------------------
+
+Sitemap: https://www.yaomriswimwear.com/sitemap.xml
+
+
+# ------------------------------------------------------------------------------
+# Other Crawlers
+# ------------------------------------------------------------------------------
+
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: AhrefsSiteAudit
+Crawl-delay: 10
+
+User-agent: MJ12bot
+Crawl-delay: 10
+
+User-agent: Nutch
+Disallow: /

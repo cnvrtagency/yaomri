@@ -1,0 +1,273 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_image_yf6UDj": {
+      "type": "hero_image",
+      "blocks": {
+        "custom_button_Cc6hDx": {
+          "type": "custom_button",
+          "settings": {
+            "button_text": "Button label",
+            "button_link": "",
+            "target_link": "_self",
+            "fontf": "inherit",
+            "button_icon_w": 0,
+            "button_style": "default",
+            "button_effect": "default",
+            "pri_cl": "#222222",
+            "second_cl": "#ffffff",
+            "pri_cl_hover": "#56cfe1",
+            "second_cl_hover": "#ffffff",
+            "fsbutton": 14,
+            "fwbutton": 400,
+            "button_ls": 0,
+            "button_mh": 42,
+            "button_bdr": 0,
+            "button_pd_lr": 20,
+            "button_mgb": 0,
+            "hidden_mobile": false,
+            "button_icon_w_mb": 0,
+            "fsbutton_mb": 10,
+            "button_mh_mb": 36,
+            "button_pd_lr_mb": 15,
+            "button_ls_mb": 0,
+            "button_mgb_mb": 0,
+            "animation": "none"
+          }
+        }
+      },
+      "block_order": [
+        "custom_button_Cc6hDx"
+      ],
+      "custom_css": [],
+      "name": "Hero image",
+      "settings": {
+        "se_height": "t4s_ratioadapt",
+        "custom_dk": true,
+        "height_dk": 600,
+        "custom_tb": true,
+        "height_tb": 400,
+        "custom_mb": true,
+        "height_mb": 250,
+        "parallax": false,
+        "image_position": "0",
+        "link_img1": "",
+        "open_link": "_blank",
+        "text_align": "center",
+        "text_align_mb": "center",
+        "content_width": "auto",
+        "cv_pos": 50,
+        "ch_pos": 50,
+        "cv_pos_mb": 50,
+        "ch_pos_mb": 50,
+        "bg_overlay": "#000000",
+        "bg_opacity": 0,
+        "bg_content_cl": "#ffffff",
+        "bg_content_op": 0,
+        "content_pd_tb": 15,
+        "content_pd_lr": 15,
+        "content_pd_tb_mb": 10,
+        "content_pd_lr_mb": 10,
+        "border_bl": false,
+        "br_color": "#222222",
+        "br_bg": "#ffffff",
+        "br_opacity": 50,
+        "br_style": "solid",
+        "br_pd": 20,
+        "br_pd_mb": 10,
+        "time_animation": 1,
+        "animation_delay": 40,
+        "layout": "t4s-container-wrap",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "",
+        "pd": "40px,200px,0px,200px",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": "",
+        "pd_mb": "0px,0px,0px,0px",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
+    "heading": {
+      "type": "heading-article",
+      "blocks": {
+        "0dd8a548-e739-4e97-b9d3-1f0c93b3b144": {
+          "type": "1",
+          "settings": {
+            "fontf": "1",
+            "text_cl": "#000000",
+            "text_fs": 28,
+            "text_lh": 38,
+            "text_fw": 500,
+            "text_ls": 1.5,
+            "font_italic": false,
+            "font_uppercase": true,
+            "text_shadow": false,
+            "text_mgb": 20,
+            "hidden_mobile": false,
+            "text_fs_mb": 18,
+            "text_lh_mb": 26,
+            "text_ls_mb": 0,
+            "text_mgb_mobile": 10
+          }
+        }
+      },
+      "block_order": [
+        "0dd8a548-e739-4e97-b9d3-1f0c93b3b144"
+      ],
+      "custom_css": [
+        "h1 {max-width: 80%; text-align: left; padding-top: 20px; padding-left: 85px;}",
+        "@media (max-width: 600px) {h1 {max-width: 90%; }}",
+        ".time.t4s-entry-date {color: #222 !important;}"
+      ],
+      "settings": {
+        "use_specify_image": false,
+        "parallax": false,
+        "color": "rgba(0,0,0,0)",
+        "overlay": 0,
+        "padding": 0,
+        "paddingmb": 14,
+        "mg_b": 0,
+        "mg_bmb": 0,
+        "content_align": "t4s-text-start",
+        "bg_pos": "center center",
+        "bg_repeat": "no-repeat",
+        "bg_size": "cover",
+        "bg_att": "scroll",
+        "use_cus_css": false,
+        "code_cus_css": ".SectionID {\nbackground-color:red\n}"
+      }
+    },
+    "sidebar": {
+      "type": "sidebar-article",
+      "blocks": {
+        "caa2cee0-01b1-488d-a10e-5e74006f95f4": {
+          "type": "blog_cate",
+          "settings": {
+            "title": "Blog categories",
+            "cat_link_list": "main-menu",
+            "count": true
+          }
+        },
+        "33e93b80-0f24-44e5-adfa-9e2b066b1473": {
+          "type": "tags",
+          "settings": {
+            "title": "Blog tags",
+            "count": true
+          }
+        },
+        "37d3ea69-b6a8-4406-8abd-ae719de8696b": {
+          "type": "collection",
+          "settings": {
+            "title": "Sale Products",
+            "collection": "women",
+            "limit_pr": 3,
+            "image_ratio": "t4s_ratioadapt",
+            "image_size": "t4s_cover",
+            "image_position": "t4s_position_8"
+          }
+        }
+      },
+      "block_order": [
+        "caa2cee0-01b1-488d-a10e-5e74006f95f4",
+        "33e93b80-0f24-44e5-adfa-9e2b066b1473",
+        "37d3ea69-b6a8-4406-8abd-ae719de8696b"
+      ],
+      "disabled": true,
+      "settings": {
+        "enable_drawer": true,
+        "space": 50,
+        "size": "medium",
+        "br_style": "none",
+        "brcolor": "#222222",
+        "sidebar_bdr": 5,
+        "sidebar_pd": 10
+      }
+    },
+    "custom_liquid_qxmDnk": {
+      "type": "custom-liquid",
+      "name": "Split 1",
+      "settings": {
+        "custom_liquid": "<div class=\"yao-split t4s-article-content t4s-rte\" hdt-reveal=\"slide-in\">\n  {{ article.content | split: '<!-- split1 -->' | first }}\n</div>\n\n<style>\n/* PARAGRAPHS */\n.yao-split.t4s-article-content p,\n.yao-split.t4s-article-content p * {\n  font-size: 14px !important;\n  line-height: 1.7 !important;\n  margin-bottom: 16px !important;\nfont-weight: 300 !important;\n  color: #222 !important;\n}\n.yao-split.t4s-article-content ul {\n  list-style: none !important;\n  padding-left: 0 !important;\n}\n\n/* HEADINGS */\n.yao-split.t4s-article-content h2 {\n  font-size: 22px !important;\n  font-weight: 300 !important;\n  margin: 20px 0 12px !important;\n  color: #111 !important;\n}\n\n.yao-split.t4s-article-content h3 {\n  font-size: 17px !important;\n  font-weight: 600 !important;\n  margin: 18px 0 10px !important;\n  color: #111 !important;\n}\n\n/* LIST ITEMS */\n.yao-split.t4s-article-content li {\n  position: relative;\n  padding-left: 18px !important;\n  margin-bottom: 10px !important;\n  font-size: 15px !important;\n  line-height: 1.7 !important;\n  color: #222 !important;\n}\n\n.yao-split.t4s-article-content li::before {\n  content: \"•\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  font-size: 20px;\n  color: #111;\n}\n\n/* IMAGES */\n.yao-split.t4s-article-content img {\n  width: 100% !important;\n  height: auto !important;\n  border-radius: 6px !important;\n  margin: 10px 0;\n}\n\n/* MOBILE */\n@media (max-width: 600px) {\n  .yao-split.t4s-article-content p,\n  .yao-split.t4s-article-content p * {\n    font-size: 14px !important;\n  }\n  .yao-split.t4s-article-content li {\n    font-size: 14px !important;\n  }\n  .yao-split.t4s-article-content h2 { font-size: 18px !important; }\n  .yao-split.t4s-article-content h3 { font-size: 15px !important; }\n}\n</style>",
+        "layout": "t4s-container-wrap",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "",
+        "pd": "20px,200px,0px,200px",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": "",
+        "pd_mb": "0px,20px,0px,20px"
+      }
+    },
+    "custom_liquid_NHEcP8": {
+      "type": "custom-liquid",
+      "name": "Split 2",
+      "settings": {
+        "custom_liquid": "<div class=\"yao-split t4s-article-content t4s-rte\" hdt-reveal=\"slide-in\">\n  {{ article.content | split: '<!-- split1 -->' | last | split: '<!-- split2 -->' | first }}\n</div>\n\n<style>\n.yao-split.t4s-article-content ul {\n  list-style: none !important;\n  padding-left: 0 !important;\n}\n\n/* duplicate stylesheet intentionally so block is independent */\n\n.yao-split.t4s-article-content p,\n.yao-split.t4s-article-content p * {\n  font-size: 15px !important;\n  line-height: 1.7 !important;\n  margin-bottom: 16px !important;\n  color: #222 !important;\n}\n\n.yao-split.t4s-article-content h2 {\n  font-size: 22px !important;\n  font-weight: 700 !important;\n  margin: 20px 0 12px !important;\n  color: #111 !important;\n}\n\n.yao-split.t4s-article-content h3 {\n  font-size: 17px !important;\n  font-weight: 600 !important;\n  margin: 18px 0 10px !important;\n  color: #111 !important;\n}\n\n.yao-split.t4s-article-content li {\n  position: relative;\n  padding-left: 18px !important;\n  margin-bottom: 10px !important;\n  font-size: 15px !important;\n  line-height: 1.7 !important;\n  color: #222 !important;\n}\n\n.yao-split.t4s-article-content li::before {\n  content: \"•\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  font-size: 20px;\n  color: #111;\n}\n\n.yao-split.t4s-article-content img {\n  width: 100% !important;\n  height: auto !important;\n  border-radius: 6px !important;\n  margin: 10px 0;\n}\n\n@media (max-width: 600px) {\n  .yao-split.t4s-article-content p,\n  .yao-split.t4s-article-content p * {\n    font-size: 14px !important;\n  }\n  .yao-split.t4s-article-content li {\n    font-size: 14px !important;\n  }\n  .yao-split.t4s-article-content h2 { font-size: 18px !important; }\n  .yao-split.t4s-article-content h3 { font-size: 15px !important; }\n}\n</style>",
+        "layout": "t4s-container-wrap",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "",
+        "pd": "20px,200px,0px,200px",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": "",
+        "pd_mb": "0px,20px,0px,20px"
+      }
+    },
+    "custom_liquid_x3ePWi": {
+      "type": "custom-liquid",
+      "name": "Split 3",
+      "settings": {
+        "custom_liquid": "<div class=\"yao-split t4s-article-content t4s-rte\" hdt-reveal=\"slide-in\">\n  {{ article.content | split: '<!-- split2 -->' | last }}\n</div>\n\n<style>\n\n/* full styling repeated again so this block is self-contained */\n\n.yao-split.t4s-article-content p,\n.yao-split.t4s-article-content p * {\n  font-size: 15px !important;\n  line-height: 1.7 !important;\n  margin-bottom: 16px !important;\n  color: #222 !important;\n}\n\n.yao-split.t4s-article-content h2 {\n  font-size: 22px !important;\n  font-weight: 700 !important;\n  margin: 20px 0 12px !important;\n  color: #111 !important;\n}\n\n.yao-split.t4s-article-content h3 {\n  font-size: 17px !important;\n  font-weight: 600 !important;\n  margin: 18px 0 10px !important;\n  color: #111 !important;\n}\n.yao-split.t4s-article-content ul {\n  list-style: none !important;\n  padding-left: 0 !important;\n}\n\n.yao-split.t4s-article-content li {\n  position: relative;\n  padding-left: 18px !important;\n  margin-bottom: 10px !important;\n  font-size: 15px !important;\n  line-height: 1.7 !important;\n  color: #222 !important;\n}\n\n.yao-split.t4s-article-content li::before {\n  content: \"•\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  font-size: 20px;\n  color: #111;\n}\n\n.yao-split.t4s-article-content img {\n  width: 100% !important;\n  height: auto !important;\n  border-radius: 6px !important;\n  margin: 10px 0;\n}\n\n@media (max-width: 600px) {\n  .yao-split.t4s-article-content p,\n  .yao-split.t4s-article-content p * {\n    font-size: 14px !important;\n  }\n  .yao-split.t4s-article-content li {\n    font-size: 14px !important;\n  }\n  .yao-split.t4s-article-content h2 { font-size: 18px !important; }\n  .yao-split.t4s-article-content h3 { font-size: 15px !important; }\n}\n</style>",
+        "layout": "t4s-container-wrap",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "",
+        "pd": "20px,200px,0px,200px",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": "",
+        "pd_mb": "0px,20px,0px,20px"
+      }
+    },
+    "main": {
+      "type": "main-article",
+      "custom_css": [
+        ".t4s-post-title {font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; min-height: 22px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;}",
+        "@media (max-width: 767px) {.t4s-post-title {font-size: 14px; min-height: 38px; }}"
+      ],
+      "settings": {
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "",
+        "pd": "0,190px,40px,190px",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": "",
+        "pd_mb": "0,20px,20px,20px"
+      }
+    }
+  },
+  "order": [
+    "hero_image_yf6UDj",
+    "heading",
+    "sidebar",
+    "custom_liquid_qxmDnk",
+    "custom_liquid_NHEcP8",
+    "custom_liquid_x3ePWi",
+    "main"
+  ]
+}
