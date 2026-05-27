@@ -1,9 +1,11 @@
 {{ 'section-yaomri.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  assign mobile_gap_total = section.settings.products_per_row_mobile | minus: 1 | times: 1.2
-  assign tablet_gap_total = section.settings.products_per_row_tablet | minus: 1 | times: 1.6
-  assign desktop_gap_total = section.settings.products_per_row_desktop | minus: 1 | times: 1.6
+  assign mobile_gap_rem = section.settings.card_gap_mobile | divided_by: 10.0
+  assign desktop_gap_rem = section.settings.card_gap_desktop | divided_by: 10.0
+  assign mobile_gap_total = section.settings.products_per_row_mobile | minus: 1 | times: mobile_gap_rem
+  assign tablet_gap_total = section.settings.products_per_row_tablet | minus: 1 | times: desktop_gap_rem
+  assign desktop_gap_total = section.settings.products_per_row_desktop | minus: 1 | times: desktop_gap_rem
 -%}
 
 {%- style -%}
@@ -13,6 +15,8 @@
     --yaomri-products-desktop: {{ section.settings.products_per_row_desktop }};
     --yaomri-products-tablet: {{ section.settings.products_per_row_tablet }};
     --yaomri-products-mobile: {{ section.settings.products_per_row_mobile }};
+    --yaomri-product-carousel-gap-desktop: {{ section.settings.card_gap_desktop | divided_by: 10.0 }}rem;
+    --yaomri-product-carousel-gap-mobile: {{ section.settings.card_gap_mobile | divided_by: 10.0 }}rem;
     --yaomri-product-card-width-desktop: calc((100% - {{ desktop_gap_total }}rem) / {{ section.settings.products_per_row_desktop }});
     --yaomri-product-card-width-tablet: calc((100% - {{ tablet_gap_total }}rem) / {{ section.settings.products_per_row_tablet }});
     --yaomri-product-card-width-mobile: calc((100% - {{ mobile_gap_total }}rem) / {{ section.settings.products_per_row_mobile }});
@@ -300,6 +304,26 @@
       "step": 1,
       "label": "Mobile products visible",
       "default": 2
+    },
+    {
+      "type": "range",
+      "id": "card_gap_desktop",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Desktop card gap",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_gap_mobile",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile card gap",
+      "default": 12
     },
     {
       "type": "header",

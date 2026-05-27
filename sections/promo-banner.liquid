@@ -1,0 +1,377 @@
+{{ 'section-yaomri.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #YaomriPromoBanner-{{ section.id }} {
+    --yaomri-promo-height-desktop: {{ section.settings.height_desktop }}vh;
+    --yaomri-promo-height-mobile: {{ section.settings.height_mobile }}vh;
+    --yaomri-promo-min-height: {{ section.settings.minimum_height }}px;
+    --yaomri-promo-overlay-color: {{ section.settings.overlay_color }};
+    --yaomri-promo-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --yaomri-promo-eyebrow-color: {{ section.settings.eyebrow_color }};
+    --yaomri-promo-title-color: {{ section.settings.title_color }};
+    --yaomri-promo-body-color: {{ section.settings.body_color }};
+    --yaomri-promo-primary-bg: {{ section.settings.primary_button_background }};
+    --yaomri-promo-primary-text: {{ section.settings.primary_button_text }};
+    --yaomri-promo-primary-hover-bg: {{ section.settings.primary_button_hover_background }};
+    --yaomri-promo-primary-hover-text: {{ section.settings.primary_button_hover_text }};
+    --yaomri-promo-secondary-text: {{ section.settings.secondary_button_text }};
+    --yaomri-promo-secondary-border: {{ section.settings.secondary_button_border }};
+    --yaomri-promo-secondary-hover-bg: {{ section.settings.secondary_button_hover_background }};
+    --yaomri-promo-secondary-hover-text: {{ section.settings.secondary_button_hover_text }};
+    --yaomri-promo-secondary-hover-border: {{ section.settings.secondary_button_hover_border }};
+    --yaomri-promo-padding-desktop: {{ section.settings.padding_x_desktop }}px;
+    --yaomri-promo-padding-mobile: {{ section.settings.padding_x_mobile }}px;
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign fetch_priority = 'auto'
+  assign image_loading = 'lazy'
+  if section.index == 1
+    assign fetch_priority = 'high'
+    assign image_loading = 'eager'
+  endif
+-%}
+
+<section
+  id="YaomriPromoBanner-{{ section.id }}"
+  class="yaomri-promo-banner yaomri-promo-banner--{{ section.settings.content_position }}"
+>
+  <div class="yaomri-promo-banner__media">
+    {%- if section.settings.image != blank -%}
+      {%- assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio -%}
+      {{
+        section.settings.image
+        | image_url: width: 2400
+        | image_tag:
+          width: section.settings.image.width,
+          height: image_height,
+          class: 'yaomri-promo-banner__image',
+          sizes: '100vw',
+          widths: '750, 990, 1200, 1500, 1800, 2400',
+          loading: image_loading,
+          fetchpriority: fetch_priority
+      }}
+    {%- else -%}
+      <div
+        class="yaomri-promo-banner__placeholder placeholder-img"
+        data-label="{{ section.settings.placeholder_label | escape }}"
+      ></div>
+    {%- endif -%}
+  </div>
+
+  {%- if section.settings.overlay_opacity > 0 -%}
+    <div class="yaomri-promo-banner__overlay"></div>
+  {%- endif -%}
+
+  <div class="yaomri-promo-banner__content-wrap">
+    <div class="yaomri-promo-banner__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="yaomri-promo-banner__eyebrow eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.title != blank -%}
+        <h2 class="yaomri-promo-banner__title">{{ section.settings.title | escape }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <p class="yaomri-promo-banner__body">{{ section.settings.body | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.cta_1_label != blank or section.settings.cta_2_label != blank -%}
+        <div class="yaomri-promo-banner__actions">
+          {%- if section.settings.cta_1_label != blank -%}
+            <a
+              class="yaomri-promo-banner__button yaomri-promo-banner__button--primary"
+              {% if section.settings.cta_1_link == blank %}
+                role="link" aria-disabled="true"
+              {% else %}
+                href="{{ section.settings.cta_1_link }}"
+              {% endif %}
+            >
+              {{ section.settings.cta_1_label | escape }}
+            </a>
+          {%- endif -%}
+
+          {%- if section.settings.cta_2_label != blank -%}
+            <a
+              class="yaomri-promo-banner__button yaomri-promo-banner__button--secondary"
+              {% if section.settings.cta_2_link == blank %}
+                role="link" aria-disabled="true"
+              {% else %}
+                href="{{ section.settings.cta_2_link }}"
+              {% endif %}
+            >
+              {{ section.settings.cta_2_label | escape }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Promo Banner",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The Poolside Edit"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "A summer in the sun"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "Statement swimwear and refined resort pieces — curated for long lunches and golden hours."
+    },
+    {
+      "type": "text",
+      "id": "cta_1_label",
+      "label": "CTA 1 label",
+      "default": "Shop Women"
+    },
+    {
+      "type": "url",
+      "id": "cta_1_link",
+      "label": "CTA 1 link",
+      "default": "/collections/women"
+    },
+    {
+      "type": "text",
+      "id": "cta_2_label",
+      "label": "CTA 2 label",
+      "default": "Shop Resort"
+    },
+    {
+      "type": "url",
+      "id": "cta_2_link",
+      "label": "CTA 2 link",
+      "default": "/collections/resortwear"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_label",
+      "label": "Placeholder label",
+      "default": "Campaign Feature — Poolside Edit"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "height_desktop",
+      "min": 40,
+      "max": 80,
+      "step": 1,
+      "unit": "vh",
+      "label": "Desktop height",
+      "default": 58
+    },
+    {
+      "type": "range",
+      "id": "height_mobile",
+      "min": 30,
+      "max": 70,
+      "step": 1,
+      "unit": "vh",
+      "label": "Mobile height",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "minimum_height",
+      "min": 260,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "label": "Minimum height",
+      "default": 340
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content position",
+      "options": [
+        {
+          "value": "left-centre",
+          "label": "Left centre"
+        },
+        {
+          "value": "left-bottom",
+          "label": "Left bottom"
+        },
+        {
+          "value": "centre-centre",
+          "label": "Centre centre"
+        },
+        {
+          "value": "right-centre",
+          "label": "Right centre"
+        },
+        {
+          "value": "right-bottom",
+          "label": "Right bottom"
+        }
+      ],
+      "default": "left-centre"
+    },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay colour",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Text colours"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Button colours"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_background",
+      "label": "Primary button background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_text",
+      "label": "Primary button text",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_hover_background",
+      "label": "Primary button hover background",
+      "default": "#f6f4ef"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_hover_text",
+      "label": "Primary button hover text",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_text",
+      "label": "Secondary button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_border",
+      "label": "Secondary button border",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_hover_background",
+      "label": "Secondary button hover background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_hover_text",
+      "label": "Secondary button hover text",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_hover_border",
+      "label": "Secondary button hover border",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_x_desktop",
+      "min": 16,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop side padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_x_mobile",
+      "min": 16,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile side padding",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promo Banner"
+    }
+  ]
+}
+{% endschema %}

@@ -6,98 +6,338 @@
     --yaomri-hero-triple-mobile-height: {{ section.settings.tile_height_mobile }}vh;
     --yaomri-hero-triple-gap: {{ section.settings.gap_px }}px;
     --yaomri-hero-triple-top-padding: {{ section.settings.top_padding }}px;
+    --yaomri-hero-triple-overlay-color: {{ section.settings.overlay_color }};
     --yaomri-hero-triple-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --yaomri-hero-triple-heading-color: {{ section.settings.heading_color }};
+    --yaomri-hero-triple-subheading-color: {{ section.settings.subheading_color }};
+    --yaomri-hero-triple-primary-bg: {{ section.settings.primary_button_background }};
+    --yaomri-hero-triple-primary-text: {{ section.settings.primary_button_text }};
+    --yaomri-hero-triple-primary-hover-bg: {{ section.settings.primary_button_hover_background }};
+    --yaomri-hero-triple-primary-hover-text: {{ section.settings.primary_button_hover_text }};
+    --yaomri-hero-triple-secondary-bg: {{ section.settings.secondary_button_background }};
+    --yaomri-hero-triple-secondary-text: {{ section.settings.secondary_button_text }};
+    --yaomri-hero-triple-secondary-border: {{ section.settings.secondary_button_border }};
+    --yaomri-hero-triple-secondary-hover-bg: {{ section.settings.secondary_button_hover_background }};
+    --yaomri-hero-triple-secondary-hover-text: {{ section.settings.secondary_button_hover_text }};
+    --yaomri-hero-triple-secondary-hover-border: {{ section.settings.secondary_button_hover_border }};
+    --yaomri-hero-triple-marquee-speed: {{ section.settings.marquee_speed }}s;
   }
 {%- endstyle -%}
 
-<section id="YaomriHeroTriple-{{ section.id }}" class="yaomri-hero-triple">
-  <div class="yaomri-hero-triple__grid">
-    {%- for block in section.blocks limit: 3 -%}
+{%- liquid
+  assign layout_style = section.settings.layout_style | default: 'triple_campaign'
+  assign tile_limit = 3
+  if layout_style == 'single_campaign' or layout_style == 'split_editorial'
+    assign tile_limit = 1
+  endif
+-%}
+
+<section
+  id="YaomriHeroTriple-{{ section.id }}"
+  class="yaomri-hero-triple yaomri-hero-triple--{{ layout_style }} yaomri-hero-triple--split-image-{{ section.settings.split_image_position }}"
+>
+  {%- if layout_style == 'split_editorial' -%}
+    {%- for block in section.blocks limit: 1 -%}
       {%- liquid
         assign image_loading = 'lazy'
         assign fetch_priority = 'auto'
-
         if section.index == 1
           assign image_loading = 'eager'
-          if forloop.first
-            assign fetch_priority = 'high'
-          endif
+          assign fetch_priority = 'high'
         endif
       -%}
+      <div class="yaomri-hero-triple__split">
+        <div class="yaomri-hero-triple__split-copy" {{ block.shopify_attributes }}>
+          {%- if block.settings.subheading != blank -%}
+            <p class="yaomri-hero-triple__subheading">{{ block.settings.subheading | escape }}</p>
+          {%- endif -%}
 
-      <div class="yaomri-hero-triple__tile" {{ block.shopify_attributes }}>
-        {%- if block.settings.image != blank -%}
-          <div class="yaomri-hero-triple__media">
-            {%- assign image_height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio -%}
-            {{
-              block.settings.image
-              | image_url: width: 1800
-              | image_tag:
-                width: block.settings.image.width,
-                height: image_height,
-                class: 'yaomri-hero-triple__image',
-                sizes: '(min-width: 750px) 33vw, 100vw',
-                widths: '375, 550, 750, 990, 1200, 1500, 1800',
-                loading: image_loading,
-                fetchpriority: fetch_priority
-            }}
-          </div>
-        {%- else -%}
-          <div
-            class="yaomri-hero-triple__placeholder placeholder-img"
-            data-label="{{ block.settings.placeholder_label | escape }}"
-          ></div>
-        {%- endif -%}
+          {%- if block.settings.headline != blank -%}
+            <h2 class="yaomri-hero-triple__headline">{{ block.settings.headline | escape }}</h2>
+          {%- endif -%}
 
-        {%- if section.settings.overlay_opacity > 0 -%}
-          <div class="yaomri-hero-triple__overlay"></div>
-        {%- endif -%}
+          {%- if block.settings.cta_1_label != blank or block.settings.cta_2_label != blank -%}
+            <div class="yaomri-hero-triple__actions">
+              {%- if block.settings.cta_1_label != blank -%}
+                <a
+                  class="yaomri-hero-triple__button yaomri-hero-triple__button--primary"
+                  {% if block.settings.cta_1_link == blank %}
+                    role="link" aria-disabled="true"
+                  {% else %}
+                    href="{{ block.settings.cta_1_link }}"
+                  {% endif %}
+                >
+                  {{ block.settings.cta_1_label | escape }}
+                </a>
+              {%- endif -%}
 
-        {%- if block.settings.show_copy -%}
-          <div class="yaomri-hero-triple__copy">
-            {%- if block.settings.subheading != blank -%}
-              <p class="yaomri-hero-triple__subheading">{{ block.settings.subheading | escape }}</p>
+              {%- if block.settings.cta_2_label != blank -%}
+                <a
+                  class="yaomri-hero-triple__button yaomri-hero-triple__button--secondary"
+                  {% if block.settings.cta_2_link == blank %}
+                    role="link" aria-disabled="true"
+                  {% else %}
+                    href="{{ block.settings.cta_2_link }}"
+                  {% endif %}
+                >
+                  {{ block.settings.cta_2_label | escape }}
+                </a>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div class="yaomri-hero-triple__tile yaomri-hero-triple__split-media">
+          {%- if block.settings.image != blank -%}
+            <div class="yaomri-hero-triple__media">
+              {%- assign image_height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio -%}
+              {{
+                block.settings.image
+                | image_url: width: 1800
+                | image_tag:
+                  width: block.settings.image.width,
+                  height: image_height,
+                  class: 'yaomri-hero-triple__image',
+                  sizes: '(min-width: 750px) 50vw, 100vw',
+                  widths: '375, 550, 750, 990, 1200, 1500, 1800',
+                  loading: image_loading,
+                  fetchpriority: fetch_priority
+              }}
+            </div>
+          {%- else -%}
+            <div
+              class="yaomri-hero-triple__placeholder placeholder-img"
+              data-label="{{ block.settings.placeholder_label | escape }}"
+            ></div>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  {%- else -%}
+    {%- if layout_style == 'carousel' and section.settings.show_carousel_arrows -%}
+      <div class="yaomri-hero-triple__controls">
+        <button
+          class="yaomri-hero-triple__control"
+          type="button"
+          aria-label="Previous hero image"
+          data-yaomri-hero-prev="{{ section.id }}"
+        >
+          <span aria-hidden="true">&#8249;</span>
+        </button>
+        <button
+          class="yaomri-hero-triple__control"
+          type="button"
+          aria-label="Next hero image"
+          data-yaomri-hero-next="{{ section.id }}"
+        >
+          <span aria-hidden="true">&#8250;</span>
+        </button>
+      </div>
+    {%- endif -%}
+
+    <div
+      class="yaomri-hero-triple__grid{% if layout_style == 'carousel' %} no-scrollbar{% endif %}"
+      {% if layout_style == 'carousel' %}
+        id="YaomriHeroTripleTrack-{{ section.id }}"
+      {% endif %}
+    >
+      {%- if layout_style == 'marquee' -%}
+        {%- for i in (1..2) -%}
+          {%- for block in section.blocks limit: 3 -%}
+            {%- liquid
+              assign image_loading = 'lazy'
+              assign fetch_priority = 'auto'
+              if section.index == 1 and i == 1 and forloop.first
+                assign image_loading = 'eager'
+                assign fetch_priority = 'high'
+              endif
+            -%}
+            <div class="yaomri-hero-triple__tile">
+              {%- if block.settings.image != blank -%}
+                <div class="yaomri-hero-triple__media">
+                  {%- assign image_height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio -%}
+                  {{
+                    block.settings.image
+                    | image_url: width: 1800
+                    | image_tag:
+                      width: block.settings.image.width,
+                      height: image_height,
+                      class: 'yaomri-hero-triple__image',
+                      sizes: '(min-width: 750px) 33vw, 100vw',
+                      widths: '375, 550, 750, 990, 1200, 1500, 1800',
+                      loading: image_loading,
+                      fetchpriority: fetch_priority
+                  }}
+                </div>
+              {%- else -%}
+                <div
+                  class="yaomri-hero-triple__placeholder placeholder-img"
+                  data-label="{{ block.settings.placeholder_label | escape }}"
+                ></div>
+              {%- endif -%}
+
+              {%- if section.settings.overlay_opacity > 0 -%}
+                <div class="yaomri-hero-triple__overlay"></div>
+              {%- endif -%}
+
+              {%- if block.settings.show_copy -%}
+                <div class="yaomri-hero-triple__copy">
+                  {%- if block.settings.subheading != blank -%}
+                    <p class="yaomri-hero-triple__subheading">{{ block.settings.subheading | escape }}</p>
+                  {%- endif -%}
+
+                  {%- if block.settings.headline != blank -%}
+                    <h2 class="yaomri-hero-triple__headline">{{ block.settings.headline | escape }}</h2>
+                  {%- endif -%}
+
+                  {%- if block.settings.cta_1_label != blank or block.settings.cta_2_label != blank -%}
+                    <div class="yaomri-hero-triple__actions">
+                      {%- if block.settings.cta_1_label != blank -%}
+                        <a
+                          class="yaomri-hero-triple__button yaomri-hero-triple__button--primary"
+                          {% if block.settings.cta_1_link == blank %}
+                            role="link" aria-disabled="true"
+                          {% else %}
+                            href="{{ block.settings.cta_1_link }}"
+                          {% endif %}
+                        >
+                          {{ block.settings.cta_1_label | escape }}
+                        </a>
+                      {%- endif -%}
+
+                      {%- if block.settings.cta_2_label != blank -%}
+                        <a
+                          class="yaomri-hero-triple__button yaomri-hero-triple__button--secondary"
+                          {% if block.settings.cta_2_link == blank %}
+                            role="link" aria-disabled="true"
+                          {% else %}
+                            href="{{ block.settings.cta_2_link }}"
+                          {% endif %}
+                        >
+                          {{ block.settings.cta_2_label | escape }}
+                        </a>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for block in section.blocks limit: tile_limit -%}
+          {%- liquid
+            assign image_loading = 'lazy'
+            assign fetch_priority = 'auto'
+
+            if section.index == 1
+              assign image_loading = 'eager'
+              if forloop.first
+                assign fetch_priority = 'high'
+              endif
+            endif
+          -%}
+
+          <div class="yaomri-hero-triple__tile" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              <div class="yaomri-hero-triple__media">
+                {%- assign image_height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 1800
+                  | image_tag:
+                    width: block.settings.image.width,
+                    height: image_height,
+                    class: 'yaomri-hero-triple__image',
+                    sizes: '(min-width: 750px) 33vw, 100vw',
+                    widths: '375, 550, 750, 990, 1200, 1500, 1800',
+                    loading: image_loading,
+                    fetchpriority: fetch_priority
+                }}
+              </div>
+            {%- else -%}
+              <div
+                class="yaomri-hero-triple__placeholder placeholder-img"
+                data-label="{{ block.settings.placeholder_label | escape }}"
+              ></div>
             {%- endif -%}
 
-            {%- if block.settings.headline != blank -%}
-              <h2 class="yaomri-hero-triple__headline">{{ block.settings.headline | escape }}</h2>
+            {%- if section.settings.overlay_opacity > 0 -%}
+              <div class="yaomri-hero-triple__overlay"></div>
             {%- endif -%}
 
-            {%- if block.settings.cta_1_label != blank or block.settings.cta_2_label != blank -%}
-              <div class="yaomri-hero-triple__actions">
-                {%- if block.settings.cta_1_label != blank -%}
-                  <a
-                    class="yaomri-hero-triple__button yaomri-hero-triple__button--primary"
-                    {% if block.settings.cta_1_link == blank %}
-                      role="link" aria-disabled="true"
-                    {% else %}
-                      href="{{ block.settings.cta_1_link }}"
-                    {% endif %}
-                  >
-                    {{ block.settings.cta_1_label | escape }}
-                  </a>
+            {%- if block.settings.show_copy -%}
+              <div class="yaomri-hero-triple__copy">
+                {%- if block.settings.subheading != blank -%}
+                  <p class="yaomri-hero-triple__subheading">{{ block.settings.subheading | escape }}</p>
                 {%- endif -%}
 
-                {%- if block.settings.cta_2_label != blank -%}
-                  <a
-                    class="yaomri-hero-triple__button yaomri-hero-triple__button--secondary"
-                    {% if block.settings.cta_2_link == blank %}
-                      role="link" aria-disabled="true"
-                    {% else %}
-                      href="{{ block.settings.cta_2_link }}"
-                    {% endif %}
-                  >
-                    {{ block.settings.cta_2_label | escape }}
-                  </a>
+                {%- if block.settings.headline != blank -%}
+                  <h2 class="yaomri-hero-triple__headline">{{ block.settings.headline | escape }}</h2>
+                {%- endif -%}
+
+                {%- if block.settings.cta_1_label != blank or block.settings.cta_2_label != blank -%}
+                  <div class="yaomri-hero-triple__actions">
+                    {%- if block.settings.cta_1_label != blank -%}
+                      <a
+                        class="yaomri-hero-triple__button yaomri-hero-triple__button--primary"
+                        {% if block.settings.cta_1_link == blank %}
+                          role="link" aria-disabled="true"
+                        {% else %}
+                          href="{{ block.settings.cta_1_link }}"
+                        {% endif %}
+                      >
+                        {{ block.settings.cta_1_label | escape }}
+                      </a>
+                    {%- endif -%}
+
+                    {%- if block.settings.cta_2_label != blank -%}
+                      <a
+                        class="yaomri-hero-triple__button yaomri-hero-triple__button--secondary"
+                        {% if block.settings.cta_2_link == blank %}
+                          role="link" aria-disabled="true"
+                        {% else %}
+                          href="{{ block.settings.cta_2_link }}"
+                        {% endif %}
+                      >
+                        {{ block.settings.cta_2_label | escape }}
+                      </a>
+                    {%- endif -%}
+                  </div>
                 {%- endif -%}
               </div>
             {%- endif -%}
           </div>
-        {%- endif -%}
-      </div>
-    {%- endfor -%}
-  </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  {%- endif -%}
 </section>
+
+{%- if layout_style == 'carousel' and section.settings.show_carousel_arrows -%}
+  <script>
+    (() => {
+      const section = document.getElementById('YaomriHeroTriple-{{ section.id }}');
+      if (!section || section.dataset.yaomriHeroCarouselInit === 'true') return;
+
+      const track = section.querySelector('#YaomriHeroTripleTrack-{{ section.id }}');
+      const previous = section.querySelector('[data-yaomri-hero-prev="{{ section.id }}"]');
+      const next = section.querySelector('[data-yaomri-hero-next="{{ section.id }}"]');
+      if (!track || !previous || !next) return;
+
+      const scrollByPage = (direction) => {
+        track.scrollBy({
+          left: direction * Math.max(track.clientWidth, 1),
+          behavior: 'smooth'
+        });
+      };
+
+      previous.addEventListener('click', () => scrollByPage(-1));
+      next.addEventListener('click', () => scrollByPage(1));
+      section.dataset.yaomriHeroCarouselInit = 'true';
+    })();
+  </script>
+{%- endif -%}
 
 {% schema %}
 {
@@ -110,13 +350,171 @@
   },
   "settings": [
     {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout_style",
+      "label": "Hero layout style",
+      "options": [
+        {
+          "value": "triple_campaign",
+          "label": "Three campaign tiles"
+        },
+        {
+          "value": "single_campaign",
+          "label": "Single full-width campaign"
+        },
+        {
+          "value": "split_editorial",
+          "label": "Split editorial"
+        },
+        {
+          "value": "carousel",
+          "label": "Image carousel"
+        },
+        {
+          "value": "marquee",
+          "label": "Moving marquee"
+        }
+      ],
+      "default": "triple_campaign"
+    },
+    {
+      "type": "select",
+      "id": "split_image_position",
+      "label": "Split image position",
+      "options": [
+        {
+          "value": "right",
+          "label": "Right"
+        },
+        {
+          "value": "left",
+          "label": "Left"
+        }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_carousel_arrows",
+      "label": "Show carousel arrows",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Images & overlay"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay colour",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay strength",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Text colours"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading text colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading text colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Button colours"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_background",
+      "label": "Primary button background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_text",
+      "label": "Primary button text",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_hover_background",
+      "label": "Primary button hover background",
+      "default": "#f6f4ef"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_hover_text",
+      "label": "Primary button hover text",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color_background",
+      "id": "secondary_button_background",
+      "label": "Secondary button background",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_text",
+      "label": "Secondary button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_border",
+      "label": "Secondary button border",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_hover_background",
+      "label": "Secondary button hover background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_hover_text",
+      "label": "Secondary button hover text",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_hover_border",
+      "label": "Secondary button hover border",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Sizing"
+    },
+    {
       "type": "range",
       "id": "tile_height_desktop",
       "min": 60,
       "max": 90,
       "step": 1,
       "unit": "vh",
-      "label": "Desktop tile height",
+      "label": "Desktop hero height",
       "default": 78
     },
     {
@@ -126,7 +524,7 @@
       "max": 80,
       "step": 1,
       "unit": "vh",
-      "label": "Mobile tile height",
+      "label": "Mobile hero height",
       "default": 55
     },
     {
@@ -136,7 +534,7 @@
       "max": 16,
       "step": 1,
       "unit": "px",
-      "label": "Tile gap",
+      "label": "Gap between images",
       "default": 4
     },
     {
@@ -150,14 +548,18 @@
       "default": 4
     },
     {
+      "type": "header",
+      "content": "Movement settings"
+    },
+    {
       "type": "range",
-      "id": "overlay_opacity",
-      "min": 0,
-      "max": 60,
-      "step": 5,
-      "unit": "%",
-      "label": "Overlay opacity",
-      "default": 0
+      "id": "marquee_speed",
+      "min": 10,
+      "max": 80,
+      "step": 1,
+      "unit": "s",
+      "label": "Moving marquee speed",
+      "default": 30
     }
   ],
   "blocks": [

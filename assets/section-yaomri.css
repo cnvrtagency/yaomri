@@ -54,7 +54,9 @@
 
 .yaomri-hero-triple {
   background: var(--paper);
+  overflow: hidden;
   padding-top: var(--yaomri-hero-triple-top-padding);
+  position: relative;
 }
 
 .yaomri-hero-triple__grid {
@@ -84,8 +86,9 @@
 }
 
 .yaomri-hero-triple__overlay {
-  background: rgba(0, 0, 0, var(--yaomri-hero-triple-overlay-opacity));
+  background: var(--yaomri-hero-triple-overlay-color);
   inset: 0;
+  opacity: var(--yaomri-hero-triple-overlay-opacity);
   pointer-events: none;
   position: absolute;
   z-index: 1;
@@ -93,7 +96,7 @@
 
 .yaomri-hero-triple__copy {
   bottom: 24px;
-  color: var(--paper);
+  color: var(--yaomri-hero-triple-heading-color);
   left: 24px;
   max-width: 320px;
   position: absolute;
@@ -101,7 +104,7 @@
 }
 
 .yaomri-hero-triple__subheading {
-  color: var(--paper);
+  color: var(--yaomri-hero-triple-subheading-color);
   font-size: 1.4rem;
   font-weight: 500;
   line-height: 1.35;
@@ -110,7 +113,7 @@
 }
 
 .yaomri-hero-triple__headline {
-  color: var(--paper);
+  color: var(--yaomri-hero-triple-heading-color);
   font-family: var(--font-heading-family);
   font-size: 3rem;
   font-style: italic;
@@ -130,7 +133,7 @@
 
 .yaomri-hero-triple__button {
   align-items: center;
-  border: 1px solid var(--paper);
+  border: 1px solid transparent;
   border-radius: var(--radius);
   display: inline-flex;
   font-size: 1.2rem;
@@ -147,23 +150,128 @@
 }
 
 .yaomri-hero-triple__button--primary {
-  background: var(--paper);
-  color: var(--ink);
+  background: var(--yaomri-hero-triple-primary-bg);
+  color: var(--yaomri-hero-triple-primary-text);
 }
 
 .yaomri-hero-triple__button--primary:hover {
-  background: var(--sand);
-  color: var(--ink);
+  background: var(--yaomri-hero-triple-primary-hover-bg);
+  color: var(--yaomri-hero-triple-primary-hover-text);
 }
 
 .yaomri-hero-triple__button--secondary {
-  background: transparent;
-  color: var(--paper);
+  background: var(--yaomri-hero-triple-secondary-bg);
+  border-color: var(--yaomri-hero-triple-secondary-border);
+  color: var(--yaomri-hero-triple-secondary-text);
 }
 
 .yaomri-hero-triple__button--secondary:hover {
-  background: var(--paper);
+  background: var(--yaomri-hero-triple-secondary-hover-bg);
+  border-color: var(--yaomri-hero-triple-secondary-hover-border);
+  color: var(--yaomri-hero-triple-secondary-hover-text);
+}
+
+.yaomri-hero-triple--single_campaign .yaomri-hero-triple__grid {
+  grid-template-columns: 1fr;
+}
+
+.yaomri-hero-triple--carousel .yaomri-hero-triple__grid {
+  display: grid;
+  grid-auto-columns: 100%;
+  grid-auto-flow: column;
+  grid-template-columns: none;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: x mandatory;
+}
+
+.yaomri-hero-triple--carousel .yaomri-hero-triple__tile {
+  scroll-snap-align: start;
+}
+
+.yaomri-hero-triple__controls {
+  display: flex;
+  gap: 0.8rem;
+  position: absolute;
+  right: 24px;
+  top: calc(var(--yaomri-hero-triple-top-padding) + 24px);
+  z-index: 3;
+}
+
+.yaomri-hero-triple__control {
+  align-items: center;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  border: 1px solid var(--paper);
+  border-radius: var(--radius);
   color: var(--ink);
+  display: inline-flex;
+  font-size: 2rem;
+  height: 40px;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  width: 40px;
+}
+
+.yaomri-hero-triple__control:hover {
+  background: var(--paper);
+}
+
+.yaomri-hero-triple--marquee .yaomri-hero-triple__grid {
+  animation: yaomri-hero-triple-marquee var(--yaomri-hero-triple-marquee-speed) linear infinite;
+  display: flex;
+  gap: var(--yaomri-hero-triple-gap);
+  width: max-content;
+}
+
+.yaomri-hero-triple--marquee:hover .yaomri-hero-triple__grid {
+  animation-play-state: paused;
+}
+
+.yaomri-hero-triple--marquee .yaomri-hero-triple__tile {
+  width: min(78vw, 520px);
+}
+
+.yaomri-hero-triple__split {
+  display: grid;
+  gap: var(--yaomri-hero-triple-gap);
+  grid-template-columns: 1fr;
+}
+
+.yaomri-hero-triple__split-copy {
+  align-self: center;
+  color: var(--yaomri-hero-triple-heading-color);
+  padding: 4rem 24px;
+}
+
+.yaomri-hero-triple__split-copy .yaomri-hero-triple__headline {
+  color: var(--ink);
+}
+
+.yaomri-hero-triple__split-copy .yaomri-hero-triple__subheading {
+  color: var(--muted-foreground);
+}
+
+.yaomri-hero-triple__split-copy .yaomri-hero-triple__button--secondary {
+  background: transparent;
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.yaomri-hero-triple__split-copy .yaomri-hero-triple__button--secondary:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+@keyframes yaomri-hero-triple-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
 }
 
 @media screen and (min-width: 750px) {
@@ -183,6 +291,27 @@
 
   .yaomri-hero-triple__headline {
     font-size: 5rem;
+  }
+
+  .yaomri-hero-triple--single_campaign .yaomri-hero-triple__copy {
+    max-width: 42rem;
+  }
+
+  .yaomri-hero-triple__split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .yaomri-hero-triple--split-image-left .yaomri-hero-triple__split-copy {
+    order: 2;
+  }
+
+  .yaomri-hero-triple--split-image-left .yaomri-hero-triple__split-media {
+    order: 1;
+  }
+
+  .yaomri-hero-triple__split-copy {
+    padding-left: max(24px, calc((100vw - 1500px) / 2 + 24px));
+    padding-right: 4rem;
   }
 }
 
@@ -442,7 +571,7 @@
 }
 
 .yaomri-product-carousel__track {
-  --yaomri-product-carousel-gap: 1.2rem;
+  --yaomri-product-carousel-gap: var(--yaomri-product-carousel-gap-mobile);
   display: grid;
   gap: var(--yaomri-product-carousel-gap);
   grid-auto-columns: var(--yaomri-product-card-width-mobile);
@@ -552,7 +681,7 @@
 
 @media screen and (min-width: 750px) {
   .yaomri-product-carousel__track {
-    --yaomri-product-carousel-gap: 1.6rem;
+    --yaomri-product-carousel-gap: var(--yaomri-product-carousel-gap-desktop);
     grid-auto-columns: var(--yaomri-product-card-width-tablet);
   }
 }
@@ -583,5 +712,158 @@
 
   .yaomri-product-carousel__arrows {
     gap: 0.6rem;
+  }
+}
+
+.yaomri-promo-banner {
+  background: var(--ink);
+  min-height: var(--yaomri-promo-min-height);
+  overflow: hidden;
+  position: relative;
+}
+
+.yaomri-promo-banner__media,
+.yaomri-promo-banner__placeholder {
+  height: max(var(--yaomri-promo-height-mobile), var(--yaomri-promo-min-height));
+  min-height: var(--yaomri-promo-min-height);
+  width: 100%;
+}
+
+.yaomri-promo-banner__image,
+.yaomri-promo-banner__placeholder {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.yaomri-promo-banner__overlay {
+  background: var(--yaomri-promo-overlay-color);
+  inset: 0;
+  opacity: var(--yaomri-promo-overlay-opacity);
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.yaomri-promo-banner__content-wrap {
+  align-items: flex-end;
+  display: flex;
+  inset: 0;
+  padding: 0 var(--yaomri-promo-padding-mobile) 4rem;
+  position: absolute;
+  z-index: 2;
+}
+
+.yaomri-promo-banner__content {
+  max-width: 44rem;
+}
+
+.yaomri-promo-banner__eyebrow {
+  color: var(--yaomri-promo-eyebrow-color);
+  margin: 0 0 1.2rem;
+}
+
+.yaomri-promo-banner__title {
+  color: var(--yaomri-promo-title-color);
+  font-family: var(--font-heading-family);
+  font-size: 3rem;
+  font-style: italic;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 0.95;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.yaomri-promo-banner__body {
+  color: var(--yaomri-promo-body-color);
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.45;
+  margin: 1.6rem 0 0;
+  text-transform: uppercase;
+}
+
+.yaomri-promo-banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 2.4rem;
+}
+
+.yaomri-promo-banner__button {
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  display: inline-flex;
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: 800;
+  justify-content: center;
+  letter-spacing: 0;
+  line-height: 1.2;
+  min-height: 4.2rem;
+  padding: 1.2rem 2rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color var(--duration-default) ease, border-color var(--duration-default) ease, color var(--duration-default) ease;
+}
+
+.yaomri-promo-banner__button--primary {
+  background: var(--yaomri-promo-primary-bg);
+  color: var(--yaomri-promo-primary-text);
+}
+
+.yaomri-promo-banner__button--primary:hover {
+  background: var(--yaomri-promo-primary-hover-bg);
+  color: var(--yaomri-promo-primary-hover-text);
+}
+
+.yaomri-promo-banner__button--secondary {
+  background: transparent;
+  border-color: var(--yaomri-promo-secondary-border);
+  color: var(--yaomri-promo-secondary-text);
+}
+
+.yaomri-promo-banner__button--secondary:hover {
+  background: var(--yaomri-promo-secondary-hover-bg);
+  border-color: var(--yaomri-promo-secondary-hover-border);
+  color: var(--yaomri-promo-secondary-hover-text);
+}
+
+@media screen and (min-width: 750px) {
+  .yaomri-promo-banner__media,
+  .yaomri-promo-banner__placeholder {
+    height: max(var(--yaomri-promo-height-desktop), var(--yaomri-promo-min-height));
+  }
+
+  .yaomri-promo-banner__content-wrap {
+    align-items: center;
+    padding: 0 var(--yaomri-promo-padding-desktop);
+  }
+
+  .yaomri-promo-banner--left-bottom .yaomri-promo-banner__content-wrap,
+  .yaomri-promo-banner--right-bottom .yaomri-promo-banner__content-wrap {
+    align-items: flex-end;
+    padding-bottom: 4rem;
+  }
+
+  .yaomri-promo-banner--centre-centre .yaomri-promo-banner__content-wrap {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .yaomri-promo-banner--right-centre .yaomri-promo-banner__content-wrap,
+  .yaomri-promo-banner--right-bottom .yaomri-promo-banner__content-wrap {
+    justify-content: flex-end;
+  }
+
+  .yaomri-promo-banner--centre-centre .yaomri-promo-banner__actions {
+    justify-content: center;
+  }
+
+  .yaomri-promo-banner__title {
+    font-size: 5rem;
   }
 }
