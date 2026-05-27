@@ -6,6 +6,56 @@
   assign mobile_gap_total = section.settings.products_per_row_mobile | minus: 1 | times: mobile_gap_rem
   assign tablet_gap_total = section.settings.products_per_row_tablet | minus: 1 | times: desktop_gap_rem
   assign desktop_gap_total = section.settings.products_per_row_desktop | minus: 1 | times: desktop_gap_rem
+  assign title_weight = 600
+  assign price_weight = 600
+  assign title_transform = 'uppercase'
+  assign category_transform = 'none'
+  assign image_aspect_ratio = '4 / 5'
+
+  case section.settings.product_title_weight
+    when 'regular'
+      assign title_weight = 400
+    when 'medium'
+      assign title_weight = 500
+    when 'bold'
+      assign title_weight = 700
+  endcase
+
+  case section.settings.price_weight
+    when 'regular'
+      assign price_weight = 400
+    when 'medium'
+      assign price_weight = 500
+    when 'bold'
+      assign price_weight = 700
+  endcase
+
+  case section.settings.product_title_case
+    when 'default'
+      assign title_transform = 'none'
+    when 'lowercase'
+      assign title_transform = 'lowercase'
+    when 'capitalize'
+      assign title_transform = 'capitalize'
+  endcase
+
+  case section.settings.category_label_case
+    when 'uppercase'
+      assign category_transform = 'uppercase'
+    when 'lowercase'
+      assign category_transform = 'lowercase'
+    when 'capitalize'
+      assign category_transform = 'capitalize'
+  endcase
+
+  case section.settings.image_aspect_ratio
+    when 'square'
+      assign image_aspect_ratio = '1 / 1'
+    when 'portrait_3_4'
+      assign image_aspect_ratio = '3 / 4'
+    when 'landscape_4_3'
+      assign image_aspect_ratio = '4 / 3'
+  endcase
 -%}
 
 {%- style -%}
@@ -20,6 +70,24 @@
     --yaomri-product-card-width-desktop: calc((100% - {{ desktop_gap_total }}rem) / {{ section.settings.products_per_row_desktop }});
     --yaomri-product-card-width-tablet: calc((100% - {{ tablet_gap_total }}rem) / {{ section.settings.products_per_row_tablet }});
     --yaomri-product-card-width-mobile: calc((100% - {{ mobile_gap_total }}rem) / {{ section.settings.products_per_row_mobile }});
+    --product-title-size: {{ section.settings.product_title_size | divided_by: 10.0 }}rem;
+    --product-title-weight: {{ title_weight }};
+    --product-title-style: {{ section.settings.product_title_style }};
+    --product-title-transform: {{ title_transform }};
+    --product-title-color: {{ section.settings.product_title_color }};
+    --category-size: {{ section.settings.category_label_size | divided_by: 10.0 }}rem;
+    --category-color: {{ section.settings.category_label_color }};
+    --category-transform: {{ category_transform }};
+    --price-size: {{ section.settings.price_size | divided_by: 10.0 }}rem;
+    --price-weight: {{ price_weight }};
+    --price-color: {{ section.settings.price_color }};
+    --price-style: {{ section.settings.price_style }};
+    --product-image-aspect-ratio: {{ image_aspect_ratio }};
+    --product-image-radius: {{ section.settings.product_image_radius }}px;
+    --product-badge-size: {{ section.settings.badge_text_size | divided_by: 10.0 }}rem;
+    --product-badge-bg: {{ section.settings.badge_background }};
+    --product-badge-text: {{ section.settings.badge_text_color }};
+    --product-badge-border: {{ section.settings.badge_border_color }};
   }
 {%- endstyle -%}
 
@@ -136,11 +204,17 @@
             {%- endif -%}
 
             <div class="yaomri-product-carousel__info">
-              <h3 class="yaomri-product-carousel__product-title">
-                <a href="{{ product.url }}">{{ product.title | escape }}</a>
-              </h3>
-              <p class="yaomri-product-carousel__category">{{ section.settings.category_label | escape }}</p>
-              <p class="yaomri-product-carousel__price">{{ product.price | money }}</p>
+              {%- if section.settings.show_product_title -%}
+                <h3 class="yaomri-product-carousel__product-title">
+                  <a href="{{ product.url }}">{{ product.title | escape }}</a>
+                </h3>
+              {%- endif -%}
+              {%- if section.settings.show_category_label and section.settings.category_label != blank -%}
+                <p class="yaomri-product-carousel__category">{{ section.settings.category_label | escape }}</p>
+              {%- endif -%}
+              {%- if section.settings.show_price -%}
+                <p class="yaomri-product-carousel__price">{{ product.price | money }}</p>
+              {%- endif -%}
             </div>
           </article>
         {%- endfor -%}
@@ -170,11 +244,17 @@
             {%- endif -%}
 
             <div class="yaomri-product-carousel__info">
-              <h3 class="yaomri-product-carousel__product-title">
-                <a role="link" aria-disabled="true">{{ placeholder_name | escape }}</a>
-              </h3>
-              <p class="yaomri-product-carousel__category">{{ section.settings.category_label | escape }}</p>
-              <p class="yaomri-product-carousel__price">{{ placeholder_prices[forloop.index0] }}</p>
+              {%- if section.settings.show_product_title -%}
+                <h3 class="yaomri-product-carousel__product-title">
+                  <a role="link" aria-disabled="true">{{ placeholder_name | escape }}</a>
+                </h3>
+              {%- endif -%}
+              {%- if section.settings.show_category_label and section.settings.category_label != blank -%}
+                <p class="yaomri-product-carousel__category">{{ section.settings.category_label | escape }}</p>
+              {%- endif -%}
+              {%- if section.settings.show_price -%}
+                <p class="yaomri-product-carousel__price">{{ placeholder_prices[forloop.index0] }}</p>
+              {%- endif -%}
             </div>
           </article>
         {%- endfor -%}
@@ -228,7 +308,7 @@
       "type": "text",
       "id": "title",
       "label": "Section title",
-      "default": "New In — Swimwear"
+      "default": "New In - Swimwear"
     },
     {
       "type": "header",
@@ -327,13 +407,7 @@
     },
     {
       "type": "header",
-      "content": "Product card options"
-    },
-    {
-      "type": "text",
-      "id": "category_label",
-      "label": "Category text under product name",
-      "default": "Swimwear"
+      "content": "Product card"
     },
     {
       "type": "checkbox",
@@ -350,8 +424,290 @@
     {
       "type": "checkbox",
       "id": "show_new_tag",
-      "label": "Show New tag on tagged products",
+      "label": "Show New badge",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Product text"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_title",
+      "label": "Show title",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "product_title_size",
+      "min": 10,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Title size",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "product_title_weight",
+      "label": "Title weight",
+      "options": [
+        {
+          "value": "regular",
+          "label": "Regular"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "semibold",
+          "label": "Semibold"
+        },
+        {
+          "value": "bold",
+          "label": "Bold"
+        }
+      ],
+      "default": "semibold"
+    },
+    {
+      "type": "select",
+      "id": "product_title_style",
+      "label": "Title style",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "italic",
+          "label": "Italic"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "select",
+      "id": "product_title_case",
+      "label": "Title case",
+      "options": [
+        {
+          "value": "default",
+          "label": "Default"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        },
+        {
+          "value": "lowercase",
+          "label": "Lowercase"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "color",
+      "id": "product_title_color",
+      "label": "Title colour",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "header",
+      "content": "Product category"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_category_label",
+      "label": "Show category",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "category_label",
+      "label": "Category text",
+      "default": "Swimwear"
+    },
+    {
+      "type": "range",
+      "id": "category_label_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Category size",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "category_label_color",
+      "label": "Category colour",
+      "default": "#737373"
+    },
+    {
+      "type": "select",
+      "id": "category_label_case",
+      "label": "Category case",
+      "options": [
+        {
+          "value": "default",
+          "label": "Default"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        },
+        {
+          "value": "lowercase",
+          "label": "Lowercase"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        }
+      ],
+      "default": "default"
+    },
+    {
+      "type": "header",
+      "content": "Product price"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "Show price",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "price_size",
+      "min": 10,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Price size",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "price_weight",
+      "label": "Price weight",
+      "options": [
+        {
+          "value": "regular",
+          "label": "Regular"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "semibold",
+          "label": "Semibold"
+        },
+        {
+          "value": "bold",
+          "label": "Bold"
+        }
+      ],
+      "default": "semibold"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price colour",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "select",
+      "id": "price_style",
+      "label": "Price style",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "italic",
+          "label": "Italic"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "header",
+      "content": "Product images"
+    },
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Image shape",
+      "options": [
+        {
+          "value": "portrait_4_5",
+          "label": "Portrait 4:5"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        },
+        {
+          "value": "portrait_3_4",
+          "label": "Portrait 3:4"
+        },
+        {
+          "value": "landscape_4_3",
+          "label": "Landscape 4:3"
+        }
+      ],
+      "default": "portrait_4_5"
+    },
+    {
+      "type": "range",
+      "id": "product_image_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Image corners",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Product badges"
+    },
+    {
+      "type": "range",
+      "id": "badge_text_size",
+      "min": 9,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Badge size",
+      "default": 10
+    },
+    {
+      "type": "color",
+      "id": "badge_background",
+      "label": "Badge bg",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge text",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "badge_border_color",
+      "label": "Badge border",
+      "default": "#e8e8e8"
     },
     {
       "type": "header",

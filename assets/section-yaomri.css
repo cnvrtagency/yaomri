@@ -55,6 +55,7 @@
 .yaomri-hero-triple {
   background: var(--paper);
   overflow: hidden;
+  padding-bottom: var(--yaomri-hero-triple-bottom-padding, 0);
   padding-top: var(--yaomri-hero-triple-top-padding);
   position: relative;
 }
@@ -66,15 +67,19 @@
 }
 
 .yaomri-hero-triple__tile {
-  min-height: 420px;
+  border-radius: var(--hero-image-radius, 0);
+  min-height: var(--yaomri-hero-triple-min-height, 420px);
   overflow: hidden;
   position: relative;
 }
 
 .yaomri-hero-triple__media,
 .yaomri-hero-triple__placeholder {
-  height: max(var(--yaomri-hero-triple-mobile-height), 420px);
-  min-height: 420px;
+  border-radius: var(--hero-image-radius, 0);
+  display: block;
+  height: max(var(--yaomri-hero-triple-mobile-height), var(--yaomri-hero-triple-min-height, 420px));
+  min-height: var(--yaomri-hero-triple-min-height, 420px);
+  overflow: hidden;
   width: 100%;
 }
 
@@ -86,21 +91,89 @@
 }
 
 .yaomri-hero-triple__overlay {
-  background: var(--yaomri-hero-triple-overlay-color);
+  background: var(--hero-overlay-color);
   inset: 0;
-  opacity: var(--yaomri-hero-triple-overlay-opacity);
+  opacity: var(--hero-overlay-opacity);
   pointer-events: none;
   position: absolute;
   z-index: 1;
 }
 
 .yaomri-hero-triple__copy {
-  bottom: 24px;
   color: var(--yaomri-hero-triple-heading-color);
-  left: 24px;
   max-width: 320px;
   position: absolute;
   z-index: 2;
+}
+
+.yaomri-hero-triple--align-left .yaomri-hero-triple__copy {
+  text-align: left;
+}
+
+.yaomri-hero-triple--align-center .yaomri-hero-triple__copy {
+  text-align: center;
+}
+
+.yaomri-hero-triple--align-right .yaomri-hero-triple__copy {
+  text-align: right;
+}
+
+.yaomri-hero-triple--align-center .yaomri-hero-triple__actions {
+  justify-content: center;
+}
+
+.yaomri-hero-triple--align-right .yaomri-hero-triple__actions {
+  justify-content: flex-end;
+}
+
+.yaomri-hero-triple--content-top_left .yaomri-hero-triple__copy {
+  left: 24px;
+  top: 24px;
+}
+
+.yaomri-hero-triple--content-top_center .yaomri-hero-triple__copy {
+  left: 50%;
+  top: 24px;
+  transform: translateX(-50%);
+}
+
+.yaomri-hero-triple--content-top_right .yaomri-hero-triple__copy {
+  right: 24px;
+  top: 24px;
+}
+
+.yaomri-hero-triple--content-center_left .yaomri-hero-triple__copy {
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.yaomri-hero-triple--content-center_center .yaomri-hero-triple__copy {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.yaomri-hero-triple--content-center_right .yaomri-hero-triple__copy {
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.yaomri-hero-triple--content-bottom_left .yaomri-hero-triple__copy {
+  bottom: 24px;
+  left: 24px;
+}
+
+.yaomri-hero-triple--content-bottom_center .yaomri-hero-triple__copy {
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.yaomri-hero-triple--content-bottom_right .yaomri-hero-triple__copy {
+  bottom: 24px;
+  right: 24px;
 }
 
 .yaomri-hero-triple__subheading {
@@ -121,6 +194,15 @@
   letter-spacing: 0;
   line-height: 0.95;
   margin: 0;
+  text-transform: uppercase;
+}
+
+.yaomri-hero-triple__text {
+  color: var(--yaomri-hero-triple-subheading-color);
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.45;
+  margin-top: 1.4rem;
   text-transform: uppercase;
 }
 
@@ -160,9 +242,21 @@
 }
 
 .yaomri-hero-triple__button--secondary {
-  background: var(--yaomri-hero-triple-secondary-bg);
+  background: transparent;
   border-color: var(--yaomri-hero-triple-secondary-border);
   color: var(--yaomri-hero-triple-secondary-text);
+}
+
+.yaomri-hero-triple--secondary-filled .yaomri-hero-triple__button--secondary {
+  background: var(--yaomri-hero-triple-secondary-bg);
+}
+
+.yaomri-hero-triple--secondary-text .yaomri-hero-triple__button--secondary {
+  background: transparent;
+  border-color: transparent;
+  min-height: auto;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .yaomri-hero-triple__button--secondary:hover {
@@ -171,6 +265,7 @@
   color: var(--yaomri-hero-triple-secondary-hover-text);
 }
 
+.yaomri-hero-triple--single_image .yaomri-hero-triple__grid,
 .yaomri-hero-triple--single_campaign .yaomri-hero-triple__grid {
   grid-template-columns: 1fr;
 }
@@ -240,7 +335,7 @@
 
 .yaomri-hero-triple__split-copy {
   align-self: center;
-  color: var(--yaomri-hero-triple-heading-color);
+  color: var(--ink);
   padding: 4rem 24px;
 }
 
@@ -249,6 +344,10 @@
 }
 
 .yaomri-hero-triple__split-copy .yaomri-hero-triple__subheading {
+  color: var(--muted-foreground);
+}
+
+.yaomri-hero-triple__split-copy .yaomri-hero-triple__text {
   color: var(--muted-foreground);
 }
 
@@ -279,22 +378,66 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .yaomri-hero-triple__media,
-  .yaomri-hero-triple__placeholder {
-    height: max(var(--yaomri-hero-triple-desktop-height), 420px);
+  .yaomri-hero-triple--tiles-1 .yaomri-hero-triple__grid {
+    grid-template-columns: 1fr;
   }
 
-  .yaomri-hero-triple__copy {
-    bottom: 40px;
-    left: 40px;
+  .yaomri-hero-triple--tiles-2 .yaomri-hero-triple__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .yaomri-hero-triple--carousel .yaomri-hero-triple__grid {
+    grid-template-columns: none;
+  }
+
+  .yaomri-hero-triple__media,
+  .yaomri-hero-triple__placeholder {
+    height: max(var(--yaomri-hero-triple-desktop-height), var(--yaomri-hero-triple-min-height, 420px));
   }
 
   .yaomri-hero-triple__headline {
     font-size: 5rem;
   }
 
+  .yaomri-hero-triple--single_image .yaomri-hero-triple__copy,
   .yaomri-hero-triple--single_campaign .yaomri-hero-triple__copy {
     max-width: 42rem;
+  }
+
+  .yaomri-hero-triple--content-top_left .yaomri-hero-triple__copy {
+    left: 40px;
+    top: 40px;
+  }
+
+  .yaomri-hero-triple--content-top_center .yaomri-hero-triple__copy {
+    top: 40px;
+  }
+
+  .yaomri-hero-triple--content-top_right .yaomri-hero-triple__copy {
+    right: 40px;
+    top: 40px;
+  }
+
+  .yaomri-hero-triple--content-center_left .yaomri-hero-triple__copy {
+    left: 40px;
+  }
+
+  .yaomri-hero-triple--content-center_right .yaomri-hero-triple__copy {
+    right: 40px;
+  }
+
+  .yaomri-hero-triple--content-bottom_left .yaomri-hero-triple__copy {
+    bottom: 40px;
+    left: 40px;
+  }
+
+  .yaomri-hero-triple--content-bottom_center .yaomri-hero-triple__copy {
+    bottom: 40px;
+  }
+
+  .yaomri-hero-triple--content-bottom_right .yaomri-hero-triple__copy {
+    bottom: 40px;
+    right: 40px;
   }
 
   .yaomri-hero-triple__split {
@@ -595,8 +738,9 @@
 }
 
 .yaomri-product-carousel__media {
-  aspect-ratio: 4 / 5;
+  aspect-ratio: var(--product-image-aspect-ratio, 4 / 5);
   background: var(--sand);
+  border-radius: var(--product-image-radius, 0);
   overflow: hidden;
   position: relative;
 }
@@ -610,9 +754,10 @@
 }
 
 .yaomri-product-carousel__tag {
-  background: var(--paper);
-  color: var(--ink);
-  font-size: 1.1rem;
+  background: var(--product-badge-bg, var(--paper));
+  border: 1px solid var(--product-badge-border, var(--border));
+  color: var(--product-badge-text, var(--ink));
+  font-size: var(--product-badge-size, 1rem);
   font-weight: 600;
   left: 0.8rem;
   line-height: 1;
@@ -654,29 +799,33 @@
 }
 
 .yaomri-product-carousel__product-title {
-  color: var(--ink);
-  font-size: 1.25rem;
-  font-weight: 600;
+  color: var(--product-title-color, var(--ink));
+  font-size: var(--product-title-size, 1.2rem);
+  font-style: var(--product-title-style, normal);
+  font-weight: var(--product-title-weight, 600);
   letter-spacing: 0.04em;
   line-height: 1.25;
   margin: 0;
-  text-transform: uppercase;
+  text-transform: var(--product-title-transform, uppercase);
 }
 
 .yaomri-product-carousel__category,
 .yaomri-product-carousel__price {
-  font-size: 1.2rem;
   line-height: 1.25;
   margin: 0.4rem 0 0;
 }
 
 .yaomri-product-carousel__category {
-  color: var(--muted-foreground);
+  color: var(--category-color, var(--muted-foreground));
+  font-size: var(--category-size, 1.2rem);
+  text-transform: var(--category-transform, none);
 }
 
 .yaomri-product-carousel__price {
-  color: var(--ink);
-  font-weight: 600;
+  color: var(--price-color, var(--ink));
+  font-size: var(--price-size, 1.2rem);
+  font-style: var(--price-style, normal);
+  font-weight: var(--price-weight, 600);
 }
 
 @media screen and (min-width: 750px) {
