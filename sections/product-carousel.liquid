@@ -1,0 +1,211 @@
+{{ 'section-yaomri.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #YaomriProductCarousel-{{ section.id }} {
+    --yaomri-product-carousel-padding-top: {{ section.settings.padding_top }}px;
+    --yaomri-product-carousel-padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{%- endstyle -%}
+
+<section id="YaomriProductCarousel-{{ section.id }}" class="yaomri-product-carousel">
+  <div class="yaomri-product-carousel__inner yaomri-page-width">
+    <div class="yaomri-product-carousel__header">
+      <div class="yaomri-product-carousel__title-wrap">
+        {%- if section.settings.title != blank -%}
+          <h2 class="yaomri-product-carousel__title">{{ section.settings.title | escape }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.count_label != blank -%}
+          <span class="yaomri-product-carousel__count">{{ section.settings.count_label | escape }}</span>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.show_arrows -%}
+        <div class="yaomri-product-carousel__arrows" aria-hidden="true">
+          <button class="yaomri-product-carousel__arrow" type="button" tabindex="-1">
+            <span aria-hidden="true">&#8249;</span>
+          </button>
+          <button class="yaomri-product-carousel__arrow" type="button" tabindex="-1">
+            <span aria-hidden="true">&#8250;</span>
+          </button>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="yaomri-product-carousel__track no-scrollbar" role="list">
+      {%- if section.settings.collection != blank and section.settings.collection.products.size > 0 -%}
+        {%- for product in section.settings.collection.products limit: section.settings.product_limit -%}
+          <article class="yaomri-product-carousel__card" role="listitem">
+            <a class="yaomri-product-carousel__media-link" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+              <div class="yaomri-product-carousel__media">
+                {%- if product.featured_image != blank -%}
+                  {%- assign image_height = product.featured_image.width | divided_by: product.featured_image.aspect_ratio -%}
+                  {{
+                    product.featured_image
+                    | image_url: width: 900
+                    | image_tag:
+                      width: product.featured_image.width,
+                      height: image_height,
+                      class: 'yaomri-product-carousel__image',
+                      sizes: '(min-width: 990px) 20vw, (min-width: 750px) 25vw, 50vw',
+                      widths: '180, 240, 320, 420, 550, 720, 900',
+                      loading: 'lazy'
+                  }}
+                {%- else -%}
+                  <div
+                    class="yaomri-product-carousel__placeholder placeholder-img"
+                    data-label="{{ product.title | escape }}"
+                  ></div>
+                {%- endif -%}
+
+                {%- if section.settings.show_new_tag and product.tags contains 'New' -%}
+                  <span class="yaomri-product-carousel__tag">New</span>
+                {%- endif -%}
+              </div>
+            </a>
+
+            {%- if section.settings.show_wishlist -%}
+              <button
+                class="yaomri-product-carousel__wishlist"
+                type="button"
+                aria-label="Add {{ product.title | escape }} to wishlist"
+              >
+                <span aria-hidden="true">&#9825;</span>
+              </button>
+            {%- endif -%}
+
+            <div class="yaomri-product-carousel__info">
+              <h3 class="yaomri-product-carousel__product-title">
+                <a href="{{ product.url }}">{{ product.title | escape }}</a>
+              </h3>
+              <p class="yaomri-product-carousel__category">{{ section.settings.category_label | escape }}</p>
+              <p class="yaomri-product-carousel__price">{{ product.price | money }}</p>
+            </div>
+          </article>
+        {%- endfor -%}
+      {%- else -%}
+        {%- liquid
+          assign placeholder_names = 'Solara Bikini Set|Amara One Piece|Capri Cover-Up|Isla Triangle Bikini|Mira Wrap One Piece' | split: '|'
+          assign placeholder_prices = 'AED 720|AED 890|AED 1,120|AED 680|AED 940' | split: '|'
+        -%}
+
+        {%- for placeholder_name in placeholder_names -%}
+          <article class="yaomri-product-carousel__card" role="listitem">
+            <div class="yaomri-product-carousel__media">
+              <div
+                class="yaomri-product-carousel__placeholder placeholder-img"
+                data-label="{{ placeholder_name | escape }}"
+              ></div>
+            </div>
+
+            {%- if section.settings.show_wishlist -%}
+              <button
+                class="yaomri-product-carousel__wishlist"
+                type="button"
+                aria-label="Add {{ placeholder_name | escape }} to wishlist"
+              >
+                <span aria-hidden="true">&#9825;</span>
+              </button>
+            {%- endif -%}
+
+            <div class="yaomri-product-carousel__info">
+              <h3 class="yaomri-product-carousel__product-title">
+                <a role="link" aria-disabled="true">{{ placeholder_name | escape }}</a>
+              </h3>
+              <p class="yaomri-product-carousel__category">{{ section.settings.category_label | escape }}</p>
+              <p class="yaomri-product-carousel__price">{{ placeholder_prices[forloop.index0] }}</p>
+            </div>
+          </article>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Carousel",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "New In — Swimwear"
+    },
+    {
+      "type": "text",
+      "id": "count_label",
+      "label": "Count label",
+      "default": "24 pieces"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "label": "Product limit",
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "category_label",
+      "label": "Category label",
+      "default": "Swimwear"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_wishlist",
+      "label": "Show wishlist button",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_new_tag",
+      "label": "Show New tag",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 24,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 24,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 56
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Carousel"
+    }
+  ]
+}
+{% endschema %}

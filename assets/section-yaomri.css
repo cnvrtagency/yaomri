@@ -247,3 +247,220 @@
     white-space: normal;
   }
 }
+
+.yaomri-product-carousel {
+  background: var(--paper);
+  border-top: 1px solid var(--border);
+  color: var(--ink);
+}
+
+.yaomri-product-carousel__inner {
+  padding-bottom: var(--yaomri-product-carousel-padding-bottom);
+  padding-top: var(--yaomri-product-carousel-padding-top);
+}
+
+.yaomri-product-carousel__header {
+  align-items: flex-end;
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.yaomri-product-carousel__title-wrap {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  min-width: 0;
+}
+
+.yaomri-product-carousel__title {
+  color: var(--ink);
+  font-family: var(--font-heading-family);
+  font-size: 2rem;
+  font-style: italic;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.1;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.yaomri-product-carousel__count {
+  color: var(--muted-foreground);
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.yaomri-product-carousel__arrows {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 0.8rem;
+}
+
+.yaomri-product-carousel__arrow {
+  align-items: center;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--ink);
+  display: inline-flex;
+  font-size: 2rem;
+  height: 36px;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  width: 36px;
+}
+
+.yaomri-product-carousel__arrow:hover {
+  background: var(--secondary);
+}
+
+.yaomri-product-carousel__track {
+  display: grid;
+  gap: 1.2rem;
+  grid-auto-columns: calc((100% - 1.2rem) / 2);
+  grid-auto-flow: column;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: x mandatory;
+}
+
+.yaomri-product-carousel__card {
+  background: var(--paper);
+  min-width: 0;
+  position: relative;
+  scroll-snap-align: start;
+}
+
+.yaomri-product-carousel__media-link,
+.yaomri-product-carousel__product-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.yaomri-product-carousel__media {
+  aspect-ratio: 4 / 5;
+  background: var(--sand);
+  overflow: hidden;
+  position: relative;
+}
+
+.yaomri-product-carousel__image,
+.yaomri-product-carousel__placeholder {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.yaomri-product-carousel__tag {
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 1.1rem;
+  font-weight: 600;
+  left: 0.8rem;
+  line-height: 1;
+  padding: 0.5rem 0.7rem;
+  position: absolute;
+  text-transform: uppercase;
+  top: 0.8rem;
+  z-index: 1;
+}
+
+.yaomri-product-carousel__wishlist {
+  align-items: center;
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  border: 0;
+  border-radius: var(--radius);
+  color: var(--ink);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 2rem;
+  height: 3.6rem;
+  justify-content: center;
+  line-height: 1;
+  opacity: 1;
+  padding: 0;
+  position: absolute;
+  right: 0.8rem;
+  top: 0.8rem;
+  transition: opacity var(--duration-default) ease, background-color var(--duration-default) ease;
+  width: 3.6rem;
+  z-index: 2;
+}
+
+.yaomri-product-carousel__wishlist:hover {
+  background: var(--paper);
+}
+
+.yaomri-product-carousel__info {
+  margin-top: 1.2rem;
+}
+
+.yaomri-product-carousel__product-title {
+  color: var(--ink);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.yaomri-product-carousel__category,
+.yaomri-product-carousel__price {
+  font-size: 1.2rem;
+  line-height: 1.25;
+  margin: 0.4rem 0 0;
+}
+
+.yaomri-product-carousel__category {
+  color: var(--muted-foreground);
+}
+
+.yaomri-product-carousel__price {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@media screen and (min-width: 750px) {
+  .yaomri-product-carousel__track {
+    gap: 1.6rem;
+    grid-auto-columns: calc((100% - 4.8rem) / 4);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .yaomri-product-carousel__title {
+    font-size: 2.4rem;
+  }
+
+  .yaomri-product-carousel__track {
+    grid-auto-columns: calc((100% - 6.4rem) / 5);
+  }
+
+  .yaomri-product-carousel__wishlist {
+    opacity: 0;
+  }
+
+  .yaomri-product-carousel__card:hover .yaomri-product-carousel__wishlist,
+  .yaomri-product-carousel__wishlist:focus-visible {
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .yaomri-product-carousel__header {
+    align-items: center;
+  }
+
+  .yaomri-product-carousel__arrows {
+    gap: 0.6rem;
+  }
+}
