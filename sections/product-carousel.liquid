@@ -7,6 +7,16 @@
   }
 {%- endstyle -%}
 
+{%- liquid
+  assign display_count_label = section.settings.count_label | default: '24 pieces'
+
+  if section.settings.count_mode == 'automatic' and section.settings.collection != blank
+    assign product_count = section.settings.collection.all_products_count
+    assign count_format = section.settings.count_format | default: '{{ count }} pieces'
+    assign display_count_label = count_format | replace: '{{ count }}', product_count
+  endif
+-%}
+
 <section id="YaomriProductCarousel-{{ section.id }}" class="yaomri-product-carousel">
   <div class="yaomri-product-carousel__inner yaomri-page-width">
     <div class="yaomri-product-carousel__header">
@@ -15,24 +25,38 @@
           <h2 class="yaomri-product-carousel__title">{{ section.settings.title | escape }}</h2>
         {%- endif -%}
 
-        {%- if section.settings.count_label != blank -%}
-          <span class="yaomri-product-carousel__count">{{ section.settings.count_label | escape }}</span>
+        {%- if display_count_label != blank -%}
+          <span class="yaomri-product-carousel__count">{{ display_count_label | escape }}</span>
         {%- endif -%}
       </div>
 
       {%- if section.settings.show_arrows -%}
-        <div class="yaomri-product-carousel__arrows" aria-hidden="true">
-          <button class="yaomri-product-carousel__arrow" type="button" tabindex="-1">
+        <div class="yaomri-product-carousel__arrows">
+          <button
+            class="yaomri-product-carousel__arrow"
+            type="button"
+            aria-label="Previous products"
+            data-yaomri-carousel-prev="{{ section.id }}"
+          >
             <span aria-hidden="true">&#8249;</span>
           </button>
-          <button class="yaomri-product-carousel__arrow" type="button" tabindex="-1">
+          <button
+            class="yaomri-product-carousel__arrow"
+            type="button"
+            aria-label="Next products"
+            data-yaomri-carousel-next="{{ section.id }}"
+          >
             <span aria-hidden="true">&#8250;</span>
           </button>
         </div>
       {%- endif -%}
     </div>
 
-    <div class="yaomri-product-carousel__track no-scrollbar" role="list">
+    <div
+      class="yaomri-product-carousel__track no-scrollbar"
+      id="YaomriProductCarouselTrack-{{ section.id }}"
+      role="list"
+    >
       {%- if section.settings.collection != blank and section.settings.collection.products.size > 0 -%}
         {%- for product in section.settings.collection.products limit: section.settings.product_limit -%}
           <article class="yaomri-product-carousel__card" role="listitem">
@@ -122,6 +146,30 @@
   </div>
 </section>
 
+{%- if section.settings.show_arrows -%}
+  <script>
+    (() => {
+      const section = document.getElementById('YaomriProductCarousel-{{ section.id }}');
+      if (!section) return;
+
+      const track = section.querySelector('#YaomriProductCarouselTrack-{{ section.id }}');
+      const previous = section.querySelector('[data-yaomri-carousel-prev="{{ section.id }}"]');
+      const next = section.querySelector('[data-yaomri-carousel-next="{{ section.id }}"]');
+      if (!track || !previous || !next) return;
+
+      const scrollByPage = (direction) => {
+        track.scrollBy({
+          left: direction * Math.max(track.clientWidth * 0.9, 1),
+          behavior: 'smooth'
+        });
+      };
+
+      previous.addEventListener('click', () => scrollByPage(-1));
+      next.addEventListener('click', () => scrollByPage(1));
+    })();
+  </script>
+{%- endif -%}
+
 {% schema %}
 {
   "name": "Product Carousel",
@@ -140,8 +188,31 @@
     {
       "type": "text",
       "id": "count_label",
-      "label": "Count label",
+      "label": "Manual count label",
       "default": "24 pieces"
+    },
+    {
+      "type": "select",
+      "id": "count_mode",
+      "label": "Count mode",
+      "options": [
+        {
+          "value": "automatic",
+          "label": "Automatic"
+        },
+        {
+          "value": "manual",
+          "label": "Manual"
+        }
+      ],
+      "default": "automatic"
+    },
+    {
+      "type": "text",
+      "id": "count_format",
+      "label": "Automatic count format",
+      "default": "{{ count }} pieces",
+      "info": "Use {{ count }} where the collection product count should appear."
     },
     {
       "type": "collection",
@@ -184,8 +255,8 @@
     {
       "type": "range",
       "id": "padding_top",
-      "min": 24,
-      "max": 96,
+      "min": 0,
+      "max": 120,
       "step": 4,
       "unit": "px",
       "label": "Top padding",
@@ -194,8 +265,8 @@
     {
       "type": "range",
       "id": "padding_bottom",
-      "min": 24,
-      "max": 96,
+      "min": 0,
+      "max": 120,
       "step": 4,
       "unit": "px",
       "label": "Bottom padding",

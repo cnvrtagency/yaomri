@@ -2,24 +2,114 @@
 
 {%- style -%}
   #YaomriBrandStrip-{{ section.id }} {
-    --yaomri-brand-strip-padding: {{ section.settings.padding_vertical }}px;
+    --yaomri-brand-strip-background: {{ section.settings.background_color }};
+    --yaomri-brand-strip-text: {{ section.settings.text_color }};
+    --yaomri-brand-strip-separator: {{ section.settings.separator_color }};
+    --yaomri-brand-strip-font-size-desktop: {{ section.settings.font_size_desktop }}px;
+    --yaomri-brand-strip-font-size-mobile: {{ section.settings.font_size_mobile }}px;
+    --yaomri-brand-strip-padding-desktop: {{ section.settings.padding_y_desktop }}px;
+    --yaomri-brand-strip-padding-mobile: {{ section.settings.padding_y_mobile }}px;
+    --yaomri-brand-strip-gap-desktop: {{ section.settings.gap_desktop }}px;
+    --yaomri-brand-strip-gap-mobile: {{ section.settings.gap_mobile }}px;
+    --yaomri-brand-strip-marquee-speed: {{ section.settings.marquee_speed }}s;
   }
 {%- endstyle -%}
 
-<section id="YaomriBrandStrip-{{ section.id }}" class="yaomri-brand-strip">
-  <div class="yaomri-brand-strip__inner yaomri-page-width">
-    {%- for block in section.blocks limit: 6 -%}
-      {%- if block.settings.text != blank -%}
-        <div class="yaomri-brand-strip__item" {{ block.shopify_attributes }}>
-          <span class="yaomri-brand-strip__text">{{ block.settings.text | escape }}</span>
-          {%- unless forloop.last -%}
-            <span class="yaomri-brand-strip__dot" aria-hidden="true"></span>
-          {%- endunless -%}
-        </div>
-      {%- endif -%}
-    {%- endfor -%}
-  </div>
+<section
+  id="YaomriBrandStrip-{{ section.id }}"
+  class="yaomri-brand-strip yaomri-brand-strip--{{ section.settings.display_mode }}"
+>
+  {%- if section.settings.display_mode == 'marquee' -%}
+    <div class="yaomri-brand-strip__marquee" aria-label="Brand statements">
+      <div class="yaomri-brand-strip__marquee-track">
+        {%- for i in (1..3) -%}
+          {%- for block in section.blocks limit: 6 -%}
+            {%- if block.settings.text != blank -%}
+              <div class="yaomri-brand-strip__item">
+                <span class="yaomri-brand-strip__text">{{ block.settings.text | escape }}</span>
+                <span class="yaomri-brand-strip__dot" aria-hidden="true"></span>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- elsif section.settings.display_mode == 'carousel' -%}
+    <div class="yaomri-brand-strip__carousel-wrap">
+      <button
+        class="yaomri-brand-strip__control"
+        type="button"
+        aria-label="Previous brand statements"
+        data-yaomri-brand-prev="{{ section.id }}"
+      >
+        <span aria-hidden="true">&#8249;</span>
+      </button>
+
+      <div
+        class="yaomri-brand-strip__carousel no-scrollbar"
+        id="YaomriBrandStripTrack-{{ section.id }}"
+        role="list"
+      >
+        {%- for block in section.blocks limit: 6 -%}
+          {%- if block.settings.text != blank -%}
+            <div class="yaomri-brand-strip__item" role="listitem" {{ block.shopify_attributes }}>
+              <span class="yaomri-brand-strip__text">{{ block.settings.text | escape }}</span>
+              {%- unless forloop.last -%}
+                <span class="yaomri-brand-strip__dot" aria-hidden="true"></span>
+              {%- endunless -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <button
+        class="yaomri-brand-strip__control"
+        type="button"
+        aria-label="Next brand statements"
+        data-yaomri-brand-next="{{ section.id }}"
+      >
+        <span aria-hidden="true">&#8250;</span>
+      </button>
+    </div>
+  {%- else -%}
+    <div class="yaomri-brand-strip__inner yaomri-page-width">
+      {%- for block in section.blocks limit: 6 -%}
+        {%- if block.settings.text != blank -%}
+          <div class="yaomri-brand-strip__item" {{ block.shopify_attributes }}>
+            <span class="yaomri-brand-strip__text">{{ block.settings.text | escape }}</span>
+            {%- unless forloop.last -%}
+              <span class="yaomri-brand-strip__dot" aria-hidden="true"></span>
+            {%- endunless -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
 </section>
+
+{%- if section.settings.display_mode == 'carousel' -%}
+  <script>
+    (() => {
+      const section = document.getElementById('YaomriBrandStrip-{{ section.id }}');
+      if (!section) return;
+
+      const track = section.querySelector('#YaomriBrandStripTrack-{{ section.id }}');
+      const previous = section.querySelector('[data-yaomri-brand-prev="{{ section.id }}"]');
+      const next = section.querySelector('[data-yaomri-brand-next="{{ section.id }}"]');
+      if (!track || !previous || !next) return;
+
+      const scrollByPage = (direction) => {
+        track.scrollBy({
+          left: direction * Math.max(track.clientWidth * 0.8, 1),
+          behavior: 'smooth'
+        });
+      };
+
+      previous.addEventListener('click', () => scrollByPage(-1));
+      next.addEventListener('click', () => scrollByPage(1));
+    })();
+  </script>
+{%- endif -%}
 
 {% schema %}
 {
@@ -32,14 +122,112 @@
   },
   "settings": [
     {
+      "type": "select",
+      "id": "display_mode",
+      "label": "Display mode",
+      "options": [
+        {
+          "value": "static",
+          "label": "Static"
+        },
+        {
+          "value": "marquee",
+          "label": "Marquee"
+        },
+        {
+          "value": "carousel",
+          "label": "Carousel"
+        }
+      ],
+      "default": "static"
+    },
+    {
       "type": "range",
-      "id": "padding_vertical",
-      "min": 8,
-      "max": 32,
+      "id": "marquee_speed",
+      "min": 10,
+      "max": 80,
+      "step": 1,
+      "unit": "s",
+      "label": "Marquee speed",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "font_size_desktop",
+      "min": 10,
+      "max": 24,
       "step": 1,
       "unit": "px",
-      "label": "Vertical padding",
+      "label": "Desktop font size",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile font size",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "padding_y_desktop",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "Desktop vertical padding",
       "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_y_mobile",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile vertical padding",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "gap_desktop",
+      "min": 8,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "label": "Desktop gap",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "min": 8,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile gap",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "separator_color",
+      "label": "Separator",
+      "default": "#ffffff"
     }
   ],
   "blocks": [
