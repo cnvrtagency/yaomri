@@ -1,19 +1,52 @@
 {{ 'section-yaomri.css' | asset_url | stylesheet_tag }}
 
+{%- liquid
+  assign mobile_gap_total = section.settings.products_per_row_mobile | minus: 1 | times: 1.2
+  assign tablet_gap_total = section.settings.products_per_row_tablet | minus: 1 | times: 1.6
+  assign desktop_gap_total = section.settings.products_per_row_desktop | minus: 1 | times: 1.6
+-%}
+
 {%- style -%}
   #YaomriProductCarousel-{{ section.id }} {
     --yaomri-product-carousel-padding-top: {{ section.settings.padding_top }}px;
     --yaomri-product-carousel-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --yaomri-products-desktop: {{ section.settings.products_per_row_desktop }};
+    --yaomri-products-tablet: {{ section.settings.products_per_row_tablet }};
+    --yaomri-products-mobile: {{ section.settings.products_per_row_mobile }};
+    --yaomri-product-card-width-desktop: calc((100% - {{ desktop_gap_total }}rem) / {{ section.settings.products_per_row_desktop }});
+    --yaomri-product-card-width-tablet: calc((100% - {{ tablet_gap_total }}rem) / {{ section.settings.products_per_row_tablet }});
+    --yaomri-product-card-width-mobile: calc((100% - {{ mobile_gap_total }}rem) / {{ section.settings.products_per_row_mobile }});
   }
 {%- endstyle -%}
 
 {%- liquid
-  assign display_count_label = section.settings.count_label | default: '24 pieces'
+  assign display_count_label = ''
 
-  if section.settings.count_mode == 'automatic' and section.settings.collection != blank
+  if section.settings.count_mode == 'automatic_count'
+    assign display_count_label = section.settings.count_label
+    if section.settings.collection != blank
+      assign product_count = section.settings.collection.all_products_count
+      assign display_count_label = product_count | append: ' pieces'
+    endif
+  elsif section.settings.count_mode == 'custom_label'
+    assign display_count_label = section.settings.count_label
+  endif
+
+  if display_count_label == blank and section.settings.count_mode == 'automatic_count' and section.settings.collection == blank
+    assign display_count_label = ''
+  endif
+
+  if section.settings.count_mode == 'hidden'
+    assign display_count_label = ''
+  endif
+
+  if section.settings.count_mode == blank
+    assign display_count_label = section.settings.count_label | default: '24 pieces'
+  elsif section.settings.count_mode == 'automatic' and section.settings.collection != blank
     assign product_count = section.settings.collection.all_products_count
-    assign count_format = section.settings.count_format | default: '{{ count }} pieces'
-    assign display_count_label = count_format | replace: '{{ count }}', product_count
+    assign display_count_label = product_count | append: ' pieces'
+  elsif section.settings.count_mode == 'manual'
+    assign display_count_label = section.settings.count_label
   endif
 -%}
 
@@ -158,8 +191,12 @@
       if (!track || !previous || !next) return;
 
       const scrollByPage = (direction) => {
+        const firstCard = track.querySelector('.yaomri-product-carousel__card');
+        const cardWidth = firstCard ? firstCard.getBoundingClientRect().width : 0;
+        const scrollAmount = cardWidth > 0 ? Math.max(cardWidth, track.clientWidth - cardWidth) : track.clientWidth * 0.9;
+
         track.scrollBy({
-          left: direction * Math.max(track.clientWidth * 0.9, 1),
+          left: direction * Math.max(scrollAmount, 1),
           behavior: 'smooth'
         });
       };
@@ -174,50 +211,55 @@
 {
   "name": "Product Carousel",
   "tag": "section",
-  "class": "section",
+  "class": "section yaomri-product-carousel-section",
   "disabled_on": {
     "groups": ["header", "footer"]
   },
   "settings": [
     {
+      "type": "header",
+      "content": "Content"
+    },
+    {
       "type": "text",
       "id": "title",
-      "label": "Title",
+      "label": "Section title",
       "default": "New In — Swimwear"
+    },
+    {
+      "type": "header",
+      "content": "Collection & product count"
     },
     {
       "type": "text",
       "id": "count_label",
-      "label": "Manual count label",
+      "label": "Custom count text",
       "default": "24 pieces"
     },
     {
       "type": "select",
       "id": "count_mode",
-      "label": "Count mode",
+      "label": "Product count display",
       "options": [
         {
-          "value": "automatic",
-          "label": "Automatic"
+          "value": "automatic_count",
+          "label": "Automatically show product count"
         },
         {
-          "value": "manual",
-          "label": "Manual"
+          "value": "custom_label",
+          "label": "Use custom text"
+        },
+        {
+          "value": "hidden",
+          "label": "Hide count"
         }
       ],
-      "default": "automatic"
-    },
-    {
-      "type": "text",
-      "id": "count_format",
-      "label": "Automatic count format",
-      "default": "{{ count }} pieces",
-      "info": "Use {{ count }} where the collection product count should appear."
+      "default": "automatic_count"
     },
     {
       "type": "collection",
       "id": "collection",
-      "label": "Collection"
+      "label": "Products collection"
     },
     {
       "type": "range",
@@ -225,32 +267,71 @@
       "min": 4,
       "max": 12,
       "step": 1,
-      "label": "Product limit",
+      "label": "Maximum products to show",
       "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "products_per_row_desktop",
+      "min": 3,
+      "max": 6,
+      "step": 1,
+      "label": "Desktop products visible",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "products_per_row_tablet",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "label": "Tablet products visible",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "products_per_row_mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Mobile products visible",
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Product card options"
     },
     {
       "type": "text",
       "id": "category_label",
-      "label": "Category label",
+      "label": "Category text under product name",
       "default": "Swimwear"
     },
     {
       "type": "checkbox",
       "id": "show_wishlist",
-      "label": "Show wishlist button",
+      "label": "Show wishlist heart",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_arrows",
-      "label": "Show arrows",
+      "label": "Show carousel arrows",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_new_tag",
-      "label": "Show New tag",
+      "label": "Show New tag on tagged products",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
     },
     {
       "type": "range",

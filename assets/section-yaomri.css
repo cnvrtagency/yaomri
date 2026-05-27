@@ -206,7 +206,7 @@
   align-items: center;
   display: inline-flex;
   flex: 0 0 auto;
-  gap: var(--yaomri-brand-strip-gap-desktop);
+  gap: var(--yaomri-brand-strip-separator-spacing);
 }
 
 .yaomri-brand-strip__text {
@@ -220,12 +220,28 @@
   white-space: nowrap;
 }
 
-.yaomri-brand-strip__dot {
-  background: var(--yaomri-brand-strip-separator);
-  display: inline-block;
+.yaomri-brand-strip__separator {
+  align-items: center;
+  color: var(--yaomri-brand-strip-separator);
+  display: inline-flex;
   flex: 0 0 auto;
-  height: 1px;
-  width: 1px;
+  font-size: var(--yaomri-brand-strip-separator-size);
+  font-style: normal;
+  font-weight: 800;
+  height: var(--yaomri-brand-strip-separator-size);
+  justify-content: center;
+  line-height: 1;
+  min-width: var(--yaomri-brand-strip-separator-size);
+}
+
+.yaomri-brand-strip--separator-dot .yaomri-brand-strip__separator {
+  background: var(--yaomri-brand-strip-separator);
+  color: transparent;
+  width: var(--yaomri-brand-strip-separator-size);
+}
+
+.yaomri-brand-strip--separator-none .yaomri-brand-strip__separator {
+  display: none;
 }
 
 .yaomri-brand-strip__marquee {
@@ -310,12 +326,12 @@
   }
 
   .yaomri-brand-strip__item {
-    gap: var(--yaomri-brand-strip-gap-mobile);
+    gap: var(--yaomri-brand-strip-separator-spacing);
     display: flex;
     justify-content: center;
   }
 
-  .yaomri-brand-strip__dot {
+  .yaomri-brand-strip--static .yaomri-brand-strip__separator {
     display: none;
   }
 
@@ -352,6 +368,10 @@
   background: var(--paper);
   border-top: 1px solid var(--border);
   color: var(--ink);
+}
+
+.yaomri-product-carousel-section {
+  margin-top: 0 !important;
 }
 
 .yaomri-product-carousel__inner {
@@ -422,9 +442,10 @@
 }
 
 .yaomri-product-carousel__track {
+  --yaomri-product-carousel-gap: 1.2rem;
   display: grid;
-  gap: 1.2rem;
-  grid-auto-columns: calc((100% - 1.2rem) / 2);
+  gap: var(--yaomri-product-carousel-gap);
+  grid-auto-columns: var(--yaomri-product-card-width-mobile);
   grid-auto-flow: column;
   overflow-x: auto;
   overscroll-behavior-inline: contain;
@@ -531,8 +552,8 @@
 
 @media screen and (min-width: 750px) {
   .yaomri-product-carousel__track {
-    gap: 1.6rem;
-    grid-auto-columns: calc((100% - 4.8rem) / 4);
+    --yaomri-product-carousel-gap: 1.6rem;
+    grid-auto-columns: var(--yaomri-product-card-width-tablet);
   }
 }
 
@@ -542,7 +563,7 @@
   }
 
   .yaomri-product-carousel__track {
-    grid-auto-columns: calc((100% - 6.4rem) / 5);
+    grid-auto-columns: var(--yaomri-product-card-width-desktop);
   }
 
   .yaomri-product-carousel__wishlist {

@@ -12,12 +12,23 @@
     --yaomri-brand-strip-gap-desktop: {{ section.settings.gap_desktop }}px;
     --yaomri-brand-strip-gap-mobile: {{ section.settings.gap_mobile }}px;
     --yaomri-brand-strip-marquee-speed: {{ section.settings.marquee_speed }}s;
+    --yaomri-brand-strip-separator-size: {{ section.settings.separator_size }}px;
+    --yaomri-brand-strip-separator-spacing: {{ section.settings.separator_spacing }}px;
   }
 {%- endstyle -%}
 
+{%- liquid
+  assign separator_character = ''
+  if section.settings.separator_style == 'pipe'
+    assign separator_character = '|'
+  elsif section.settings.separator_style == 'dash'
+    assign separator_character = '-'
+  endif
+-%}
+
 <section
   id="YaomriBrandStrip-{{ section.id }}"
-  class="yaomri-brand-strip yaomri-brand-strip--{{ section.settings.display_mode }}"
+  class="yaomri-brand-strip yaomri-brand-strip--{{ section.settings.display_mode }} yaomri-brand-strip--separator-{{ section.settings.separator_style }}"
 >
   {%- if section.settings.display_mode == 'marquee' -%}
     <div class="yaomri-brand-strip__marquee" aria-label="Brand statements">
@@ -27,7 +38,13 @@
             {%- if block.settings.text != blank -%}
               <div class="yaomri-brand-strip__item">
                 <span class="yaomri-brand-strip__text">{{ block.settings.text | escape }}</span>
-                <span class="yaomri-brand-strip__dot" aria-hidden="true"></span>
+                {%- unless section.settings.separator_style == 'none' -%}
+                  <span class="yaomri-brand-strip__separator" aria-hidden="true">
+                    {%- unless section.settings.separator_style == 'dot' -%}
+                      {{- separator_character -}}
+                    {%- endunless -%}
+                  </span>
+                {%- endunless -%}
               </div>
             {%- endif -%}
           {%- endfor -%}
@@ -54,8 +71,12 @@
           {%- if block.settings.text != blank -%}
             <div class="yaomri-brand-strip__item" role="listitem" {{ block.shopify_attributes }}>
               <span class="yaomri-brand-strip__text">{{ block.settings.text | escape }}</span>
-              {%- unless forloop.last -%}
-                <span class="yaomri-brand-strip__dot" aria-hidden="true"></span>
+              {%- unless forloop.last or section.settings.separator_style == 'none' -%}
+                <span class="yaomri-brand-strip__separator" aria-hidden="true">
+                  {%- unless section.settings.separator_style == 'dot' -%}
+                    {{- separator_character -}}
+                  {%- endunless -%}
+                </span>
               {%- endunless -%}
             </div>
           {%- endif -%}
@@ -77,8 +98,12 @@
         {%- if block.settings.text != blank -%}
           <div class="yaomri-brand-strip__item" {{ block.shopify_attributes }}>
             <span class="yaomri-brand-strip__text">{{ block.settings.text | escape }}</span>
-            {%- unless forloop.last -%}
-              <span class="yaomri-brand-strip__dot" aria-hidden="true"></span>
+            {%- unless forloop.last or section.settings.separator_style == 'none' -%}
+              <span class="yaomri-brand-strip__separator" aria-hidden="true">
+                {%- unless section.settings.separator_style == 'dot' -%}
+                  {{- separator_character -}}
+                {%- endunless -%}
+              </span>
             {%- endunless -%}
           </div>
         {%- endif -%}
@@ -90,23 +115,33 @@
 {%- if section.settings.display_mode == 'carousel' -%}
   <script>
     (() => {
-      const section = document.getElementById('YaomriBrandStrip-{{ section.id }}');
-      if (!section) return;
+      const initBrandStripCarousel = () => {
+        const section = document.getElementById('YaomriBrandStrip-{{ section.id }}');
+        if (!section || section.dataset.yaomriBrandCarouselInit === 'true') return;
 
-      const track = section.querySelector('#YaomriBrandStripTrack-{{ section.id }}');
-      const previous = section.querySelector('[data-yaomri-brand-prev="{{ section.id }}"]');
-      const next = section.querySelector('[data-yaomri-brand-next="{{ section.id }}"]');
-      if (!track || !previous || !next) return;
+        const track = section.querySelector('#YaomriBrandStripTrack-{{ section.id }}');
+        const previous = section.querySelector('[data-yaomri-brand-prev="{{ section.id }}"]');
+        const next = section.querySelector('[data-yaomri-brand-next="{{ section.id }}"]');
+        if (!track || !previous || !next) return;
 
-      const scrollByPage = (direction) => {
-        track.scrollBy({
-          left: direction * Math.max(track.clientWidth * 0.8, 1),
-          behavior: 'smooth'
-        });
+        const scrollByPage = (direction) => {
+          const firstItem = track.querySelector('.yaomri-brand-strip__item');
+          const itemWidth = firstItem ? firstItem.getBoundingClientRect().width : 0;
+          const scrollAmount = itemWidth > 0 ? Math.max(itemWidth, track.clientWidth * 0.8) : track.clientWidth * 0.8;
+
+          track.scrollBy({
+            left: direction * Math.max(scrollAmount, 1),
+            behavior: 'smooth'
+          });
+        };
+
+        previous.addEventListener('click', () => scrollByPage(-1));
+        next.addEventListener('click', () => scrollByPage(1));
+        section.dataset.yaomriBrandCarouselInit = 'true';
       };
 
-      previous.addEventListener('click', () => scrollByPage(-1));
-      next.addEventListener('click', () => scrollByPage(1));
+      initBrandStripCarousel();
+      document.addEventListener('shopify:section:load', initBrandStripCarousel);
     })();
   </script>
 {%- endif -%}
@@ -122,9 +157,17 @@
   },
   "settings": [
     {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "header",
+      "content": "Display mode"
+    },
+    {
       "type": "select",
       "id": "display_mode",
-      "label": "Display mode",
+      "label": "Display style",
       "options": [
         {
           "value": "static",
@@ -142,14 +185,22 @@
       "default": "static"
     },
     {
+      "type": "header",
+      "content": "Marquee settings"
+    },
+    {
       "type": "range",
       "id": "marquee_speed",
       "min": 10,
       "max": 80,
       "step": 1,
       "unit": "s",
-      "label": "Marquee speed",
+      "label": "Moving marquee speed",
       "default": 28
+    },
+    {
+      "type": "header",
+      "content": "Typography"
     },
     {
       "type": "range",
@@ -158,7 +209,7 @@
       "max": 24,
       "step": 1,
       "unit": "px",
-      "label": "Desktop font size",
+      "label": "Desktop text size",
       "default": 12
     },
     {
@@ -168,8 +219,12 @@
       "max": 20,
       "step": 1,
       "unit": "px",
-      "label": "Mobile font size",
+      "label": "Mobile text size",
       "default": 11
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
     },
     {
       "type": "range",
@@ -212,6 +267,10 @@
       "default": 20
     },
     {
+      "type": "header",
+      "content": "Colours"
+    },
+    {
       "type": "color",
       "id": "background_color",
       "label": "Background",
@@ -228,6 +287,54 @@
       "id": "separator_color",
       "label": "Separator",
       "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Separators"
+    },
+    {
+      "type": "select",
+      "id": "separator_style",
+      "label": "Separator style",
+      "options": [
+        {
+          "value": "dot",
+          "label": "Dot"
+        },
+        {
+          "value": "pipe",
+          "label": "Pipe |"
+        },
+        {
+          "value": "dash",
+          "label": "Dash -"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "dot"
+    },
+    {
+      "type": "range",
+      "id": "separator_size",
+      "min": 1,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Separator size",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "separator_spacing",
+      "min": 4,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Separator spacing",
+      "default": 20
     }
   ],
   "blocks": [
