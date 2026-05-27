@@ -18,7 +18,8 @@
   assign tablet_gap_total = item_count_tablet | minus: 1 | times: gap_rem
   assign mobile_gap_total = item_count_mobile | minus: 1 | times: gap_rem
   assign image_aspect_ratio = 'auto'
-  assign overlay_opacity = section.settings.overlay_opacity | default: 0
+  assign overlay_opacity_raw = section.settings.overlay_opacity | default: 0
+  assign overlay_opacity_decimal = overlay_opacity_raw | divided_by: 100.0
 
   case section.settings.image_aspect_ratio
     when 'portrait_4_5'
@@ -45,8 +46,6 @@
     --yaomri-hero-triple-gap: {{ section.settings.gap_px }}px;
     --yaomri-hero-triple-top-padding: {{ section.settings.top_padding }}px;
     --yaomri-hero-triple-bottom-padding: {{ section.settings.bottom_padding }}px;
-    --hero-overlay-color: {{ section.settings.overlay_color | default: '#000000' }};
-    --hero-overlay-opacity: {{ overlay_opacity | divided_by: 100.0 }};
     --hero-image-radius: {{ section.settings.image_radius }}px;
     --hero-content-width-desktop: {{ section.settings.content_width_desktop | default: 420 }}px;
     --hero-content-width-mobile: {{ section.settings.content_width_mobile | default: 320 }}px;
@@ -79,8 +78,9 @@
 <section
   id="YaomriHeroTriple-{{ section.id }}"
   class="yaomri-hero-triple yaomri-hero-triple--{{ layout_style }} yaomri-hero-triple--shape-{{ section.settings.image_aspect_ratio | default: 'fill_height' }} yaomri-hero-triple--split-image-{{ section.settings.split_image_position }} yaomri-hero-triple--content-{{ section.settings.content_position }} yaomri-hero-triple--align-{{ section.settings.text_alignment }} yaomri-hero-triple--secondary-{{ section.settings.secondary_button_style }}{% if section.settings.marquee_direction == 'right' %} yaomri-hero-triple--marquee-right{% endif %}{% if section.settings.pause_on_hover %} yaomri-hero-triple--pause-hover{% endif %}"
-  style="--hero-overlay-color: {{ section.settings.overlay_color | default: '#000000' }}; --hero-overlay-opacity: {{ overlay_opacity | divided_by: 100.0 }};"
+  style="--hero-overlay-color: {{ section.settings.overlay_color | default: '#000000' }}; --hero-overlay-opacity: {{ overlay_opacity_decimal }};"
 >
+  <!-- overlay setting id: overlay_opacity, raw value: {{ section.settings.overlay_opacity }}, decimal: {{ overlay_opacity_decimal }} -->
   {%- if layout_style == 'split_image' -%}
     {%- for block in section.blocks limit: 1 -%}
       {%- liquid
@@ -162,44 +162,34 @@
         </div>
       </div>
     {%- endfor -%}
-  {%- else -%}
-    {%- if layout_style == 'carousel' and section.settings.show_carousel_arrows -%}
-      <div class="yaomri-hero-triple__controls">
-        <button class="yaomri-hero-triple__control" type="button" aria-label="Previous hero image" data-yaomri-hero-prev="{{ section.id }}"><span aria-hidden="true">&#8249;</span></button>
-        <button class="yaomri-hero-triple__control" type="button" aria-label="Next hero image" data-yaomri-hero-next="{{ section.id }}"><span aria-hidden="true">&#8250;</span></button>
-      </div>
-    {%- endif -%}
-
-    <div
-      class="yaomri-hero-triple__grid{% if layout_style == 'carousel' %} no-scrollbar{% endif %}"
-      {% if layout_style == 'carousel' %}id="YaomriHeroTripleTrack-{{ section.id }}"{% endif %}
-    >
-      {%- if layout_style == 'marquee' -%}
-        {%- for i in (1..2) -%}
-          {%- for block in section.blocks -%}
-            {%- liquid
-              assign desktop_image = block.settings.desktop_image | default: block.settings.image
-              assign mobile_image = block.settings.mobile_image | default: desktop_image
-              assign eyebrow = block.settings.eyebrow
-              assign heading = block.settings.heading | default: block.settings.headline
-              assign body_text = block.settings.text
-              assign show_content = block.settings.show_content
-              if block.settings.show_content == nil
-                assign show_content = block.settings.show_copy
-              endif
-              if eyebrow == blank
-                assign eyebrow = block.settings.subheading
-              elsif body_text == blank and block.settings.subheading != blank
-                assign body_text = block.settings.subheading
-              endif
-              assign image_loading = 'lazy'
-              assign fetch_priority = 'auto'
-              if section.index == 1 and i == 1 and forloop.first
-                assign image_loading = 'eager'
-                assign fetch_priority = 'high'
-              endif
-            -%}
-            <div class="yaomri-hero-triple__tile">
+  {%- elsif layout_style == 'marquee' -%}
+    <div class="yaomri-hero-triple__marquee-track">
+      {%- for i in (1..2) -%}
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign desktop_image = block.settings.desktop_image | default: block.settings.image
+            assign mobile_image = block.settings.mobile_image | default: desktop_image
+            assign eyebrow = block.settings.eyebrow
+            assign heading = block.settings.heading | default: block.settings.headline
+            assign body_text = block.settings.text
+            assign show_content = block.settings.show_content
+            if block.settings.show_content == nil
+              assign show_content = block.settings.show_copy
+            endif
+            if eyebrow == blank
+              assign eyebrow = block.settings.subheading
+            elsif body_text == blank and block.settings.subheading != blank
+              assign body_text = block.settings.subheading
+            endif
+            assign image_loading = 'lazy'
+            assign fetch_priority = 'auto'
+            if section.index == 1 and i == 1 and forloop.first
+              assign image_loading = 'eager'
+              assign fetch_priority = 'high'
+            endif
+          -%}
+          <div class="yaomri-hero-triple__tile">
+            <div class="yaomri-hero-triple__media-wrap">
               {%- if desktop_image != blank -%}
                 <picture class="yaomri-hero-triple__media">
                   {%- if mobile_image != blank -%}
@@ -212,24 +202,37 @@
                 <div class="yaomri-hero-triple__placeholder placeholder-img" data-label="{{ block.settings.placeholder_label | escape }}"></div>
               {%- endif -%}
               <div class="yaomri-hero-triple__overlay"></div>
-              {%- if show_content -%}
-                <div class="yaomri-hero-triple__copy">
-                  {%- if section.settings.show_description and eyebrow != blank -%}<p class="yaomri-hero-triple__subheading">{{ eyebrow | escape }}</p>{%- endif -%}
-                  {%- if section.settings.show_title and heading != blank -%}<h2 class="yaomri-hero-triple__headline">{{ heading | escape }}</h2>{%- endif -%}
-                  {%- if section.settings.show_description and body_text != blank -%}<div class="yaomri-hero-triple__text">{{ body_text | escape }}</div>{%- endif -%}
-                  {%- if section.settings.show_cta and block.settings.cta_1_label != blank or section.settings.show_cta and block.settings.cta_2_label != blank -%}
-                    <div class="yaomri-hero-triple__actions">
-                      {%- if block.settings.cta_1_label != blank -%}<a class="yaomri-hero-triple__button yaomri-hero-triple__button--primary"{% if block.settings.cta_1_link == blank %} role="link" aria-disabled="true"{% else %} href="{{ block.settings.cta_1_link }}"{% endif %}>{{ block.settings.cta_1_label | escape }}</a>{%- endif -%}
-                      {%- if block.settings.cta_2_label != blank -%}<a class="yaomri-hero-triple__button yaomri-hero-triple__button--secondary"{% if block.settings.cta_2_link == blank %} role="link" aria-disabled="true"{% else %} href="{{ block.settings.cta_2_link }}"{% endif %}>{{ block.settings.cta_2_label | escape }}</a>{%- endif -%}
-                    </div>
-                  {%- endif -%}
-                </div>
-              {%- endif -%}
             </div>
-          {%- endfor -%}
+            {%- if show_content -%}
+              <div class="yaomri-hero-triple__copy">
+                {%- if section.settings.show_description and eyebrow != blank -%}<p class="yaomri-hero-triple__subheading">{{ eyebrow | escape }}</p>{%- endif -%}
+                {%- if section.settings.show_title and heading != blank -%}<h2 class="yaomri-hero-triple__headline">{{ heading | escape }}</h2>{%- endif -%}
+                {%- if section.settings.show_description and body_text != blank -%}<div class="yaomri-hero-triple__text">{{ body_text | escape }}</div>{%- endif -%}
+                {%- if section.settings.show_cta and block.settings.cta_1_label != blank or section.settings.show_cta and block.settings.cta_2_label != blank -%}
+                  <div class="yaomri-hero-triple__actions">
+                    {%- if block.settings.cta_1_label != blank -%}<a class="yaomri-hero-triple__button yaomri-hero-triple__button--primary"{% if block.settings.cta_1_link == blank %} role="link" aria-disabled="true"{% else %} href="{{ block.settings.cta_1_link }}"{% endif %}>{{ block.settings.cta_1_label | escape }}</a>{%- endif -%}
+                    {%- if block.settings.cta_2_label != blank -%}<a class="yaomri-hero-triple__button yaomri-hero-triple__button--secondary"{% if block.settings.cta_2_link == blank %} role="link" aria-disabled="true"{% else %} href="{{ block.settings.cta_2_link }}"{% endif %}>{{ block.settings.cta_2_label | escape }}</a>{%- endif -%}
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
         {%- endfor -%}
-      {%- else -%}
-        {%- for block in section.blocks limit: render_limit -%}
+      {%- endfor -%}
+    </div>
+  {%- else -%}
+    {%- if layout_style == 'carousel' and section.settings.show_carousel_arrows -%}
+      <div class="yaomri-hero-triple__controls">
+        <button class="yaomri-hero-triple__control" type="button" aria-label="Previous hero image" data-yaomri-hero-prev="{{ section.id }}"><span aria-hidden="true">&#8249;</span></button>
+        <button class="yaomri-hero-triple__control" type="button" aria-label="Next hero image" data-yaomri-hero-next="{{ section.id }}"><span aria-hidden="true">&#8250;</span></button>
+      </div>
+    {%- endif -%}
+
+    <div
+      class="yaomri-hero-triple__grid{% if layout_style == 'carousel' %} no-scrollbar{% endif %}"
+      {% if layout_style == 'carousel' %}id="YaomriHeroTripleTrack-{{ section.id }}"{% endif %}
+    >
+      {%- for block in section.blocks limit: render_limit -%}
           {%- liquid
             assign desktop_image = block.settings.desktop_image | default: block.settings.image
             assign mobile_image = block.settings.mobile_image | default: desktop_image
@@ -255,18 +258,20 @@
             endif
           -%}
           <div class="yaomri-hero-triple__tile" {{ block.shopify_attributes }}>
-            {%- if desktop_image != blank -%}
-              <picture class="yaomri-hero-triple__media">
-                {%- if mobile_image != blank -%}
-                  <source media="(max-width: 749px)" srcset="{{ mobile_image | image_url: width: 550 }} 550w, {{ mobile_image | image_url: width: 750 }} 750w, {{ mobile_image | image_url: width: 990 }} 990w" sizes="100vw">
-                {%- endif -%}
-                {%- assign image_height = desktop_image.width | divided_by: desktop_image.aspect_ratio -%}
-                {{ desktop_image | image_url: width: 1800 | image_tag: width: desktop_image.width, height: image_height, class: 'yaomri-hero-triple__image', sizes: '(min-width: 750px) 33vw, 100vw', widths: '375, 550, 750, 990, 1200, 1500, 1800', loading: image_loading, fetchpriority: fetch_priority }}
-              </picture>
-            {%- else -%}
-              <div class="yaomri-hero-triple__placeholder placeholder-img" data-label="{{ block.settings.placeholder_label | escape }}"></div>
-            {%- endif -%}
-            <div class="yaomri-hero-triple__overlay"></div>
+            <div class="yaomri-hero-triple__media-wrap">
+              {%- if desktop_image != blank -%}
+                <picture class="yaomri-hero-triple__media">
+                  {%- if mobile_image != blank -%}
+                    <source media="(max-width: 749px)" srcset="{{ mobile_image | image_url: width: 550 }} 550w, {{ mobile_image | image_url: width: 750 }} 750w, {{ mobile_image | image_url: width: 990 }} 990w" sizes="100vw">
+                  {%- endif -%}
+                  {%- assign image_height = desktop_image.width | divided_by: desktop_image.aspect_ratio -%}
+                  {{ desktop_image | image_url: width: 1800 | image_tag: width: desktop_image.width, height: image_height, class: 'yaomri-hero-triple__image', sizes: '(min-width: 750px) 33vw, 100vw', widths: '375, 550, 750, 990, 1200, 1500, 1800', loading: image_loading, fetchpriority: fetch_priority }}
+                </picture>
+              {%- else -%}
+                <div class="yaomri-hero-triple__placeholder placeholder-img" data-label="{{ block.settings.placeholder_label | escape }}"></div>
+              {%- endif -%}
+              <div class="yaomri-hero-triple__overlay"></div>
+            </div>
             {%- if show_content -%}
               <div class="yaomri-hero-triple__copy">
                 {%- if section.settings.show_description and eyebrow != blank -%}<p class="yaomri-hero-triple__subheading">{{ eyebrow | escape }}</p>{%- endif -%}
@@ -281,8 +286,7 @@
               </div>
             {%- endif -%}
           </div>
-        {%- endfor -%}
-      {%- endif -%}
+      {%- endfor -%}
     </div>
     {%- if layout_style == 'carousel' and section.settings.show_dots -%}
       <div class="yaomri-hero-triple__dots" aria-label="Hero carousel pagination">
