@@ -13,16 +13,19 @@
   assign item_count_desktop = section.settings.items_per_row_desktop | default: 3
   assign item_count_tablet = section.settings.items_per_row_tablet | default: 2
   assign item_count_mobile = section.settings.items_per_row_mobile | default: 1
-  assign grid_tiles_to_show = section.settings.grid_tiles_to_show | default: 3
   assign gap_rem = section.settings.gap_px | default: 4 | divided_by: 10.0
   assign desktop_gap_total = item_count_desktop | minus: 1 | times: gap_rem
   assign tablet_gap_total = item_count_tablet | minus: 1 | times: gap_rem
   assign mobile_gap_total = item_count_mobile | minus: 1 | times: gap_rem
   assign image_aspect_ratio = 'auto'
   assign overlay_enabled = section.settings.overlay_enabled
+  assign overlay_opacity = section.settings.overlay_opacity | default: 0
 
   if section.settings.overlay_enabled == nil and section.settings.overlay_opacity > 0
     assign overlay_enabled = true
+  endif
+  if overlay_enabled == false
+    assign overlay_opacity = 0
   endif
 
   case section.settings.image_aspect_ratio
@@ -37,9 +40,6 @@
   endcase
 
   assign render_limit = section.blocks.size
-  if layout_style == 'three_grid' and render_limit > grid_tiles_to_show
-    assign render_limit = grid_tiles_to_show
-  endif
   if layout_style == 'single_image' or layout_style == 'split_image'
     assign render_limit = 1
   endif
@@ -53,8 +53,8 @@
     --yaomri-hero-triple-gap: {{ section.settings.gap_px }}px;
     --yaomri-hero-triple-top-padding: {{ section.settings.top_padding }}px;
     --yaomri-hero-triple-bottom-padding: {{ section.settings.bottom_padding }}px;
-    --hero-overlay-color: {{ section.settings.overlay_color }};
-    --hero-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --hero-overlay-color: {{ section.settings.overlay_color | default: '#000000' }};
+    --hero-overlay-opacity: {{ overlay_opacity | divided_by: 100.0 }};
     --hero-image-radius: {{ section.settings.image_radius }}px;
     --hero-content-width-desktop: {{ section.settings.content_width_desktop | default: 420 }}px;
     --hero-content-width-mobile: {{ section.settings.content_width_mobile | default: 320 }}px;
@@ -218,7 +218,7 @@
               {%- else -%}
                 <div class="yaomri-hero-triple__placeholder placeholder-img" data-label="{{ block.settings.placeholder_label | escape }}"></div>
               {%- endif -%}
-              {%- if overlay_enabled -%}<div class="yaomri-hero-triple__overlay"></div>{%- endif -%}
+              <div class="yaomri-hero-triple__overlay"></div>
               {%- if show_content -%}
                 <div class="yaomri-hero-triple__copy">
                   {%- if section.settings.show_description and eyebrow != blank -%}<p class="yaomri-hero-triple__subheading">{{ eyebrow | escape }}</p>{%- endif -%}
@@ -273,7 +273,7 @@
             {%- else -%}
               <div class="yaomri-hero-triple__placeholder placeholder-img" data-label="{{ block.settings.placeholder_label | escape }}"></div>
             {%- endif -%}
-            {%- if overlay_enabled -%}<div class="yaomri-hero-triple__overlay"></div>{%- endif -%}
+            <div class="yaomri-hero-triple__overlay"></div>
             {%- if show_content -%}
               <div class="yaomri-hero-triple__copy">
                 {%- if section.settings.show_description and eyebrow != blank -%}<p class="yaomri-hero-triple__subheading">{{ eyebrow | escape }}</p>{%- endif -%}
@@ -418,7 +418,7 @@
       "min": 1,
       "max": 6,
       "step": 1,
-      "label": "Desktop items",
+      "label": "Desktop items per row",
       "default": 3
     },
     {
@@ -427,7 +427,7 @@
       "min": 1,
       "max": 4,
       "step": 1,
-      "label": "Tablet items",
+      "label": "Tablet items per row",
       "default": 2
     },
     {
@@ -436,7 +436,7 @@
       "min": 1,
       "max": 3,
       "step": 1,
-      "label": "Items per row mobile",
+      "label": "Mobile items per row",
       "default": 1
     },
     {
@@ -616,15 +616,6 @@
     {
       "type": "header",
       "content": "Three image grid"
-    },
-    {
-      "type": "range",
-      "id": "grid_tiles_to_show",
-      "min": 1,
-      "max": 6,
-      "step": 1,
-      "label": "Tiles to show",
-      "default": 3
     },
     {
       "type": "header",
