@@ -68,7 +68,6 @@
 
 .yaomri-hero-triple__tile {
   border-radius: var(--hero-image-radius, 0);
-  min-height: var(--yaomri-hero-triple-min-height, 420px);
   overflow: hidden;
   position: relative;
 }
@@ -79,10 +78,18 @@
   background: var(--sand);
   border-radius: var(--hero-image-radius, 0);
   display: block;
-  height: max(var(--yaomri-hero-triple-mobile-height), var(--yaomri-hero-triple-min-height, 420px));
-  min-height: var(--yaomri-hero-triple-min-height, 420px);
   overflow: hidden;
   width: 100%;
+}
+
+.yaomri-hero-triple--shape-fill_height .yaomri-hero-triple__tile {
+  min-height: var(--yaomri-hero-triple-min-height, 420px);
+}
+
+.yaomri-hero-triple--shape-fill_height .yaomri-hero-triple__media,
+.yaomri-hero-triple--shape-fill_height .yaomri-hero-triple__placeholder {
+  height: max(var(--yaomri-hero-triple-mobile-height), var(--yaomri-hero-triple-min-height, 420px));
+  min-height: var(--yaomri-hero-triple-min-height, 420px);
 }
 
 .yaomri-hero-triple__image {
@@ -104,7 +111,7 @@
 
 .yaomri-hero-triple__copy {
   color: var(--yaomri-hero-triple-heading-color);
-  max-width: 320px;
+  max-width: min(100%, var(--hero-content-width-mobile, 320px));
   position: absolute;
   z-index: 2;
 }
@@ -130,23 +137,23 @@
 }
 
 .yaomri-hero-triple--content-top_left .yaomri-hero-triple__copy {
-  left: 24px;
-  top: 24px;
+  left: var(--hero-content-padding-mobile, 24px);
+  top: var(--hero-content-padding-mobile, 24px);
 }
 
 .yaomri-hero-triple--content-top_center .yaomri-hero-triple__copy {
   left: 50%;
-  top: 24px;
+  top: var(--hero-content-padding-mobile, 24px);
   transform: translateX(-50%);
 }
 
 .yaomri-hero-triple--content-top_right .yaomri-hero-triple__copy {
-  right: 24px;
-  top: 24px;
+  right: var(--hero-content-padding-mobile, 24px);
+  top: var(--hero-content-padding-mobile, 24px);
 }
 
 .yaomri-hero-triple--content-center_left .yaomri-hero-triple__copy {
-  left: 24px;
+  left: var(--hero-content-padding-mobile, 24px);
   top: 50%;
   transform: translateY(-50%);
 }
@@ -158,25 +165,25 @@
 }
 
 .yaomri-hero-triple--content-center_right .yaomri-hero-triple__copy {
-  right: 24px;
+  right: var(--hero-content-padding-mobile, 24px);
   top: 50%;
   transform: translateY(-50%);
 }
 
 .yaomri-hero-triple--content-bottom_left .yaomri-hero-triple__copy {
-  bottom: 24px;
-  left: 24px;
+  bottom: var(--hero-content-padding-mobile, 24px);
+  left: var(--hero-content-padding-mobile, 24px);
 }
 
 .yaomri-hero-triple--content-bottom_center .yaomri-hero-triple__copy {
-  bottom: 24px;
+  bottom: var(--hero-content-padding-mobile, 24px);
   left: 50%;
   transform: translateX(-50%);
 }
 
 .yaomri-hero-triple--content-bottom_right .yaomri-hero-triple__copy {
-  bottom: 24px;
-  right: 24px;
+  bottom: var(--hero-content-padding-mobile, 24px);
+  right: var(--hero-content-padding-mobile, 24px);
 }
 
 .yaomri-hero-triple__subheading {
@@ -368,7 +375,11 @@
 .yaomri-hero-triple__split-copy {
   align-self: center;
   color: var(--ink);
-  padding: 4rem 24px;
+  padding: var(--hero-content-padding-mobile, 24px);
+}
+
+.yaomri-hero-triple__split-copy > * {
+  max-width: var(--hero-content-width-mobile, 320px);
 }
 
 .yaomri-hero-triple__split-copy .yaomri-hero-triple__headline {
@@ -420,8 +431,8 @@
     width: var(--hero-item-width-tablet);
   }
 
-  .yaomri-hero-triple__media,
-  .yaomri-hero-triple__placeholder {
+  .yaomri-hero-triple--shape-fill_height .yaomri-hero-triple__media,
+  .yaomri-hero-triple--shape-fill_height .yaomri-hero-triple__placeholder {
     height: max(var(--yaomri-hero-triple-desktop-height), var(--yaomri-hero-triple-min-height, 420px));
   }
 
@@ -429,45 +440,51 @@
     font-size: 5rem;
   }
 
+  .yaomri-hero-triple__copy {
+    max-width: var(--hero-content-width-desktop, 420px);
+  }
+
   .yaomri-hero-triple--single_image .yaomri-hero-triple__copy,
   .yaomri-hero-triple--single_campaign .yaomri-hero-triple__copy {
-    max-width: 42rem;
+    max-width: var(--hero-content-width-desktop, 420px);
   }
 
   .yaomri-hero-triple--content-top_left .yaomri-hero-triple__copy {
-    left: 40px;
-    top: 40px;
+    left: var(--hero-content-padding-desktop, 40px);
+    top: var(--hero-content-padding-desktop, 40px);
   }
 
   .yaomri-hero-triple--content-top_center .yaomri-hero-triple__copy {
-    top: 40px;
+    max-width: var(--hero-content-width-desktop, 420px);
+    top: var(--hero-content-padding-desktop, 40px);
   }
 
   .yaomri-hero-triple--content-top_right .yaomri-hero-triple__copy {
-    right: 40px;
-    top: 40px;
+    right: var(--hero-content-padding-desktop, 40px);
+    top: var(--hero-content-padding-desktop, 40px);
   }
 
   .yaomri-hero-triple--content-center_left .yaomri-hero-triple__copy {
-    left: 40px;
+    left: var(--hero-content-padding-desktop, 40px);
   }
 
   .yaomri-hero-triple--content-center_right .yaomri-hero-triple__copy {
-    right: 40px;
+    right: var(--hero-content-padding-desktop, 40px);
   }
 
   .yaomri-hero-triple--content-bottom_left .yaomri-hero-triple__copy {
-    bottom: 40px;
-    left: 40px;
+    bottom: var(--hero-content-padding-desktop, 40px);
+    left: var(--hero-content-padding-desktop, 40px);
   }
 
   .yaomri-hero-triple--content-bottom_center .yaomri-hero-triple__copy {
-    bottom: 40px;
+    max-width: var(--hero-content-width-desktop, 420px);
+    bottom: var(--hero-content-padding-desktop, 40px);
   }
 
   .yaomri-hero-triple--content-bottom_right .yaomri-hero-triple__copy {
-    bottom: 40px;
-    right: 40px;
+    bottom: var(--hero-content-padding-desktop, 40px);
+    right: var(--hero-content-padding-desktop, 40px);
   }
 
   .yaomri-hero-triple__split {
@@ -483,8 +500,12 @@
   }
 
   .yaomri-hero-triple__split-copy {
-    padding-left: max(24px, calc((100vw - 1500px) / 2 + 24px));
-    padding-right: 4rem;
+    padding-left: max(var(--hero-content-padding-desktop, 32px), calc((100vw - 1500px) / 2 + var(--hero-content-padding-desktop, 32px)));
+    padding-right: var(--hero-content-padding-desktop, 32px);
+  }
+
+  .yaomri-hero-triple__split-copy > * {
+    max-width: var(--hero-content-width-desktop, 420px);
   }
 }
 

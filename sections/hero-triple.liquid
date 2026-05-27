@@ -13,20 +13,16 @@
   assign item_count_desktop = section.settings.items_per_row_desktop | default: 3
   assign item_count_tablet = section.settings.items_per_row_tablet | default: 2
   assign item_count_mobile = section.settings.items_per_row_mobile | default: 1
+  assign grid_tiles_to_show = section.settings.grid_tiles_to_show | default: 3
   assign gap_rem = section.settings.gap_px | default: 4 | divided_by: 10.0
   assign desktop_gap_total = item_count_desktop | minus: 1 | times: gap_rem
   assign tablet_gap_total = item_count_tablet | minus: 1 | times: gap_rem
   assign mobile_gap_total = item_count_mobile | minus: 1 | times: gap_rem
   assign image_aspect_ratio = 'auto'
-  assign duplicate_groups = 2
   assign overlay_enabled = section.settings.overlay_enabled
 
   if section.settings.overlay_enabled == nil and section.settings.overlay_opacity > 0
     assign overlay_enabled = true
-  endif
-
-  if layout_style == 'marquee' and section.blocks.size < item_count_desktop
-    assign duplicate_groups = 3
   endif
 
   case section.settings.image_aspect_ratio
@@ -40,15 +36,12 @@
       assign image_aspect_ratio = '4 / 3'
   endcase
 
-  assign tile_limit = 3
-  if layout_style == 'single_image' or layout_style == 'split_image'
-    assign tile_limit = 1
+  assign render_limit = section.blocks.size
+  if layout_style == 'three_grid' and render_limit > grid_tiles_to_show
+    assign render_limit = grid_tiles_to_show
   endif
-  assign grid_tile_count = section.blocks.size
-  if grid_tile_count > 3
-    assign grid_tile_count = 3
-  elsif grid_tile_count < 1
-    assign grid_tile_count = 1
+  if layout_style == 'single_image' or layout_style == 'split_image'
+    assign render_limit = 1
   endif
 -%}
 
@@ -63,6 +56,10 @@
     --hero-overlay-color: {{ section.settings.overlay_color }};
     --hero-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
     --hero-image-radius: {{ section.settings.image_radius }}px;
+    --hero-content-width-desktop: {{ section.settings.content_width_desktop | default: 420 }}px;
+    --hero-content-width-mobile: {{ section.settings.content_width_mobile | default: 320 }}px;
+    --hero-content-padding-desktop: {{ section.settings.content_padding_desktop | default: 32 }}px;
+    --hero-content-padding-mobile: {{ section.settings.content_padding_mobile | default: 24 }}px;
     --hero-items-desktop: {{ item_count_desktop }};
     --hero-items-tablet: {{ item_count_tablet }};
     --hero-items-mobile: {{ item_count_mobile }};
@@ -89,16 +86,25 @@
 
 <section
   id="YaomriHeroTriple-{{ section.id }}"
-  class="yaomri-hero-triple yaomri-hero-triple--{{ layout_style }} yaomri-hero-triple--tiles-{{ grid_tile_count }} yaomri-hero-triple--split-image-{{ section.settings.split_image_position }} yaomri-hero-triple--content-{{ section.settings.content_position }} yaomri-hero-triple--align-{{ section.settings.text_alignment }} yaomri-hero-triple--secondary-{{ section.settings.secondary_button_style }}{% if section.settings.marquee_direction == 'right' %} yaomri-hero-triple--marquee-right{% endif %}{% if section.settings.pause_on_hover %} yaomri-hero-triple--pause-hover{% endif %}"
+  class="yaomri-hero-triple yaomri-hero-triple--{{ layout_style }} yaomri-hero-triple--shape-{{ section.settings.image_aspect_ratio | default: 'fill_height' }} yaomri-hero-triple--split-image-{{ section.settings.split_image_position }} yaomri-hero-triple--content-{{ section.settings.content_position }} yaomri-hero-triple--align-{{ section.settings.text_alignment }} yaomri-hero-triple--secondary-{{ section.settings.secondary_button_style }}{% if section.settings.marquee_direction == 'right' %} yaomri-hero-triple--marquee-right{% endif %}{% if section.settings.pause_on_hover %} yaomri-hero-triple--pause-hover{% endif %}"
 >
   {%- if layout_style == 'split_image' -%}
     {%- for block in section.blocks limit: 1 -%}
       {%- liquid
         assign desktop_image = block.settings.desktop_image | default: block.settings.image
         assign mobile_image = block.settings.mobile_image | default: desktop_image
-        assign eyebrow = block.settings.eyebrow | default: block.settings.subheading
+        assign eyebrow = block.settings.eyebrow
         assign heading = block.settings.heading | default: block.settings.headline
         assign body_text = block.settings.text
+        assign show_content = block.settings.show_content
+        if block.settings.show_content == nil
+          assign show_content = block.settings.show_copy
+        endif
+        if eyebrow == blank
+          assign eyebrow = block.settings.subheading
+        elsif body_text == blank and block.settings.subheading != blank
+          assign body_text = block.settings.subheading
+        endif
         assign image_loading = 'lazy'
         assign fetch_priority = 'auto'
         if section.index == 1
@@ -108,16 +114,16 @@
       -%}
       <div class="yaomri-hero-triple__split" {{ block.shopify_attributes }}>
         <div class="yaomri-hero-triple__split-copy">
-          {%- if eyebrow != blank -%}
+          {%- if show_content and section.settings.show_description and eyebrow != blank -%}
             <p class="yaomri-hero-triple__subheading">{{ eyebrow | escape }}</p>
           {%- endif -%}
-          {%- if heading != blank -%}
+          {%- if show_content and section.settings.show_title and heading != blank -%}
             <h2 class="yaomri-hero-triple__headline">{{ heading | escape }}</h2>
           {%- endif -%}
-          {%- if body_text != blank -%}
+          {%- if show_content and section.settings.show_description and body_text != blank -%}
             <div class="yaomri-hero-triple__text">{{ body_text | escape }}</div>
           {%- endif -%}
-          {%- if block.settings.cta_1_label != blank or block.settings.cta_2_label != blank -%}
+          {%- if show_content and section.settings.show_cta and block.settings.cta_1_label != blank or show_content and section.settings.show_cta and block.settings.cta_2_label != blank -%}
             <div class="yaomri-hero-triple__actions">
               {%- if block.settings.cta_1_label != blank -%}
                 <a class="yaomri-hero-triple__button yaomri-hero-triple__button--primary"{% if block.settings.cta_1_link == blank %} role="link" aria-disabled="true"{% else %} href="{{ block.settings.cta_1_link }}"{% endif %}>
@@ -176,17 +182,22 @@
       {% if layout_style == 'carousel' %}id="YaomriHeroTripleTrack-{{ section.id }}"{% endif %}
     >
       {%- if layout_style == 'marquee' -%}
-        {%- for i in (1..duplicate_groups) -%}
+        {%- for i in (1..2) -%}
           {%- for block in section.blocks -%}
             {%- liquid
               assign desktop_image = block.settings.desktop_image | default: block.settings.image
               assign mobile_image = block.settings.mobile_image | default: desktop_image
-              assign eyebrow = block.settings.eyebrow | default: block.settings.subheading
+              assign eyebrow = block.settings.eyebrow
               assign heading = block.settings.heading | default: block.settings.headline
               assign body_text = block.settings.text
               assign show_content = block.settings.show_content
               if block.settings.show_content == nil
                 assign show_content = block.settings.show_copy
+              endif
+              if eyebrow == blank
+                assign eyebrow = block.settings.subheading
+              elsif body_text == blank and block.settings.subheading != blank
+                assign body_text = block.settings.subheading
               endif
               assign image_loading = 'lazy'
               assign fetch_priority = 'auto'
@@ -225,16 +236,21 @@
           {%- endfor -%}
         {%- endfor -%}
       {%- else -%}
-        {%- for block in section.blocks limit: tile_limit -%}
+        {%- for block in section.blocks limit: render_limit -%}
           {%- liquid
             assign desktop_image = block.settings.desktop_image | default: block.settings.image
             assign mobile_image = block.settings.mobile_image | default: desktop_image
-            assign eyebrow = block.settings.eyebrow | default: block.settings.subheading
+            assign eyebrow = block.settings.eyebrow
             assign heading = block.settings.heading | default: block.settings.headline
             assign body_text = block.settings.text
             assign show_content = block.settings.show_content
             if block.settings.show_content == nil
               assign show_content = block.settings.show_copy
+            endif
+            if eyebrow == blank
+              assign eyebrow = block.settings.subheading
+            elsif body_text == blank and block.settings.subheading != blank
+              assign body_text = block.settings.subheading
             endif
             assign image_loading = 'lazy'
             assign fetch_priority = 'auto'
@@ -558,8 +574,57 @@
       "default": "left"
     },
     {
+      "type": "range",
+      "id": "content_width_desktop",
+      "min": 240,
+      "max": 720,
+      "step": 20,
+      "unit": "px",
+      "label": "Desktop width",
+      "default": 420
+    },
+    {
+      "type": "range",
+      "id": "content_width_mobile",
+      "min": 220,
+      "max": 420,
+      "step": 20,
+      "unit": "px",
+      "label": "Mobile width",
+      "default": 320
+    },
+    {
+      "type": "range",
+      "id": "content_padding_desktop",
+      "min": 16,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "content_padding_mobile",
+      "min": 16,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile padding",
+      "default": 24
+    },
+    {
       "type": "header",
       "content": "Three image grid"
+    },
+    {
+      "type": "range",
+      "id": "grid_tiles_to_show",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "label": "Tiles to show",
+      "default": 3
     },
     {
       "type": "header",
@@ -890,22 +955,26 @@
         {
           "type": "text",
           "id": "eyebrow",
-          "label": "Eyebrow"
+          "label": "Eyebrow",
+          "default": "New Season"
         },
         {
           "type": "text",
           "id": "heading",
-          "label": "Heading"
+          "label": "Heading",
+          "default": "Get sun-drenched"
         },
         {
           "type": "textarea",
           "id": "text",
-          "label": "Text"
+          "label": "Text",
+          "default": "Statement swimwear for golden-hour escapes."
         },
         {
           "type": "text",
           "id": "cta_1_label",
-          "label": "Button 1 label"
+          "label": "Button 1 label",
+          "default": "Shop the Collection"
         },
         {
           "type": "url",
@@ -915,7 +984,8 @@
         {
           "type": "text",
           "id": "cta_2_label",
-          "label": "Button 2 label"
+          "label": "Button 2 label",
+          "default": "New Arrivals"
         },
         {
           "type": "url",
@@ -926,7 +996,7 @@
           "type": "checkbox",
           "id": "show_content",
           "label": "Show content",
-          "default": false
+          "default": true
         },
         {
           "type": "text",
@@ -944,12 +1014,13 @@
         {
           "type": "hero_tile",
           "settings": {
-            "eyebrow": "Statement swimwear for golden-hour escapes.",
+            "eyebrow": "New Season",
             "heading": "Get sun-drenched",
+            "text": "Statement swimwear for golden-hour escapes.",
             "cta_1_label": "Shop the Collection",
-            "cta_1_link": "shopify://collections/all",
-            "cta_2_label": "Explore New Arrivals",
-            "cta_2_link": "shopify://collections/new",
+            "cta_1_link": "/collections/all",
+            "cta_2_label": "New Arrivals",
+            "cta_2_link": "/collections/new",
             "show_content": true,
             "placeholder_label": "Hero Left - Campaign"
           }
@@ -957,12 +1028,26 @@
         {
           "type": "hero_tile",
           "settings": {
+            "eyebrow": "Resort Edit",
+            "heading": "Poolside silhouettes",
+            "text": "Elevated swimwear and resort pieces for long summer days.",
+            "cta_1_label": "Shop Swimwear",
+            "cta_1_link": "/collections/swimwear",
+            "cta_2_label": "",
+            "show_content": true,
             "placeholder_label": "Hero Centre - Campaign"
           }
         },
         {
           "type": "hero_tile",
           "settings": {
+            "eyebrow": "The Escape",
+            "heading": "After-sun dressing",
+            "text": "Refined cover-ups and easy layers for golden-hour plans.",
+            "cta_1_label": "Shop Resortwear",
+            "cta_1_link": "/collections/resortwear",
+            "cta_2_label": "",
+            "show_content": true,
             "placeholder_label": "Hero Right - Campaign"
           }
         }
