@@ -1,0 +1,353 @@
+{{ 'yaomri-home.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #YaomriHero-{{ section.id }} {
+    --yaomri-hero-bg: {{ section.settings.background_color }};
+    --yaomri-hero-text: {{ section.settings.text_color }};
+    --yaomri-hero-muted: {{ section.settings.subheading_color }};
+    --yaomri-hero-accent: {{ section.settings.accent_color }};
+    --yaomri-hero-button-bg: {{ section.settings.primary_button_background }};
+    --yaomri-hero-button-text: {{ section.settings.primary_button_text }};
+    --yaomri-hero-secondary-text: {{ section.settings.secondary_button_text }};
+    --yaomri-hero-secondary-border: {{ section.settings.secondary_button_border }};
+    --yaomri-hero-media-bg: {{ section.settings.image_background_color }};
+    --yaomri-hero-padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    --yaomri-hero-padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    #YaomriHero-{{ section.id }} {
+      --yaomri-hero-padding-top: {{ section.settings.padding_top }}px;
+      --yaomri-hero-padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign fetch_priority = 'auto'
+  if section.index == 1
+    assign fetch_priority = 'high'
+  endif
+-%}
+
+<section
+  id="YaomriHero-{{ section.id }}"
+  class="yaomri-hero yaomri-hero--image-{{ section.settings.image_ratio }}"
+>
+  <div class="yaomri-hero__inner page-width">
+    <div class="yaomri-hero__content">
+      {%- if section.settings.kicker != blank -%}
+        <p class="yaomri-hero__kicker">{{ section.settings.kicker | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h1 class="yaomri-hero__heading">{{ section.settings.heading }}</h1>
+      {%- endif -%}
+
+      {%- if section.settings.subheading != blank -%}
+        <div class="yaomri-hero__subheading rte">
+          {{ section.settings.subheading }}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.primary_button_label != blank or section.settings.secondary_button_label != blank -%}
+        <div class="yaomri-hero__actions">
+          {%- if section.settings.primary_button_label != blank -%}
+            <a
+              class="yaomri-hero__button yaomri-hero__button--primary"
+              {% if section.settings.primary_button_link == blank %}
+                role="link" aria-disabled="true"
+              {% else %}
+                href="{{ section.settings.primary_button_link }}"
+              {% endif %}
+            >
+              {{ section.settings.primary_button_label | escape }}
+            </a>
+          {%- endif -%}
+
+          {%- if section.settings.secondary_button_label != blank -%}
+            <a
+              class="yaomri-hero__button yaomri-hero__button--secondary"
+              {% if section.settings.secondary_button_link == blank %}
+                role="link" aria-disabled="true"
+              {% else %}
+                href="{{ section.settings.secondary_button_link }}"
+              {% endif %}
+            >
+              {{ section.settings.secondary_button_label | escape }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="yaomri-hero__badges">
+          {%- for block in section.blocks -%}
+            <div class="yaomri-hero__badge" {{ block.shopify_attributes }}>
+              {%- if block.settings.icon != blank -%}
+                <span class="yaomri-hero__badge-icon" aria-hidden="true">{{ block.settings.icon | escape }}</span>
+              {%- endif -%}
+              <span class="yaomri-hero__badge-text">{{ block.settings.text | escape }}</span>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="yaomri-hero__media">
+      <div class="yaomri-hero__image-wrap">
+        {%- if section.settings.image != blank -%}
+          {%- assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio -%}
+          {{
+            section.settings.image
+            | image_url: width: 1800
+            | image_tag:
+              width: section.settings.image.width,
+              height: image_height,
+              class: 'yaomri-hero__image',
+              sizes: '(min-width: 990px) 50vw, 100vw',
+              widths: '375, 550, 750, 990, 1200, 1500, 1800',
+              fetchpriority: fetch_priority
+          }}
+        {%- else -%}
+          {{ 'hero-apparel-1' | placeholder_svg_tag: 'yaomri-hero__placeholder placeholder-svg' }}
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.secondary_image != blank -%}
+        <div class="yaomri-hero__accent-image-wrap">
+          {%- assign secondary_image_height = section.settings.secondary_image.width | divided_by: section.settings.secondary_image.aspect_ratio -%}
+          {{
+            section.settings.secondary_image
+            | image_url: width: 600
+            | image_tag:
+              width: section.settings.secondary_image.width,
+              height: secondary_image_height,
+              class: 'yaomri-hero__accent-image',
+              sizes: '(min-width: 990px) 180px, 34vw',
+              widths: '180, 240, 320, 420, 600',
+              loading: 'lazy'
+          }}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ya Omri home hero",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Ya Omri Swimwear"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Luxury swimwear for sun-drenched escapes"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p>Elegant silhouettes, considered details and resort-ready pieces made for long summer days.</p>"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_label",
+      "label": "Primary button label",
+      "default": "Shop swimwear"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_label",
+      "label": "Secondary button label",
+      "default": "Explore resortwear"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Main image"
+    },
+    {
+      "type": "image_picker",
+      "id": "secondary_image",
+      "label": "Small overlay image"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image shape",
+      "options": [
+        {
+          "value": "portrait",
+          "label": "Portrait"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        },
+        {
+          "value": "landscape",
+          "label": "Landscape"
+        }
+      ],
+      "default": "portrait"
+    },
+    {
+      "type": "header",
+      "content": "Colours"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f7fbfa"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Heading and body",
+      "default": "#241a17"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading",
+      "default": "#5d6f6d"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#c56f5c"
+    },
+    {
+      "type": "color",
+      "id": "image_background_color",
+      "label": "Image background",
+      "default": "#dcefed"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_background",
+      "label": "Primary button background",
+      "default": "#241a17"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_text",
+      "label": "Primary button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_text",
+      "label": "Secondary button text",
+      "default": "#241a17"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_border",
+      "label": "Secondary button border",
+      "default": "#c56f5c"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 72
+    }
+  ],
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Trust badge",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon or short symbol",
+          "default": "Made"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Premium feel"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ya Omri home hero",
+      "blocks": [
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "SPF",
+            "text": "Sun-ready styles"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "Fit",
+            "text": "Flattering cuts"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "Resort",
+            "text": "Holiday essentials"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

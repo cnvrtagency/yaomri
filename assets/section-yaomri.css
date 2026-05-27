@@ -1,0 +1,187 @@
+:root {
+  --paper: #ffffff;
+  --ink: #1a1a1a;
+  --sand: #f6f4ef;
+  --secondary: #f4f4f4;
+  --muted-foreground: #737373;
+  --border: #e8e8e8;
+  --radius: 0px;
+}
+
+.yaomri-page-width {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+@media screen and (min-width: 990px) {
+  .yaomri-page-width {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+.eyebrow{
+  font-size:.7rem;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  font-weight:800;
+  font-style:italic;
+}
+
+/* Diagonal hatched image placeholder — keep until real assets exist */
+.placeholder-img{
+  position:relative;
+  background:repeating-linear-gradient(135deg,
+    #f3f0eb 0 14px,
+    #efece5 14px 28px);
+  overflow:hidden;
+}
+.placeholder-img::after{
+  content:attr(data-label);
+  position:absolute; inset:8px;
+  display:flex; align-items:center; justify-content:center;
+  text-align:center; padding:1rem;
+  font-size:.6rem; letter-spacing:.18em; text-transform:uppercase;
+  font-weight:600; color:#595959;
+  background:rgba(255,255,255,.55);
+  border:1px dashed #c7c7c7;
+}
+
+.no-scrollbar::-webkit-scrollbar{display:none}
+.no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}
+
+.yaomri-hero-triple {
+  background: var(--paper);
+  padding-top: var(--yaomri-hero-triple-top-padding);
+}
+
+.yaomri-hero-triple__grid {
+  display: grid;
+  gap: var(--yaomri-hero-triple-gap);
+  grid-template-columns: 1fr;
+}
+
+.yaomri-hero-triple__tile {
+  min-height: 420px;
+  overflow: hidden;
+  position: relative;
+}
+
+.yaomri-hero-triple__media,
+.yaomri-hero-triple__placeholder {
+  height: max(var(--yaomri-hero-triple-mobile-height), 420px);
+  min-height: 420px;
+  width: 100%;
+}
+
+.yaomri-hero-triple__image {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.yaomri-hero-triple__overlay {
+  background: rgba(0, 0, 0, var(--yaomri-hero-triple-overlay-opacity));
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.yaomri-hero-triple__copy {
+  bottom: 24px;
+  color: var(--paper);
+  left: 24px;
+  max-width: 320px;
+  position: absolute;
+  z-index: 2;
+}
+
+.yaomri-hero-triple__subheading {
+  color: var(--paper);
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.35;
+  margin: 0 0 1.2rem;
+  text-transform: uppercase;
+}
+
+.yaomri-hero-triple__headline {
+  color: var(--paper);
+  font-family: var(--font-heading-family);
+  font-size: 3rem;
+  font-style: italic;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 0.95;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.yaomri-hero-triple__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 2rem;
+}
+
+.yaomri-hero-triple__button {
+  align-items: center;
+  border: 1px solid var(--paper);
+  border-radius: var(--radius);
+  display: inline-flex;
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: 800;
+  justify-content: center;
+  letter-spacing: 0;
+  line-height: 1.2;
+  min-height: 4.2rem;
+  padding: 1.2rem 2rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color var(--duration-default) ease, color var(--duration-default) ease;
+}
+
+.yaomri-hero-triple__button--primary {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.yaomri-hero-triple__button--primary:hover {
+  background: var(--sand);
+  color: var(--ink);
+}
+
+.yaomri-hero-triple__button--secondary {
+  background: transparent;
+  color: var(--paper);
+}
+
+.yaomri-hero-triple__button--secondary:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+@media screen and (min-width: 750px) {
+  .yaomri-hero-triple__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .yaomri-hero-triple__media,
+  .yaomri-hero-triple__placeholder {
+    height: max(var(--yaomri-hero-triple-desktop-height), 420px);
+  }
+
+  .yaomri-hero-triple__copy {
+    bottom: 40px;
+    left: 40px;
+  }
+
+  .yaomri-hero-triple__headline {
+    font-size: 5rem;
+  }
+}

@@ -1,0 +1,253 @@
+{{ 'section-yaomri.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #YaomriHeroTriple-{{ section.id }} {
+    --yaomri-hero-triple-desktop-height: {{ section.settings.tile_height_desktop }}vh;
+    --yaomri-hero-triple-mobile-height: {{ section.settings.tile_height_mobile }}vh;
+    --yaomri-hero-triple-gap: {{ section.settings.gap_px }}px;
+    --yaomri-hero-triple-top-padding: {{ section.settings.top_padding }}px;
+    --yaomri-hero-triple-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+  }
+{%- endstyle -%}
+
+<section id="YaomriHeroTriple-{{ section.id }}" class="yaomri-hero-triple">
+  <div class="yaomri-hero-triple__grid">
+    {%- for block in section.blocks limit: 3 -%}
+      {%- liquid
+        assign image_loading = 'lazy'
+        assign fetch_priority = 'auto'
+
+        if section.index == 1
+          assign image_loading = 'eager'
+          if forloop.first
+            assign fetch_priority = 'high'
+          endif
+        endif
+      -%}
+
+      <div class="yaomri-hero-triple__tile" {{ block.shopify_attributes }}>
+        {%- if block.settings.image != blank -%}
+          <div class="yaomri-hero-triple__media">
+            {%- assign image_height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio -%}
+            {{
+              block.settings.image
+              | image_url: width: 1800
+              | image_tag:
+                width: block.settings.image.width,
+                height: image_height,
+                class: 'yaomri-hero-triple__image',
+                sizes: '(min-width: 750px) 33vw, 100vw',
+                widths: '375, 550, 750, 990, 1200, 1500, 1800',
+                loading: image_loading,
+                fetchpriority: fetch_priority
+            }}
+          </div>
+        {%- else -%}
+          <div
+            class="yaomri-hero-triple__placeholder placeholder-img"
+            data-label="{{ block.settings.placeholder_label | escape }}"
+          ></div>
+        {%- endif -%}
+
+        {%- if section.settings.overlay_opacity > 0 -%}
+          <div class="yaomri-hero-triple__overlay"></div>
+        {%- endif -%}
+
+        {%- if block.settings.show_copy -%}
+          <div class="yaomri-hero-triple__copy">
+            {%- if block.settings.subheading != blank -%}
+              <p class="yaomri-hero-triple__subheading">{{ block.settings.subheading | escape }}</p>
+            {%- endif -%}
+
+            {%- if block.settings.headline != blank -%}
+              <h2 class="yaomri-hero-triple__headline">{{ block.settings.headline | escape }}</h2>
+            {%- endif -%}
+
+            {%- if block.settings.cta_1_label != blank or block.settings.cta_2_label != blank -%}
+              <div class="yaomri-hero-triple__actions">
+                {%- if block.settings.cta_1_label != blank -%}
+                  <a
+                    class="yaomri-hero-triple__button yaomri-hero-triple__button--primary"
+                    {% if block.settings.cta_1_link == blank %}
+                      role="link" aria-disabled="true"
+                    {% else %}
+                      href="{{ block.settings.cta_1_link }}"
+                    {% endif %}
+                  >
+                    {{ block.settings.cta_1_label | escape }}
+                  </a>
+                {%- endif -%}
+
+                {%- if block.settings.cta_2_label != blank -%}
+                  <a
+                    class="yaomri-hero-triple__button yaomri-hero-triple__button--secondary"
+                    {% if block.settings.cta_2_link == blank %}
+                      role="link" aria-disabled="true"
+                    {% else %}
+                      href="{{ block.settings.cta_2_link }}"
+                    {% endif %}
+                  >
+                    {{ block.settings.cta_2_label | escape }}
+                  </a>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero - 3-up Campaign",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 3,
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "range",
+      "id": "tile_height_desktop",
+      "min": 60,
+      "max": 90,
+      "step": 1,
+      "unit": "vh",
+      "label": "Desktop tile height",
+      "default": 78
+    },
+    {
+      "type": "range",
+      "id": "tile_height_mobile",
+      "min": 40,
+      "max": 80,
+      "step": 1,
+      "unit": "vh",
+      "label": "Mobile tile height",
+      "default": 55
+    },
+    {
+      "type": "range",
+      "id": "gap_px",
+      "min": 0,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Tile gap",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "top_padding",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "hero_tile",
+      "name": "Hero tile",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading"
+        },
+        {
+          "type": "text",
+          "id": "headline",
+          "label": "Headline"
+        },
+        {
+          "type": "text",
+          "id": "cta_1_label",
+          "label": "CTA 1 label"
+        },
+        {
+          "type": "url",
+          "id": "cta_1_link",
+          "label": "CTA 1 link"
+        },
+        {
+          "type": "text",
+          "id": "cta_2_label",
+          "label": "CTA 2 label"
+        },
+        {
+          "type": "url",
+          "id": "cta_2_link",
+          "label": "CTA 2 link"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_copy",
+          "label": "Show copy",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "placeholder_label",
+          "label": "Placeholder label",
+          "default": "Hero Campaign"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero - 3-up Campaign",
+      "blocks": [
+        {
+          "type": "hero_tile",
+          "settings": {
+            "subheading": "Statement swimwear for golden-hour escapes.",
+            "headline": "Get sun-drenched",
+            "cta_1_label": "Shop the Collection",
+            "cta_1_link": "/collections/all",
+            "cta_2_label": "Explore New Arrivals",
+            "cta_2_link": "/collections/new",
+            "show_copy": true,
+            "placeholder_label": "Hero Left — Campaign"
+          }
+        },
+        {
+          "type": "hero_tile",
+          "settings": {
+            "show_copy": false,
+            "placeholder_label": "Hero Centre — Campaign"
+          }
+        },
+        {
+          "type": "hero_tile",
+          "settings": {
+            "show_copy": false,
+            "placeholder_label": "Hero Right — Campaign"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
