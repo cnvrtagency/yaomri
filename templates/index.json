@@ -69,6 +69,12 @@
     "brand_strip_M8T3nC": {
       "type": "brand-strip",
       "blocks": {
+        "statement_GUJTiB": {
+          "type": "statement",
+          "settings": {
+            "text": "Brand statement"
+          }
+        },
         "statement_fLCJCD": {
           "type": "statement",
           "settings": {
@@ -95,6 +101,7 @@
         }
       },
       "block_order": [
+        "statement_GUJTiB",
         "statement_fLCJCD",
         "statement_Jhp3A3",
         "statement_L6XLac",
@@ -102,12 +109,29 @@
       ],
       "name": "Brand Strip",
       "settings": {
-        "padding_vertical": 16
+        "padding_vertical": 18
+      }
+    },
+    "product_carousel_ta98bH": {
+      "type": "product-carousel",
+      "name": "Product Carousel",
+      "settings": {
+        "title": "The Amalfi Collection",
+        "count_label": "",
+        "collection": "the-amalfi-collection",
+        "product_limit": 10,
+        "category_label": "",
+        "show_wishlist": true,
+        "show_arrows": true,
+        "show_new_tag": true,
+        "padding_top": 24,
+        "padding_bottom": 24
       }
     }
   },
   "order": [
     "hero_triple_9q97XR",
-    "brand_strip_M8T3nC"
+    "brand_strip_M8T3nC",
+    "product_carousel_ta98bH"
   ]
 }
