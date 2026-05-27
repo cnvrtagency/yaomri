@@ -1956,6 +1956,10 @@
               "label": "見出し",
               "default": "見出し"
             },
+            "content": {
+              "label": "Content",
+              "info": "Use the editor to add text for this icon with text item."
+            },
             "pairing_1": {
               "label": "ペアリング1",
               "info": "各ペアリングのアイコンを選択するか、画像を追加します"

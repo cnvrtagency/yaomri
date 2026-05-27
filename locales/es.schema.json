@@ -1956,6 +1956,10 @@
               "label": "Encabezado",
               "default": "Encabezado"
             },
+            "content": {
+              "label": "Content",
+              "info": "Use the editor to add text for this icon with text item."
+            },
             "pairing_1": {
               "label": "Emparejamiento 1",
               "info": "Elegir un ícono o agregar una imagen para cada emparejamiento"

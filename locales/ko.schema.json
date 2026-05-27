@@ -1956,6 +1956,10 @@
               "label": "제목",
               "default": "제목"
             },
+            "content": {
+              "label": "Content",
+              "info": "Use the editor to add text for this icon with text item."
+            },
             "pairing_1": {
               "label": "페어링 1",
               "info": "각 페어링에 사용할 아이콘을 선택하거나 이미지를 추가합니다"

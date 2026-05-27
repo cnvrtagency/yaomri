@@ -1956,6 +1956,10 @@
               "label": "標題",
               "default": "標題"
             },
+            "content": {
+              "label": "Content",
+              "info": "Use the editor to add text for this icon with text item."
+            },
             "pairing_1": {
               "label": "配對 1",
               "info": "選擇一個圖示或為每個配對新增一張圖片"

@@ -1956,6 +1956,10 @@
               "label": "nadpisu",
               "default": "Nadpis"
             },
+            "content": {
+              "label": "Content",
+              "info": "Use the editor to add text for this icon with text item."
+            },
             "pairing_1": {
               "label": "Párování 1",
               "info": "Vyberte si ikonu nebo přidejte obrázek pro každé párování"

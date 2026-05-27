@@ -1956,6 +1956,10 @@
               "label": "Overskrift",
               "default": "Overskrift"
             },
+            "content": {
+              "label": "Content",
+              "info": "Use the editor to add text for this icon with text item."
+            },
             "pairing_1": {
               "label": "Parring 1",
               "info": "Vælg et ikon, eller tilføj et billede for hver parring"

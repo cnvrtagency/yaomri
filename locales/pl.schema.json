@@ -1956,6 +1956,10 @@
               "label": "Nagłówek",
               "default": "Nagłówek"
             },
+            "content": {
+              "label": "Content",
+              "info": "Use the editor to add text for this icon with text item."
+            },
             "pairing_1": {
               "label": "Parowanie 1",
               "info": "Wybierz ikonę lub dodaj obraz dla każdego parowania"

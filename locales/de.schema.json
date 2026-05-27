@@ -1955,6 +1955,10 @@
               "label": "Überschrift",
               "default": "Titel"
             },
+            "content": {
+              "label": "Content",
+              "info": "Use the editor to add text for this icon with text item."
+            },
             "pairing_1": {
               "label": "Kombination 1",
               "info": "Wähle für jede Kombination ein Symbol oder ein Bild aus"

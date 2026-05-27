@@ -1956,6 +1956,10 @@
               "label": "Kop",
               "default": "Koptekst"
             },
+            "content": {
+              "label": "Content",
+              "info": "Use the editor to add text for this icon with text item."
+            },
             "pairing_1": {
               "label": "Koppeling 1",
               "info": "Kies een pictogram of voeg een afbeelding toe voor elke koppeling"

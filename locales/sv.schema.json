@@ -1956,6 +1956,10 @@
               "label": "Rubrik",
               "default": "Rubrik"
             },
+            "content": {
+              "label": "Content",
+              "info": "Use the editor to add text for this icon with text item."
+            },
             "pairing_1": {
               "label": "Parkoppling 1",
               "info": "Välj en ikon eller lägg till en bild för varje parkoppling"

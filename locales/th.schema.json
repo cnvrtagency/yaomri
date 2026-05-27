@@ -1956,6 +1956,10 @@
               "label": "ส่วนหัว",
               "default": "หัวเรื่อง"
             },
+            "content": {
+              "label": "Content",
+              "info": "Use the editor to add text for this icon with text item."
+            },
             "pairing_1": {
               "label": "การจับคู่ 1",
               "info": "เลือกไอคอนหรือเพิ่มรูปภาพสำหรับการจับคู่แต่ละรายการ"

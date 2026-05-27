@@ -1956,6 +1956,10 @@
               "label": "Título",
               "default": "Cabeçalho"
             },
+            "content": {
+              "label": "Content",
+              "info": "Use the editor to add text for this icon with text item."
+            },
             "pairing_1": {
               "label": "Emparelhamento 1",
               "info": "Escolha um ícone ou adicione uma imagem para cada emparelhamento"

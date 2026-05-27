@@ -10,6 +10,36 @@
     assign layout_style = 'split_image'
   endif
 
+  assign item_count_desktop = section.settings.items_per_row_desktop | default: 3
+  assign item_count_tablet = section.settings.items_per_row_tablet | default: 2
+  assign item_count_mobile = section.settings.items_per_row_mobile | default: 1
+  assign gap_rem = section.settings.gap_px | default: 4 | divided_by: 10.0
+  assign desktop_gap_total = item_count_desktop | minus: 1 | times: gap_rem
+  assign tablet_gap_total = item_count_tablet | minus: 1 | times: gap_rem
+  assign mobile_gap_total = item_count_mobile | minus: 1 | times: gap_rem
+  assign image_aspect_ratio = 'auto'
+  assign duplicate_groups = 2
+  assign overlay_enabled = section.settings.overlay_enabled
+
+  if section.settings.overlay_enabled == nil and section.settings.overlay_opacity > 0
+    assign overlay_enabled = true
+  endif
+
+  if layout_style == 'marquee' and section.blocks.size < item_count_desktop
+    assign duplicate_groups = 3
+  endif
+
+  case section.settings.image_aspect_ratio
+    when 'portrait_4_5'
+      assign image_aspect_ratio = '4 / 5'
+    when 'square'
+      assign image_aspect_ratio = '1 / 1'
+    when 'portrait_3_4'
+      assign image_aspect_ratio = '3 / 4'
+    when 'landscape_4_3'
+      assign image_aspect_ratio = '4 / 3'
+  endcase
+
   assign tile_limit = 3
   if layout_style == 'single_image' or layout_style == 'split_image'
     assign tile_limit = 1
@@ -33,6 +63,14 @@
     --hero-overlay-color: {{ section.settings.overlay_color }};
     --hero-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
     --hero-image-radius: {{ section.settings.image_radius }}px;
+    --hero-items-desktop: {{ item_count_desktop }};
+    --hero-items-tablet: {{ item_count_tablet }};
+    --hero-items-mobile: {{ item_count_mobile }};
+    --hero-item-width-desktop: calc((100% - {{ desktop_gap_total }}rem) / {{ item_count_desktop }});
+    --hero-item-width-tablet: calc((100% - {{ tablet_gap_total }}rem) / {{ item_count_tablet }});
+    --hero-item-width-mobile: calc((100% - {{ mobile_gap_total }}rem) / {{ item_count_mobile }});
+    --hero-image-aspect-ratio: {{ image_aspect_ratio }};
+    --hero-image-fit: {{ section.settings.image_fit }};
     --yaomri-hero-triple-heading-color: {{ section.settings.heading_color }};
     --yaomri-hero-triple-subheading-color: {{ section.settings.subheading_color }};
     --yaomri-hero-triple-primary-bg: {{ section.settings.primary_button_background }};
@@ -51,7 +89,7 @@
 
 <section
   id="YaomriHeroTriple-{{ section.id }}"
-  class="yaomri-hero-triple yaomri-hero-triple--{{ layout_style }} yaomri-hero-triple--tiles-{{ grid_tile_count }} yaomri-hero-triple--split-image-{{ section.settings.split_image_position }} yaomri-hero-triple--content-{{ section.settings.content_position }} yaomri-hero-triple--align-{{ section.settings.text_alignment }} yaomri-hero-triple--secondary-{{ section.settings.secondary_button_style }}"
+  class="yaomri-hero-triple yaomri-hero-triple--{{ layout_style }} yaomri-hero-triple--tiles-{{ grid_tile_count }} yaomri-hero-triple--split-image-{{ section.settings.split_image_position }} yaomri-hero-triple--content-{{ section.settings.content_position }} yaomri-hero-triple--align-{{ section.settings.text_alignment }} yaomri-hero-triple--secondary-{{ section.settings.secondary_button_style }}{% if section.settings.marquee_direction == 'right' %} yaomri-hero-triple--marquee-right{% endif %}{% if section.settings.pause_on_hover %} yaomri-hero-triple--pause-hover{% endif %}"
 >
   {%- if layout_style == 'split_image' -%}
     {%- for block in section.blocks limit: 1 -%}
@@ -138,7 +176,7 @@
       {% if layout_style == 'carousel' %}id="YaomriHeroTripleTrack-{{ section.id }}"{% endif %}
     >
       {%- if layout_style == 'marquee' -%}
-        {%- for i in (1..2) -%}
+        {%- for i in (1..duplicate_groups) -%}
           {%- for block in section.blocks -%}
             {%- liquid
               assign desktop_image = block.settings.desktop_image | default: block.settings.image
@@ -169,13 +207,13 @@
               {%- else -%}
                 <div class="yaomri-hero-triple__placeholder placeholder-img" data-label="{{ block.settings.placeholder_label | escape }}"></div>
               {%- endif -%}
-              {%- if section.settings.overlay_opacity > 0 -%}<div class="yaomri-hero-triple__overlay"></div>{%- endif -%}
+              {%- if overlay_enabled -%}<div class="yaomri-hero-triple__overlay"></div>{%- endif -%}
               {%- if show_content -%}
                 <div class="yaomri-hero-triple__copy">
-                  {%- if eyebrow != blank -%}<p class="yaomri-hero-triple__subheading">{{ eyebrow | escape }}</p>{%- endif -%}
-                  {%- if heading != blank -%}<h2 class="yaomri-hero-triple__headline">{{ heading | escape }}</h2>{%- endif -%}
-                  {%- if body_text != blank -%}<div class="yaomri-hero-triple__text">{{ body_text | escape }}</div>{%- endif -%}
-                  {%- if block.settings.cta_1_label != blank or block.settings.cta_2_label != blank -%}
+                  {%- if section.settings.show_description and eyebrow != blank -%}<p class="yaomri-hero-triple__subheading">{{ eyebrow | escape }}</p>{%- endif -%}
+                  {%- if section.settings.show_title and heading != blank -%}<h2 class="yaomri-hero-triple__headline">{{ heading | escape }}</h2>{%- endif -%}
+                  {%- if section.settings.show_description and body_text != blank -%}<div class="yaomri-hero-triple__text">{{ body_text | escape }}</div>{%- endif -%}
+                  {%- if section.settings.show_cta and block.settings.cta_1_label != blank or section.settings.show_cta and block.settings.cta_2_label != blank -%}
                     <div class="yaomri-hero-triple__actions">
                       {%- if block.settings.cta_1_label != blank -%}<a class="yaomri-hero-triple__button yaomri-hero-triple__button--primary"{% if block.settings.cta_1_link == blank %} role="link" aria-disabled="true"{% else %} href="{{ block.settings.cta_1_link }}"{% endif %}>{{ block.settings.cta_1_label | escape }}</a>{%- endif -%}
                       {%- if block.settings.cta_2_label != blank -%}<a class="yaomri-hero-triple__button yaomri-hero-triple__button--secondary"{% if block.settings.cta_2_link == blank %} role="link" aria-disabled="true"{% else %} href="{{ block.settings.cta_2_link }}"{% endif %}>{{ block.settings.cta_2_label | escape }}</a>{%- endif -%}
@@ -219,13 +257,13 @@
             {%- else -%}
               <div class="yaomri-hero-triple__placeholder placeholder-img" data-label="{{ block.settings.placeholder_label | escape }}"></div>
             {%- endif -%}
-            {%- if section.settings.overlay_opacity > 0 -%}<div class="yaomri-hero-triple__overlay"></div>{%- endif -%}
+            {%- if overlay_enabled -%}<div class="yaomri-hero-triple__overlay"></div>{%- endif -%}
             {%- if show_content -%}
               <div class="yaomri-hero-triple__copy">
-                {%- if eyebrow != blank -%}<p class="yaomri-hero-triple__subheading">{{ eyebrow | escape }}</p>{%- endif -%}
-                {%- if heading != blank -%}<h2 class="yaomri-hero-triple__headline">{{ heading | escape }}</h2>{%- endif -%}
-                {%- if body_text != blank -%}<div class="yaomri-hero-triple__text">{{ body_text | escape }}</div>{%- endif -%}
-                {%- if block.settings.cta_1_label != blank or block.settings.cta_2_label != blank -%}
+                {%- if section.settings.show_description and eyebrow != blank -%}<p class="yaomri-hero-triple__subheading">{{ eyebrow | escape }}</p>{%- endif -%}
+                {%- if section.settings.show_title and heading != blank -%}<h2 class="yaomri-hero-triple__headline">{{ heading | escape }}</h2>{%- endif -%}
+                {%- if section.settings.show_description and body_text != blank -%}<div class="yaomri-hero-triple__text">{{ body_text | escape }}</div>{%- endif -%}
+                {%- if section.settings.show_cta and block.settings.cta_1_label != blank or section.settings.show_cta and block.settings.cta_2_label != blank -%}
                   <div class="yaomri-hero-triple__actions">
                     {%- if block.settings.cta_1_label != blank -%}<a class="yaomri-hero-triple__button yaomri-hero-triple__button--primary"{% if block.settings.cta_1_link == blank %} role="link" aria-disabled="true"{% else %} href="{{ block.settings.cta_1_link }}"{% endif %}>{{ block.settings.cta_1_label | escape }}</a>{%- endif -%}
                     {%- if block.settings.cta_2_label != blank -%}<a class="yaomri-hero-triple__button yaomri-hero-triple__button--secondary"{% if block.settings.cta_2_link == blank %} role="link" aria-disabled="true"{% else %} href="{{ block.settings.cta_2_link }}"{% endif %}>{{ block.settings.cta_2_label | escape }}</a>{%- endif -%}
@@ -237,10 +275,23 @@
         {%- endfor -%}
       {%- endif -%}
     </div>
+    {%- if layout_style == 'carousel' and section.settings.show_dots -%}
+      <div class="yaomri-hero-triple__dots" aria-label="Hero carousel pagination">
+        {%- for block in section.blocks -%}
+          <button
+            class="yaomri-hero-triple__dot{% if forloop.first %} is-active{% endif %}"
+            type="button"
+            aria-label="Go to hero item {{ forloop.index }}"
+            data-yaomri-hero-dot="{{ section.id }}"
+            data-yaomri-hero-index="{{ forloop.index0 }}"
+          ></button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
   {%- endif -%}
 </section>
 
-{%- if layout_style == 'carousel' and section.settings.show_carousel_arrows -%}
+{%- if layout_style == 'carousel' and section.settings.show_carousel_arrows or layout_style == 'carousel' and section.settings.show_dots or layout_style == 'carousel' and section.settings.autoplay -%}
   <script>
     (() => {
       const section = document.getElementById('YaomriHeroTriple-{{ section.id }}');
@@ -248,12 +299,52 @@
       const track = section.querySelector('#YaomriHeroTripleTrack-{{ section.id }}');
       const previous = section.querySelector('[data-yaomri-hero-prev="{{ section.id }}"]');
       const next = section.querySelector('[data-yaomri-hero-next="{{ section.id }}"]');
-      if (!track || !previous || !next) return;
-      const scrollByPage = (direction) => {
-        track.scrollBy({ left: direction * Math.max(track.clientWidth, 1), behavior: 'smooth' });
+      const dots = [...section.querySelectorAll('[data-yaomri-hero-dot="{{ section.id }}"]')];
+      if (!track) return;
+      const slides = [...track.querySelectorAll('.yaomri-hero-triple__tile')];
+      const loop = {{ section.settings.loop | json }};
+
+      const getStep = () => {
+        const firstSlide = slides[0];
+        if (!firstSlide) return track.clientWidth;
+        const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || 0);
+        return firstSlide.getBoundingClientRect().width + gap;
       };
-      previous.addEventListener('click', () => scrollByPage(-1));
-      next.addEventListener('click', () => scrollByPage(1));
+
+      const activeIndex = () => Math.max(0, Math.round(track.scrollLeft / Math.max(getStep(), 1)));
+      const updateDots = () => {
+        const index = activeIndex();
+        dots.forEach((dot, dotIndex) => dot.classList.toggle('is-active', dotIndex === index));
+      };
+
+      const scrollByPage = (direction) => {
+        const maxScroll = track.scrollWidth - track.clientWidth - 2;
+        if (loop && direction > 0 && track.scrollLeft >= maxScroll) {
+          track.scrollTo({ left: 0, behavior: 'smooth' });
+          return;
+        }
+        if (loop && direction < 0 && track.scrollLeft <= 2) {
+          track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
+          return;
+        }
+        track.scrollBy({ left: direction * Math.max(track.clientWidth, getStep()), behavior: 'smooth' });
+      };
+
+      if (previous) previous.addEventListener('click', () => scrollByPage(-1));
+      if (next) next.addEventListener('click', () => scrollByPage(1));
+      dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+          const index = Number(dot.dataset.yaomriHeroIndex || 0);
+          track.scrollTo({ left: index * getStep(), behavior: 'smooth' });
+        });
+      });
+      track.addEventListener('scroll', () => window.requestAnimationFrame(updateDots), { passive: true });
+
+      {% if section.settings.autoplay %}
+        window.setInterval(() => scrollByPage(1), {{ section.settings.autoplay_speed | times: 1000 }});
+      {% endif %}
+
+      updateDots();
       section.dataset.yaomriHeroCarouselInit = 'true';
     })();
   </script>
@@ -264,7 +355,7 @@
   "name": "Editorial Hero",
   "tag": "section",
   "class": "section",
-  "max_blocks": 3,
+  "max_blocks": 6,
   "disabled_on": {
     "groups": ["header", "footer"]
   },
@@ -280,7 +371,7 @@
       "options": [
         {
           "value": "three_grid",
-          "label": "Three image grid"
+          "label": "Grid"
         },
         {
           "value": "single_image",
@@ -300,6 +391,103 @@
         }
       ],
       "default": "three_grid"
+    },
+    {
+      "type": "header",
+      "content": "Item layout"
+    },
+    {
+      "type": "range",
+      "id": "items_per_row_desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "label": "Desktop items",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "items_per_row_tablet",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "label": "Tablet items",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "items_per_row_mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Items per row mobile",
+      "default": 1
+    },
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Image shape",
+      "options": [
+        {
+          "value": "fill_height",
+          "label": "Fill height"
+        },
+        {
+          "value": "portrait_4_5",
+          "label": "Portrait 4:5"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        },
+        {
+          "value": "portrait_3_4",
+          "label": "Portrait 3:4"
+        },
+        {
+          "value": "landscape_4_3",
+          "label": "Landscape 4:3"
+        }
+      ],
+      "default": "fill_height"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image fit",
+      "options": [
+        {
+          "value": "cover",
+          "label": "Cover"
+        },
+        {
+          "value": "contain",
+          "label": "Contain"
+        }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Show title",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show text",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show buttons",
+      "default": true
     },
     {
       "type": "header",
@@ -408,6 +596,34 @@
       "default": true
     },
     {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show dots",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "loop",
+      "label": "Loop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Autoplay speed",
+      "default": 5
+    },
+    {
       "type": "header",
       "content": "Marquee"
     },
@@ -422,6 +638,28 @@
       "default": 30
     },
     {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on hover",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "marquee_direction",
+      "label": "Direction",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
       "type": "header",
       "content": "Overlay"
     },
@@ -432,10 +670,16 @@
       "default": "#000000"
     },
     {
+      "type": "checkbox",
+      "id": "overlay_enabled",
+      "label": "Show overlay",
+      "default": true
+    },
+    {
       "type": "range",
       "id": "overlay_opacity",
       "min": 0,
-      "max": 80,
+      "max": 100,
       "step": 5,
       "unit": "%",
       "label": "Overlay strength",
