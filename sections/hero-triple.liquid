@@ -18,15 +18,7 @@
   assign tablet_gap_total = item_count_tablet | minus: 1 | times: gap_rem
   assign mobile_gap_total = item_count_mobile | minus: 1 | times: gap_rem
   assign image_aspect_ratio = 'auto'
-  assign overlay_enabled = section.settings.overlay_enabled
   assign overlay_opacity = section.settings.overlay_opacity | default: 0
-
-  if section.settings.overlay_enabled == nil and section.settings.overlay_opacity > 0
-    assign overlay_enabled = true
-  endif
-  if overlay_enabled == false
-    assign overlay_opacity = 0
-  endif
 
   case section.settings.image_aspect_ratio
     when 'portrait_4_5'
@@ -87,6 +79,7 @@
 <section
   id="YaomriHeroTriple-{{ section.id }}"
   class="yaomri-hero-triple yaomri-hero-triple--{{ layout_style }} yaomri-hero-triple--shape-{{ section.settings.image_aspect_ratio | default: 'fill_height' }} yaomri-hero-triple--split-image-{{ section.settings.split_image_position }} yaomri-hero-triple--content-{{ section.settings.content_position }} yaomri-hero-triple--align-{{ section.settings.text_alignment }} yaomri-hero-triple--secondary-{{ section.settings.secondary_button_style }}{% if section.settings.marquee_direction == 'right' %} yaomri-hero-triple--marquee-right{% endif %}{% if section.settings.pause_on_hover %} yaomri-hero-triple--pause-hover{% endif %}"
+  style="--hero-overlay-color: {{ section.settings.overlay_color | default: '#000000' }}; --hero-overlay-opacity: {{ overlay_opacity | divided_by: 100.0 }};"
 >
   {%- if layout_style == 'split_image' -%}
     {%- for block in section.blocks limit: 1 -%}

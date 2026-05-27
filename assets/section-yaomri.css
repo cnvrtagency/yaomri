@@ -79,34 +79,41 @@
   border-radius: var(--hero-image-radius, 0);
   display: block;
   overflow: hidden;
+  position: relative;
   width: 100%;
+  z-index: 1;
 }
 
 .yaomri-hero-triple--shape-fill_height .yaomri-hero-triple__tile {
+  height: max(var(--yaomri-hero-triple-mobile-height), var(--yaomri-hero-triple-min-height, 420px));
   min-height: var(--yaomri-hero-triple-min-height, 420px);
 }
 
 .yaomri-hero-triple--shape-fill_height .yaomri-hero-triple__media,
 .yaomri-hero-triple--shape-fill_height .yaomri-hero-triple__placeholder {
-  height: max(var(--yaomri-hero-triple-mobile-height), var(--yaomri-hero-triple-min-height, 420px));
-  min-height: var(--yaomri-hero-triple-min-height, 420px);
+  height: 100%;
+  inset: 0;
+  min-height: 0;
+  position: absolute;
 }
 
 .yaomri-hero-triple__image {
   display: block;
   height: 100%;
   object-fit: var(--hero-image-fit, cover);
+  position: relative;
   width: 100%;
+  z-index: 1;
 }
 
 .yaomri-hero-triple__overlay {
-  background: var(--hero-overlay-color, #000000);
+  background-color: var(--hero-overlay-color, #000000);
   border-radius: var(--hero-image-radius, 0);
   inset: 0;
   opacity: var(--hero-overlay-opacity, 0);
   pointer-events: none;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
 }
 
 .yaomri-hero-triple__copy {
@@ -114,7 +121,12 @@
   max-width: min(100%, var(--hero-content-width-mobile, 320px));
   position: absolute;
   width: min(calc(100% - (var(--hero-content-padding-mobile, 24px) * 2)), var(--hero-content-width-mobile, 320px));
-  z-index: 2;
+  z-index: 3;
+}
+
+.yaomri-hero-triple__actions {
+  position: relative;
+  z-index: 3;
 }
 
 .yaomri-hero-triple--align-left .yaomri-hero-triple__copy {
@@ -435,6 +447,10 @@
 
   .yaomri-hero-triple--shape-fill_height .yaomri-hero-triple__media,
   .yaomri-hero-triple--shape-fill_height .yaomri-hero-triple__placeholder {
+    height: 100%;
+  }
+
+  .yaomri-hero-triple--shape-fill_height .yaomri-hero-triple__tile {
     height: max(var(--yaomri-hero-triple-desktop-height), var(--yaomri-hero-triple-min-height, 420px));
   }
 
