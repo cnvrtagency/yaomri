@@ -185,3 +185,65 @@
     font-size: 5rem;
   }
 }
+
+.yaomri-brand-strip {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.yaomri-brand-strip__inner {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 4rem;
+  justify-content: center;
+  padding-bottom: var(--yaomri-brand-strip-padding);
+  padding-top: var(--yaomri-brand-strip-padding);
+}
+
+.yaomri-brand-strip__item {
+  align-items: center;
+  display: inline-flex;
+  gap: 4rem;
+}
+
+.yaomri-brand-strip__text {
+  color: var(--paper);
+  font-size: 1.15rem;
+  font-style: italic;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.25;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.yaomri-brand-strip__dot {
+  background: var(--paper);
+  display: inline-block;
+  flex: 0 0 auto;
+  height: 1px;
+  width: 1px;
+}
+
+@media screen and (max-width: 749px) {
+  .yaomri-brand-strip__inner {
+    display: grid;
+    gap: 1.2rem 1.6rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    text-align: center;
+  }
+
+  .yaomri-brand-strip__item {
+    display: flex;
+    justify-content: center;
+  }
+
+  .yaomri-brand-strip__dot {
+    display: none;
+  }
+
+  .yaomri-brand-strip__text {
+    white-space: normal;
+  }
+}

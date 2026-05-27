@@ -1,0 +1,91 @@
+{{ 'section-yaomri.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #YaomriBrandStrip-{{ section.id }} {
+    --yaomri-brand-strip-padding: {{ section.settings.padding_vertical }}px;
+  }
+{%- endstyle -%}
+
+<section id="YaomriBrandStrip-{{ section.id }}" class="yaomri-brand-strip">
+  <div class="yaomri-brand-strip__inner yaomri-page-width">
+    {%- for block in section.blocks limit: 6 -%}
+      {%- if block.settings.text != blank -%}
+        <div class="yaomri-brand-strip__item" {{ block.shopify_attributes }}>
+          <span class="yaomri-brand-strip__text">{{ block.settings.text | escape }}</span>
+          {%- unless forloop.last -%}
+            <span class="yaomri-brand-strip__dot" aria-hidden="true"></span>
+          {%- endunless -%}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand Strip",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 6,
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "min": 8,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 16
+    }
+  ],
+  "blocks": [
+    {
+      "type": "statement",
+      "name": "Statement",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Brand statement"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Strip",
+      "blocks": [
+        {
+          "type": "statement",
+          "settings": {
+            "text": "Sculpted Fits"
+          }
+        },
+        {
+          "type": "statement",
+          "settings": {
+            "text": "Premium Swimwear"
+          }
+        },
+        {
+          "type": "statement",
+          "settings": {
+            "text": "Resort-Ready Styling"
+          }
+        },
+        {
+          "type": "statement",
+          "settings": {
+            "text": "Designed to Turn Heads"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
