@@ -9,76 +9,105 @@
  */
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "hero_triple_9q97XR": {
+      "type": "hero-triple",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "hero_tile_dwVFUP": {
+          "type": "hero_tile",
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
+            "subheading": "Statement swimwear for golden-hour escapes.",
+            "headline": "Get sun-drenched",
+            "cta_1_label": "Shop the Collection",
+            "cta_1_link": "/collections/all",
+            "cta_2_label": "Explore New Arrivals",
+            "cta_2_link": "/collections/new",
+            "show_copy": true,
+            "placeholder_label": "Hero Left — Campaign"
           }
         },
-        "button": {
-          "type": "buttons",
+        "hero_tile_8WQPYc": {
+          "type": "hero_tile",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "subheading": "",
+            "headline": "",
+            "cta_1_label": "",
+            "cta_1_link": "",
+            "cta_2_label": "",
+            "cta_2_link": "",
+            "show_copy": false,
+            "placeholder_label": "Hero Centre — Campaign"
+          }
+        },
+        "hero_tile_km3cBn": {
+          "type": "hero_tile",
+          "settings": {
+            "subheading": "",
+            "headline": "",
+            "cta_1_label": "",
+            "cta_1_link": "",
+            "cta_2_label": "",
+            "cta_2_link": "",
+            "show_copy": false,
+            "placeholder_label": "Hero Right — Campaign"
           }
         }
       },
       "block_order": [
-        "heading",
-        "button"
+        "hero_tile_dwVFUP",
+        "hero_tile_8WQPYc",
+        "hero_tile_km3cBn"
       ],
+      "name": "Hero - 3-up Campaign",
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "image_behavior": "none",
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "tile_height_desktop": 78,
+        "tile_height_mobile": 55,
+        "gap_px": 4,
+        "top_padding": 4,
+        "overlay_opacity": 0
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "brand_strip_M8T3nC": {
+      "type": "brand-strip",
+      "blocks": {
+        "statement_fLCJCD": {
+          "type": "statement",
+          "settings": {
+            "text": "Sculpted Fits"
+          }
+        },
+        "statement_Jhp3A3": {
+          "type": "statement",
+          "settings": {
+            "text": "Premium Swimwear"
+          }
+        },
+        "statement_L6XLac": {
+          "type": "statement",
+          "settings": {
+            "text": "Resort-Ready Styling"
+          }
+        },
+        "statement_kgEkq8": {
+          "type": "statement",
+          "settings": {
+            "text": "Designed to Turn Heads"
+          }
+        }
+      },
+      "block_order": [
+        "statement_fLCJCD",
+        "statement_Jhp3A3",
+        "statement_L6XLac",
+        "statement_kgEkq8"
+      ],
+      "name": "Brand Strip",
       "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "padding_top": 44,
-        "padding_bottom": 36
+        "padding_vertical": 16
       }
     }
   },
   "order": [
-    "image_banner",
-    "featured_collection"
+    "hero_triple_9q97XR",
+    "brand_strip_M8T3nC"
   ]
 }
