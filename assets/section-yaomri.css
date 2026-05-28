@@ -1343,8 +1343,10 @@
   align-items: center;
   display: inline-flex;
   justify-content: center;
+  line-height: 0;
   min-height: 4.2rem;
   min-width: 4.2rem;
+  padding: 0;
 }
 
 .yaomri-header .header__icon {
@@ -1357,6 +1359,7 @@
   display: inline-flex;
   height: 4.2rem;
   justify-content: center;
+  line-height: 0;
   width: 4.2rem;
 }
 
@@ -1365,10 +1368,17 @@
   width: 2rem;
 }
 
+.yaomri-header .header__icon--cart .icon {
+  height: 2.25rem;
+  width: 2.25rem;
+}
+
+.yaomri-header details:not([open]) .header__icon--search .header__icon-close,
 .yaomri-header details:not([open]) .header__icon-close {
   display: none;
 }
 
+.yaomri-header details[open] .header__icon--search .header__icon-close,
 .yaomri-header details[open] .header__icon-close {
   display: inline-flex;
 }
