@@ -1271,6 +1271,18 @@
   width: 100%;
 }
 
+.yaomri-header .header__heading-logo--mobile {
+  display: none;
+}
+
+.yaomri-header .header__heading-logo-wrapper--has-mobile-logo .header__heading-logo--desktop {
+  display: none;
+}
+
+.yaomri-header .header__heading-logo-wrapper--has-mobile-logo .header__heading-logo--mobile {
+  display: block;
+}
+
 .yaomri-header .header__inline-menu {
   align-self: center;
   margin-left: 0;
@@ -1446,6 +1458,14 @@
     width: var(--yaomri-header-logo-width, 140px);
   }
 
+  .yaomri-header .header__heading-logo-wrapper--has-mobile-logo .header__heading-logo--desktop {
+    display: block;
+  }
+
+  .yaomri-header .header__heading-logo-wrapper--has-mobile-logo .header__heading-logo--mobile {
+    display: none;
+  }
+
   .yaomri-header .header__inline-menu {
     align-self: center;
     justify-self: start;
@@ -1463,9 +1483,21 @@
 
 @media screen and (max-width: 989px) {
   .yaomri-header {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     min-height: 6rem;
     padding-left: 1.6rem;
     padding-right: 1.6rem;
+  }
+
+  .yaomri-header .header__heading,
+  .yaomri-header .header__heading-link {
+    justify-self: center;
+    text-align: center;
+  }
+
+  .yaomri-header header-drawer,
+  .yaomri-header > .header__search {
+    justify-self: start;
   }
 
   .yaomri-header .header__heading-link {
@@ -1474,5 +1506,6 @@
 
   .yaomri-header .header__icons {
     gap: 0;
+    justify-self: end;
   }
 }
