@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
+{{ 'section-yaomri.css' | asset_url | stylesheet_tag }}
 <link
   rel="stylesheet"
   href="{{ 'component-cart-notification.css' | asset_url }}"
@@ -86,6 +87,14 @@
     margin-bottom: {{ section.settings.margin_bottom | times: 0.75 | round: 0 }}px;
   }
 
+  .yaomri-header {
+    --yaomri-header-nav-font-size: {{ section.settings.nav_font_size }}px;
+    --yaomri-header-nav-font-weight: {{ section.settings.nav_font_weight }};
+    --yaomri-header-nav-text-transform: {{ section.settings.nav_text_transform }};
+    --yaomri-header-nav-font-style: {{ section.settings.nav_font_style }};
+    --yaomri-header-nav-gap: {{ section.settings.nav_gap }}px;
+  }
+
   @media screen and (min-width: 750px) {
     .section-header {
       margin-bottom: {{ section.settings.margin_bottom }}px;
@@ -122,7 +131,7 @@
   {% if header_tag == 'sticky-header' %}
     data-sticky-type="{{ section.settings.sticky_header_type }}"
   {% endif %}
-  class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}"
+  class="header-wrapper yaomri-header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}"
 >
   {%- liquid
     assign social_links = false
@@ -136,7 +145,7 @@
       assign localization_forms = true
     endif
   -%}
-  <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
+  <header class="header yaomri-header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
     {%- liquid
       if section.settings.menu != blank
         render 'header-drawer'
@@ -249,7 +258,7 @@
       </div>
       {% render 'header-search', input_id: 'Search-In-Modal' %}
 
-      {%- if shop.customer_accounts_enabled -%}
+      {%- if shop.customer_accounts_enabled and section.settings.show_account_icon -%}
         <a
           href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
           class="header__icon header__icon--account link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
@@ -571,6 +580,94 @@
     },
     {
       "type": "header",
+      "content": "Ya Omri nav text"
+    },
+    {
+      "type": "range",
+      "id": "nav_font_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Nav size",
+      "default": 11
+    },
+    {
+      "type": "select",
+      "id": "nav_font_weight",
+      "label": "Nav weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semibold"
+        },
+        {
+          "value": "800",
+          "label": "Bold"
+        }
+      ],
+      "default": "800"
+    },
+    {
+      "type": "select",
+      "id": "nav_text_transform",
+      "label": "Nav case",
+      "options": [
+        {
+          "value": "none",
+          "label": "Default"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        },
+        {
+          "value": "lowercase",
+          "label": "Lowercase"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "select",
+      "id": "nav_font_style",
+      "label": "Nav style",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "italic",
+          "label": "Italic"
+        }
+      ],
+      "default": "italic"
+    },
+    {
+      "type": "range",
+      "id": "nav_gap",
+      "min": 12,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Nav gap",
+      "default": 28
+    },
+    {
+      "type": "header",
       "content": "t:sections.header.settings.header__1.content"
     },
     {
@@ -588,6 +685,12 @@
     {
       "type": "header",
       "content": "t:sections.header.settings.header__utilities.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account_icon",
+      "default": true,
+      "label": "Show account icon"
     },
     {
       "type": "checkbox",
