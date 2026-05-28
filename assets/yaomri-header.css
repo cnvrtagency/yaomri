@@ -1,0 +1,332 @@
+.yaomri-custom-header {
+  background: var(--yaomri-custom-header-bg, #ffffff);
+  border-bottom: 1px solid var(--yaomri-custom-header-border, #e8e8e8);
+  color: #1a1a1a;
+  position: relative;
+  z-index: 40;
+}
+
+.yaomri-custom-header * {
+  box-sizing: border-box;
+}
+
+.yaomri-custom-header__inner {
+  align-items: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  min-height: var(--yaomri-custom-header-mobile-height, 64px);
+  padding: 0 1.6rem;
+  position: relative;
+}
+
+.yaomri-custom-header__desktop-left {
+  align-items: center;
+  display: none;
+  gap: 2.4rem;
+  justify-self: start;
+  min-width: 0;
+}
+
+.yaomri-custom-header__mobile-left {
+  align-items: center;
+  display: flex;
+  justify-self: start;
+}
+
+.yaomri-custom-header__actions {
+  align-items: center;
+  display: flex;
+  gap: 0;
+  justify-self: end;
+  min-width: 0;
+}
+
+.yaomri-custom-header__logo {
+  align-items: center;
+  color: currentColor;
+  display: inline-flex;
+  justify-content: center;
+  line-height: 1;
+  min-width: 0;
+  text-decoration: none;
+}
+
+.yaomri-custom-header__logo--main {
+  justify-self: center;
+}
+
+.yaomri-custom-header__logo--desktop-left {
+  display: none;
+}
+
+.yaomri-custom-header__logo-image {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+.yaomri-custom-header__logo-image--desktop {
+  width: var(--yaomri-custom-header-mobile-logo-width, 120px);
+}
+
+.yaomri-custom-header__logo-image--mobile {
+  display: none;
+  width: var(--yaomri-custom-header-mobile-logo-width, 120px);
+}
+
+.yaomri-custom-header__logo-image--desktop + .yaomri-custom-header__logo-image--mobile {
+  display: block;
+}
+
+.yaomri-custom-header__logo-image--desktop:has(+ .yaomri-custom-header__logo-image--mobile) {
+  display: none;
+}
+
+.yaomri-custom-header__logo-text {
+  color: currentColor;
+  font-size: 1.8rem;
+  font-style: italic;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.yaomri-custom-header__search {
+  align-items: center;
+  background: var(--yaomri-custom-header-search-bg, #f4f4f4);
+  display: flex;
+  height: var(--yaomri-custom-header-search-height, 44px);
+  padding: 0 1.4rem;
+  width: min(var(--yaomri-custom-header-search-width, 320px), 36vw);
+}
+
+.yaomri-custom-header__search-icon {
+  align-items: center;
+  display: inline-flex;
+  height: 2.2rem;
+  justify-content: center;
+  margin-right: 1rem;
+  width: 2.2rem;
+}
+
+.yaomri-custom-header__search-input {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: currentColor;
+  flex: 1 1 auto;
+  font: inherit;
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 0;
+  min-width: 0;
+  outline: 0;
+  text-transform: uppercase;
+}
+
+.yaomri-custom-header__search-input::placeholder {
+  color: #737373;
+  opacity: 1;
+}
+
+.yaomri-custom-header__icon,
+.yaomri-custom-header__menu-toggle {
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: currentColor;
+  cursor: pointer;
+  display: inline-flex;
+  height: 4rem;
+  justify-content: center;
+  line-height: 0;
+  min-height: 4rem;
+  min-width: 4rem;
+  padding: 0;
+  position: relative;
+  text-decoration: none;
+  width: 4rem;
+}
+
+.yaomri-custom-header__icon .icon-yaomri,
+.yaomri-custom-header__menu-toggle .icon-yaomri,
+.yaomri-custom-header__search-icon .icon-yaomri {
+  display: block;
+  height: 2.4rem;
+  width: 2.4rem;
+}
+
+.yaomri-custom-header__country {
+  align-items: center;
+  border: 1px solid var(--yaomri-custom-header-border, #e8e8e8);
+  color: currentColor;
+  display: none;
+  font-size: 1.1rem;
+  font-style: italic;
+  font-weight: 800;
+  height: 3.4rem;
+  justify-content: center;
+  letter-spacing: 0;
+  line-height: 1;
+  min-width: 4.2rem;
+  padding: 0 1rem;
+  text-transform: uppercase;
+}
+
+.yaomri-custom-header__cart-count {
+  align-items: center;
+  background: var(--yaomri-custom-header-cart-count-bg, #000000);
+  border-radius: 999px;
+  color: var(--yaomri-custom-header-cart-count-text, #ffffff);
+  display: flex;
+  font-size: var(--yaomri-custom-header-cart-count-text-size, 10px);
+  font-weight: 800;
+  height: var(--yaomri-custom-header-cart-count-size, 18px);
+  justify-content: center;
+  line-height: 1;
+  min-width: var(--yaomri-custom-header-cart-count-size, 18px);
+  position: absolute;
+  right: 0.2rem;
+  top: 0.2rem;
+  width: var(--yaomri-custom-header-cart-count-size, 18px);
+}
+
+.yaomri-custom-header__mobile-menu {
+  display: block;
+  position: static;
+}
+
+.yaomri-custom-header__mobile-menu summary {
+  list-style: none;
+}
+
+.yaomri-custom-header__mobile-menu summary::-webkit-details-marker {
+  display: none;
+}
+
+.yaomri-custom-header__menu-close {
+  display: none;
+}
+
+.yaomri-custom-header__mobile-menu[open] .yaomri-custom-header__menu-icon {
+  display: none;
+}
+
+.yaomri-custom-header__mobile-menu[open] .yaomri-custom-header__menu-close {
+  display: inline-flex;
+}
+
+.yaomri-custom-header__drawer {
+  background: var(--yaomri-custom-header-bg, #ffffff);
+  border-top: 1px solid var(--yaomri-custom-header-border, #e8e8e8);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+  left: 0;
+  max-height: calc(100vh - var(--yaomri-custom-header-mobile-height, 64px));
+  overflow-y: auto;
+  padding: 2.4rem 1.6rem 3.2rem;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 5;
+}
+
+.yaomri-custom-header__drawer-list,
+.yaomri-custom-header__drawer-sublist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.yaomri-custom-header__drawer-link,
+.yaomri-custom-header__drawer-sublink {
+  color: currentColor;
+  display: block;
+  font-style: italic;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.yaomri-custom-header__drawer-link {
+  border-bottom: 1px solid var(--yaomri-custom-header-border, #e8e8e8);
+  font-size: 1.8rem;
+  padding: 1.4rem 0;
+}
+
+.yaomri-custom-header__drawer-sublist {
+  padding: 0.4rem 0 1.2rem;
+}
+
+.yaomri-custom-header__drawer-sublink {
+  color: #737373;
+  font-size: 1.2rem;
+  padding: 0.7rem 0;
+}
+
+.yaomri-custom-header__mobile-search {
+  display: inline-flex;
+}
+
+.yaomri-custom-header__account,
+.yaomri-custom-header__country {
+  display: none;
+}
+
+@media screen and (min-width: 990px) {
+  .yaomri-custom-header__inner {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    min-height: var(--yaomri-custom-header-desktop-height, 72px);
+    padding: 0 2.4rem;
+  }
+
+  .yaomri-custom-header__mobile-left,
+  .yaomri-custom-header__mobile-search {
+    display: none;
+  }
+
+  .yaomri-custom-header__desktop-left {
+    display: flex;
+  }
+
+  .yaomri-custom-header__logo-image--desktop {
+    display: block;
+    width: var(--yaomri-custom-header-desktop-logo-width, 150px);
+  }
+
+  .yaomri-custom-header__logo-image--mobile {
+    display: none;
+  }
+
+  .yaomri-custom-header__logo-image--desktop:has(+ .yaomri-custom-header__logo-image--mobile) {
+    display: block;
+  }
+
+  .yaomri-custom-header--logo-left .yaomri-custom-header__logo--main {
+    display: none;
+  }
+
+  .yaomri-custom-header--logo-left .yaomri-custom-header__logo--desktop-left {
+    display: inline-flex;
+  }
+
+  .yaomri-custom-header--logo-left .yaomri-custom-header__desktop-left {
+    gap: 3.2rem;
+  }
+
+  .yaomri-custom-header__actions {
+    gap: 0.2rem;
+  }
+
+  .yaomri-custom-header__account {
+    display: inline-flex;
+  }
+
+  .yaomri-custom-header__country {
+    display: inline-flex;
+    margin-right: 0.8rem;
+  }
+}

@@ -59,10 +59,38 @@
         "padding_top": 12,
         "padding_bottom": 12
       }
+    },
+    "yaomri-header": {
+      "type": "yaomri-header",
+      "settings": {
+        "menu": "main-menu",
+        "logo_position_desktop": "center",
+        "desktop_logo_width": 150,
+        "mobile_logo_width": 120,
+        "show_desktop_search": true,
+        "search_placeholder": "Search",
+        "search_width_desktop": 320,
+        "search_height_desktop": 44,
+        "search_background": "#f4f4f4",
+        "show_country_chip": true,
+        "country_label": "AE",
+        "show_account_icon": true,
+        "show_wishlist_icon": false,
+        "wishlist_link": "",
+        "show_cart_icon": true,
+        "cart_count_background": "#000000",
+        "cart_count_text": "#ffffff",
+        "cart_count_size": 18,
+        "cart_count_text_size": 10,
+        "header_background": "#ffffff",
+        "header_border_color": "#e8e8e8",
+        "header_height_desktop": 72,
+        "header_height_mobile": 64
+      }
     }
   },
   "order": [
     "announcement-bar",
-    "header"
+    "yaomri-header"
   ]
 }
