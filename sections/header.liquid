@@ -24,8 +24,8 @@
   }
 
   {%- if section.settings.sticky_header_type == 'reduce-logo-size' -%}
-    .scrolled-past-header .header__heading-logo-wrapper {
-      width: 75%;
+    .scrolled-past-header .yaomri-header .header__heading-logo-wrapper {
+      width: var(--yaomri-header-sticky-logo-width);
     }
   {%- endif -%}
 
@@ -93,6 +93,9 @@
     --yaomri-header-nav-text-transform: {{ section.settings.nav_text_transform }};
     --yaomri-header-nav-font-style: {{ section.settings.nav_font_style }};
     --yaomri-header-nav-gap: {{ section.settings.nav_gap }}px;
+    --yaomri-header-logo-width: {{ section.settings.desktop_logo_width | default: settings.logo_width | default: 140 }}px;
+    --yaomri-header-mobile-logo-width: {{ section.settings.mobile_logo_width | default: 110 }}px;
+    --yaomri-header-sticky-logo-width: {{ section.settings.sticky_logo_width | default: 100 }}px;
   }
 
   @media screen and (min-width: 750px) {
@@ -577,6 +580,40 @@
       "id": "show_line_separator",
       "default": true,
       "label": "t:sections.header.settings.show_line_separator.label"
+    },
+    {
+      "type": "header",
+      "content": "Logo sizes"
+    },
+    {
+      "type": "range",
+      "id": "desktop_logo_width",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Desktop logo width",
+      "default": 140
+    },
+    {
+      "type": "range",
+      "id": "mobile_logo_width",
+      "min": 50,
+      "max": 220,
+      "step": 10,
+      "unit": "px",
+      "label": "Mobile logo width",
+      "default": 110
+    },
+    {
+      "type": "range",
+      "id": "sticky_logo_width",
+      "min": 40,
+      "max": 240,
+      "step": 10,
+      "unit": "px",
+      "label": "Sticky logo width",
+      "default": 100
     },
     {
       "type": "header",

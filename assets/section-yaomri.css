@@ -1262,6 +1262,15 @@
   display: block;
 }
 
+.yaomri-header .header__heading-logo-wrapper {
+  width: var(--yaomri-header-mobile-logo-width, 110px);
+}
+
+.yaomri-header .header__heading-logo {
+  height: auto;
+  width: 100%;
+}
+
 .yaomri-header .header__inline-menu {
   align-self: center;
   margin-left: 0;
@@ -1326,8 +1335,7 @@
   min-width: 4.2rem;
 }
 
-.yaomri-header .header__icon,
-.yaomri-header .header__icon--cart .icon {
+.yaomri-header .header__icon {
   height: 4.2rem;
   width: 4.2rem;
 }
@@ -1345,12 +1353,6 @@
   width: 2rem;
 }
 
-.yaomri-header .header__icon--cart .icon {
-  height: 2rem;
-  transform: none;
-  width: 2rem;
-}
-
 .yaomri-header details:not([open]) .header__icon-close {
   display: none;
 }
@@ -1365,10 +1367,6 @@
 
 .yaomri-header .header__icon:hover .icon,
 .yaomri-header .modal__close-button:hover .icon {
-  transform: none;
-}
-
-.yaomri-header .header__icon--cart:hover .icon {
   transform: none;
 }
 
@@ -1442,6 +1440,10 @@
     align-items: center;
     column-gap: 2rem;
     grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .yaomri-header .header__heading-logo-wrapper {
+    width: var(--yaomri-header-logo-width, 140px);
   }
 
   .yaomri-header .header__inline-menu {
