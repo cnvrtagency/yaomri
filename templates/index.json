@@ -15,39 +15,30 @@
         "hero_tile_dwVFUP": {
           "type": "hero_tile",
           "settings": {
-            "subheading": "Statement swimwear for golden-hour escapes.",
-            "headline": "Get sun-drenched",
             "cta_1_label": "Shop the Collection",
             "cta_1_link": "/collections/all",
             "cta_2_label": "Explore New Arrivals",
             "cta_2_link": "/collections/new",
-            "show_copy": true,
             "placeholder_label": "Hero Left — Campaign"
           }
         },
         "hero_tile_8WQPYc": {
           "type": "hero_tile",
           "settings": {
-            "subheading": "",
-            "headline": "",
             "cta_1_label": "",
             "cta_1_link": "",
             "cta_2_label": "",
             "cta_2_link": "",
-            "show_copy": false,
             "placeholder_label": "Hero Centre — Campaign"
           }
         },
         "hero_tile_km3cBn": {
           "type": "hero_tile",
           "settings": {
-            "subheading": "",
-            "headline": "",
             "cta_1_label": "",
             "cta_1_link": "",
             "cta_2_label": "",
             "cta_2_link": "",
-            "show_copy": false,
             "placeholder_label": "Hero Right — Campaign"
           }
         }
@@ -59,11 +50,11 @@
       ],
       "name": "Hero - 3-up Campaign",
       "settings": {
+        "overlay_opacity": 0,
         "tile_height_desktop": 78,
         "tile_height_mobile": 55,
         "gap_px": 4,
-        "top_padding": 4,
-        "overlay_opacity": 0
+        "top_padding": 4
       }
     },
     "brand_strip_M8T3nC": {
@@ -108,9 +99,7 @@
         "statement_kgEkq8"
       ],
       "name": "Brand Strip",
-      "settings": {
-        "padding_vertical": 18
-      }
+      "settings": {}
     },
     "product_carousel_ta98bH": {
       "type": "product-carousel",
@@ -120,10 +109,10 @@
         "count_label": "",
         "collection": "the-amalfi-collection",
         "product_limit": 10,
-        "category_label": "",
         "show_wishlist": true,
         "show_arrows": true,
         "show_new_tag": true,
+        "category_label": "",
         "padding_top": 24,
         "padding_bottom": 24
       }
