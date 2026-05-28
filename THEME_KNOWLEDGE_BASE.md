@@ -71,21 +71,41 @@ Current `config/settings_data.json` has `cart_type: notification`, so clicking t
 
 Dawn's cart drawer JS intercepts `#cart-icon-bubble` only when `cart-drawer` exists. Do not replace this with custom header JavaScript unless Dawn's native wiring is proven broken.
 
+Important audit finding from 2026-05-28:
+
+- Popup notification is wired locally, but it is an add-to-cart notification, not a header cart icon drawer.
+- If Cart type is `notification`, clicking the header cart icon should navigate to `/cart`.
+- If Cart type is `drawer`, Dawn's `cart-drawer.js` converts `#cart-icon-bubble` into a drawer trigger.
+- The merchant-facing confusion is the setting label/expectation, not missing cart drawer code.
+- Do not add custom cart JavaScript to make notification mode behave like drawer mode.
+
 ## Logo And Settings System
 
-Dawn has one global logo width setting:
+The current Ya Omri header separates logo image selection from logo sizing:
 
-- `settings.logo`
-- `settings.logo_width`
+- Global theme settings:
+  - `settings.logo`
+  - `settings.mobile_logo`
+- Header section settings:
+  - `desktop_logo_width`
+  - `mobile_logo_width`
+  - `sticky_logo_width`
 
-`sections/header.liquid` uses `settings.logo_width` for desktop and mobile image render sizes. Dawn's sticky `reduce-logo-size` mode shrinks `.header__heading-logo-wrapper` to `75%` after scrolling.
+`sections/header.liquid` now renders the desktop logo from `settings.logo` and the mobile logo from `settings.mobile_logo`, falling back to the main logo when no mobile logo is uploaded.
 
-There is no native mobile logo width or sticky logo width in Dawn. For a commercial reusable theme, these should be added deliberately as either:
+Logo widths are wired through scoped CSS variables on `.yaomri-header`:
 
-- global brand/logo settings in `config/settings_schema.json`, or
-- header section settings if faster and less invasive.
+- `--yaomri-header-logo-width`
+- `--yaomri-header-mobile-logo-width`
+- `--yaomri-header-sticky-logo-width`
 
-Global settings feel more native and reusable, but they carry higher migration risk.
+The old global Dawn `settings.logo_width` should not be treated as the active header logo size control. If a global `logo_width` remains in settings, verify whether it belongs to the password page before changing it.
+
+Merchant note:
+
+- Theme settings > Logo controls image uploads.
+- Header section > Logo sizes controls desktop, mobile and sticky widths.
+- Shopify image picker UI may show image controls such as focal/offset/type. Those are not necessarily theme schema settings.
 
 ## Product System
 
@@ -149,4 +169,3 @@ These sections are Ya Omri-specific in naming and styling. They can be made reus
 - `settings_data.json` can be overwritten by Shopify Theme Editor saves or remote theme pulls.
 - `assets/base.css` changes can create global regressions across Dawn.
 - `section-yaomri.css` is becoming a catch-all layer and needs modularization before resale.
-

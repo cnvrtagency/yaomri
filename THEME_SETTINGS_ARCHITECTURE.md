@@ -7,7 +7,7 @@ The theme currently uses Dawn's native global settings plus custom section setti
 Current global settings include:
 
 - logo image
-- logo width
+- mobile logo image
 - color schemes
 - typography
 - buttons
@@ -23,6 +23,9 @@ Current global settings include:
 
 Current header custom settings include:
 
+- desktop logo width
+- mobile logo width
+- sticky logo width
 - nav size
 - nav weight
 - nav case
@@ -90,6 +93,45 @@ Avoid:
 - Letter spacing controls unless named clearly as letter spacing.
 - Multiple settings that control the same spacing.
 - Custom mobile logo settings if global logo architecture will own logo sizes.
+
+## Current Wiring Notes From 2026-05-28 Audit
+
+Logo:
+
+- `settings.logo` is the global desktop/main logo image.
+- `settings.mobile_logo` is the global mobile logo image.
+- `sections/header.liquid` falls back from mobile logo to main logo when `settings.mobile_logo` is blank.
+- Header section settings currently own logo sizing:
+  - `desktop_logo_width`
+  - `mobile_logo_width`
+  - `sticky_logo_width`
+- These values are output as CSS variables on `.yaomri-header` and consumed by `assets/section-yaomri.css`.
+- Do not reintroduce a global header logo width unless a migration plan is written.
+
+Cart:
+
+- Global `cart_type` is currently a Dawn select with `drawer`, `page` and `notification`.
+- `drawer` is the only mode where Dawn opens the cart drawer from the header cart icon.
+- `notification` renders the add-to-cart popup notification and leaves the header cart icon as a normal `/cart` link.
+- `page` uses cart page navigation.
+- For a commercially reusable theme, either keep `notification` with clearer documentation, or remove/deprecate it and default to `drawer`.
+
+Color schemes:
+
+- `settings_schema.json` must keep the `color_scheme_group` with id `color_schemes`.
+- `settings_data.json` must keep `current.color_schemes` scheme data.
+- Keep the Colors group near the top of global settings, immediately after Logo, to avoid Theme Editor reconciliation issues.
+
+Social links:
+
+- Global social settings are wired into footer, announcement bar, mobile drawer, password footer and metadata.
+- They render nothing while all social URL settings are blank.
+- Section toggles such as footer `show_social` and announcement `show_social` still matter.
+
+Search:
+
+- Predictive search settings are wired and only show output after a user types into the search UI.
+- Vendor and price settings affect predictive product results, not the closed header icon.
 
 ## Recommended Section Settings
 
@@ -195,4 +237,3 @@ Before resale:
 - Document setting migrations.
 - Ensure presets are useful without saved `settings_data.json`.
 - Remove app-specific dependencies from core snippets.
-
