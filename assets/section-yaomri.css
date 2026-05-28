@@ -1368,9 +1368,10 @@
   width: 2rem;
 }
 
-.yaomri-header .header__icon--cart .icon {
-  height: 2.25rem;
-  width: 2.25rem;
+.yaomri-header .icon-yaomri {
+  display: block;
+  height: 2.2rem;
+  width: 2.2rem;
 }
 
 .yaomri-header details:not([open]) .header__icon--search .header__icon-close,
