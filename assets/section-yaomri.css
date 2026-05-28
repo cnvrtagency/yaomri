@@ -1530,4 +1530,36 @@
     gap: 0;
     justify-self: end;
   }
+
+  .yaomri-header .header__icon {
+    height: 4rem;
+    min-height: 4rem;
+    min-width: 4rem;
+    width: 4rem;
+  }
+
+  .yaomri-header .header__icon .svg-wrapper,
+  .yaomri-header .header__icon--search > span {
+    align-items: center;
+    display: inline-flex;
+    height: 2.4rem;
+    justify-content: center;
+    line-height: 0;
+    width: 2.4rem;
+  }
+
+  .yaomri-header .header__icon .icon-yaomri {
+    display: block;
+    height: 2.4rem;
+    width: 2.4rem;
+  }
+
+  .yaomri-header .header__icon--cart .svg-wrapper {
+    transform: translateY(-0.05rem);
+  }
+
+  .yaomri-header .cart-count-bubble {
+    right: 0.2rem;
+    top: 0.2rem;
+  }
 }
