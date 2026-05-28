@@ -1358,21 +1358,21 @@
 .yaomri-header .header__icon .svg-wrapper {
   align-items: center;
   display: inline-flex;
-  height: 4.4rem;
+  height: 2.4rem;
   justify-content: center;
   line-height: 0;
-  width: 4.4rem;
+  width: 2.4rem;
 }
 
 .yaomri-header .header__icon .icon {
-  height: 2rem;
-  width: 2rem;
+  height: 2.4rem;
+  width: 2.4rem;
 }
 
 .yaomri-header .icon-yaomri {
   display: block;
-  height: 2.2rem;
-  width: 2.2rem;
+  height: 2.4rem;
+  width: 2.4rem;
 }
 
 .yaomri-header details:not([open]) .header__icon--search .header__icon-close,
@@ -1409,16 +1409,16 @@
   border-radius: 999px;
   color: var(--yaomri-cart-count-text, #ffffff);
   display: flex;
-  font-size: var(--yaomri-cart-count-text-size, 11px);
+  font-size: var(--yaomri-cart-count-text-size, 10px);
   font-weight: 800;
-  height: var(--yaomri-cart-count-size, 20px);
+  height: var(--yaomri-cart-count-size, 18px);
   justify-content: center;
   left: auto;
   line-height: 1;
-  min-width: var(--yaomri-cart-count-size, 20px);
-  right: 0.4rem;
-  top: 0.4rem;
-  width: var(--yaomri-cart-count-size, 20px);
+  min-width: var(--yaomri-cart-count-size, 18px);
+  right: 0.35rem;
+  top: 0.35rem;
+  width: var(--yaomri-cart-count-size, 18px);
 }
 
 .yaomri-header .desktop-localization-wrapper .localization-form__select,

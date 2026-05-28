@@ -98,8 +98,8 @@
     --yaomri-header-sticky-logo-width: {{ section.settings.sticky_logo_width | default: 100 }}px;
     --yaomri-cart-count-bg: {{ section.settings.cart_count_background | default: '#000000' }};
     --yaomri-cart-count-text: {{ section.settings.cart_count_text | default: '#ffffff' }};
-    --yaomri-cart-count-size: {{ section.settings.cart_count_size | default: 20 }}px;
-    --yaomri-cart-count-text-size: {{ section.settings.cart_count_text_size | default: 11 }}px;
+    --yaomri-cart-count-size: {{ section.settings.cart_count_size | default: 18 }}px;
+    --yaomri-cart-count-text-size: {{ section.settings.cart_count_text_size | default: 10 }}px;
   }
 
   @media screen and (min-width: 750px) {
@@ -343,6 +343,20 @@
             {% render block %}
         {%- endcase -%}
       {%- endfor -%}
+
+      {%- if section.settings.show_wishlist_icon -%}
+        {%- liquid
+          assign wishlist_url = section.settings.wishlist_link | default: '/pages/wishlist'
+        -%}
+        <a
+          href="{{ wishlist_url }}"
+          class="header__icon header__icon--wishlist link focus-inset"
+          aria-label="Wishlist"
+        >
+          <span class="svg-wrapper">{% render 'icon-yaomri-heart' %}</span>
+          <span class="visually-hidden">Wishlist</span>
+        </a>
+      {%- endif -%}
 
       <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
         <span class="svg-wrapper">{% render 'icon-yaomri-cart' %}</span>
@@ -774,6 +788,17 @@
     },
     {
       "type": "checkbox",
+      "id": "show_wishlist_icon",
+      "default": false,
+      "label": "Show wishlist icon"
+    },
+    {
+      "type": "url",
+      "id": "wishlist_link",
+      "label": "Wishlist link"
+    },
+    {
+      "type": "checkbox",
       "id": "enable_country_selector",
       "default": true,
       "label": "t:sections.header.settings.enable_country_selector.label",
@@ -817,7 +842,7 @@
       "step": 1,
       "unit": "px",
       "label": "Cart count size",
-      "default": 20
+      "default": 18
     },
     {
       "type": "range",
@@ -827,7 +852,7 @@
       "step": 1,
       "unit": "px",
       "label": "Cart count text size",
-      "default": 11
+      "default": 10
     },
     {
       "type": "header",
