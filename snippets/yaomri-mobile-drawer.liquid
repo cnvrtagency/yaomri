@@ -89,6 +89,7 @@
     --yo-mobile-drawer-top-item-weight: {{ top_item_weight }};
     --yo-mobile-drawer-sub-item-weight: {{ sub_item_weight }};
     --yo-mobile-drawer-item-font-style: {% if section.settings.yaomri_mobile_drawer_item_italic %}italic{% else %}normal{% endif %};
+    --yo-mobile-drawer-sub-item-font-style: {% if section.settings.yaomri_mobile_drawer_sub_item_italic %}italic{% else %}normal{% endif %};
     --yo-mobile-drawer-letter-spacing: {{ heading_letter_spacing }}px;
     --yo-mobile-drawer-item-spacing: {{ item_spacing }}px;
     --yo-mobile-drawer-submenu-indent: {{ submenu_indent }}px;
@@ -126,26 +127,11 @@
     width: min(calc(100vw - 24px), {{ drawer_width }}px);
     max-width: calc(100vw - 24px);
   }
-  #t4s-menu-drawer:has(.yo-mobile-drawer) + .t4s-drawer-menu__close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    border: 0;
-    box-shadow: none;
-    background-color: {{ section.settings.yaomri_mobile_drawer_close_bg_color | default: '#ffffff' }};
-    color: {{ section.settings.yaomri_mobile_drawer_close_icon_color | default: '#111111' }};
-  }
-  #t4s-menu-drawer:has(.yo-mobile-drawer) + .t4s-drawer-menu__close svg,
-  #t4s-menu-drawer:has(.yo-mobile-drawer) + .t4s-drawer-menu__close svg.t4s-iconsvg-close {
-    width: {{ section.settings.yaomri_mobile_drawer_close_icon_size | default: 24 }}px;
-    height: {{ section.settings.yaomri_mobile_drawer_close_icon_size | default: 24 }}px;
-    color: currentColor;
-  }
-  #t4s-menu-drawer:has(.yo-mobile-drawer) + .t4s-drawer-menu__close path {
-    color: currentColor;
-    stroke: currentColor;
+  .yo-mobile-drawer__external-close {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
   }
   </style>
 {%- endif -%}
@@ -175,7 +161,11 @@ Ya Omri custom drawer:
             <div class="yo-mobile-drawer__topbar-spacer" aria-hidden="true"></div>
           {%- endif -%}
         </div>
-        <div class="yo-mobile-drawer__topbar-close-slot" aria-hidden="true"></div>
+        <button type="button" class="yo-mobile-drawer__close" data-drawer-close aria-label="Close menu">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
       </div>
     </div>
     <div class="yo-mobile-drawer__body">

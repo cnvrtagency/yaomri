@@ -1,0 +1,424 @@
+/*
+ * Ya Omri Product Page Phase 1.5 Layout Refinement
+ *
+ * Scope:
+ * - isolated Ya Omri product template only
+ * - preserve Kalles/T4S product behavior
+ * - refine hierarchy, CTA, swatches, media presentation, and tabs visually
+ */
+
+.yaomri-product {
+  --yaomri-content-max-width: 1400px;
+  --yaomri-media-radius: 0px;
+  --yaomri-desktop-gap: 48px;
+}
+
+.yaomri-product.is-yaomri-layout-enabled {
+  --yo-pdp-bg: #fcfaf7;
+  --yo-pdp-surface: #ffffff;
+  --yo-pdp-surface-soft: #f7f3ee;
+  --yo-pdp-text: #111111;
+  --yo-pdp-muted: #6f665d;
+  --yo-pdp-border: #e8e1da;
+  --yo-pdp-accent: #b88f92;
+  --yo-pdp-shadow: 0 16px 36px rgba(17, 17, 17, 0.06);
+  color: var(--yo-pdp-text);
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-main-area {
+  border-radius: 0;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__media img,
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__media video,
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__media iframe,
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__media model-viewer,
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__thumb,
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__media-item,
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__media {
+  border-radius: var(--yaomri-media-radius);
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__thumb-item {
+  padding: 0;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__thumb {
+  overflow: hidden;
+  border: 1px solid transparent;
+  transition: border-color .2s ease, opacity .2s ease;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__thumb-item.is-nav-selected .t4s-product__thumb,
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__thumb:hover {
+  border-color: var(--yo-pdp-border);
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__title {
+  margin: 0;
+  color: var(--yo-pdp-text);
+  font-size: clamp(24px, 2.7vw, 42px);
+  line-height: 1.08;
+  letter-spacing: 0.02em !important;
+  font-weight: 600;
+  text-transform: none !important;
+  max-width: 12ch;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__price-review {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  margin: -4px 0 0;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__price-review .t4s-product-price,
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__price-review .price,
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__price-review .money {
+  color: var(--yo-pdp-text);
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__price-review ins,
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__price-review .price-item--sale,
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__price-review .t4s-product-price__sale {
+  color: var(--yo-pdp-text);
+  text-decoration: none;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__price-review del,
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__price-review .price-item--regular {
+  color: var(--yo-pdp-muted);
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__review {
+  color: var(--yo-pdp-muted);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__info-container > :not(:last-child) {
+  margin-bottom: 22px;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__policies,
+.yaomri-product.is-yaomri-layout-enabled .t4s-incoming__mess,
+.yaomri-product.is-yaomri-layout-enabled .t4s-product_meta,
+.yaomri-product.is-yaomri-layout-enabled .t4s-product__description,
+.yaomri-product.is-yaomri-layout-enabled .t4s-richtext_ {
+  color: var(--yo-pdp-muted);
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-pr__custom-liquid .product-highlights {
+  position: relative;
+  padding: 18px 20px 18px 22px;
+  border: 1px solid var(--yo-pdp-border);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255,255,255,.96) 0%, rgba(247,243,238,.78) 100%);
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-pr__custom-liquid .product-highlights::before {
+  content: "Why you'll love it";
+  display: block;
+  margin-bottom: 12px;
+  color: var(--yo-pdp-text);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-pr__custom-liquid .product-highlights ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-pr__custom-liquid .product-highlights li {
+  position: relative;
+  padding-left: 18px;
+  color: var(--yo-pdp-text);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-pr__custom-liquid .product-highlights li::before {
+  content: "";
+  position: absolute;
+  top: 0.68em;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--yo-pdp-accent);
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-swatch {
+  display: grid;
+  gap: 16px;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-swatch__option {
+  display: grid;
+  gap: 10px;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-swatch__title {
+  margin: 0;
+  color: var(--yo-pdp-text);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-swatch__current {
+  color: var(--yo-pdp-muted);
+  letter-spacing: 0.04em;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-swatch__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-swatch__item,
+.yaomri-product.is-yaomri-layout-enabled .t4s-swatch__option button[data-dropdown-open] {
+  min-height: 44px;
+  border: 1px solid var(--yo-pdp-border);
+  border-radius: 12px;
+  background: var(--yo-pdp-surface);
+  color: var(--yo-pdp-text);
+  box-shadow: none;
+  transition: border-color .2s ease, background-color .2s ease, color .2s ease, transform .2s ease;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-swatch__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 52px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-swatch__item:hover,
+.yaomri-product.is-yaomri-layout-enabled .t4s-swatch__option button[data-dropdown-open]:hover {
+  border-color: #cbbeb1;
+  background: #fffefd;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-swatch__item.is--selected,
+.yaomri-product.is-yaomri-layout-enabled .t4s-swatch__item.is-selected,
+.yaomri-product.is-yaomri-layout-enabled .t4s-swatch__option .is--selected {
+  border-color: var(--yo-pdp-text);
+  background: var(--yo-pdp-text);
+  color: #fff;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-swatch__option button[data-dropdown-open] {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-btn__size-chart,
+.yaomri-product.is-yaomri-layout-enabled .t4s-extra-link a {
+  color: var(--yo-pdp-text);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(17,17,17,.18);
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product-form__variants {
+  margin-top: 4px;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product-form__buttons {
+  margin-top: 2px;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product-form__buttons > .t4s-d-flex {
+  gap: 12px;
+  align-items: stretch;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product-form__qty {
+  border: 1px solid var(--yo-pdp-border);
+  border-radius: 14px;
+  background: var(--yo-pdp-surface);
+  min-height: 56px;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-quantity-selector,
+.yaomri-product.is-yaomri-layout-enabled .t4s-quantity-input {
+  color: var(--yo-pdp-text);
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product-form__buttons [data-atc-form],
+.yaomri-product.is-yaomri-layout-enabled .t4s-product-form__buttons .t4s-product-form__submit {
+  min-height: 56px;
+  border-radius: 14px;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product-form__buttons [data-atc-form] {
+  background: var(--yo-pdp-text) !important;
+  border: 1px solid var(--yo-pdp-text) !important;
+  color: #fff !important;
+  box-shadow: var(--yo-pdp-shadow);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product-form__buttons [data-atc-form]:hover {
+  background: #26211c !important;
+  border-color: #26211c !important;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product-form__buttons [data-atc-form][disabled],
+.yaomri-product.is-yaomri-layout-enabled .t4s-product-form__buttons [data-atc-form][aria-disabled="true"] {
+  background: #c8c2bc !important;
+  border-color: #c8c2bc !important;
+  color: #ffffff !important;
+  box-shadow: none;
+  opacity: 1;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product-form__buttons .shopify-payment-button,
+.yaomri-product.is-yaomri-layout-enabled .t4s-product-form__buttons .shopify-payment-button__button,
+.yaomri-product.is-yaomri-layout-enabled .t4s-product-form__buttons .shopify-payment-button__button--unbranded {
+  border-radius: 14px !important;
+  min-height: 54px !important;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product-form__buttons .t4s-pr-wishlist,
+.yaomri-product.is-yaomri-layout-enabled .t4s-product-form__buttons .t4s-pr-compare,
+.yaomri-product.is-yaomri-layout-enabled .t4s-product-form__buttons .t4s-wis,
+.yaomri-product.is-yaomri-layout-enabled .t4s-product-form__buttons .t4s-cp {
+  border-radius: 14px;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .yaomri-product__trust-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  margin-top: -2px;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .yaomri-product__trust-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--yo-pdp-surface-soft);
+  color: var(--yo-pdp-text);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product-tabs-wrapper {
+  margin-top: 8px;
+  border-top: 1px solid var(--yo-pdp-border);
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-tab-wrapper {
+  border-bottom: 1px solid var(--yo-pdp-border);
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-tab__title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 58px;
+  padding: 16px 0;
+  color: var(--yo-pdp-text);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-tab__text {
+  flex: 1 1 auto;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-tab__icon {
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-tab-content {
+  padding: 0 0 20px;
+  color: var(--yo-pdp-muted);
+  line-height: 1.7;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-tab-content .shipping-title,
+.yaomri-product.is-yaomri-layout-enabled .t4s-tab-content strong {
+  color: var(--yo-pdp-text);
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product_meta {
+  padding-top: 4px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.yaomri-product.is-yaomri-layout-enabled .t4s-product_meta a {
+  color: var(--yo-pdp-text);
+}
+
+@media (min-width: 1025px) {
+  .yaomri-product.is-yaomri-layout-enabled .t4s-product__info-container > :not(:last-child) {
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .yaomri-product.is-yaomri-layout-enabled .t4s-product__title {
+    max-width: none;
+    font-size: clamp(24px, 7vw, 34px);
+  }
+}
+
+@media (max-width: 767px) {
+  .yaomri-product.is-yaomri-layout-enabled .t4s-product__title {
+    letter-spacing: 0.01em !important;
+  }
+
+  .yaomri-product.is-yaomri-layout-enabled .t4s-product-form__buttons > .t4s-d-flex {
+    gap: 10px;
+  }
+
+  .yaomri-product.is-yaomri-layout-enabled .yaomri-product__trust-row {
+    gap: 8px;
+  }
+
+  .yaomri-product.is-yaomri-layout-enabled .yaomri-product__trust-item {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .yaomri-product.is-yaomri-layout-enabled .t4s-product__info-container > :not(:last-child) {
+    margin-bottom: 18px;
+  }
+}

@@ -178,6 +178,84 @@ This document is for future implementation work only. It does not propose code c
   - verify the action panel icon size, text size, text weight, and top-gap controls respond in Theme Editor
   - verify the drawer width control now visibly changes the drawer shell width without horizontal overflow
 
+## Embedded close button note
+
+- Embedded close button added inside the Ya Omri custom drawer topbar:
+  - uses `.yo-mobile-drawer__close`
+  - preserves the Kalles close contract with `data-drawer-close`
+- External Kalles sibling close handling:
+  - `render_bottom.liquid` now adds `.yo-mobile-drawer__external-close` to the external sibling close button
+  - the custom drawer snippet emits direct CSS for `.yo-mobile-drawer__external-close`, so it is hidden only when the custom drawer renders
+  - the external sibling remains in the DOM
+  - the original drawer fallback still uses the original Kalles close button when `yaomri_mobile_drawer_enable` is false
+- Close settings now style the embedded button:
+  - `yaomri_mobile_drawer_close_bg_color`
+  - `yaomri_mobile_drawer_close_icon_color`
+  - `yaomri_mobile_drawer_close_icon_size`
+- Files changed in this pass:
+  - `snippets/render_bottom.liquid`
+  - `snippets/yaomri-mobile-drawer.liquid`
+  - `assets/yaomri-mobile-drawer.css`
+  - `THEME_MOBILE_MENU_DRAWER_AUDIT.md`
+- Testing notes:
+  - verify the embedded X closes the drawer
+  - verify `.yo-mobile-drawer__external-close` is hidden only when the custom drawer is rendered
+  - verify the external sibling X no longer appears or slides separately in the custom drawer
+  - verify search-enabled and search-disabled topbar states stay aligned
+  - verify close background, icon color, and icon size settings now affect the embedded button
+
+## Action-panel gap fix note
+
+- Gap source found:
+  - `.yo-mobile-drawer__content-stack` still had a fixed `gap: 14px`
+  - that stack gap was being added before the action panel, on top of `--yo-mobile-drawer-actions-gap-top`
+- Fix applied:
+  - removed the generic stack gap from the menu-to-action-panel boundary
+  - kept explicit card-to-menu spacing with `.yo-mobile-drawer__cards + .yo-mobile-drawer__menu-panel`
+  - the action panel top spacing is now owned by `margin-top: var(--yo-mobile-drawer-actions-gap-top, 8px)`
+- Selectors changed:
+  - `.yo-mobile-drawer__content-stack`
+  - `.yo-mobile-drawer__cards + .yo-mobile-drawer__menu-panel`
+  - `.yo-mobile-drawer__account-panel`
+- Files changed in this pass:
+  - `assets/yaomri-mobile-drawer.css`
+  - `THEME_MOBILE_MENU_DRAWER_AUDIT.md`
+- Testing notes:
+  - verify `Space above action panel = 0` removes the visible gap above the panel
+  - verify `Space above action panel = 20` adds visible spacing
+  - verify cards still keep separation from the menu panel
+  - verify the menu remains scrollable and the panel does not overlap content
+
+## Row icon spacing and submenu italic note
+
+- Row icon clipping fix:
+  - top-level and submenu row anchors now reserve right-side breathing room
+  - expandable plus icons and chevron arrows now have explicit end spacing and non-shrinking icon space
+  - no global Kalles icon rules were changed
+- Submenu italic control added:
+  - `yaomri_mobile_drawer_sub_item_italic`
+  - top-level item italic remains controlled by `yaomri_mobile_drawer_item_italic`
+  - submenu items now use a separate CSS variable
+- CSS variable added:
+  - `--yo-mobile-drawer-sub-item-font-style`
+- Selectors changed:
+  - `.t4s-mb__menu > li > a`
+  - `.t4s-mb__menu .t4s-sub-menu li > a`
+  - `.t4s-mb__menu > li:not(.t4s-menu-item-has-children) > a::after`
+  - `.t4s-mb__menu .t4s-sub-menu li:not(.t4s-menu-item-has-children) > a::after`
+  - `.t4s-mb__menu .t4s-menu-item-has-children > a`
+  - `.t4s-mb__menu .t4s-mb-nav__icon`
+- Files changed in this pass:
+  - `snippets/yaomri-mobile-drawer.liquid`
+  - `assets/yaomri-mobile-drawer.css`
+  - `sections/mb_nav.liquid`
+  - `sections/mb_cat.liquid`
+  - `THEME_MOBILE_MENU_DRAWER_AUDIT.md`
+- Testing notes:
+  - verify chevron and plus icons no longer look clipped near the right edge
+  - verify top-level italic and submenu italic can be toggled independently
+  - verify nested submenu behaviour is unchanged
+
 ## Evidence used
 
 - [theme-audit-data/asset-load-map.txt](/Users/danny/Desktop/shopify-themes/yaomri-kalles-edit/theme-audit-data/asset-load-map.txt)

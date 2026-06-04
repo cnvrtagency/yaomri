@@ -1371,3 +1371,156 @@ The biggest unknowns from static search are:
 - exact app-block runtime expectations across all installed integrations
 
 These need runtime inspection before any major product-form or gallery rebuild.
+
+---
+
+## Phase 1 scaffold implementation note
+
+Implemented scaffold files:
+- `templates/product.yaomri-product.json`
+- `sections/yaomri-main-product.liquid`
+- `assets/yaomri-product.css`
+
+Scaffold strategy:
+- template isolation first
+- custom main product section created as a near-copy of `sections/main-product.liquid`
+- product behavior intentionally preserved
+- no JS edits
+- no edits to `snippets/product-form.liquid`
+- no edits to `snippets/grouped-form.liquid`
+- no edits to `snippets/product-price-single.liquid`
+- no edits to `snippets/product-thumbnail.liquid`
+
+What Phase 1 changed:
+- added an isolated product template that points to `yaomri-main-product`
+- reduced the template section stack to a safer base:
+  - breadcrumb
+  - Ya Omri main product
+  - product recommendations
+  - recently viewed
+  - apps section
+- added a Ya Omri root class and a scoped CSS include for future redesign work
+- added layout-only schema controls to the custom section:
+  - enable custom layout scaffolding
+  - content max width
+  - media radius
+  - desktop gap
+
+What Phase 1 intentionally did not change:
+- product form logic
+- variant picker logic
+- media/gallery logic
+- price rendering logic
+- add-to-cart/cart drawer path
+- app block support
+- tabs/accordions runtime
+- global product JS
+
+What remains for Phase 2:
+- premium Ya Omri PDP layout redesign
+- product info hierarchy redesign
+- refined gallery treatment
+- improved ATC presentation
+- refined accordion/tab styling
+- trust/shipping/returns presentation
+- mobile PDP refinement
+
+Phase 2 test focus:
+- variant switching
+- add to cart
+- cart drawer update
+- media/thumbnail sync
+- zoom/lightbox
+- tabs/accordions
+- app blocks
+- recommendations/recently viewed
+- desktop/mobile parity
+
+## Phase 1.5 layout refinement note
+
+Files changed for the isolated Ya Omri PDP only:
+- `sections/yaomri-main-product.liquid`
+- `assets/yaomri-product.css`
+- `templates/product.yaomri-product.json` (layout scaffold enabled)
+
+Behavior intentionally preserved:
+- product form rendering path
+- grouped form rendering path
+- product price rendering path
+- product thumbnail/gallery path
+- variant picker logic
+- add-to-cart/cart drawer path
+- app blocks
+- tabs/accordion runtime
+- global product JS
+
+What was restyled:
+- product title and price hierarchy
+- product info spacing
+- benefits/highlights presentation
+- variant and size controls
+- add-to-cart visual treatment
+- quantity/secondary action styling
+- media spacing and thumbnail presentation
+- accordion/tab presentation
+- optional trust row after the form
+
+What remains for Phase 2:
+- deeper Ya Omri layout restructuring inside the isolated section
+- optional custom product summary/trust modules
+- optional mobile-specific sticky CTA treatment
+- optional gallery layout redesign beyond styling
+
+Phase 1.5 test focus:
+- add to cart
+- cart drawer update
+- variant switching
+- swatch selected states
+- size guide launch
+- tabs/accordions
+- app blocks
+- media/thumb sync
+- mobile spacing and CTA layout
+
+## Ya Omri PDP layout repair note
+
+Root cause:
+- the isolated Ya Omri CSS overrode Kalles structural wrappers instead of only styling presentation surfaces
+- the highest-risk overrides were on the root Ya Omri product container and `.t4s-product__info-container`
+- this caused the product info flow to fight the native Kalles media/info layout
+
+Selectors neutralised in `assets/yaomri-product.css`:
+- `.yaomri-product.yaomri-product--phase-1`
+- `.yaomri-product.is-yaomri-layout-enabled .t4s-row__product`
+- `.yaomri-product.is-yaomri-layout-enabled .t4s-product__media-wrapper`
+- `.yaomri-product.is-yaomri-layout-enabled .t4s-product__info-wrapper`
+- `.yaomri-product.is-yaomri-layout-enabled .t4s-product__info-container`
+- `.yaomri-product.is-yaomri-layout-enabled .t4s-product-form__variants` layout override reduced to spacing only
+
+What was preserved:
+- Kalles media/info structure
+- product title/price/form/tab block placement
+- product form behavior
+- variant selection behavior
+- gallery/media behavior
+- add-to-cart/cart drawer behavior
+- app blocks
+
+Safe styling retained:
+- title typography
+- price/review styling
+- benefits panel styling
+- swatch/button visual styling
+- ATC styling
+- accordion typography and border styling
+- trust row styling
+
+Repair test focus:
+- desktop two-column structure
+- mobile non-overlap
+- benefits box stays in info flow
+- product title/price stays in info flow
+- variant selection
+- add to cart
+- media/thumb sync
+- accordion/tab behavior

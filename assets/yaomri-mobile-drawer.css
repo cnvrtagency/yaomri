@@ -37,7 +37,7 @@
 #t4s-menu-drawer .yo-mobile-drawer__topbar {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 44px;
-  align-items: start;
+  align-items: center;
   gap: 12px;
 }
 
@@ -45,14 +45,28 @@
   min-width: 0;
 }
 
-#t4s-menu-drawer .yo-mobile-drawer__topbar-close-slot {
+#t4s-menu-drawer .yo-mobile-drawer__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 44px;
   min-width: 44px;
-  min-height: 48px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--yo-mobile-drawer-close-icon, #111111);
+  background: var(--yo-mobile-drawer-close-bg, #ffffff);
 }
 
 #t4s-menu-drawer .yo-mobile-drawer__topbar-spacer {
   min-height: 48px;
+}
+
+#t4s-menu-drawer .yo-mobile-drawer__close svg {
+  width: var(--yo-mobile-drawer-close-icon-size, 24px);
+  height: var(--yo-mobile-drawer-close-icon-size, 24px);
 }
 
 #t4s-menu-drawer .yo-mobile-drawer__search-shell {
@@ -138,12 +152,16 @@
 #t4s-menu-drawer .yo-mobile-drawer__content-stack {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 0;
 }
 
 #t4s-menu-drawer .yo-mobile-drawer__cards {
   display: grid;
   gap: 10px;
+}
+
+#t4s-menu-drawer .yo-mobile-drawer__cards + .yo-mobile-drawer__menu-panel {
+  margin-top: 14px;
 }
 
 #t4s-menu-drawer .yo-mobile-drawer__card {
@@ -243,7 +261,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: var(--yo-mobile-drawer-item-spacing, 12px) 0;
+  padding: var(--yo-mobile-drawer-item-spacing, 12px) 10px var(--yo-mobile-drawer-item-spacing, 12px) 0;
   min-height: 44px;
   border-bottom: 1px solid color-mix(in srgb, var(--yo-mobile-drawer-border, #e8e1da) 76%, transparent 24%);
   color: var(--yo-mobile-drawer-text, #111111);
@@ -261,7 +279,7 @@
 #t4s-menu-drawer .yo-mobile-drawer .t4s-mb__menu .t4s-sub-menu li > a {
   font-size: var(--yo-mobile-drawer-sub-item-size, 13px);
   font-weight: var(--yo-mobile-drawer-sub-item-weight, 500);
-  font-style: var(--yo-mobile-drawer-item-font-style, normal);
+  font-style: var(--yo-mobile-drawer-sub-item-font-style, normal);
   text-transform: none;
   color: color-mix(in srgb, var(--yo-mobile-drawer-text, #111111) 92%, var(--yo-mobile-drawer-bg, #fcfaf7) 8%);
 }
@@ -270,9 +288,11 @@
 #t4s-menu-drawer .yo-mobile-drawer .t4s-mb__menu .t4s-sub-menu li:not(.t4s-menu-item-has-children) > a::after {
   content: "";
   display: inline-block;
+  flex: 0 0 auto;
   width: 8px;
   height: 8px;
   margin-left: auto;
+  margin-right: 2px;
   border-top: 1.5px solid color-mix(in srgb, var(--yo-mobile-drawer-text, #111111) 58%, var(--yo-mobile-drawer-bg, #fcfaf7) 42%);
   border-right: 1.5px solid color-mix(in srgb, var(--yo-mobile-drawer-text, #111111) 58%, var(--yo-mobile-drawer-bg, #fcfaf7) 42%);
   transform: rotate(45deg);
@@ -292,6 +312,7 @@
 
 #t4s-menu-drawer .yo-mobile-drawer .t4s-mb__menu .t4s-menu-item-has-children > a {
   justify-content: space-between;
+  padding-right: 8px;
 }
 
 #t4s-menu-drawer .yo-mobile-drawer .t4s-mb__menu .t4s-menu-item-has-children.is--opend > a,
@@ -302,13 +323,19 @@
 }
 
 #t4s-menu-drawer .yo-mobile-drawer .t4s-mb__menu .t4s-mb-nav__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 20px;
   width: 16px;
   height: 16px;
-  margin-left: 8px;
+  margin-left: 10px;
+  margin-right: 2px;
   border: 0;
   border-radius: 0;
   background: transparent;
   color: var(--yo-mobile-drawer-accent, #b88f92);
+  overflow: visible;
 }
 
 #t4s-menu-drawer .yo-mobile-drawer .t4s-mb__menu .t4s-mb-nav__icon:before {
@@ -422,18 +449,6 @@
   color: var(--yo-mobile-drawer-actions-text, #111111);
 }
 
-#t4s-menu-drawer:has(.yo-mobile-drawer) + .t4s-drawer-menu__close {
-  top: 18px;
-  left: calc(min(calc(100vw - 24px), var(--yo-mobile-drawer-width, 400px)) - 18px - 44px);
-  right: auto;
-  padding: 0;
-  border-radius: 0;
-  backdrop-filter: none;
-}
-
-#t4s-menu-drawer:has(.yo-mobile-drawer) + .t4s-drawer-menu__close svg.t4s-iconsvg-close {
-}
-
 @media (max-width: 640px) {
   #t4s-menu-drawer .yo-mobile-drawer__intro {
     padding: 16px 16px 10px;
@@ -458,7 +473,7 @@
 
   #t4s-menu-drawer .yo-mobile-drawer .t4s-mb__menu > li > a,
   #t4s-menu-drawer .yo-mobile-drawer .t4s-mb__menu .t4s-sub-menu li > a {
-    padding-right: 0;
+    padding-right: 10px;
     padding-left: 0;
   }
 
@@ -483,10 +498,4 @@
     padding: 10px 8px;
   }
 
-  #t4s-menu-drawer:has(.yo-mobile-drawer) + .t4s-drawer-menu__close {
-    top: 18px;
-    left: calc(min(calc(100vw - 24px), var(--yo-mobile-drawer-width, 400px)) - 16px - 44px);
-    width: 44px;
-    height: 44px;
-  }
 }
