@@ -1,0 +1,1 @@
+jQuery_T4NT(document).ready(function($){$(document).on("variant:changed",function(evt){})})

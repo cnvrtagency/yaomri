@@ -1,0 +1,28 @@
+# Top-level folder file counts
+assets	305
+blocks	3
+config	2
+layout	2
+locales	18
+sections	164
+snippets	109
+templates	49
+
+# File extension counts
+liquid	288
+css	214
+json	63
+js	48
+[noext]	44
+svg	18
+sample	14
+md	8
+png	7
+woff2	4
+eot	3
+ttf	3
+woff	3
+gif	1
+idx	1
+pack	1
+rev	1

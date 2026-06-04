@@ -1,0 +1,194 @@
+{%- liquid
+  assign se_id = section.id 
+  assign se_stts = section.settings
+  assign se_bks = section.blocks
+  assign page_type = request.page_type 
+  if page_type contains 'customers'
+    assign page_type = 'customers'  
+  endif 
+  if page_type == 'collection' and collection.image != blank and se_stts.use_specify_image 
+      assign image = collection.image 
+  else 
+      assign image = se_stts.image  
+  endif
+  assign t4s_se_class = 't4s_nt_se_' | append: se_id
+  if se_stts.use_cus_css and se_stts.code_cus_css != blank
+    render 'se_cus_css', code_cus_css: se_stts.code_cus_css, t4s_se_class: t4s_se_class 
+  endif 
+  assign general_block = false 
+ -%}  
+{{ 'heading-template.css' | asset_url | stylesheet_tag }} 
+
+<div class="header-banner t4s-heading-fullwidth_{{ section.settings.heading_fullwidth }} {% if se_stts.parallax == true %}t4s-parallax t4s-parallax-bg{% endif %} lazyloadt4s" {% if se_stts.parallax == true %}data-parallax-t4strue{% endif %} {%- if image != blank -%} data-bgset="{{ image | image_url: width: 1 }}" data-sizes="auto"  data-optimumx="1" {%- endif -%} {% render 'style_heading', se_stts: se_stts %}>   
+
+  <div class="t4s-container t4s-heading-grid">
+    <!-- Left column: heading + description -->
+    <div class="t4s-heading-text">
+      {%- case page_type -%}
+        {%- when 'blog' -%}
+            {%- render 'heading_blog', se_stts: se_stts, se_bks: se_bks -%}
+        {%- when 'collection' -%}
+            {%- render 'heading_collection', se_stts: se_stts, se_bks: se_bks -%} 
+        {%- when 'search' -%}
+            {%- render 'heading_search', se_stts: se_stts, se_bks: se_bks -%}
+        {%- else -%} 
+            {%- render 'heading_page', se_stts: se_stts, se_bks: se_bks -%}
+      {%- endcase -%}
+    </div>
+
+    <!-- Right column: image -->
+    <div class="t4s-heading-image">
+      {% if image != blank %}
+        <img src="{{ image | image_url: width: 800 }}" alt="{{ collection.title | escape }}">
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+
+<style>
+  .t4s-heading-fullwidth_true .t4s-container {
+    width: 100%;
+    max-width: 100%;
+  }
+  .t4s-heading-grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+  }
+  .t4s-heading-text {
+    flex: 1;
+  }
+  .t4s-heading-image {
+    flex: 1;
+    text-align: right;
+  }
+  .t4s-heading-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+  }
+  @media(max-width: 767px) {
+    .t4s-heading-grid {
+      flex-direction: column;
+      text-align: center;
+    }
+    .t4s-heading-image {
+      text-align: center;
+      margin-top: 20px;
+    }
+  }
+</style>
+
+{%- schema -%}
+  {
+    "name": "Page heading 2 Col",
+    "class": "page_section_heading",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "heading_fullwidth",
+        "info": "Make heading full width",
+        "label": "Enable full Width",
+        "default": false
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "+ Background image"
+      },
+      {
+        "type": "checkbox",
+        "id": "use_specify_image",
+        "label": "Specify other image for particular page",
+        "info": "Use collection image for 'Collection' page",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "parallax",
+        "label": "Use scroll parallax?",
+        "default": false
+      },
+      {
+        "type": "color",
+        "id": "color",
+        "label": "Background color",
+        "default": "#000"
+      },
+      {
+        "type": "range",
+        "id": "overlay",
+        "label": "Background overlay",
+        "default": 54,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "padding",
+        "label": "Padding space (Desktop)",
+        "default": 50,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "paddingmb",
+        "label": "Padding space (Mobile)",
+        "default": 50,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "mg_b",
+        "label": "Margin space bottom (Desktop)",
+        "default": 50,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "mg_bmb",
+        "label": "Margin space bottom (Mobile)",
+        "default": 50,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px"
+      },
+      {
+        "type": "select",
+        "id": "content_align",
+        "label": "+ Content align",
+        "default": "t4s-text-center",
+        "options": [
+          { "label": "Left", "value": "t4s-text-start" },
+          { "label": "Center", "value": "t4s-text-center" },
+          { "label": "Right", "value": "t4s-text-end" }
+        ]
+      }
+    ],
+    "blocks": [
+      { "type": "1", "name": "Page heading", "limit": 1, "settings": [] },
+      { "type": "2", "name": "Page subheading", "settings": [] },
+      { "type": "3", "name": "Breadcrumb", "limit": 1, "settings": [] },
+      { "type": "4", "name": "Description Collection", "settings": [] }
+    ],
+    "default": {
+      "blocks": [
+        { "type": "1" }
+      ]
+    }
+  }
+{% endschema %}

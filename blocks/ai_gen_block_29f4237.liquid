@@ -1,0 +1,507 @@
+{% doc %}
+  @prompt
+    2 column section, left side is image  the right side is a custom liquid box - options to customise everything
+    
+    , options to fully customise on mobiel devices too, e.g padding 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-two-column-{{ ai_gen_id }} {
+    display: flex;
+    flex-wrap: wrap;
+    gap: {{ block.settings.column_gap }}px;
+    align-items: {{ block.settings.vertical_alignment }};
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding_top }}px {{ block.settings.padding_horizontal }}px {{ block.settings.padding_bottom }}px;
+  }
+
+  .ai-two-column__image-{{ ai_gen_id }} {
+    flex: 0 0 {{ block.settings.image_width }}%;
+    max-width: {{ block.settings.image_width }}%;
+  }
+
+  .ai-two-column__image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: {{ block.settings.image_border_radius }}px;
+  }
+
+  .ai-two-column__image-wrapper-{{ ai_gen_id }} img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ai-two-column__image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: {{ block.settings.image_aspect_ratio }};
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-radius: {{ block.settings.image_border_radius }}px;
+  }
+
+  .ai-two-column__image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-two-column__empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .ai-two-column__liquid-{{ ai_gen_id }} {
+    flex: 0 0 calc({{ 100 | minus: block.settings.image_width }}% - {{ block.settings.column_gap }}px);
+    max-width: calc({{ 100 | minus: block.settings.image_width }}% - {{ block.settings.column_gap }}px);
+    background-color: {{ block.settings.liquid_background_color }};
+    padding: {{ block.settings.liquid_padding }}px;
+    border-radius: {{ block.settings.liquid_border_radius }}px;
+    border: {{ block.settings.liquid_border_width }}px solid {{ block.settings.liquid_border_color }};
+  }
+
+  .ai-two-column__liquid-content-{{ ai_gen_id }} {
+    color: {{ block.settings.liquid_text_color }};
+    font-size: {{ block.settings.liquid_font_size }}px;
+    line-height: 1.6;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-two-column-{{ ai_gen_id }} {
+      flex-direction: {{ block.settings.mobile_layout }};
+      gap: {{ block.settings.mobile_gap }}px;
+      padding: {{ block.settings.mobile_padding_top }}px {{ block.settings.mobile_padding_horizontal }}px {{ block.settings.mobile_padding_bottom }}px;
+    }
+
+    .ai-two-column__image-{{ ai_gen_id }},
+    .ai-two-column__liquid-{{ ai_gen_id }} {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+
+    .ai-two-column__image-wrapper-{{ ai_gen_id }} {
+      border-radius: {{ block.settings.mobile_image_border_radius }}px;
+    }
+
+    .ai-two-column__image-placeholder-{{ ai_gen_id }} {
+      aspect-ratio: {{ block.settings.mobile_image_aspect_ratio }};
+      border-radius: {{ block.settings.mobile_image_border_radius }}px;
+    }
+
+    .ai-two-column__liquid-{{ ai_gen_id }} {
+      padding: {{ block.settings.mobile_liquid_padding }}px;
+      border-radius: {{ block.settings.mobile_liquid_border_radius }}px;
+      border-width: {{ block.settings.mobile_liquid_border_width }}px;
+    }
+
+    .ai-two-column__liquid-content-{{ ai_gen_id }} {
+      font-size: {{ block.settings.mobile_liquid_font_size }}px;
+    }
+  }
+{% endstyle %}
+
+<div
+  class="ai-two-column-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-two-column__image-{{ ai_gen_id }}">
+    <div class="ai-two-column__image-wrapper-{{ ai_gen_id }}">
+      {% if block.settings.image %}
+        <img
+          src="{{ block.settings.image | image_url: width: 2000 }}"
+          alt="{{ block.settings.image.alt | escape }}"
+          loading="lazy"
+          width="{{ block.settings.image.width }}"
+          height="{{ block.settings.image.height }}"
+        >
+      {% else %}
+        <div class="ai-two-column__image-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+          <div class="ai-two-column__empty-state-{{ ai_gen_id }}">
+            Add an image
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="ai-two-column__liquid-{{ ai_gen_id }}">
+    <div class="ai-two-column__liquid-content-{{ ai_gen_id }}">
+      {{ block.settings.custom_liquid }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image and liquid box",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Image width",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Column gap",
+      "default": 30
+    },
+    {
+      "type": "select",
+      "id": "vertical_alignment",
+      "label": "Vertical alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Top"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Bottom"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Desktop spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Horizontal",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Aspect ratio",
+      "options": [
+        {
+          "value": "1/1",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "4/3",
+          "label": "Landscape (4:3)"
+        },
+        {
+          "value": "16/9",
+          "label": "Widescreen (16:9)"
+        },
+        {
+          "value": "3/4",
+          "label": "Portrait (3:4)"
+        },
+        {
+          "value": "2/3",
+          "label": "Tall (2:3)"
+        }
+      ],
+      "default": "4/3"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Desktop liquid box"
+    },
+    {
+      "type": "liquid",
+      "id": "custom_liquid",
+      "label": "Custom liquid code"
+    },
+    {
+      "type": "color",
+      "id": "liquid_background_color",
+      "label": "Background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "liquid_text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "liquid_padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "liquid_border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "liquid_border_width",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "liquid_border_color",
+      "label": "Border color",
+      "default": "#dddddd"
+    },
+    {
+      "type": "range",
+      "id": "liquid_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Mobile layout"
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "column",
+          "label": "Image on top"
+        },
+        {
+          "value": "column-reverse",
+          "label": "Liquid on top"
+        }
+      ],
+      "default": "column"
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Gap",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Mobile spacing"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_horizontal",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Horizontal",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Mobile image"
+    },
+    {
+      "type": "select",
+      "id": "mobile_image_aspect_ratio",
+      "label": "Aspect ratio",
+      "options": [
+        {
+          "value": "1/1",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "4/3",
+          "label": "Landscape (4:3)"
+        },
+        {
+          "value": "16/9",
+          "label": "Widescreen (16:9)"
+        },
+        {
+          "value": "3/4",
+          "label": "Portrait (3:4)"
+        },
+        {
+          "value": "2/3",
+          "label": "Tall (2:3)"
+        }
+      ],
+      "default": "4/3"
+    },
+    {
+      "type": "range",
+      "id": "mobile_image_border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Mobile liquid box"
+    },
+    {
+      "type": "range",
+      "id": "mobile_liquid_padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "mobile_liquid_border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_liquid_border_width",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_liquid_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 14
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image and liquid box"
+    }
+  ]
+}
+{% endschema %}

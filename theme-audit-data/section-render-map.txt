@@ -1,0 +1,821 @@
+# Section render map
+
+## sections/about_us.liquid
+- snippets	img_svg, section_style, section_tophead
+- css	about-us.css, button-style.css, custom-effect.css, section.css, video-load.css
+- js	(none)
+
+## sections/accordion.liquid
+- snippets	icon_accordion, section_style, section_tophead
+- css	accordion.css, section.css
+- js	(none)
+
+## sections/ajax_popup.liquid
+- snippets	form-status, img_svg
+- css	(none)
+- js	(none)
+
+## sections/announcement-bar.liquid
+- snippets	(none)
+- css	pre_flickityt4s.min.css, t4s-scrolling-text.css
+- js	(none)
+
+## sections/apps.liquid
+- snippets	(none)
+- css	(none)
+- js	(none)
+
+## sections/back-in-stock.liquid
+- snippets	form-status, img_svg
+- css	(none)
+- js	(none)
+
+## sections/back_top.liquid
+- snippets	(none)
+- css	back-to-top.css
+- js	(none)
+
+## sections/background_video.liquid
+- snippets	bk_cus_style, img_svg, position_content, section_style
+- css	button-style.css, content-position.css, countdown.css, custom-effect.css, general-block.css, hero.css, section.css, t4s-animation.css
+- js	(none)
+
+## sections/banner-parallax.liquid
+- snippets	bk_cus_style, img_svg, newsletter, position_content, section_style
+- css	banner.css, button-style.css, content-position.css, countdown.css, custom-effect.css, general-block.css, newsletter.css, parallax.min.css, section.css, t4s-animation.css
+- js	(none)
+
+## sections/banner-with-navigation.liquid
+- snippets	bk_cus_style, img_svg, lb_inc_mb, newsletter, position_content, section_style, section_tophead
+- css	banner-nav.css, banner.css, button-style.css, content-position.css, countdown.css, custom-effect.css, general-block.css, newsletter.css, section.css, t4s-animation.css
+- js	(none)
+
+## sections/banner-with-products3.liquid
+- snippets	bk_cus_style, img_svg, newsletter, position_content, section_style
+- css	banner-product3.css, banner.css, button-style.css, content-position.css, countdown.css, custom-effect.css, general-block.css, newsletter.css, parallax.min.css, section.css, t4s-animation.css
+- js	(none)
+
+## sections/banner-with-text.liquid
+- snippets	bk_cus_style, img_svg, position_content, section_style
+- css	banner.css, content-position.css, section.css, t4s-animation.css
+- js	(none)
+
+## sections/banner.liquid
+- snippets	bk_cus_style, img_svg, newsletter, position_content, section_style
+- css	banner.css, button-style.css, content-position.css, countdown.css, custom-effect.css, general-block.css, newsletter.css, section.css, t4s-animation.css
+- js	(none)
+
+## sections/blog-post-manual.liquid
+- snippets	post_loop_1, post_loop_2, post_loop_3, post_loop_4, post_loop_5, post_loop_6, section_style, section_tophead
+- css	blog.css, custom-effect.css, pre_flickityt4s.min.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/blog-post.liquid
+- snippets	post_loop_1, post_loop_2, post_loop_3, post_loop_4, post_loop_5, post_loop_6, post_loop_7, post_loop_8, section_style, section_tophead
+- css	blog.css, button-style.css, custom-effect.css, loading.css, pre_flickityt4s.min.css, section.css, slider-settings.css, t4s-custom-effect.css
+- js	(none)
+
+## sections/blog_slider.liquid
+- snippets	img_svg, section_style
+- css	custom-effect.css, pre_flickityt4s.min.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/bottom-bar.liquid
+- snippets	footer_content, section_style
+- css	footer.css, general-block.css, icon-social.css, newsletter.css, section.css
+- js	(none)
+
+## sections/brc-nav-product.liquid
+- snippets	(none)
+- css	breadcrumbs.css
+- js	(none)
+
+## sections/btn_config.liquid
+- snippets	(none)
+- css	button-style.css, custom-effect.css
+- js	(none)
+
+## sections/cart_data.liquid
+- snippets	(none)
+- css	(none)
+- js	(none)
+
+## sections/categories_section.liquid
+- snippets	section_style, section_tophead
+- css	categories-section.css, pre_flickityt4s.min.css, slider-settings.css, t4s-carousel-center.css
+- js	(none)
+
+## sections/collection-group.liquid
+- snippets	product-group-item, section_style, section_tophead
+- css	button-style.css, collection-products.css, custom-effect.css, loading.css, pre_flickityt4s.min.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/collection-products-banner.liquid
+- snippets	bk_cus_style, img_svg, newsletter, position_content, product-grid-item1, product-grid-item2, product-grid-item3, product-grid-item4, product-grid-item5, product-grid-item6, product-grid-item7, product-grid-item8, product-grid-item9, section_style, section_tophead
+- css	banner.css, button-style.css, collection-products.css, content-position.css, countdown.css, custom-effect.css, general-block.css, newsletter.css, section.css, t4s-animation.css
+- js	(none)
+
+## sections/collection-products-banner2.liquid
+- snippets	bk_cus_style, img_svg, newsletter, position_content, section_style, section_tophead
+- css	banner.css, button-style.css, collection-products-banner2.css, collection-products.css, content-position.css, countdown.css, custom-effect.css, general-block.css, loading.css, newsletter.css, pre_flickityt4s.min.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/collection-products-banner4.liquid
+- snippets	bk_cus_style, img_svg, newsletter, position_content, product-grid-item1, product-grid-item2, product-grid-item3, product-grid-item4, product-grid-item5, product-grid-item6, product-grid-item7, product-grid-item8, product-grid-item9, section_style, section_tophead
+- css	banner.css, button-style.css, collection-products.css, content-position.css, countdown.css, custom-effect.css, general-block.css, newsletter.css, section.css, t4s-animation.css
+- js	(none)
+
+## sections/collection-products-deal.liquid
+- snippets	product-deal-item1, product-deal-item2, product-deal-item3, product-grid-item1, section_style
+- css	collection-products.css, pre_flickityt4s.min.css, products-deal.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/collection-schema.liquid
+- snippets	(none)
+- css	(none)
+- js	(none)
+
+## sections/collections-list-carousel.liquid
+- snippets	section_style, section_tophead
+- css	carousel-scrollbar.css, collection-item-carousel.css, custom-effect.css, pre_flickityt4s.min.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/collections-list-manual.liquid
+- snippets	collection_template, section_style, section_tophead
+- css	collection.css, section.css
+- js	(none)
+
+## sections/collections-list-packery.liquid
+- snippets	collection_item, section_style, section_tophead
+- css	collection.css, section.css
+- js	(none)
+
+## sections/collections-list-simple.liquid
+- snippets	section_style
+- css	collection-list-simple.css, pre_flickityt4s.min.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/collections-list-video.liquid
+- snippets	collection_item_video, section_style, section_tophead
+- css	collection.css, custom-effect.css, pre_flickityt4s.min.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/collections-list.liquid
+- snippets	collection_item, section_style, section_tophead
+- css	collection.css, custom-effect.css, pre_flickityt4s.min.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/compare-popup.liquid
+- snippets	(none)
+- css	(none)
+- js	(none)
+
+## sections/contact-form.liquid
+- snippets	form-status, section_style
+- css	button-style.css, custom-effect.css, section.css
+- js	(none)
+
+## sections/countdown.liquid
+- snippets	section_style, section_tophead
+- css	countdown.css, section.css
+- js	(none)
+
+## sections/counter.liquid
+- snippets	icon_shipping, section_style, section_tophead
+- css	counter.css, section.css, t4s-animation.css
+- js	(none)
+
+## sections/custom-html.liquid
+- snippets	section_style
+- css	general-block.css, section.css
+- js	(none)
+
+## sections/custom-liquid.liquid
+- snippets	section_style
+- css	general-block.css, section.css
+- js	(none)
+
+## sections/custom-scrolling-text.liquid
+- snippets	(none)
+- css	(none)
+- js	(none)
+
+## sections/custom-section.liquid
+- snippets	bk_cus_style, img_svg, newsletter, product-price, section_style
+- css	banner-product.css, base_drop.min.css, button-style.css, collection-products.css, content-position.css, countdown.css, custom-effect.css, general-block.css, lookbook.css, newsletter.css, section.css, t4s-animation.css
+- js	(none)
+
+## sections/dropdown-menu.liquid
+- snippets	(none)
+- css	(none)
+- js	(none)
+
+## sections/extras.liquid
+- snippets	(none)
+- css	(none)
+- js	favico.min.js, inactiveTab.min.js
+
+## sections/facets.liquid
+- snippets	(none)
+- css	(none)
+- js	(none)
+
+## sections/facets_tags.liquid
+- snippets	(none)
+- css	drawer.min.css, facets.css
+- js	(none)
+
+## sections/feature_columns.liquid
+- snippets	img_svg, section_style, section_tophead
+- css	button-style.css, custom-effect.css, feature-columns.css, pre_flickityt4s.min.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/feature_columns2.liquid
+- snippets	img_svg, section_style, section_tophead
+- css	button-style.css, custom-effect.css, feature-columns.css, section.css
+- js	(none)
+
+## sections/featured-collection.liquid
+- snippets	section_style, section_tophead
+- css	button-style.css, collection-products.css, custom-effect.css, loading.css, pre_flickityt4s.min.css, section.css, slider-settings.css, t4s-carousel-center.css
+- js	(none)
+
+## sections/featured-collection2.liquid
+- snippets	product-price, section_style, section_tophead
+- css	button-style.css, collection-products2.css, custom-effect.css, loading.css, pre_flickityt4s.min.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/featured-packery-collection.liquid
+- snippets	product-packery-item, section_style, section_tophead
+- css	button-style.css, collection-products.css, custom-effect.css, loading.css, section.css
+- js	(none)
+
+## sections/featured-product.liquid
+- snippets	bk_cus_style, img_svg, pr-sidebar-loop, product-btns, product-price-single, product-thumbnail, product_tabs, section_style, social_sharing
+- css	ani-atc.min.css, button-style.css, countdown.css, custom-effect.css, icon-social.css, main-product.css, pickup-availability.css, pre_flickityt4s.min.css, section.css, single-pr-badge.css, slider-settings.css
+- js	(none)
+
+## sections/featured-product2.liquid
+- snippets	FBT, section_tophead
+- css	button-style.css, content-position.css, featured-product-2.css, section.css, slider-settings.css, slideshow.css
+- js	(none)
+
+## sections/footer.liquid
+- snippets	footer_content, section_style
+- css	footer.css, general-block.css, icon-social.css, newsletter.css, section.css
+- js	(none)
+
+## sections/header-bottom.liquid
+- snippets	menu_blocks, push_menu, search_form_header, social_sharing, t4s_group_btns, t4s_group_btns_split, t4s_logo
+- css	icon-social.css
+- js	(none)
+
+## sections/header-categories-menu.liquid
+- snippets	menu_blocks, pr-sidebar-loop, push_menu, t4s_group_btns, t4s_logo
+- css	categories-menu.css
+- js	(none)
+
+## sections/header-categories.liquid
+- snippets	collection_item, img_svg, menu_dropdown, position_content, post_loop_1, post_loop_2, post_loop_3, post_loop_4, post_loop_5, post_loop_6, title_menu, title_menu2
+- css	banner.css, blog.css, collection-products.css, collection.css, content-position.css, loading.css, mega-menu.css, pre_flickityt4s.min.css, slider-settings.css
+- js	(none)
+
+## sections/header-inline.liquid
+- snippets	menu_blocks, menu_splits, push_menu, t4s_group_btns, t4s_group_btns_split, t4s_logo
+- css	(none)
+- js	(none)
+
+## sections/header-sidebar.liquid
+- snippets	pr-sidebar-loop, push_menu, social_sharing, t4s_group_btns, t4s_logo
+- css	icon-social.css
+- js	(none)
+
+## sections/header-vertical.liquid
+- snippets	currencies, languages, menu_blocks, push_menu, social_sharing, t4s_group_btns, t4s_logo
+- css	base_drop.min.css, icon-social.css
+- js	(none)
+
+## sections/heading-article.liquid
+- snippets	bk_cus_style, style_heading
+- css	heading-template.css
+- js	(none)
+
+## sections/heading-template-cp.liquid
+- snippets	heading_search, style_heading
+- css	heading-template.css
+- js	(none)
+
+## sections/heading-template.liquid
+- snippets	heading_blog, heading_collection, heading_page, heading_search, style_heading
+- css	heading-template.css
+- js	(none)
+
+## sections/heading_2.liquid
+- snippets	heading_blog, heading_collection, heading_page, heading_search, style_heading
+- css	heading-template.css
+- js	(none)
+
+## sections/hero_image.liquid
+- snippets	bk_cus_style, img_svg, position_content, section_style
+- css	button-style.css, content-position.css, countdown.css, custom-effect.css, general-block.css, hero.css, parallax.min.css, section.css, t4s-animation.css
+- js	(none)
+
+## sections/iconbox-2.liquid
+- snippets	bk_cus_style, img_svg, section_style, section_tophead, social_sharing
+- css	button-style.css, custom-effect.css, icon-box.css, icon-social.css, section.css
+- js	(none)
+
+## sections/iconbox.liquid
+- snippets	img_svg, section_style, section_tophead
+- css	button-style.css, custom-effect.css, icon-box.css, section.css
+- js	(none)
+
+## sections/image-gallery-packery.liquid
+- snippets	section_style, section_tophead
+- css	custom-effect.css, pre_flickityt4s.min.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/image-gallery.liquid
+- snippets	section_style, section_tophead
+- css	custom-effect.css, pre_flickityt4s.min.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/image_text.liquid
+- snippets	img_svg, section_style, section_tophead
+- css	button-style.css, custom-effect.css, image-text.css, pre_flickityt4s.min.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/instagram-shop.liquid
+- snippets	section_style, section_tophead
+- css	base_drop.min.css, button-style.css, collection-products.css, instagram-pin.css, pre_flickityt4s.min.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/instagram_feed.liquid
+- snippets	block_tophead, section_style
+- css	custom-effect.css, instagram.css, pre_flickityt4s.min.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/instagram_feed_api.liquid
+- snippets	block_tophead, section_style
+- css	instagram.css, pre_flickityt4s.min.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/line.liquid
+- snippets	section_style
+- css	section.css
+- js	(none)
+
+## sections/login-sidebar.liquid
+- snippets	(none)
+- css	button-style.css, custom-effect.css, customer.min.css, login-sidebar.css
+- js	(none)
+
+## sections/logo_list.liquid
+- snippets	img_svg, section_style, section_tophead
+- css	custom-effect.css, pre_flickityt4s.min.css, section.css, slider-settings.css, t4s-animation.css
+- js	(none)
+
+## sections/lookbook-img.liquid
+- snippets	pin_position, section_style, section_tophead
+- css	base_drop.min.css, collection-products.css, lookbook.css, section.css
+- js	(none)
+
+## sections/lookbook-packery.liquid
+- snippets	pin_position, section_style, section_tophead
+- css	base_drop.min.css, collection-products.css, lookbook.css, section.css
+- js	(none)
+
+## sections/lookbook-slider.liquid
+- snippets	img_svg, pin_position, section_style
+- css	base_drop.min.css, button-style.css, collection-products.css, lookbook.css, pre_flickityt4s.min.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/main-404.liquid
+- snippets	(none)
+- css	(none)
+- js	(none)
+
+## sections/main-article-portfolio.liquid
+- snippets	comment, icon-error, img_svg, pagination, section_style, social_sharing
+- css	button-style.css, custom-effect.css, icon-social.css, pre_flickityt4s.min.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/main-article.liquid
+- snippets	comment, icon-error, img_svg, pagination, section_style, social_sharing
+- css	button-style.css, custom-effect.css, icon-social.css, pre_flickityt4s.min.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/main-blog.liquid
+- snippets	pagination, post_loop_1, post_loop_2, post_loop_3, post_loop_4, post_loop_5, post_loop_6, post_loop_7, section_style
+- css	blog.css, button-style.css, custom-effect.css, loading.css, section.css
+- js	(none)
+
+## sections/main-cart.liquid
+- snippets	cart-item-page, img_svg
+- css	button-style.css, custom-effect.css, main-cart.css, shipping_bar.css
+- js	(none)
+
+## sections/main-collection.liquid
+- snippets	pagination, section_style
+- css	base_drop.min.css, button-style.css, collection-pages.css, collection-products-list.css, collection-products.css, custom-effect.css, drawer.min.css, facets.css, loading.css, pagination.css, section.css
+- js	(none)
+
+## sections/main-compare.liquid
+- snippets	product-atc, product-rating, section_style
+- css	button-style.css, custom-effect.css, main-compare.css, section.css
+- js	(none)
+
+## sections/main-customers-account.liquid
+- snippets	pagination
+- css	customer.min.css
+- js	(none)
+
+## sections/main-customers-activate-account.liquid
+- snippets	(none)
+- css	customer.min.css
+- js	(none)
+
+## sections/main-customers-addresses.liquid
+- snippets	pagination
+- css	customer.min.css
+- js	customer.min.js
+
+## sections/main-customers-login.liquid
+- snippets	(none)
+- css	button-style.css, custom-effect.css, customer.min.css
+- js	(none)
+
+## sections/main-customers-order.liquid
+- snippets	(none)
+- css	customer.min.css
+- js	customer.min.js
+
+## sections/main-customers-register.liquid
+- snippets	(none)
+- css	button-style.css, custom-effect.css, customer.min.css
+- js	(none)
+
+## sections/main-customers-reset-password.liquid
+- snippets	(none)
+- css	customer.min.css
+- js	(none)
+
+## sections/main-heading.liquid
+- snippets	(none)
+- css	parallax.min.css
+- js	(none)
+
+## sections/main-list-collections.liquid
+- snippets	pagination, section_style
+- css	button-style.css, collection.css, custom-effect.css, loading.css, section.css
+- js	(none)
+
+## sections/main-packery-collection.liquid
+- snippets	pagination, product-packery-item, section_style
+- css	base_drop.min.css, button-style.css, collection-pages.css, collection-products-list.css, collection-products.css, custom-effect.css, drawer.min.css, facets.css, loading.css, section.css
+- js	(none)
+
+## sections/main-page.liquid
+- snippets	section_style
+- css	section.css
+- js	(none)
+
+## sections/main-pagebrands.liquid
+- snippets	section_style
+- css	section.css
+- js	(none)
+
+## sections/main-password-footer.liquid
+- snippets	(none)
+- css	(none)
+- js	(none)
+
+## sections/main-password-header.liquid
+- snippets	(none)
+- css	drawer.min.css
+- js	(none)
+
+## sections/main-password.liquid
+- snippets	social_sharing
+- css	countdown.css, icon-social.css
+- js	(none)
+
+## sections/main-portfolio.liquid
+- snippets	pagination, section_style
+- css	blog.css, button-style.css, custom-effect.css, loading.css, section.css
+- js	(none)
+
+## sections/main-product.liquid
+- snippets	FBT, bk_cus_style, img_svg, pr-sidebar-loop, product-btns, product-price-single, product-thumbnail, product_tabs, social_sharing
+- css	ani-atc.min.css, base_drop.min.css, countdown.css, icon-social.css, main-product.css, pickup-availability.css, pre_flickityt4s.min.css, single-pr-badge.css, slider-settings.css, sticky-atc.css
+- js	(none)
+
+## sections/main-qs.liquid
+- snippets	product-price-single
+- css	qs-product.css
+- js	(none)
+
+## sections/main-qv.liquid
+- snippets	img_svg, pr-sidebar-loop, product-btns, product-price-single, product-thumbnail, product_tabs, social_sharing
+- css	ani-atc.min.css, button-style.css, custom-effect.css, icon-social.css, main-product.css, pickup-availability.css, pre_flickityt4s.min.css, qv-product.css, single-pr-badge.css, slider-settings.css
+- js	(none)
+
+## sections/main-search.liquid
+- snippets	pagination, product-group-item, search_form, section_style
+- css	base_drop.min.css, button-style.css, collection-pages.css, collection-products-list.css, collection-products.css, custom-effect.css, drawer.min.css, facets.css, section.css
+- js	(none)
+
+## sections/main-store-locator.liquid
+- snippets	section_style
+- css	https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.1/mapbox-gl-geocoder.css, https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css, section.css, t4s-store-locator.css
+- js	https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.1/mapbox-gl-geocoder.min.js, https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js, t4s-store-locator.min.js
+
+## sections/main-wishlist.liquid
+- snippets	pagination, section_style
+- css	button-style.css, collection-pages.css, collection-products-list.css, collection-products.css, custom-effect.css, main-wishlist.css, section.css, t4s-loading.css
+- js	(none)
+
+## sections/main_article.liquid
+- snippets	comment, form-status, img_svg, section_style, social_sharing
+- css	custom-effect.css, icon-social.css, pre_flickityt4s.min.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/mb_cat.liquid
+- snippets	img_svg, lb_inc_mb
+- css	(none)
+- js	(none)
+
+## sections/mb_nav.liquid
+- snippets	img_svg, lb_inc_mb
+- css	currencies.min.css
+- js	(none)
+
+## sections/mega-menu.liquid
+- snippets	collection_item, img_svg, position_content, post_loop_1, post_loop_2, post_loop_3, post_loop_4, post_loop_5, post_loop_6, title_menu2
+- css	banner.css, blog.css, collection-products.css, collection.css, content-position.css, loading.css, mega-menu.css, pre_flickityt4s.min.css, slider-settings.css
+- js	(none)
+
+## sections/mega-menu2.liquid
+- snippets	(none)
+- css	(none)
+- js	(none)
+
+## sections/mini_cart.liquid
+- snippets	cart-item, img_svg
+- css	button-style.css, custom-effect.css, mini-cart.css, shipping_bar.css
+- js	(none)
+
+## sections/mini_cart_upsell.liquid
+- snippets	img_svg, product-price, product-rating
+- css	pre_flickityt4s.min.css
+- js	(none)
+
+## sections/newsletter.liquid
+- snippets	bk_cus_style, img_svg, newsletter, section_style, section_tophead
+- css	button-style.css, countdown.css, custom-effect.css, general-block.css, newsletter.css, parallax.min.css, section.css
+- js	(none)
+
+## sections/our_mission.liquid
+- snippets	section_style, section_tophead
+- css	section.css
+- js	(none)
+
+## sections/our_team.liquid
+- snippets	icon_socials, img_svg, section_style, section_tophead
+- css	pre_flickityt4s.min.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/pickup-availability.liquid
+- snippets	img_svg
+- css	(none)
+- js	(none)
+
+## sections/popups.liquid
+- snippets	bk_cus_style, newsletter, pr-loop-item, product-grid-item1, product-grid-item2, product-grid-item3, product-grid-item4, product-grid-item5, product-grid-item6, product-grid-item7, product-grid-item8, product-grid-item9, section_tophead
+- css	collection-products.css, loading.css, pre_flickityt4s.min.css, slider-settings.css
+- js	(none)
+
+## sections/pr-tabs-description.liquid
+- snippets	section_style
+- css	accordion.css, pre_flickityt4s.min.css, section.css, slider-settings.css, tabs.css
+- js	(none)
+
+## sections/pr_item_config.liquid
+- snippets	(none)
+- css	collection-products-list.css, collection-products.css
+- js	(none)
+
+## sections/pricing-tables.liquid
+- snippets	section_style, section_tophead
+- css	button-style.css, custom-effect.css, price-tables.css, section.css
+- js	(none)
+
+## sections/product-list-simple.liquid
+- snippets	section_style, section_tophead
+- css	collection-products.css, loading.css, pre_flickityt4s.min.css, section.css, slider-settings.css, tabs.css, top-head.css
+- js	(none)
+
+## sections/product-recommendations.liquid
+- snippets	product-grid-item1, product-grid-item2, product-grid-item3, product-grid-item4, product-grid-item5, product-grid-item6, product-grid-item7, product-grid-item8, product-grid-item9, section_style, section_tophead
+- css	button-style.css, collection-products.css, custom-effect.css, loading.css, pre_flickityt4s.min.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/product_video_section.liquid
+- snippets	section_style, section_tophead
+- css	button-style.css, custom-effect.css, pre_flickityt4s.min.css, product-video-section.css, slider-settings.css, t4s-carousel-center.css
+- js	(none)
+
+## sections/products-deal-banner.liquid
+- snippets	bk_cus_style, img_svg, position_content, section_style
+- css	banner.css, button-style.css, collection-products.css, content-position.css, countdown.css, custom-effect.css, product-deal-banner.css, section.css, t4s-animation.css
+- js	(none)
+
+## sections/promo_text.liquid
+- snippets	section_style
+- css	pre_flickityt4s.min.css, promo-text.css, section.css
+- js	(none)
+
+## sections/quick_order_list.liquid
+- snippets	quick-order-list-row
+- css	quick-order-list.css
+- js	quick-order-list.js
+
+## sections/quote.liquid
+- snippets	section_style, section_tophead
+- css	section.css
+- js	(none)
+
+## sections/recently_viewed.liquid
+- snippets	product-grid-item1, product-grid-item2, product-grid-item3, product-grid-item4, product-grid-item5, product-grid-item6, product-grid-item7, product-grid-item8, product-grid-item9, section_style, section_tophead
+- css	button-style.css, collection-products.css, custom-effect.css, loading.css, pre_flickityt4s.min.css, section.css, slider-settings.css
+- js	(none)
+
+## sections/render-pr_lb.liquid
+- snippets	product-grid-item6
+- css	(none)
+- js	(none)
+
+## sections/render-pr_lb1.liquid
+- snippets	product-grid-item1
+- css	(none)
+- js	(none)
+
+## sections/render-pr_lb2.liquid
+- snippets	product-grid-item2
+- css	(none)
+- js	(none)
+
+## sections/render-pr_lb3.liquid
+- snippets	product-grid-item3
+- css	(none)
+- js	(none)
+
+## sections/render-pr_lb4.liquid
+- snippets	product-grid-item4
+- css	(none)
+- js	(none)
+
+## sections/render-pr_lb5.liquid
+- snippets	product-grid-item5
+- css	(none)
+- js	(none)
+
+## sections/render-pr_lb6.liquid
+- snippets	product-grid-item6
+- css	(none)
+- js	(none)
+
+## sections/scrolling-text.liquid
+- snippets	section_style
+- css	section.css, t4s-animation.css, t4s-scrolling-text.css
+- js	(none)
+
+## sections/search-hidden.liquid
+- snippets	pr-sidebar-loop
+- css	search-hidden.css
+- js	(none)
+
+## sections/search-main-others.liquid
+- snippets	(none)
+- css	(none)
+- js	(none)
+
+## sections/search-others.liquid
+- snippets	(none)
+- css	(none)
+- js	(none)
+
+## sections/shipping.liquid
+- snippets	icon_shipping, section_style, section_tophead
+- css	pre_flickityt4s.min.css, section.css, shipping.css, slider-settings.css, t4s-animation.css
+- js	(none)
+
+## sections/sidebar-article-portfolio.liquid
+- snippets	ar-sidebar-loop, bk_cus_style, img_svg, pr-sidebar-loop, social_sharing
+- css	collection-products.css, countdown.css, custom-effect.css, drawer.min.css, icon-social.css, t4s-widget.css
+- js	(none)
+
+## sections/sidebar-article.liquid
+- snippets	ar-sidebar-loop, bk_cus_style, img_svg, pr-sidebar-loop, social_sharing
+- css	collection-products.css, countdown.css, custom-effect.css, drawer.min.css, icon-social.css, t4s-widget.css
+- js	(none)
+
+## sections/sidebar-blog.liquid
+- snippets	ar-sidebar-loop, bk_cus_style, img_svg, pr-sidebar-loop, social_sharing, title_menu2
+- css	collection-products.css, countdown.css, custom-effect.css, drawer.min.css, icon-social.css, t4s-widget.css
+- js	(none)
+
+## sections/sidebar-collection.liquid
+- snippets	bk_cus_style, img_svg, pr-sidebar-loop, social_sharing
+- css	collection-products.css, countdown.css, drawer.min.css, facets.css, icon-social.css, t4s-widget.css
+- js	sidebar-collection.js
+
+## sections/sidebar-page.liquid
+- snippets	ar-sidebar-loop, bk_cus_style, img_svg, pr-sidebar-loop, social_sharing
+- css	collection-products.css, countdown.css, custom-effect.css, drawer.min.css, icon-social.css, t4s-widget.css
+- js	(none)
+
+## sections/sidebar-portfolio.liquid
+- snippets	ar-sidebar-loop, bk_cus_style, img_svg, pr-sidebar-loop, social_sharing
+- css	collection-products.css, countdown.css, custom-effect.css, drawer.min.css, icon-social.css, t4s-widget.css
+- js	(none)
+
+## sections/sidebar-product.liquid
+- snippets	ar-sidebar-loop, bk_cus_style, img_svg, pr-sidebar-loop, social_sharing
+- css	countdown.css, custom-effect.css, drawer.min.css, icon-social.css, t4s-widget.css
+- js	(none)
+
+## sections/slider_config.liquid
+- snippets	(none)
+- css	pre_flickityt4s.min.css, slider-settings.css
+- js	(none)
+
+## sections/slideshow.liquid
+- snippets	bk_cus_style, img_svg, position_content, section_style
+- css	button-style.css, content-position.css, countdown.css, custom-effect.css, general-block.css, pre_flickityt4s.min.css, section.css, slider-settings.css, slideshow.css, t4s-animation.css
+- js	(none)
+
+## sections/t4s_custom_color.liquid
+- snippets	(none)
+- css	(none)
+- js	(none)
+
+## sections/tabs-collection.liquid
+- snippets	img_svg, inc_tab, section_style, section_tophead
+- css	collection-products.css, loading.css, pre_flickityt4s.min.css, section.css, slider-settings.css, tabs.css, top-head.css
+- js	(none)
+
+## sections/tabs-list-collections.liquid
+- snippets	inc_tab_list_collections, section_style
+- css	collection.css, loading.css, pre_flickityt4s.min.css, section.css, slider-settings.css, tabs-list-collections.css, top-head.css
+- js	(none)
+
+## sections/testimonials.liquid
+- snippets	quote_1, quote_2, quote_3, section_style, section_tophead
+- css	pre_flickityt4s.min.css, section.css, slider-settings.css, testimonials.css
+- js	(none)
+
+## sections/testimonials_2.liquid
+- snippets	img_svg, rating_star, section_style
+- css	pre_flickityt4s.min.css, section.css, slider-settings.css, testimonials_2.css
+- js	(none)
+
+## sections/timeline.liquid
+- snippets	img_svg, section_style, section_tophead
+- css	button-style.css, custom-effect.css, section.css, timeline.css
+- js	(none)
+
+## sections/title_config.liquid
+- snippets	(none)
+- css	top-head.css
+- js	(none)
+
+## sections/toolbar_mobile.liquid
+- snippets	img_svg
+- css	toolbar_mobile.css
+- js	(none)
+
+## sections/top-bar.liquid
+- snippets	currencies, languages, social_sharing
+- css	base_drop.min.css, pre_flickityt4s.min.css
+- js	(none)
+
+## sections/top-collections.liquid
+- snippets	section_style
+- css	loading.css, pre_flickityt4s.min.css, section.css, slider-settings.css, top-collections.css
+- js	(none)
+
+## sections/top_heading.liquid
+- snippets	icon_shipping, img_svg, section_style
+- css	section.css, top-head.css, topheading-section.css
+- js	(none)
+
+## sections/video_featured.liquid
+- snippets	section_style
+- css	hero.css, section.css
+- js	(none)
+
+## sections/video_popup_inline.liquid
+- snippets	bk_cus_style, img_svg, position_content, section_style
+- css	button-style.css, content-position.css, countdown.css, custom-effect.css, general-block.css, hero.css, parallax.min.css, section.css, t4s-animation.css
+- js	(none)

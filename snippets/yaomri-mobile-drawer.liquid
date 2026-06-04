@@ -1,0 +1,158 @@
+{%- liquid
+  assign drawer_width = section.settings.yaomri_mobile_drawer_width | default: 360
+  assign drawer_font_family = section.settings.yaomri_mobile_drawer_font_family | default: 'inherit'
+  assign top_item_size = section.settings.yaomri_mobile_drawer_top_item_font_size | default: 15
+  assign sub_item_size = section.settings.yaomri_mobile_drawer_sub_item_font_size | default: 13
+  assign top_item_weight = section.settings.yaomri_mobile_drawer_top_item_weight | default: '700'
+  assign sub_item_weight = section.settings.yaomri_mobile_drawer_sub_item_weight | default: '500'
+  assign heading_letter_spacing = section.settings.yaomri_mobile_drawer_heading_letter_spacing | default: 0.4
+  assign item_spacing = section.settings.yaomri_mobile_drawer_item_spacing | default: 12
+  assign submenu_indent = section.settings.yaomri_mobile_drawer_submenu_indent | default: 18
+  assign drawer_radius = section.settings.yaomri_mobile_drawer_radius | default: 8
+  assign card_radius = section.settings.yaomri_mobile_drawer_card_radius | default: 6
+  assign cards_enable = section.settings.yaomri_mobile_drawer_cards_enable
+  assign card_1_heading = section.settings.yaomri_mobile_drawer_card_1_heading | default: 'Swimwear'
+  assign card_1_subtitle = section.settings.yaomri_mobile_drawer_card_1_subtitle | default: 'Explore collection'
+  assign card_1_link = section.settings.yaomri_mobile_drawer_card_1_link
+  assign card_1_image = section.settings.yaomri_mobile_drawer_card_1_image
+  assign card_2_heading = section.settings.yaomri_mobile_drawer_card_2_heading | default: 'Resortwear'
+  assign card_2_subtitle = section.settings.yaomri_mobile_drawer_card_2_subtitle | default: 'Explore collection'
+  assign card_2_link = section.settings.yaomri_mobile_drawer_card_2_link
+  assign card_2_image = section.settings.yaomri_mobile_drawer_card_2_image
+  assign trust_enable = section.settings.yaomri_mobile_drawer_trust_enable
+  assign trust_1 = section.settings.yaomri_mobile_drawer_trust_1 | default: 'Free shipping'
+  assign trust_2 = section.settings.yaomri_mobile_drawer_trust_2 | default: 'Easy returns'
+  assign trust_3 = section.settings.yaomri_mobile_drawer_trust_3 | default: 'Secure checkout'
+  if card_1_link == blank
+    assign card_1_link = routes.root_url
+  endif
+  if card_2_link == blank
+    assign card_2_link = routes.root_url
+  endif
+  if customer
+    assign utility_account_text = 'Account'
+    assign utility_account_url = routes.account_url
+  else
+    assign utility_account_text = 'Sign in'
+    assign utility_account_url = routes.account_login_url
+  endif
+  case drawer_font_family
+    when 'Arial'
+      assign drawer_font_family_css = 'Arial, sans-serif'
+    when 'Helvetica'
+      assign drawer_font_family_css = 'Helvetica, Arial, sans-serif'
+    when 'Georgia'
+      assign drawer_font_family_css = 'Georgia, serif'
+    when 'Times New Roman'
+      assign drawer_font_family_css = '"Times New Roman", serif'
+    when 'Montserrat'
+      assign drawer_font_family_css = 'Montserrat, sans-serif'
+    when 'Poppins'
+      assign drawer_font_family_css = 'Poppins, sans-serif'
+    when 'Inter'
+      assign drawer_font_family_css = 'Inter, sans-serif'
+    else
+      assign drawer_font_family_css = 'inherit'
+  endif
+-%}
+{%- if emit_root_styles -%}
+<style>
+  #t4s-menu-drawer {
+    --yo-mobile-drawer-bg: {{ section.settings.yaomri_mobile_drawer_bg_color | default: '#ffffff' }};
+    --yo-mobile-drawer-text: {{ section.settings.yaomri_mobile_drawer_text_color | default: '#111111' }};
+    --yo-mobile-drawer-accent: {{ section.settings.yaomri_mobile_drawer_accent_color | default: '#b88f92' }};
+    --yo-mobile-drawer-border: {{ section.settings.yaomri_mobile_drawer_border_color | default: '#e8e1da' }};
+    --yo-mobile-drawer-font-family: {{ drawer_font_family_css }};
+    --yo-mobile-drawer-top-item-size: {{ top_item_size }}px;
+    --yo-mobile-drawer-sub-item-size: {{ sub_item_size }}px;
+    --yo-mobile-drawer-top-item-weight: {{ top_item_weight }};
+    --yo-mobile-drawer-sub-item-weight: {{ sub_item_weight }};
+    --yo-mobile-drawer-item-font-style: {% if section.settings.yaomri_mobile_drawer_item_italic %}italic{% else %}normal{% endif %};
+    --yo-mobile-drawer-letter-spacing: {{ heading_letter_spacing }}px;
+    --yo-mobile-drawer-item-spacing: {{ item_spacing }}px;
+    --yo-mobile-drawer-submenu-indent: {{ submenu_indent }}px;
+    --yo-mobile-drawer-radius: {{ drawer_radius }}px;
+    --yo-mobile-drawer-card-radius: {{ card_radius }}px;
+    --yo-mobile-drawer-close-bg: {{ section.settings.yaomri_mobile_drawer_close_bg_color | default: '#ffffff' }};
+    --yo-mobile-drawer-close-icon: {{ section.settings.yaomri_mobile_drawer_close_icon_color | default: '#111111' }};
+    --yo-mobile-drawer-width: {{ drawer_width }}px;
+    --yo-mobile-drawer-text-transform: {% if section.settings.yaomri_mobile_drawer_uppercase %}uppercase{% else %}none{% endif %};
+  }
+  #t4s-menu-drawer:has(.yo-mobile-drawer) {
+    width: min(calc(100vw - 24px), {{ drawer_width }}px);
+    max-width: {{ drawer_width }}px;
+  }
+  #t4s-menu-drawer:has(.yo-mobile-drawer) + .t4s-drawer-menu__close {
+    background-color: {{ section.settings.yaomri_mobile_drawer_close_bg_color | default: '#ffffff' }};
+    color: {{ section.settings.yaomri_mobile_drawer_close_icon_color | default: '#111111' }};
+    border: 1px solid {{ section.settings.yaomri_mobile_drawer_border_color | default: '#e8e1da' }};
+  }
+</style>
+{%- endif -%}
+{%- comment -%}
+Ya Omri custom drawer:
+- borrows root-view visual composition from external references
+- preserves the existing Kalles/T4S drawer runtime and submenu contract
+{%- endcomment -%}
+<div class="yo-mobile-drawer" data-section-id="{{ section.id }}">
+  <div class="yo-mobile-drawer__inner">
+    <div class="yo-mobile-drawer__intro">
+      <form class="yo-mobile-drawer__search-form" action="{{ routes.search_url }}" method="get" role="search">
+        <span class="yo-mobile-drawer__search-icon">
+          <svg viewBox="0 0 18 19" aria-hidden="true" focusable="false"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M11.03 11.68A5.784 5.784 0 112.85 3.5a5.784 5.784 0 018.18 8.18zm.26 1.12a6.78 6.78 0 11.72-.7l5.4 5.4a.5.5 0 11-.71.7l-5.41-5.4z"/></svg>
+        </span>
+        <input class="yo-mobile-drawer__search-input" type="search" name="q" placeholder="Search" aria-label="Search products">
+        <button class="yo-mobile-drawer__search-submit" type="submit" aria-label="Submit search">
+          <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 10h8m-3-3 3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+    </div>
+    <div class="yo-mobile-drawer__body">
+      <div class="yo-mobile-drawer__content-stack">
+        {%- if cards_enable -%}
+        <div class="yo-mobile-drawer__cards" aria-label="Featured categories">
+          <a class="yo-mobile-drawer__card{% if card_1_image != blank %} yo-mobile-drawer__card--image{% endif %}" href="{{ card_1_link }}"{% if card_1_image != blank %} style="--yo-mobile-card-image:url({{ card_1_image | image_url: width: 900 }})"{% endif %}>
+            {%- if card_1_image != blank -%}<span class="yo-mobile-drawer__card-overlay"></span>{%- endif -%}
+            <span class="yo-mobile-drawer__card-copy">
+              <span class="yo-mobile-drawer__card-title">{{ card_1_heading }}</span>
+              <span class="yo-mobile-drawer__card-subtitle">{{ card_1_subtitle }}</span>
+            </span>
+            <span class="yo-mobile-drawer__card-arrow" aria-hidden="true">
+              <svg viewBox="0 0 20 20" focusable="false"><path d="M6 10h8m-3-3 3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+          <a class="yo-mobile-drawer__card{% if card_2_image != blank %} yo-mobile-drawer__card--image{% endif %}" href="{{ card_2_link }}"{% if card_2_image != blank %} style="--yo-mobile-card-image:url({{ card_2_image | image_url: width: 900 }})"{% endif %}>
+            {%- if card_2_image != blank -%}<span class="yo-mobile-drawer__card-overlay"></span>{%- endif -%}
+            <span class="yo-mobile-drawer__card-copy">
+              <span class="yo-mobile-drawer__card-title">{{ card_2_heading }}</span>
+              <span class="yo-mobile-drawer__card-subtitle">{{ card_2_subtitle }}</span>
+            </span>
+            <span class="yo-mobile-drawer__card-arrow" aria-hidden="true">
+              <svg viewBox="0 0 20 20" focusable="false"><path d="M6 10h8m-3-3 3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+        </div>
+        {%- endif -%}
+        <div class="yo-mobile-drawer__menu-panel">
+          {{ content }}
+        </div>
+      </div>
+    </div>
+    <div class="yo-mobile-drawer__action-panel" aria-label="Account and shopping actions">
+      <a class="yo-mobile-drawer__action-link" href="{{ utility_account_url }}">
+        <span class="yo-mobile-drawer__action-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="7" r="4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+        </span>
+        <span>{{ utility_account_text }}</span>
+      </a>
+      {%- if settings.cart_type != 'disable' -%}
+      <a class="yo-mobile-drawer__action-link" href="{{ routes.cart_url }}">
+        <span class="yo-mobile-drawer__action-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="9" cy="20" r="1.6" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="20" r="1.6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3 4h2.2l2.2 10.2a1 1 0 0 0 1 .8H18a1 1 0 0 0 1-.76L21 7H7.1" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span>Cart{%- if cart.item_count > 0 -%} ({{ cart.item_count }}){%- endif -%}</span>
+      </a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>

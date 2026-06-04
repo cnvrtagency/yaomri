@@ -1,0 +1,175 @@
+# JS keyword file map
+
+## cart / add to cart
+- assets/des_adm.min-backup.js
+- assets/des_adm.min.js
+- assets/facets.min-backup.js
+- assets/facets.min.js
+- assets/favico.min-backup.js
+- assets/favico.min.js
+- assets/global.min-backup.js
+- assets/global.min.js
+- assets/hand.min-backup.js
+- assets/hand.min.js
+- assets/interactable.min-backup.js
+- assets/interactable.min.js
+- assets/lazysizes.min-backup.js
+- assets/lazysizes.min.js
+- assets/nouislider.min-backup.js
+- assets/nouislider.min.js
+- assets/polyfill.min-backup.js
+- assets/polyfill.min.js
+- assets/predictive-search.min-backup.js
+- assets/predictive-search.min.js
+- assets/pswp.min-backup.js
+- assets/pswp.min.js
+- assets/quick-order-list-backup.js
+- assets/quick-order-list.js
+- assets/recipient-form-backup.js
+- assets/recipient-form.js
+- assets/t4s-currencies.min-backup.js
+- assets/t4s-currencies.min.js
+- assets/t4s-instant-page.min-backup.js
+- assets/t4s-instant-page.min.js
+- assets/theme.min-backup.js
+- assets/theme.min.js
+
+## variant / product options
+- assets/custom-backup.js
+- assets/custom.js
+- assets/des_adm.min-backup.js
+- assets/des_adm.min.js
+- assets/facets.min-backup.js
+- assets/facets.min.js
+- assets/favico.min-backup.js
+- assets/favico.min.js
+- assets/global.min-backup.js
+- assets/global.min.js
+- assets/interactable.min-backup.js
+- assets/interactable.min.js
+- assets/lazysizes.min-backup.js
+- assets/lazysizes.min.js
+- assets/nouislider.min-backup.js
+- assets/nouislider.min.js
+- assets/polyfill.min-backup.js
+- assets/polyfill.min.js
+- assets/predictive-search.min-backup.js
+- assets/predictive-search.min.js
+- assets/pswp.min-backup.js
+- assets/pswp.min.js
+- assets/quick-order-list-backup.js
+- assets/quick-order-list.js
+- assets/recipient-form-backup.js
+- assets/recipient-form.js
+- assets/t4s-store-locator.min-backup.js
+- assets/t4s-store-locator.min.js
+- assets/t4s_zoom.min-backup.js
+- assets/t4s_zoom.min.js
+- assets/theme.min-backup.js
+- assets/theme.min.js
+- assets/threesixty.min-backup.js
+- assets/threesixty.min.js
+
+## facets / filters
+- assets/des_adm.min-backup.js
+- assets/des_adm.min.js
+- assets/facets.min-backup.js
+- assets/facets.min.js
+- assets/global.min-backup.js
+- assets/global.min.js
+- assets/interactable.min-backup.js
+- assets/interactable.min.js
+- assets/lazysizes.min-backup.js
+- assets/lazysizes.min.js
+- assets/nouislider.min-backup.js
+- assets/nouislider.min.js
+- assets/polyfill.min-backup.js
+- assets/polyfill.min.js
+- assets/quick-order-list-backup.js
+- assets/quick-order-list.js
+- assets/recipient-form-backup.js
+- assets/recipient-form.js
+- assets/theme.min-backup.js
+- assets/theme.min.js
+
+## predictive search
+- assets/interactable.min-backup.js
+- assets/interactable.min.js
+- assets/predictive-search.min-backup.js
+- assets/predictive-search.min.js
+- assets/t4s-store-locator.min-backup.js
+- assets/t4s-store-locator.min.js
+
+## mobile menu / drawer
+- assets/des_adm.min-backup.js
+- assets/des_adm.min.js
+- assets/facets.min-backup.js
+- assets/facets.min.js
+- assets/global.min-backup.js
+- assets/global.min.js
+- assets/interactable.min-backup.js
+- assets/interactable.min.js
+- assets/nouislider.min-backup.js
+- assets/nouislider.min.js
+- assets/predictive-search.min-backup.js
+- assets/predictive-search.min.js
+- assets/pswp.min-backup.js
+- assets/pswp.min.js
+- assets/quick-order-list-backup.js
+- assets/quick-order-list.js
+- assets/t4s-currencies.min-backup.js
+- assets/t4s-currencies.min.js
+- assets/theme.min-backup.js
+- assets/theme.min.js
+
+## slider / carousel
+- assets/des_adm.min-backup.js
+- assets/des_adm.min.js
+- assets/facets.min-backup.js
+- assets/facets.min.js
+- assets/global.min-backup.js
+- assets/global.min.js
+- assets/interactable.min-backup.js
+- assets/interactable.min.js
+- assets/nouislider.min-backup.js
+- assets/nouislider.min.js
+- assets/pswp.min-backup.js
+- assets/pswp.min.js
+- assets/theme.min-backup.js
+- assets/theme.min.js
+
+## lazyload / reveal
+- assets/des_adm.min-backup.js
+- assets/des_adm.min.js
+- assets/facets.min-backup.js
+- assets/facets.min.js
+- assets/global.min-backup.js
+- assets/global.min.js
+- assets/interactable.min-backup.js
+- assets/interactable.min.js
+- assets/lazysizes.min-backup.js
+- assets/lazysizes.min.js
+- assets/polyfill.min-backup.js
+- assets/polyfill.min.js
+- assets/pswp.min-backup.js
+- assets/pswp.min.js
+- assets/t4s-instant-page.min-backup.js
+- assets/t4s-instant-page.min.js
+- assets/theme.min-backup.js
+- assets/theme.min.js
+
+## currency / wishlist / compare
+- assets/des_adm.min-backup.js
+- assets/des_adm.min.js
+- assets/facets.min-backup.js
+- assets/facets.min.js
+- assets/global.min-backup.js
+- assets/global.min.js
+- assets/interactable.min-backup.js
+- assets/interactable.min.js
+- assets/predictive-search.min-backup.js
+- assets/predictive-search.min.js
+- assets/t4s-currencies.min-backup.js
+- assets/t4s-currencies.min.js
+- assets/theme.min-backup.js
+- assets/theme.min.js

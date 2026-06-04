@@ -1,0 +1,1180 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "heading": {
+      "type": "heading-article",
+      "blocks": {
+        "0dd8a548-e739-4e97-b9d3-1f0c93b3b144": {
+          "type": "1",
+          "settings": {
+            "fontf": "1",
+            "text_cl": "#000000",
+            "text_fs": 20,
+            "text_lh": 38,
+            "text_fw": 500,
+            "text_ls": 1.5,
+            "font_italic": false,
+            "font_uppercase": true,
+            "text_shadow": false,
+            "text_mgb": 20,
+            "hidden_mobile": false,
+            "text_fs_mb": 18,
+            "text_lh_mb": 26,
+            "text_ls_mb": 1.5,
+            "text_mgb_mobile": 10
+          }
+        },
+        "75a761bc-a254-452a-a9c3-944465384562": {
+          "type": "2",
+          "settings": {
+            "fontf": "1",
+            "font_italic": true
+          }
+        }
+      },
+      "block_order": [
+        "0dd8a548-e739-4e97-b9d3-1f0c93b3b144",
+        "75a761bc-a254-452a-a9c3-944465384562"
+      ],
+      "custom_css": [
+        "h1 {max-width: 100%; margin: 0 auto; text-align: center; padding-top: 40px;}",
+        "@media (max-width: 600px) {h1 {max-width: 100%; }}",
+        "time.t4s-entry-date {color: #000 !important;}"
+      ],
+      "settings": {
+        "use_specify_image": false,
+        "parallax": false,
+        "color": "rgba(0,0,0,0)",
+        "overlay": 0,
+        "padding": 0,
+        "paddingmb": 0,
+        "mg_b": 0,
+        "mg_bmb": 0,
+        "content_align": "t4s-text-center",
+        "bg_pos": "center center",
+        "bg_repeat": "no-repeat",
+        "bg_size": "cover",
+        "bg_att": "scroll",
+        "use_cus_css": false,
+        "code_cus_css": ".SectionID {\nbackground-color:red\n}"
+      }
+    },
+    "custom_section_GmxRaF": {
+      "type": "custom-section",
+      "blocks": {
+        "bl_col_FVJTNN": {
+          "type": "bl_col",
+          "settings": {
+            "col_dk": "12",
+            "col_tb": "12",
+            "col_mb": "12",
+            "align_vertical": true,
+            "content_align": "center",
+            "content_align_tablet": "center",
+            "content_align_mobile": "center",
+            "padding_inner": "",
+            "padding_inner_tb": "",
+            "padding_inner_mb": "",
+            "bg_cl": "#d2a2a2"
+          }
+        },
+        "image_UC9fUi": {
+          "type": "image",
+          "settings": {
+            "image_child": "shopify://shop_images/choosing-the-right-bikini.jpg",
+            "img_link": "",
+            "open_link": "_self",
+            "img_width": 0,
+            "img_width_mb": 0,
+            "img_align": "center",
+            "img_align_tb": "center",
+            "img_align_mobile": "center",
+            "b_effect": "none",
+            "hidden_mobile": false,
+            "mgb": 0,
+            "mgb_mb": 0
+          }
+        }
+      },
+      "block_order": [
+        "bl_col_FVJTNN",
+        "image_UC9fUi"
+      ],
+      "name": "Hero",
+      "settings": {
+        "space_h_item": "10",
+        "space_v_item": "0",
+        "space_h_item_mb": "10",
+        "space_v_item_mb": "10",
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "10px",
+        "pd": "0,150px,20px,150px",
+        "mg_tb": "",
+        "pd_tb": "0,0,0,0",
+        "mg_mb": "20",
+        "pd_mb": "20px,20px,20px,20px",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
+    "sidebar": {
+      "type": "sidebar-article",
+      "blocks": {
+        "caa2cee0-01b1-488d-a10e-5e74006f95f4": {
+          "type": "blog_cate",
+          "settings": {
+            "title": "Blog categories",
+            "cat_link_list": "main-menu",
+            "count": true
+          }
+        },
+        "33e93b80-0f24-44e5-adfa-9e2b066b1473": {
+          "type": "tags",
+          "settings": {
+            "title": "Blog tags",
+            "count": true
+          }
+        },
+        "37d3ea69-b6a8-4406-8abd-ae719de8696b": {
+          "type": "collection",
+          "settings": {
+            "title": "Sale Products",
+            "collection": "women",
+            "limit_pr": 3,
+            "image_ratio": "t4s_ratioadapt",
+            "image_size": "t4s_cover",
+            "image_position": "t4s_position_8"
+          }
+        }
+      },
+      "block_order": [
+        "caa2cee0-01b1-488d-a10e-5e74006f95f4",
+        "33e93b80-0f24-44e5-adfa-9e2b066b1473",
+        "37d3ea69-b6a8-4406-8abd-ae719de8696b"
+      ],
+      "disabled": true,
+      "settings": {
+        "enable_drawer": true,
+        "space": 50,
+        "size": "medium",
+        "br_style": "none",
+        "brcolor": "#222222",
+        "sidebar_bdr": 5,
+        "sidebar_pd": 10
+      }
+    },
+    "main": {
+      "type": "main-article",
+      "blocks": {
+        "c9d358e2-df0b-4360-bd29-d09caded2ea0": {
+          "type": "image",
+          "settings": {
+            "cate_des": "none"
+          }
+        },
+        "5908f252-0a66-4bc2-8069-a8f60d79fb18": {
+          "type": "content",
+          "settings": {}
+        },
+        "e8da95d6-7323-4d99-a68c-16088d24fa34": {
+          "type": "tags",
+          "settings": {}
+        },
+        "d905ad63-1b38-496e-8a7e-38751e0ad0b8": {
+          "type": "socials",
+          "disabled": true,
+          "settings": {
+            "social_mode": "2",
+            "social_style": "2",
+            "social_size": "small",
+            "bd_radius": 30,
+            "use_color_set": true,
+            "icon_cl": "#000000",
+            "bg_cl": "#ffffff",
+            "space_h_item": "20",
+            "space_v_item": "5",
+            "space_h_item_mb": "10",
+            "space_v_item_mb": "2"
+          }
+        },
+        "dec42554-02e5-40e5-89ff-f922277dcb34": {
+          "type": "navigation",
+          "disabled": true,
+          "settings": {}
+        },
+        "0ae37c6c-16ef-447b-bbbf-31a449c30d2f": {
+          "type": "related",
+          "settings": {
+            "hd_related": "RELATED ARTICLES",
+            "hd_align": "start",
+            "content_align": "start",
+            "cate_des": "none",
+            "show_date": false,
+            "show_auth": false,
+            "limit_related": 8,
+            "date_post_related": "date",
+            "space_h_item": "30",
+            "space_v_item": "30",
+            "space_h_item_mb": "10",
+            "space_v_item_mb": "10",
+            "col_dk": "3",
+            "col_tb": "2",
+            "col_mb": "1",
+            "image_ratio": "ratio4_3",
+            "image_position": "8",
+            "image_size": "cover",
+            "img_effect": "none",
+            "b_effect": "none",
+            "loop": true,
+            "au_time": 0,
+            "au_hover": true,
+            "nav_btn": true,
+            "btn_vi": "hover",
+            "btn_owl": "outline",
+            "btn_shape": "round",
+            "btn_cl": "dark",
+            "btn_size": "small",
+            "btn_hidden_mobile": true,
+            "nav_dot": false,
+            "dot_owl": "default",
+            "dots_cl": "dark",
+            "dots_round": true,
+            "dots_space": 10,
+            "dots_hidden_mobile": false
+          }
+        },
+        "beea360a-ccb1-42b7-a996-ac5af0663be3": {
+          "type": "comments",
+          "settings": {
+            "enable_full_btn": false,
+            "button_style": "outline",
+            "btn_size": "medium",
+            "btn_cl": "dark"
+          }
+        }
+      },
+      "block_order": [
+        "c9d358e2-df0b-4360-bd29-d09caded2ea0",
+        "5908f252-0a66-4bc2-8069-a8f60d79fb18",
+        "e8da95d6-7323-4d99-a68c-16088d24fa34",
+        "d905ad63-1b38-496e-8a7e-38751e0ad0b8",
+        "dec42554-02e5-40e5-89ff-f922277dcb34",
+        "0ae37c6c-16ef-447b-bbbf-31a449c30d2f",
+        "beea360a-ccb1-42b7-a996-ac5af0663be3"
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".t4s-post-title {font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; min-height: 22px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;}",
+        "@media (max-width: 767px) {.t4s-post-title {font-size: 14px; min-height: 38px; }}"
+      ],
+      "settings": {
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "",
+        "pd": "0,190px,40px,190px",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": "",
+        "pd_mb": "0,20px,20px,20px"
+      }
+    },
+    "custom_section_F6UNEg": {
+      "type": "custom-section",
+      "blocks": {
+        "bl_col_KBWMe9": {
+          "type": "bl_col",
+          "settings": {
+            "col_dk": "12",
+            "col_tb": "12",
+            "col_mb": "12",
+            "align_vertical": true,
+            "content_align": "start",
+            "content_align_tablet": "start",
+            "content_align_mobile": "start",
+            "padding_inner": "",
+            "padding_inner_tb": "",
+            "padding_inner_mb": "",
+            "bg_cl": "rgba(0,0,0,0)"
+          }
+        },
+        "custom_text_RUGKg8": {
+          "type": "custom_text",
+          "settings": {
+            "text": "Choosing The Right Bikini",
+            "remove_br_tag": false,
+            "tag": "h2",
+            "fontf": "inherit",
+            "text_cl": "#000000",
+            "text_fs": 18,
+            "text_lh": 0,
+            "text_fw": 500,
+            "text_ls": 1.5,
+            "font_italic": false,
+            "text_shadow": false,
+            "text_mgb": 15,
+            "hidden_mobile": false,
+            "text_fs_mb": 16,
+            "text_lh_mb": 21,
+            "text_ls_mb": 1.5,
+            "text_mgb_mobile": 10
+          }
+        },
+        "custom_text_MakfTh": {
+          "type": "custom_text",
+          "settings": {
+            "text": "Choosing a <a href=\"/collections/bikinis\" title=\"Luxury bikinis\">bikini</a> that encourages confidence is rarely just about style. Confidence in swimwear comes from how a bikini fits, how it supports the body, and how it feels once you are actually wearing it outside the mirror. A bikini should feel secure, intentional, and comfortable enough that you are not constantly adjusting it or thinking about how it looks from every angle.\n<br><br>\nMany women assume that discomfort in a bikini is a personal issue, when in reality it is often a design problem. Poor construction, low quality fabric, and weak support can make even the most visually appealing bikini feel wrong once it is on. <a href=\"/collections/swimwear\" title=\"Luxury swimwear\">Luxury swimwear</a> approaches bikinis differently, prioritising fit, fabric performance, and structure so the bikini works with the body rather than against it.\n\nConfidence is not about following rules or trends. It is about choosing a bikini that allows you to relax into wearing it, whether you are by the pool, at the beach, or spending a full day in the sun. When a bikini fits properly and feels considered in its design, confidence follows naturally.",
+            "remove_br_tag": false,
+            "tag": "p",
+            "fontf": "inherit",
+            "text_cl": "#000000",
+            "text_fs": 16,
+            "text_lh": 24,
+            "text_fw": 300,
+            "text_ls": 0,
+            "font_italic": false,
+            "text_shadow": false,
+            "text_mgb": 15,
+            "hidden_mobile": false,
+            "text_fs_mb": 16,
+            "text_lh_mb": 24,
+            "text_ls_mb": 0,
+            "text_mgb_mobile": 10
+          }
+        }
+      },
+      "block_order": [
+        "bl_col_KBWMe9",
+        "custom_text_RUGKg8",
+        "custom_text_MakfTh"
+      ],
+      "name": "Intro",
+      "settings": {
+        "space_h_item": "10",
+        "space_v_item": "0",
+        "space_h_item_mb": "10",
+        "space_v_item_mb": "10",
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "10px",
+        "pd": "0,150px,0px,150px",
+        "mg_tb": "",
+        "pd_tb": "0,0,0,0",
+        "mg_mb": "20",
+        "pd_mb": "0,20px,10px,20px",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
+    "custom_section_tEUzFm": {
+      "type": "custom-section",
+      "blocks": {
+        "bl_col_4kt4KU": {
+          "type": "bl_col",
+          "settings": {
+            "col_dk": "12",
+            "col_tb": "12",
+            "col_mb": "12",
+            "align_vertical": true,
+            "content_align": "start",
+            "content_align_tablet": "start",
+            "content_align_mobile": "start",
+            "padding_inner": "",
+            "padding_inner_tb": "",
+            "padding_inner_mb": "",
+            "bg_cl": "rgba(0,0,0,0)"
+          }
+        },
+        "custom_text_if6npT": {
+          "type": "custom_text",
+          "settings": {
+            "text": "Fit Is the Foundation of Confidence",
+            "remove_br_tag": false,
+            "tag": "h2",
+            "fontf": "inherit",
+            "text_cl": "#000000",
+            "text_fs": 18,
+            "text_lh": 0,
+            "text_fw": 500,
+            "text_ls": 1.5,
+            "font_italic": false,
+            "text_shadow": false,
+            "text_mgb": 15,
+            "hidden_mobile": false,
+            "text_fs_mb": 16,
+            "text_lh_mb": 21,
+            "text_ls_mb": 1.5,
+            "text_mgb_mobile": 10
+          }
+        },
+        "custom_text_HkitE9": {
+          "type": "custom_text",
+          "settings": {
+            "text": "The foundation of confidence in any bikini is fit. Even the most beautifully designed bikini will feel uncomfortable if it does not sit correctly on the body. Fit affects how secure a bikini feels, how it moves with you, and whether you can relax while wearing it rather than constantly checking or adjusting it.\n<br><br>\nA well fitting bikini should sit smoothly against the skin without digging in, gaping, or shifting as you move. <a href=\"/collections/bikini-tops\" title=\"Luxury bikini tops\">Bikini tops</a> should feel supportive without relying on excessive padding, while <a href=\"/collections/bikini-bottoms\" title=\"Luxury bikini bottoms\">bikini bottoms</a> should stay in place without creating pressure points around the waist or hips. These details may seem small, but they have a major impact on how confident you feel throughout the day.\n<br><br>\nMany issues people associate with discomfort or self consciousness in swimwear are actually caused by poor construction. Weak elastic, inconsistent sizing, and fabrics that lose shape when wet can make a bikini feel unpredictable and uncomfortable. When fit is treated as a priority during the design process, these problems are largely eliminated.\n<br><br>\nWhen a bikini fits properly, you stop thinking about it. You are not adjusting straps or checking coverage. That freedom allows confidence to feel natural rather than something you have to work at.",
+            "remove_br_tag": false,
+            "tag": "p",
+            "fontf": "inherit",
+            "text_cl": "#000000",
+            "text_fs": 16,
+            "text_lh": 24,
+            "text_fw": 300,
+            "text_ls": 0,
+            "font_italic": false,
+            "text_shadow": false,
+            "text_mgb": 15,
+            "hidden_mobile": false,
+            "text_fs_mb": 16,
+            "text_lh_mb": 24,
+            "text_ls_mb": 0,
+            "text_mgb_mobile": 10
+          }
+        }
+      },
+      "block_order": [
+        "bl_col_4kt4KU",
+        "custom_text_if6npT",
+        "custom_text_HkitE9"
+      ],
+      "name": "Intro",
+      "settings": {
+        "space_h_item": "10",
+        "space_v_item": "0",
+        "space_h_item_mb": "10",
+        "space_v_item_mb": "10",
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "10px",
+        "pd": "0,150px,0px,150px",
+        "mg_tb": "",
+        "pd_tb": "0,0,0,0",
+        "mg_mb": "20",
+        "pd_mb": "0,20px,0px,20px",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
+    "custom_section_RGQ7C7": {
+      "type": "custom-section",
+      "blocks": {
+        "bl_col_MxmKpN": {
+          "type": "bl_col",
+          "settings": {
+            "col_dk": "12",
+            "col_tb": "12",
+            "col_mb": "12",
+            "align_vertical": true,
+            "content_align": "center",
+            "content_align_tablet": "center",
+            "content_align_mobile": "center",
+            "padding_inner": "",
+            "padding_inner_tb": "",
+            "padding_inner_mb": "",
+            "bg_cl": "#d2a2a2"
+          }
+        },
+        "image_nDGR4Q": {
+          "type": "image",
+          "settings": {
+            "image_child": "shopify://shop_images/bikini-fitting.jpg",
+            "img_link": "",
+            "open_link": "_self",
+            "img_width": 0,
+            "img_width_mb": 0,
+            "img_align": "center",
+            "img_align_tb": "center",
+            "img_align_mobile": "center",
+            "b_effect": "none",
+            "hidden_mobile": false,
+            "mgb": 0,
+            "mgb_mb": 0
+          }
+        }
+      },
+      "block_order": [
+        "bl_col_MxmKpN",
+        "image_nDGR4Q"
+      ],
+      "name": "Image 1",
+      "settings": {
+        "space_h_item": "10",
+        "space_v_item": "0",
+        "space_h_item_mb": "10",
+        "space_v_item_mb": "10",
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "0px",
+        "pd": "0,150px,20px,150px",
+        "mg_tb": "",
+        "pd_tb": "0,0,0,0",
+        "mg_mb": "",
+        "pd_mb": "10px,20px,20px,20px",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
+    "custom_section_A7fLBQ": {
+      "type": "custom-section",
+      "blocks": {
+        "bl_col_jbfyQy": {
+          "type": "bl_col",
+          "settings": {
+            "col_dk": "12",
+            "col_tb": "12",
+            "col_mb": "12",
+            "align_vertical": true,
+            "content_align": "start",
+            "content_align_tablet": "start",
+            "content_align_mobile": "start",
+            "padding_inner": "",
+            "padding_inner_tb": "",
+            "padding_inner_mb": "",
+            "bg_cl": "rgba(0,0,0,0)"
+          }
+        },
+        "custom_text_xqmBtd": {
+          "type": "custom_text",
+          "settings": {
+            "text": "Choosing the Right Cut for Your Body and Your Comfort",
+            "remove_br_tag": false,
+            "tag": "h2",
+            "fontf": "inherit",
+            "text_cl": "#000000",
+            "text_fs": 18,
+            "text_lh": 0,
+            "text_fw": 500,
+            "text_ls": 1.5,
+            "font_italic": false,
+            "text_shadow": false,
+            "text_mgb": 15,
+            "hidden_mobile": false,
+            "text_fs_mb": 16,
+            "text_lh_mb": 21,
+            "text_ls_mb": 1.5,
+            "text_mgb_mobile": 10
+          }
+        },
+        "custom_text_UzNPhE": {
+          "type": "custom_text",
+          "settings": {
+            "text": "The cut of a bikini plays a major role in how confident it feels to wear. Different silhouettes change how a bikini sits on the body, how much support it offers, and how comfortable it feels throughout the day. Confidence comes from choosing a cut that works with your body and your preferences, not from forcing yourself into a style that does not feel natural.\n<br><br>\nSome bikini tops offer more structure through shaping and coverage, while others feel lighter and more minimal. The same applies to bikini bottoms. <a href=\"/collections/high-waisted-bikinis\" title=\"High waisted bikinis\">Higher rise cuts</a> can create a feeling of support and security through the waist, while lower rise styles often feel more relaxed and effortless. Neither option is better than the other. The key difference is how they make you feel once you are wearing them.\n<br><br>\nCertain styles, such as <a href=\"/collections/bandeau-bikinis\" title=\"Bandeau bikinis\">bandeau bikinis</a>, suit those who prefer clean lines and a more streamlined look. When designed well, bandeau styles can feel surprisingly secure while offering a balanced, understated silhouette that many find confidence boosting.\n<br><br>\nIt is also important to consider how a bikini cut performs when you move. Sitting, walking, swimming, and spending long periods in the sun all affect how a bikini feels on the body. A cut that looks good standing still but shifts or feels restrictive during movement can quickly undermine confidence.\n<br><br>\nTaking the time to understand which cuts you feel most comfortable in allows you to choose bikinis that feel intuitive to wear. When the silhouette aligns with your comfort level, confidence feels natural rather than something you have to think about.",
+            "remove_br_tag": false,
+            "tag": "p",
+            "fontf": "inherit",
+            "text_cl": "#000000",
+            "text_fs": 16,
+            "text_lh": 24,
+            "text_fw": 300,
+            "text_ls": 0,
+            "font_italic": false,
+            "text_shadow": false,
+            "text_mgb": 15,
+            "hidden_mobile": false,
+            "text_fs_mb": 16,
+            "text_lh_mb": 24,
+            "text_ls_mb": 0,
+            "text_mgb_mobile": 10
+          }
+        }
+      },
+      "block_order": [
+        "bl_col_jbfyQy",
+        "custom_text_xqmBtd",
+        "custom_text_UzNPhE"
+      ],
+      "name": "Intro",
+      "settings": {
+        "space_h_item": "10",
+        "space_v_item": "0",
+        "space_h_item_mb": "10",
+        "space_v_item_mb": "10",
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "10px",
+        "pd": "0,150px,0px,150px",
+        "mg_tb": "",
+        "pd_tb": "0,0,0,0",
+        "mg_mb": "20",
+        "pd_mb": "0,20px,10px,20px",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
+    "custom_section_WYYhWx": {
+      "type": "custom-section",
+      "blocks": {
+        "bl_col_kxMzTE": {
+          "type": "bl_col",
+          "settings": {
+            "col_dk": "12",
+            "col_tb": "12",
+            "col_mb": "12",
+            "align_vertical": true,
+            "content_align": "start",
+            "content_align_tablet": "start",
+            "content_align_mobile": "start",
+            "padding_inner": "",
+            "padding_inner_tb": "",
+            "padding_inner_mb": "",
+            "bg_cl": "rgba(0,0,0,0)"
+          }
+        },
+        "custom_text_b3JXGg": {
+          "type": "custom_text",
+          "settings": {
+            "text": "Why Fabric And Construction Make A Big Difference",
+            "remove_br_tag": false,
+            "tag": "h2",
+            "fontf": "inherit",
+            "text_cl": "#000000",
+            "text_fs": 18,
+            "text_lh": 0,
+            "text_fw": 500,
+            "text_ls": 1.5,
+            "font_italic": false,
+            "text_shadow": false,
+            "text_mgb": 15,
+            "hidden_mobile": false,
+            "text_fs_mb": 16,
+            "text_lh_mb": 21,
+            "text_ls_mb": 1.5,
+            "text_mgb_mobile": 10
+          }
+        },
+        "custom_text_6ixJww": {
+          "type": "custom_text",
+          "settings": {
+            "text": "Fabric and construction play a much bigger role in swimwear confidence than most people realise. A bikini can look beautiful at first glance, but if the fabric lacks structure or the construction is weak, that confidence quickly fades once it is worn for more than a few minutes. How a bikini feels against the skin, how it responds to movement, and how it holds its shape throughout the day all come back to these details.\n<br><br>\nHigh quality swimwear fabrics are designed to offer gentle support without feeling restrictive. They provide a level of hold that smooths and supports the body rather than clinging or sagging. Fabric weight also matters. Lightweight fabrics can feel comfortable initially but often lose their shape when wet, while more considered fabrics maintain structure and consistency throughout wear.\n<br><br>\nConstruction is just as important as fabric choice. Reinforced seams, secure elastic, and thoughtful lining placement all contribute to how stable a bikini feels once it is on. These elements prevent common issues such as rolling edges, shifting panels, or loss of support after swimming. When construction is done well, the bikini feels reliable rather than unpredictable.\n<br><br>\nConfidence comes from knowing that a bikini will behave the same way throughout the day as it did when you first put it on. When fabric and construction are treated as priorities rather than cost cutting opportunities, the result is swimwear that feels dependable, comfortable, and easy to wear.\n<br><br>\nA bikini that holds its shape, supports the body, and feels consistent over time allows you to focus on enjoying where you are, rather than thinking about what you are wearing.",
+            "remove_br_tag": false,
+            "tag": "p",
+            "fontf": "inherit",
+            "text_cl": "#000000",
+            "text_fs": 16,
+            "text_lh": 24,
+            "text_fw": 300,
+            "text_ls": 0,
+            "font_italic": false,
+            "text_shadow": false,
+            "text_mgb": 15,
+            "hidden_mobile": false,
+            "text_fs_mb": 16,
+            "text_lh_mb": 24,
+            "text_ls_mb": 0,
+            "text_mgb_mobile": 10
+          }
+        }
+      },
+      "block_order": [
+        "bl_col_kxMzTE",
+        "custom_text_b3JXGg",
+        "custom_text_6ixJww"
+      ],
+      "name": "Intro",
+      "settings": {
+        "space_h_item": "10",
+        "space_v_item": "0",
+        "space_h_item_mb": "10",
+        "space_v_item_mb": "10",
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "10px",
+        "pd": "0,150px,0px,150px",
+        "mg_tb": "",
+        "pd_tb": "0,0,0,0",
+        "mg_mb": "20",
+        "pd_mb": "0,20px,0px,20px",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
+    "custom_section_NAf96U": {
+      "type": "custom-section",
+      "blocks": {
+        "bl_col_QYaAFh": {
+          "type": "bl_col",
+          "settings": {
+            "col_dk": "12",
+            "col_tb": "12",
+            "col_mb": "12",
+            "align_vertical": true,
+            "content_align": "center",
+            "content_align_tablet": "center",
+            "content_align_mobile": "center",
+            "padding_inner": "",
+            "padding_inner_tb": "",
+            "padding_inner_mb": "",
+            "bg_cl": "#d2a2a2"
+          }
+        },
+        "image_M9EMPf": {
+          "type": "image",
+          "settings": {
+            "image_child": "shopify://shop_images/bikini-fit-construction-feel.jpg",
+            "img_link": "",
+            "open_link": "_self",
+            "img_width": 0,
+            "img_width_mb": 0,
+            "img_align": "center",
+            "img_align_tb": "center",
+            "img_align_mobile": "center",
+            "b_effect": "none",
+            "hidden_mobile": false,
+            "mgb": 0,
+            "mgb_mb": 0
+          }
+        }
+      },
+      "block_order": [
+        "bl_col_QYaAFh",
+        "image_M9EMPf"
+      ],
+      "name": "Image 2",
+      "settings": {
+        "space_h_item": "10",
+        "space_v_item": "0",
+        "space_h_item_mb": "10",
+        "space_v_item_mb": "10",
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "0px",
+        "pd": "0,150px,20px,150px",
+        "mg_tb": "",
+        "pd_tb": "0,0,0,0",
+        "mg_mb": "",
+        "pd_mb": "10px,20px,20px,20px",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
+    "custom_section_ML9CRz": {
+      "type": "custom-section",
+      "blocks": {
+        "bl_col_46Yjft": {
+          "type": "bl_col",
+          "settings": {
+            "col_dk": "12",
+            "col_tb": "12",
+            "col_mb": "12",
+            "align_vertical": true,
+            "content_align": "start",
+            "content_align_tablet": "start",
+            "content_align_mobile": "start",
+            "padding_inner": "",
+            "padding_inner_tb": "",
+            "padding_inner_mb": "",
+            "bg_cl": "rgba(0,0,0,0)"
+          }
+        },
+        "custom_text_MRbLgc": {
+          "type": "custom_text",
+          "settings": {
+            "text": "Support Should Feel Built In, Not Overdone",
+            "remove_br_tag": false,
+            "tag": "h2",
+            "fontf": "inherit",
+            "text_cl": "#000000",
+            "text_fs": 18,
+            "text_lh": 0,
+            "text_fw": 500,
+            "text_ls": 1.5,
+            "font_italic": false,
+            "text_shadow": false,
+            "text_mgb": 15,
+            "hidden_mobile": false,
+            "text_fs_mb": 16,
+            "text_lh_mb": 21,
+            "text_ls_mb": 1.5,
+            "text_mgb_mobile": 10
+          }
+        },
+        "custom_text_qypGTy": {
+          "type": "custom_text",
+          "settings": {
+            "text": "Support is one of the most important factors in how confident a bikini feels to wear, but it is often misunderstood. Good support should feel integrated into the design rather than obvious or heavy. When a bikini is doing its job properly, you should feel held and secure without being constantly aware of structure or reinforcement.\n<br><br>\nBikini tops, in particular, rely on thoughtful design to provide support without compromising comfort. This can come from internal shaping, well placed lining, or fabric tension rather than padding alone. When support is built into the construction, the bikini feels balanced and comfortable instead of bulky or restrictive.\n<br><br>\nPoor support often shows itself through constant adjustments. Slipping straps, shifting fabric, or a lack of stability can make even a well styled bikini feel distracting to wear. These issues tend to pull attention away from how you feel and place it back on how the bikini is behaving.\n<br><br>\nWell designed support allows you to move naturally. Swimming, walking, sitting, and stretching should not change how secure the bikini feels on the body. When support is handled correctly, confidence comes from trust. You trust that the bikini will stay in place and feel consistent throughout the day.\n<br><br>\nSupport should enhance how a bikini feels, not dominate it. When it is subtle, reliable, and thoughtfully integrated, it becomes one of the strongest contributors to confidence in swimwear.",
+            "remove_br_tag": false,
+            "tag": "p",
+            "fontf": "inherit",
+            "text_cl": "#000000",
+            "text_fs": 16,
+            "text_lh": 24,
+            "text_fw": 300,
+            "text_ls": 0,
+            "font_italic": false,
+            "text_shadow": false,
+            "text_mgb": 15,
+            "hidden_mobile": false,
+            "text_fs_mb": 16,
+            "text_lh_mb": 24,
+            "text_ls_mb": 0,
+            "text_mgb_mobile": 10
+          }
+        }
+      },
+      "block_order": [
+        "bl_col_46Yjft",
+        "custom_text_MRbLgc",
+        "custom_text_qypGTy"
+      ],
+      "name": "Intro",
+      "settings": {
+        "space_h_item": "10",
+        "space_v_item": "0",
+        "space_h_item_mb": "10",
+        "space_v_item_mb": "10",
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "10px",
+        "pd": "0,150px,0px,150px",
+        "mg_tb": "",
+        "pd_tb": "0,0,0,0",
+        "mg_mb": "20",
+        "pd_mb": "0,20px,10px,20px",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
+    "custom_section_86mqR3": {
+      "type": "custom-section",
+      "blocks": {
+        "bl_col_t7VEfC": {
+          "type": "bl_col",
+          "settings": {
+            "col_dk": "12",
+            "col_tb": "12",
+            "col_mb": "12",
+            "align_vertical": true,
+            "content_align": "start",
+            "content_align_tablet": "start",
+            "content_align_mobile": "start",
+            "padding_inner": "",
+            "padding_inner_tb": "",
+            "padding_inner_mb": "",
+            "bg_cl": "rgba(0,0,0,0)"
+          }
+        },
+        "custom_text_JqHXPa": {
+          "type": "custom_text",
+          "settings": {
+            "text": "Coverage, Comfort, and Wearing a Bikini in Real Life",
+            "remove_br_tag": false,
+            "tag": "h2",
+            "fontf": "inherit",
+            "text_cl": "#000000",
+            "text_fs": 18,
+            "text_lh": 0,
+            "text_fw": 500,
+            "text_ls": 1.5,
+            "font_italic": false,
+            "text_shadow": false,
+            "text_mgb": 15,
+            "hidden_mobile": false,
+            "text_fs_mb": 16,
+            "text_lh_mb": 21,
+            "text_ls_mb": 1.5,
+            "text_mgb_mobile": 10
+          }
+        },
+        "custom_text_gKf99G": {
+          "type": "custom_text",
+          "settings": {
+            "text": "It is easy to assume that more coverage automatically leads to more confidence, but that is not always the case. Confidence in a bikini comes from feeling comfortable and supported, not from how much skin is covered. A well designed bikini with less coverage can feel far more confidence boosting than a more covered style that shifts, digs in, or feels restrictive.\n\nConfidence is also shaped by how a bikini performs in real situations. Standing in front of a mirror is one thing, but wearing a bikini throughout the day places different demands on fit and construction. Sitting by the pool, walking along the beach, swimming, and spending hours in warm conditions all affect how a bikini feels on the body.\n<br><br>\nA bikini that feels comfortable at first but becomes distracting after movement or time in the sun can quickly undermine confidence. Fabric that overheats, elastic that tightens, or cuts that shift with movement draw attention back to the garment rather than allowing you to feel relaxed while wearing it.\n<br><br>\nWhen coverage and comfort are balanced correctly, the bikini becomes easy to wear. You are not thinking about how it looks when you sit down or whether it will stay in place when you move. Instead, confidence comes from trust. You trust that the bikini will feel the same at the end of the day as it did when you first put it on.\n<br><br>\nChoosing a bikini with real life wear in mind allows confidence to extend beyond appearance. When a bikini supports the body, moves naturally, and feels consistent throughout the day, confidence becomes a natural response rather than something you have to think about.",
+            "remove_br_tag": false,
+            "tag": "p",
+            "fontf": "inherit",
+            "text_cl": "#000000",
+            "text_fs": 16,
+            "text_lh": 24,
+            "text_fw": 300,
+            "text_ls": 0,
+            "font_italic": false,
+            "text_shadow": false,
+            "text_mgb": 15,
+            "hidden_mobile": false,
+            "text_fs_mb": 16,
+            "text_lh_mb": 24,
+            "text_ls_mb": 0,
+            "text_mgb_mobile": 10
+          }
+        }
+      },
+      "block_order": [
+        "bl_col_t7VEfC",
+        "custom_text_JqHXPa",
+        "custom_text_gKf99G"
+      ],
+      "name": "Intro",
+      "settings": {
+        "space_h_item": "10",
+        "space_v_item": "0",
+        "space_h_item_mb": "10",
+        "space_v_item_mb": "10",
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "10px",
+        "pd": "0,150px,0px,150px",
+        "mg_tb": "",
+        "pd_tb": "0,0,0,0",
+        "mg_mb": "20",
+        "pd_mb": "0,20px,0px,20px",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
+    "custom_section_gaX3A3": {
+      "type": "custom-section",
+      "blocks": {
+        "bl_col_dUqMMp": {
+          "type": "bl_col",
+          "settings": {
+            "col_dk": "12",
+            "col_tb": "12",
+            "col_mb": "12",
+            "align_vertical": true,
+            "content_align": "center",
+            "content_align_tablet": "center",
+            "content_align_mobile": "center",
+            "padding_inner": "",
+            "padding_inner_tb": "",
+            "padding_inner_mb": "",
+            "bg_cl": "#d2a2a2"
+          }
+        },
+        "image_dVDEWJ": {
+          "type": "image",
+          "settings": {
+            "image_child": "shopify://shop_images/luxury-bikinis-comfort.jpg",
+            "img_link": "",
+            "open_link": "_self",
+            "img_width": 0,
+            "img_width_mb": 0,
+            "img_align": "center",
+            "img_align_tb": "center",
+            "img_align_mobile": "center",
+            "b_effect": "none",
+            "hidden_mobile": false,
+            "mgb": 0,
+            "mgb_mb": 0
+          }
+        }
+      },
+      "block_order": [
+        "bl_col_dUqMMp",
+        "image_dVDEWJ"
+      ],
+      "name": "Image 3",
+      "settings": {
+        "space_h_item": "10",
+        "space_v_item": "0",
+        "space_h_item_mb": "10",
+        "space_v_item_mb": "10",
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "0px",
+        "pd": "0,150px,20px,150px",
+        "mg_tb": "",
+        "pd_tb": "0,0,0,0",
+        "mg_mb": "",
+        "pd_mb": "10px,20px,20px,20px",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
+    "custom_section_f6LQNU": {
+      "type": "custom-section",
+      "blocks": {
+        "bl_col_7EpUbk": {
+          "type": "bl_col",
+          "settings": {
+            "col_dk": "12",
+            "col_tb": "12",
+            "col_mb": "12",
+            "align_vertical": true,
+            "content_align": "start",
+            "content_align_tablet": "start",
+            "content_align_mobile": "start",
+            "padding_inner": "",
+            "padding_inner_tb": "",
+            "padding_inner_mb": "",
+            "bg_cl": "rgba(0,0,0,0)"
+          }
+        },
+        "custom_text_xePENV": {
+          "type": "custom_text",
+          "settings": {
+            "text": "Bringing It All Together",
+            "remove_br_tag": false,
+            "tag": "h2",
+            "fontf": "inherit",
+            "text_cl": "#000000",
+            "text_fs": 18,
+            "text_lh": 0,
+            "text_fw": 500,
+            "text_ls": 1.5,
+            "font_italic": false,
+            "text_shadow": false,
+            "text_mgb": 15,
+            "hidden_mobile": false,
+            "text_fs_mb": 16,
+            "text_lh_mb": 21,
+            "text_ls_mb": 1.5,
+            "text_mgb_mobile": 10
+          }
+        },
+        "custom_text_HxPGTr": {
+          "type": "custom_text",
+          "settings": {
+            "text": "Confidence in a bikini is rarely about one single detail. It comes from a combination of fit, cut, fabric, support, and how the bikini feels once you are actually wearing it in real life. When these elements work together, a bikini stops feeling like something you are managing and starts feeling like something you can simply wear.\n<br><br>\nTaking the time to consider how different styles make you feel allows you to choose swimwear more intuitively. Instead of focusing on trends or assumptions, confidence comes from understanding what feels comfortable, secure, and aligned with how you want to move through the day. When a bikini supports the body and feels considered in its design, confidence follows naturally.\n<br><br>\nFor those who prefer a more cohesive look, exploring <a href=\"/collections/bikini-sets\" title=\"Bikini sets\">bikini sets</a> can make choosing easier. Coordinated tops and bottoms are designed to work together in terms of fit, proportion, and support, helping remove uncertainty and allowing you to focus on how the swimwear feels rather than how it is styled.\n<br><br>\nUltimately, the right bikini is the one that allows you to feel at ease. When you trust the fit and construction, confidence becomes effortless, and that is what makes a bikini truly work.",
+            "remove_br_tag": false,
+            "tag": "p",
+            "fontf": "inherit",
+            "text_cl": "#000000",
+            "text_fs": 16,
+            "text_lh": 24,
+            "text_fw": 300,
+            "text_ls": 0,
+            "font_italic": false,
+            "text_shadow": false,
+            "text_mgb": 15,
+            "hidden_mobile": false,
+            "text_fs_mb": 16,
+            "text_lh_mb": 24,
+            "text_ls_mb": 0,
+            "text_mgb_mobile": 10
+          }
+        }
+      },
+      "block_order": [
+        "bl_col_7EpUbk",
+        "custom_text_xePENV",
+        "custom_text_HxPGTr"
+      ],
+      "name": "Intro",
+      "settings": {
+        "space_h_item": "10",
+        "space_v_item": "0",
+        "space_h_item_mb": "10",
+        "space_v_item_mb": "10",
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": "10px",
+        "pd": "0,150px,0px,150px",
+        "mg_tb": "",
+        "pd_tb": "0,0,0,0",
+        "mg_mb": "20",
+        "pd_mb": "0,20px,10px,20px",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
+    "featured_collection_BxjKGb": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "design_heading": "1",
+        "heading_align": "t4s-text-start",
+        "top_heading": "Shop Luxury Bikinis",
+        "icon_heading": "las la-gem",
+        "top_subheading": "",
+        "tophead_mb": 20,
+        "head_btn_label": "View All",
+        "head_btn_url": "",
+        "head_btn_icon": false,
+        "head_btn_style": "default",
+        "head_btn_size": "medium",
+        "head_btn_cl": "dark",
+        "head_btn_effect": "default",
+        "head_btn_hidden_mb": false,
+        "collection": "bikini-sets",
+        "product_des": "1",
+        "show_vendor": false,
+        "use_cdt": false,
+        "image_ratio": "rationt",
+        "image_size": "cover",
+        "image_position": "8",
+        "content_align": "default",
+        "limit": 8,
+        "col_dk": "4",
+        "col_tb": "2",
+        "col_mb": "2",
+        "space_h_item": "15",
+        "space_v_item": "30",
+        "space_h_item_mb": "10",
+        "space_v_item_mb": "10",
+        "layout_des": "2",
+        "loop": true,
+        "au_time": 0,
+        "au_hover": true,
+        "center_slide": false,
+        "nav_btn": true,
+        "btns_pos": "default",
+        "btn_vi": "always",
+        "btn_owl": "default",
+        "btn_shape": "round",
+        "btn_cl": "dark",
+        "btn_size": "small",
+        "btn_hidden_mobile": false,
+        "nav_dot": false,
+        "dot_owl": "default",
+        "dots_cl": "dark",
+        "dots_round": true,
+        "dots_space": 10,
+        "dots_hidden_mobile": false,
+        "use_pagination": "none",
+        "enable_bar_lm": true,
+        "btn_icon": false,
+        "button_style": "default",
+        "btns_size": "large",
+        "btns_cl": "dark",
+        "button_effect": "default",
+        "btn_pos": "t4s-text-center",
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": ",,30px,",
+        "pd": "0,150px,0px,150px",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": "0,20px,10px,20px",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "custom_section_GmxRaF",
+    "sidebar",
+    "main",
+    "custom_section_F6UNEg",
+    "custom_section_tEUzFm",
+    "custom_section_RGQ7C7",
+    "custom_section_A7fLBQ",
+    "custom_section_WYYhWx",
+    "custom_section_NAf96U",
+    "custom_section_ML9CRz",
+    "custom_section_86mqR3",
+    "custom_section_gaX3A3",
+    "custom_section_f6LQNU",
+    "featured_collection_BxjKGb"
+  ]
+}

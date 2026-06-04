@@ -1,0 +1,46 @@
+{% if request.page_type == 'collection' and collection %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": {{ collection.title | json }},
+  "url": {{ shop.url | append: collection.url | json }},
+  "description": {{ collection.description | strip_html | truncate: 300 | json }},
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {% for product in collection.products limit: 10 %}
+      {
+        "@type": "ListItem",
+        "position": {{ forloop.index }},
+        "item": {
+          "@type": "Product",
+          "name": {{ product.title | strip_html | json }},
+          "image": {{ product.featured_image | image_url: width: 600 | prepend: shop.url | json }},
+          "offers": {
+            "@type": "Offer",
+            "url": {{ shop.url | append: product.url | json }},
+            "priceCurrency": {{ cart.currency.iso_code | json }},
+            "price": {{ product.price | divided_by: 100.0 | json }},
+            "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}"
+          }
+        }
+      }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]
+  }
+}
+</script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Collection Schema",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Collection Schema"
+    }
+  ]
+}
+{% endschema %}

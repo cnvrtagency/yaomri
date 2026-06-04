@@ -1,0 +1,299 @@
+# Template to section map
+
+## templates/404.json
+- main	main-404
+
+## templates/article.blog-post-split.json
+- hero_image_yf6UDj	hero_image
+- heading	heading-article
+- sidebar	sidebar-article
+- custom_liquid_qxmDnk	custom-liquid
+- custom_liquid_NHEcP8	custom-liquid
+- custom_liquid_x3ePWi	custom-liquid
+- main	main-article
+
+## templates/article.choosing-a-bikini-confide.json
+- heading	heading-article
+- custom_section_GmxRaF	custom-section
+- sidebar	sidebar-article
+- main	main-article
+- custom_section_F6UNEg	custom-section
+- custom_section_tEUzFm	custom-section
+- custom_section_RGQ7C7	custom-section
+- custom_section_A7fLBQ	custom-section
+- custom_section_WYYhWx	custom-section
+- custom_section_NAf96U	custom-section
+- custom_section_ML9CRz	custom-section
+- custom_section_86mqR3	custom-section
+- custom_section_gaX3A3	custom-section
+- custom_section_f6LQNU	custom-section
+- featured_collection_BxjKGb	featured-collection
+
+## templates/article.json
+- heading	heading-article
+- sidebar	sidebar-article
+- main	main-article
+
+## templates/article.portfolio.json
+- heading	heading-article
+- main	main-article-portfolio
+- sidebar	sidebar-article-portfolio
+
+## templates/blog.json
+- custom_section_B7iwem	custom-section
+- heading	heading-template
+- slider	blog_slider
+- main	main-blog
+- sidebar	sidebar-blog
+
+## templates/blog.portfolio.json
+- heading	heading-template
+- main	main-portfolio
+- sidebar	sidebar-portfolio
+
+## templates/cart.json
+- heading	heading-template
+- main	main-cart
+
+## templates/collection.Amalfi-Collection.json
+- top	top-collections
+- custom_section_47APT3	custom-section
+- scrolling_text_MPGXri	scrolling-text
+- heading_template	heading-template
+- custom_liquid_b8PWya	custom-liquid
+- main	main-collection
+- sidebar	sidebar-collection
+- custom_liquid_X8MEP6	custom-liquid
+
+## templates/collection.collectionwithimage.json
+- custom_liquid_9tgPMK	custom-liquid
+- top	top-collections
+- heading_template	heading-template
+- slideshow_amaD6L	slideshow
+- heading_template_MM477X	heading-template
+- main	main-collection
+- sidebar	sidebar-collection
+- custom_html_JWM9dB	custom-html
+- custom_liquid_fwV7Db	custom-liquid
+- accordion_8f9Hqk	accordion
+- collection_schema_i3RFBc	collection-schema
+
+## templates/collection.default-w-o-image.json
+- top	top-collections
+- slideshow_amaD6L	slideshow
+- heading_template	heading-template
+- custom_liquid_b8PWya	custom-liquid
+- main	main-collection
+- sidebar	sidebar-collection
+- custom_liquid_ydW7Va	custom-liquid
+- accordion_y88Myr	accordion
+
+## templates/collection.json
+- top	top-collections
+- heading_template	heading-template
+- custom_liquid_b8PWya	custom-liquid
+- slideshow_amaD6L	slideshow
+- line_x4x8F9	line
+- heading_template_MM477X	heading-template
+- main	main-collection
+- sidebar	sidebar-collection
+- custom_html_JWM9dB	custom-html
+- custom_liquid_fwV7Db	custom-liquid
+- accordion_8f9Hqk	accordion
+- collection_schema_i3RFBc	collection-schema
+
+## templates/collection.new-collection-layout.json
+- custom_liquid_MhhB3G	custom-liquid
+- 1761463464c3e12b31	_blocks
+- scrolling_text_BjVE73	scrolling-text
+- custom_liquid_b8PWya	custom-liquid
+- top	top-collections
+- main	main-collection
+- sidebar	sidebar-collection
+- custom_html_JWM9dB	custom-html
+- custom_liquid_fwV7Db	custom-liquid
+- accordion_A6WEY4	accordion
+- collection_schema_i3RFBc	collection-schema
+
+## templates/collection.packery-collections.json
+- top	top-collections
+- heading_template	heading-template
+- main	main-packery-collection
+- sidebar	sidebar-collection
+
+## templates/collection.sub.json
+- top	top-collections
+- heading_template	heading-template
+- 1650341675018b864a	collections-list
+- main	main-collection
+- sidebar	sidebar-collection
+- 1650341841f037d7dd	shipping
+
+## templates/collection.temp-2.json
+- 1761463464c3e12b31	_blocks
+- top	top-collections
+- scrolling_text_BjVE73	scrolling-text
+- custom_liquid_b8PWya	custom-liquid
+- main	main-collection
+- sidebar	sidebar-collection
+- custom_html_JWM9dB	custom-html
+- custom_liquid_fwV7Db	custom-liquid
+- accordion_A6WEY4	accordion
+- collection_schema_i3RFBc	collection-schema
+
+## templates/collection.temp.json
+- top	top-collections
+- heading_template	heading-template
+- slideshow_amaD6L	slideshow
+- custom_liquid_b8PWya	custom-liquid
+- heading_template_MM477X	heading-template
+- main	main-collection
+- sidebar	sidebar-collection
+- custom_html_JWM9dB	custom-html
+- custom_liquid_fwV7Db	custom-liquid
+- accordion_A6WEY4	accordion
+- collection_schema_i3RFBc	collection-schema
+
+## templates/customers
+- no section tags found
+
+## templates/gift_card.liquid
+- no section tags found
+
+## templates/index.json
+- slideshow_qJpxTy	slideshow
+- custom_scrolling_text_WzNQQb	custom-scrolling-text
+- featured_collection_RYCjmA	featured-collection
+- featured_collection_8dtPdm	featured-collection
+- tabs_collection_EtU4AK	tabs-collection
+- custom_section_bVmNWp	custom-section
+- custom_liquid_gLL9yT	custom-liquid
+- featured_collection_4zP6Q4	featured-collection
+- slideshow_kmP4m8	slideshow
+- slideshow_pRjPii	slideshow
+
+## templates/list-collections.json
+- heading	heading-template
+- main	main-list-collections
+
+## templates/page.about-us.json
+- heading	heading-template
+- main	main-page
+- sidebar-page	sidebar-page
+- 1652061282d05ea8a5	custom-section
+- 1652061282d05ea8a6	custom-section
+- 1652061697dd10b7fc	quote
+- 1652060940154cd301	our_team
+
+## templates/page.brands.json
+- heading	heading-template
+- main	main-page
+- 1648874226829fc9d5	main-pagebrands
+
+## templates/page.collabs.json
+- collabs	apps
+
+## templates/page.faq-2.json
+- heading	heading-template
+- main	main-page
+- sidebar-page	sidebar-page
+- 165214825814e830e7	accordion
+
+## templates/page.faqs.json
+- heading	heading-template
+- main	main-page
+- sidebar-page	sidebar-page
+
+## templates/page.json
+- heading	heading-template
+- main	main-page
+- sidebar-page	sidebar-page
+
+## templates/page.size.json
+- heading	heading-template
+- main	main-page
+- sidebar-page	sidebar-page
+
+## templates/page.store-locator.json
+- heading	heading-template
+- main	main-store-locator
+
+## templates/page.timeline.json
+- heading	heading-template
+- main	main-page
+- 1659629440d3109507	timeline
+
+## templates/password.liquid
+- unknown-id	main-password
+
+## templates/product.a-configs.json
+- main-qv	main-qv
+- main-qs	main-qs
+
+## templates/product.amalfi-product.json
+- breadcrumb	brc-nav-product
+- main	main-product
+- sidebar	sidebar-product
+- product-recommendations	product-recommendations
+- logo_list_jj7DFw	logo_list
+- featured_collection_YAiBQa	featured-collection
+- recently-viewed-products	recently_viewed
+
+## templates/product.complementary-products.json
+- breadcrumb	brc-nav-product
+- main	main-product
+- sidebar	sidebar-product
+- product-recommendations	product-recommendations
+- recently-viewed-products	recently_viewed
+
+## templates/product.json
+- breadcrumb	brc-nav-product
+- main	main-product
+- custom_liquid_cVaxQD	custom-liquid
+- custom_liquid_UecUFf	custom-liquid
+- sidebar	sidebar-product
+- image_gallery_8axmCM	image-gallery
+- product-recommendations	product-recommendations
+- featured_collection_YAiBQa	featured-collection
+- recently-viewed-products	recently_viewed
+- 17613219184a36d197	apps
+
+## templates/product.options-customizer.json
+- breadcrumb	brc-nav-product
+- main	main-product
+- sidebar	sidebar-product
+- product-recommendations	product-recommendations
+- recently-viewed-products	recently_viewed
+
+## templates/product.products-with-extra-image.json
+- breadcrumb	brc-nav-product
+- main	main-product
+- sidebar	sidebar-product
+- image_gallery_cFfaQb	image-gallery
+- product-recommendations	product-recommendations
+- logo_list_jj7DFw	logo_list
+- featured_collection_YAiBQa	featured-collection
+- recently-viewed-products	recently_viewed
+
+## templates/robots.txt.liquid
+- no section tags found
+
+## templates/search.compare.liquid
+- no section tags found
+
+## templates/search.config.liquid
+- unknown-id	mb_nav
+- unknown-id	mb_cat
+
+## templates/search.json
+- top	top-collections
+- heading_template	heading-template
+- main	main-search
+- sidebar	sidebar-collection
+
+## templates/search.mn.liquid
+- unknown-id	mb_nav
+- unknown-id	mb_cat
+
+## templates/search.wishlist.liquid
+- no section tags found

@@ -1,0 +1,536 @@
+{% style %}
+  #shopify-section-{{ section.id }} .custom-scroll-bar {
+    background: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+    overflow: hidden;
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  #shopify-section-{{ section.id }} .custom-scroll-track {
+    display: flex;
+    width: max-content;
+    animation: customScroll-{{ section.id }} {{ section.settings.speed }}s linear infinite;
+  }
+
+  #shopify-section-{{ section.id }} .custom-scroll-group {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  #shopify-section-{{ section.id }} .custom-scroll-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 0 {{ section.settings.item_gap }}px;
+    white-space: nowrap;
+    font-size: {{ section.settings.desktop_font_size }}px;
+    line-height: 1.1;
+    color: {{ section.settings.text_color }};
+    text-transform: {% if section.settings.uppercase %}uppercase{% else %}none{% endif %};
+    letter-spacing: {{ section.settings.letter_spacing }}px;
+  }
+
+  #shopify-section-{{ section.id }} .custom-scroll-item-text {
+    font-family: var(--item-font-family);
+    font-weight: var(--item-font-weight);
+    font-style: var(--item-font-style);
+  }
+
+  #shopify-section-{{ section.id }} .custom-scroll-separator {
+    display: {% if section.settings.show_separator %}inline-flex{% else %}none{% endif %};
+    width: {{ section.settings.separator_size }}px;
+    height: {{ section.settings.separator_size }}px;
+    border-radius: 999px;
+    background: {{ section.settings.separator_color }};
+    flex-shrink: 0;
+  }
+
+  #shopify-section-{{ section.id }} .custom-scroll-bar:hover .custom-scroll-track {
+    {% if section.settings.pause_on_hover %}
+      animation-play-state: paused;
+    {% endif %}
+  }
+
+  @keyframes customScroll-{{ section.id }} {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .custom-scroll-item {
+      font-size: {{ section.settings.mobile_font_size }}px;
+      padding: 0 {{ section.settings.mobile_item_gap }}px;
+    }
+
+    #shopify-section-{{ section.id }} .custom-scroll-bar {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="custom-scroll-bar">
+  <div class="custom-scroll-track">
+    <div class="custom-scroll-group">
+      {% for block in section.blocks %}
+        {% liquid
+          assign item_font = section.settings.font_family
+          assign item_weight = section.settings.font_weight
+          assign item_style = 'normal'
+
+          if section.settings.italic
+            assign item_style = 'italic'
+          endif
+
+          if block.settings.font_family != 'inherit'
+            assign item_font = block.settings.font_family
+          endif
+
+          if block.settings.font_weight != 'inherit'
+            assign item_weight = block.settings.font_weight
+          endif
+
+          if block.settings.italic_override == 'italic'
+            assign item_style = 'italic'
+          elsif block.settings.italic_override == 'normal'
+            assign item_style = 'normal'
+          endif
+        %}
+
+        <div
+          class="custom-scroll-item"
+          style="
+            --item-font-family: {{ item_font }};
+            --item-font-weight: {{ item_weight }};
+            --item-font-style: {{ item_style }};
+          "
+          {{ block.shopify_attributes }}
+        >
+          <span class="custom-scroll-item-text">{{ block.settings.text }}</span>
+          <span class="custom-scroll-separator"></span>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="custom-scroll-group" aria-hidden="true">
+      {% for block in section.blocks %}
+        {% liquid
+          assign item_font = section.settings.font_family
+          assign item_weight = section.settings.font_weight
+          assign item_style = 'normal'
+
+          if section.settings.italic
+            assign item_style = 'italic'
+          endif
+
+          if block.settings.font_family != 'inherit'
+            assign item_font = block.settings.font_family
+          endif
+
+          if block.settings.font_weight != 'inherit'
+            assign item_weight = block.settings.font_weight
+          endif
+
+          if block.settings.italic_override == 'italic'
+            assign item_style = 'italic'
+          elsif block.settings.italic_override == 'normal'
+            assign item_style = 'normal'
+          endif
+        %}
+
+        <div
+          class="custom-scroll-item"
+          style="
+            --item-font-family: {{ item_font }};
+            --item-font-weight: {{ item_weight }};
+            --item-font-style: {{ item_style }};
+          "
+        >
+          <span class="custom-scroll-item-text">{{ block.settings.text }}</span>
+          <span class="custom-scroll-separator"></span>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom scrolling text",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background colour",
+      "default": "#fff4f4"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text colour",
+      "default": "#222222"
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase",
+      "label": "Uppercase text",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "font_family",
+      "label": "Default font family",
+      "default": "inherit",
+      "options": [
+        {
+          "value": "inherit",
+          "label": "Theme default"
+        },
+        {
+          "value": "Arial, sans-serif",
+          "label": "Arial"
+        },
+        {
+          "value": "Helvetica, Arial, sans-serif",
+          "label": "Helvetica"
+        },
+        {
+          "value": "'Times New Roman', serif",
+          "label": "Times New Roman"
+        },
+        {
+          "value": "Georgia, serif",
+          "label": "Georgia"
+        },
+        {
+          "value": "'Courier New', monospace",
+          "label": "Courier New"
+        },
+        {
+          "value": "'Futura', Arial, sans-serif",
+          "label": "Futura"
+        },
+        {
+          "value": "'Montserrat', Arial, sans-serif",
+          "label": "Montserrat"
+        },
+        {
+          "value": "'Poppins', Arial, sans-serif",
+          "label": "Poppins"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "italic",
+      "label": "Default italic",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Default font weight",
+      "default": "800",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        },
+        {
+          "value": "800",
+          "label": "Extra bold"
+        },
+        {
+          "value": "900",
+          "label": "Black"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "desktop_font_size",
+      "label": "Desktop font size",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_font_size",
+      "label": "Mobile font size",
+      "min": 8,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "label": "Letter spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Scroll speed",
+      "min": 5,
+      "max": 60,
+      "step": 1,
+      "unit": "s",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "item_gap",
+      "label": "Desktop item spacing",
+      "min": 10,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "mobile_item_gap",
+      "label": "Mobile item spacing",
+      "min": 10,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "checkbox",
+      "id": "show_separator",
+      "label": "Show separator dot",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "separator_color",
+      "label": "Separator colour",
+      "default": "#222222"
+    },
+    {
+      "type": "range",
+      "id": "separator_size",
+      "label": "Separator size",
+      "min": 2,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 5
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on hover",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop padding top",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop padding bottom",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile padding top",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile padding bottom",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Free worldwide shipping on orders over $100"
+        },
+        {
+          "type": "select",
+          "id": "font_family",
+          "label": "Item font family",
+          "default": "inherit",
+          "options": [
+            {
+              "value": "inherit",
+              "label": "Use default"
+            },
+            {
+              "value": "Arial, sans-serif",
+              "label": "Arial"
+            },
+            {
+              "value": "Helvetica, Arial, sans-serif",
+              "label": "Helvetica"
+            },
+            {
+              "value": "'Times New Roman', serif",
+              "label": "Times New Roman"
+            },
+            {
+              "value": "Georgia, serif",
+              "label": "Georgia"
+            },
+            {
+              "value": "'Courier New', monospace",
+              "label": "Courier New"
+            },
+            {
+              "value": "'Futura', Arial, sans-serif",
+              "label": "Futura"
+            },
+            {
+              "value": "'Montserrat', Arial, sans-serif",
+              "label": "Montserrat"
+            },
+            {
+              "value": "'Poppins', Arial, sans-serif",
+              "label": "Poppins"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "font_weight",
+          "label": "Item font weight",
+          "default": "inherit",
+          "options": [
+            {
+              "value": "inherit",
+              "label": "Use default"
+            },
+            {
+              "value": "400",
+              "label": "Regular"
+            },
+            {
+              "value": "500",
+              "label": "Medium"
+            },
+            {
+              "value": "600",
+              "label": "Semi bold"
+            },
+            {
+              "value": "700",
+              "label": "Bold"
+            },
+            {
+              "value": "800",
+              "label": "Extra bold"
+            },
+            {
+              "value": "900",
+              "label": "Black"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "italic_override",
+          "label": "Item italic style",
+          "default": "inherit",
+          "options": [
+            {
+              "value": "inherit",
+              "label": "Use default"
+            },
+            {
+              "value": "normal",
+              "label": "Normal"
+            },
+            {
+              "value": "italic",
+              "label": "Italic"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom scrolling text",
+      "blocks": [
+        {
+          "type": "text",
+          "settings": {
+            "text": "10% off your first Ya Omri order"
+          }
+        },
+        {
+          "type": "text",
+          "settings": {
+            "text": "Free worldwide shipping on orders over $100"
+          }
+        },
+        {
+          "type": "text",
+          "settings": {
+            "text": "Fast & free shipping within the UAE"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
