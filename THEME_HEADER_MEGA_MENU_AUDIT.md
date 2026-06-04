@@ -965,4 +965,45 @@ If the next task is implementation, the safest narrow task is:
 - do not modify global `.t4s-container`
 - do not change `menu_blocks` / `menu_dropdown` / `mega-menu` behavior
 
+## 25. Implementation note: responsive header side padding controls
+
+Implemented for:
+- `sections/header-inline.liquid`
+- `sections/header-bottom.liquid`
+- `sections/header-sidebar.liquid`
+- `sections/header-categories-menu.liquid`
+- `sections/header-vertical.liquid`
+
+Controls added:
+- `header_pad_x_desktop`
+- `header_pad_x_tablet`
+- `header_pad_x_mobile`
+
+Implementation notes:
+- `full_header` still controls shell width only
+- new gutter controls act as internal container padding only
+- inline, bottom, sidebar, and vertical headers apply the new variables to:
+  - `.t4s-header__wrapper > .t4s-container`
+- categories header applies them to:
+  - `.t4s-section-header__mid > .t4s-container`
+  - `.t4s-section-header__bot > .t4s-container`
+- no changes were made to:
+  - `snippets/menu_blocks.liquid`
+  - `snippets/menu_dropdown.liquid`
+  - mega menu logic
+  - global JS
+  - global container CSS in `assets/base.css`
+
+Testing checklist:
+- `full_header` on:
+  - header remains full width
+  - desktop/tablet/mobile side gutter still changes
+- `full_header` off:
+  - header remains contained
+  - gutter settings still adjust internal left/right spacing cleanly
+- dropdown menus still open
+- mega menus still open
+- mobile trigger still works
+- desktop nav alignment changes only by the configured gutter
+
 That gives alignment control without touching the shared navigation logic.
