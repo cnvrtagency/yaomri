@@ -6,6 +6,47 @@ This is an evidence-backed audit of the mobile menu drawer system in this Shopif
 
 This document is for future implementation work only. It does not propose code changes here. It maps the current mobile menu drawer render path, shared drawer dependencies, CSS/JS ownership, Theme Editor controls, risks, and the safest routing for future work.
 
+## Latest implementation note
+
+- Context: this pass assumed the latest saved Shopify theme had already been pulled locally, so schema edits were kept narrowly scoped to the Ya Omri mobile drawer controls only.
+- Files changed in this pass:
+  - `snippets/yaomri-mobile-drawer.liquid`
+  - `assets/yaomri-mobile-drawer.css`
+  - `assets/yaomri-mobile-drawer-search.js`
+  - `sections/mb_nav.liquid`
+  - `sections/mb_cat.liquid`
+- Image card controls added:
+  - card height
+  - card heading font size
+  - card subtitle font size
+  - card text weight
+  - heading uppercase toggle
+  - subtitle uppercase toggle
+  - text alignment
+  - overlay strength
+  - existing card radius kept and wired through CSS variables
+- Trust strip controls:
+  - removed from the Ya Omri drawer section schemas
+  - the custom drawer no longer exposes `Enable trust strip` in Theme Editor
+- Search:
+  - `Show drawer search` setting added
+  - search row no longer renders when disabled
+  - predictive search was implemented with a small isolated asset: `assets/yaomri-mobile-drawer-search.js`
+  - the script reuses Shopify's predictive search endpoint and the existing `search-hidden` section response; it does not alter the global Kalles drawer/search runtime
+- Close button:
+  - visually integrated into the top-right of the custom drawer search area using scoped CSS only
+  - the Kalles close button contract remains unchanged
+- No changes were made to:
+  - `assets/global.min.js`
+  - `assets/theme.min.js`
+  - `assets/predictive-search.min.js`
+  - `assets/drawer.min.css`
+  - `assets/mobile_nav.css`
+- Remaining QA checks:
+  - confirm predictive results layout on narrow mobile widths
+  - confirm the close button alignment in both normal and categories-only mobile drawer modes
+  - confirm Theme Editor visibility for the new card/search controls and the removal of the old trust-strip controls
+
 ## Evidence used
 
 - [theme-audit-data/asset-load-map.txt](/Users/danny/Desktop/shopify-themes/yaomri-kalles-edit/theme-audit-data/asset-load-map.txt)
@@ -1132,9 +1173,11 @@ The custom drawer does not rebuild the menu tree. It preserves:
 - Files changed:
   - `snippets/yaomri-mobile-drawer.liquid`
   - `assets/yaomri-mobile-drawer.css`
+  - `assets/yaomri-mobile-drawer-search.js`
   - `sections/mb_nav.liquid`
   - `sections/mb_cat.liquid`
 - New settings added:
+  - `yaomri_mobile_drawer_search_enable`
   - `yaomri_mobile_drawer_cards_enable`
   - `yaomri_mobile_drawer_card_1_image`
   - `yaomri_mobile_drawer_card_1_heading`
@@ -1144,17 +1187,20 @@ The custom drawer does not rebuild the menu tree. It preserves:
   - `yaomri_mobile_drawer_card_2_heading`
   - `yaomri_mobile_drawer_card_2_subtitle`
   - `yaomri_mobile_drawer_card_2_link`
-  - `yaomri_mobile_drawer_trust_enable`
-  - `yaomri_mobile_drawer_trust_1`
-  - `yaomri_mobile_drawer_trust_2`
-  - `yaomri_mobile_drawer_trust_3`
+  - `yaomri_mobile_drawer_card_height`
+  - `yaomri_mobile_drawer_card_heading_font_size`
+  - `yaomri_mobile_drawer_card_subtitle_font_size`
+  - `yaomri_mobile_drawer_card_text_weight`
+  - `yaomri_mobile_drawer_card_heading_uppercase`
+  - `yaomri_mobile_drawer_card_subtitle_uppercase`
+  - `yaomri_mobile_drawer_card_text_align`
+  - `yaomri_mobile_drawer_card_overlay_strength`
 - Visual structure added inside the custom wrapper:
-  - editorial intro with eyebrow and large title
-  - search pill
-  - action pills for search / sign in / cart
+  - optional real search form
+  - optional in-drawer predictive search results via isolated Ya Omri script
   - two image-led collection cards
   - wrapped menu panel using the preserved Kalles menu tree
-  - bottom trust strip
+  - bottom account/action panel
 
 ## Testing checklist
 

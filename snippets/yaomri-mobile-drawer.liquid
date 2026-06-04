@@ -9,7 +9,14 @@
   assign item_spacing = section.settings.yaomri_mobile_drawer_item_spacing | default: 12
   assign submenu_indent = section.settings.yaomri_mobile_drawer_submenu_indent | default: 18
   assign drawer_radius = section.settings.yaomri_mobile_drawer_radius | default: 8
+  assign search_enable = section.settings.yaomri_mobile_drawer_search_enable | default: true
   assign card_radius = section.settings.yaomri_mobile_drawer_card_radius | default: 6
+  assign card_height = section.settings.yaomri_mobile_drawer_card_height | default: 120
+  assign card_heading_size = section.settings.yaomri_mobile_drawer_card_heading_font_size | default: 24
+  assign card_subtitle_size = section.settings.yaomri_mobile_drawer_card_subtitle_font_size | default: 11
+  assign card_text_weight = section.settings.yaomri_mobile_drawer_card_text_weight | default: '500'
+  assign card_text_align = section.settings.yaomri_mobile_drawer_card_text_align | default: 'left'
+  assign card_overlay_strength = section.settings.yaomri_mobile_drawer_card_overlay_strength | default: 28
   assign cards_enable = section.settings.yaomri_mobile_drawer_cards_enable
   assign card_1_heading = section.settings.yaomri_mobile_drawer_card_1_heading | default: 'Swimwear'
   assign card_1_subtitle = section.settings.yaomri_mobile_drawer_card_1_subtitle | default: 'Explore collection'
@@ -19,10 +26,6 @@
   assign card_2_subtitle = section.settings.yaomri_mobile_drawer_card_2_subtitle | default: 'Explore collection'
   assign card_2_link = section.settings.yaomri_mobile_drawer_card_2_link
   assign card_2_image = section.settings.yaomri_mobile_drawer_card_2_image
-  assign trust_enable = section.settings.yaomri_mobile_drawer_trust_enable
-  assign trust_1 = section.settings.yaomri_mobile_drawer_trust_1 | default: 'Free shipping'
-  assign trust_2 = section.settings.yaomri_mobile_drawer_trust_2 | default: 'Easy returns'
-  assign trust_3 = section.settings.yaomri_mobile_drawer_trust_3 | default: 'Secure checkout'
   if card_1_link == blank
     assign card_1_link = routes.root_url
   endif
@@ -73,6 +76,14 @@
     --yo-mobile-drawer-submenu-indent: {{ submenu_indent }}px;
     --yo-mobile-drawer-radius: {{ drawer_radius }}px;
     --yo-mobile-drawer-card-radius: {{ card_radius }}px;
+    --yo-mobile-drawer-card-height: {{ card_height }}px;
+    --yo-mobile-drawer-card-title-size: {{ card_heading_size }}px;
+    --yo-mobile-drawer-card-subtitle-size: {{ card_subtitle_size }}px;
+    --yo-mobile-drawer-card-text-weight: {{ card_text_weight }};
+    --yo-mobile-drawer-card-text-align: {{ card_text_align }};
+    --yo-mobile-drawer-card-title-transform: {% if section.settings.yaomri_mobile_drawer_card_heading_uppercase %}uppercase{% else %}none{% endif %};
+    --yo-mobile-drawer-card-subtitle-transform: {% if section.settings.yaomri_mobile_drawer_card_subtitle_uppercase %}uppercase{% else %}none{% endif %};
+    --yo-mobile-drawer-card-overlay-opacity: {{ card_overlay_strength | times: 0.01 }};
     --yo-mobile-drawer-close-bg: {{ section.settings.yaomri_mobile_drawer_close_bg_color | default: '#ffffff' }};
     --yo-mobile-drawer-close-icon: {{ section.settings.yaomri_mobile_drawer_close_icon_color | default: '#111111' }};
     --yo-mobile-drawer-width: {{ drawer_width }}px;
@@ -87,26 +98,41 @@
     color: {{ section.settings.yaomri_mobile_drawer_close_icon_color | default: '#111111' }};
     border: 1px solid {{ section.settings.yaomri_mobile_drawer_border_color | default: '#e8e1da' }};
   }
-</style>
+  </style>
+{%- endif -%}
+{%- if emit_root_styles and search_enable and settings.predictive_search -%}
+<script src="{{ 'yaomri-mobile-drawer-search.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
 {%- comment -%}
 Ya Omri custom drawer:
 - borrows root-view visual composition from external references
 - preserves the existing Kalles/T4S drawer runtime and submenu contract
 {%- endcomment -%}
-<div class="yo-mobile-drawer" data-section-id="{{ section.id }}">
+<div class="yo-mobile-drawer{% unless search_enable %} yo-mobile-drawer--search-disabled{% endunless %}" data-section-id="{{ section.id }}">
   <div class="yo-mobile-drawer__inner">
-    <div class="yo-mobile-drawer__intro">
-      <form class="yo-mobile-drawer__search-form" action="{{ routes.search_url }}" method="get" role="search">
-        <span class="yo-mobile-drawer__search-icon">
-          <svg viewBox="0 0 18 19" aria-hidden="true" focusable="false"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M11.03 11.68A5.784 5.784 0 112.85 3.5a5.784 5.784 0 018.18 8.18zm.26 1.12a6.78 6.78 0 11.72-.7l5.4 5.4a.5.5 0 11-.71.7l-5.41-5.4z"/></svg>
-        </span>
-        <input class="yo-mobile-drawer__search-input" type="search" name="q" placeholder="Search" aria-label="Search products">
-        <button class="yo-mobile-drawer__search-submit" type="submit" aria-label="Submit search">
-          <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 10h8m-3-3 3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-      </form>
-    </div>
+    {%- if search_enable -%}
+      <div class="yo-mobile-drawer__intro">
+        <div class="yo-mobile-drawer__search-shell"{% if settings.predictive_search %} data-yo-mobile-drawer-search data-predictive-url="{{ routes.predictive_search_url }}?section_id=search-hidden&type=product&options%5Bunavailable_products%5D={{ settings.unavailable_prs }}&options%5Bprefix%5D=last&q="{% endif %}>
+          <form class="yo-mobile-drawer__search-form" action="{{ routes.search_url }}" method="get" role="search">
+            <span class="yo-mobile-drawer__search-icon">
+              <svg viewBox="0 0 18 19" aria-hidden="true" focusable="false"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M11.03 11.68A5.784 5.784 0 112.85 3.5a5.784 5.784 0 018.18 8.18zm.26 1.12a6.78 6.78 0 11.72-.7l5.4 5.4a.5.5 0 11-.71.7l-5.41-5.4z"/></svg>
+            </span>
+            <input class="yo-mobile-drawer__search-input" type="search" name="q" placeholder="Search" aria-label="Search products" autocomplete="off">
+            <button class="yo-mobile-drawer__search-submit" type="submit" aria-label="Submit search">
+              <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 10h8m-3-3 3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </form>
+          {%- if settings.predictive_search -%}
+            <div class="yo-mobile-drawer__search-results" data-yo-mobile-drawer-search-results hidden>
+              <div class="t4s-mini-search__keys yo-mobile-drawer__search-suggestions" data-yo-mobile-drawer-suggestions></div>
+              <div class="t4s-mini-search__title yo-mobile-drawer__search-title" data-yo-mobile-drawer-results-title hidden></div>
+              <div class="t4s-mini-search__content t4s_ratioadapt yo-mobile-drawer__search-content" data-yo-mobile-drawer-results-content></div>
+              <div class="t4s-drawer__bottom yo-mobile-drawer__search-footer" data-yo-mobile-drawer-results-footer hidden></div>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
     <div class="yo-mobile-drawer__body">
       <div class="yo-mobile-drawer__content-stack">
         {%- if cards_enable -%}

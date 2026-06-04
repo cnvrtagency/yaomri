@@ -351,6 +351,12 @@ endif -%}
         "default": false
       },
       {
+        "type": "checkbox",
+        "id": "yaomri_mobile_drawer_search_enable",
+        "label": "Show drawer search",
+        "default": true
+      },
+      {
         "type": "color",
         "id": "yaomri_mobile_drawer_bg_color",
         "label": "Drawer background colour",
@@ -567,32 +573,75 @@ endif -%}
         "default": 6
       },
       {
-        "type": "header",
-        "content": "Trust strip"
+        "type": "range",
+        "id": "yaomri_mobile_drawer_card_height",
+        "label": "Image card height",
+        "min": 96,
+        "max": 220,
+        "step": 4,
+        "default": 120
+      },
+      {
+        "type": "range",
+        "id": "yaomri_mobile_drawer_card_heading_font_size",
+        "label": "Card heading font size",
+        "min": 18,
+        "max": 40,
+        "step": 1,
+        "default": 24
+      },
+      {
+        "type": "range",
+        "id": "yaomri_mobile_drawer_card_subtitle_font_size",
+        "label": "Card subtitle font size",
+        "min": 10,
+        "max": 18,
+        "step": 1,
+        "default": 11
+      },
+      {
+        "type": "select",
+        "id": "yaomri_mobile_drawer_card_text_weight",
+        "label": "Card text weight",
+        "default": "500",
+        "options": [
+          { "value": "400", "label": "400" },
+          { "value": "500", "label": "500" },
+          { "value": "600", "label": "600" },
+          { "value": "700", "label": "700" }
+        ]
       },
       {
         "type": "checkbox",
-        "id": "yaomri_mobile_drawer_trust_enable",
-        "label": "Enable trust strip",
+        "id": "yaomri_mobile_drawer_card_heading_uppercase",
+        "label": "Uppercase card headings",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "yaomri_mobile_drawer_card_subtitle_uppercase",
+        "label": "Uppercase card subtitles",
         "default": true
       },
       {
-        "type": "text",
-        "id": "yaomri_mobile_drawer_trust_1",
-        "label": "Trust item 1",
-        "default": "Free shipping"
+        "type": "select",
+        "id": "yaomri_mobile_drawer_card_text_align",
+        "label": "Card text alignment",
+        "default": "left",
+        "options": [
+          { "value": "left", "label": "Left" },
+          { "value": "center", "label": "Center" },
+          { "value": "right", "label": "Right" }
+        ]
       },
       {
-        "type": "text",
-        "id": "yaomri_mobile_drawer_trust_2",
-        "label": "Trust item 2",
-        "default": "Easy returns"
-      },
-      {
-        "type": "text",
-        "id": "yaomri_mobile_drawer_trust_3",
-        "label": "Trust item 3",
-        "default": "Secure checkout"
+        "type": "range",
+        "id": "yaomri_mobile_drawer_card_overlay_strength",
+        "label": "Card overlay strength",
+        "min": 0,
+        "max": 80,
+        "step": 1,
+        "default": 28
       }
     ],
     "blocks": [

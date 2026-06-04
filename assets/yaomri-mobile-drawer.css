@@ -24,7 +24,7 @@
 }
 
 #t4s-menu-drawer .yo-mobile-drawer__intro {
-  padding: 18px 58px 12px 18px;
+  padding: 16px 58px 12px 18px;
   background:
     linear-gradient(
       180deg,
@@ -32,6 +32,10 @@
       color-mix(in srgb, var(--yo-mobile-drawer-bg, #ffffff) 92%, white 8%) 100%
     );
   border-bottom: 1px solid color-mix(in srgb, var(--yo-mobile-drawer-border, #e8e1da) 72%, transparent 28%);
+}
+
+#t4s-menu-drawer .yo-mobile-drawer__search-shell {
+  position: relative;
 }
 
 #t4s-menu-drawer .yo-mobile-drawer__search-form {
@@ -103,6 +107,36 @@
   background: color-mix(in srgb, var(--yo-mobile-drawer-bg, #ffffff) 90%, #f3f3f1 10%);
 }
 
+#t4s-menu-drawer .yo-mobile-drawer__search-results {
+  margin-top: 10px;
+}
+
+#t4s-menu-drawer .yo-mobile-drawer__search-results[hidden] {
+  display: none;
+}
+
+#t4s-menu-drawer .yo-mobile-drawer__search-suggestions:empty,
+#t4s-menu-drawer .yo-mobile-drawer__search-title:empty,
+#t4s-menu-drawer .yo-mobile-drawer__search-content:empty,
+#t4s-menu-drawer .yo-mobile-drawer__search-footer:empty {
+  display: none;
+}
+
+#t4s-menu-drawer .yo-mobile-drawer__search-suggestions,
+#t4s-menu-drawer .yo-mobile-drawer__search-title,
+#t4s-menu-drawer .yo-mobile-drawer__search-content,
+#t4s-menu-drawer .yo-mobile-drawer__search-footer {
+  background: transparent;
+}
+
+#t4s-menu-drawer .yo-mobile-drawer__search-footer {
+  margin-top: 10px;
+}
+
+#t4s-menu-drawer .yo-mobile-drawer--search-disabled .yo-mobile-drawer__body {
+  padding-top: 18px;
+}
+
 #t4s-menu-drawer .yo-mobile-drawer__body {
   flex: 1 1 auto;
   padding: 14px 18px 14px;
@@ -125,7 +159,7 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  min-height: 112px;
+  min-height: var(--yo-mobile-drawer-card-height, 120px);
   padding: 18px 18px 16px;
   border-radius: var(--yo-mobile-drawer-card-radius, 6px);
   overflow: hidden;
@@ -148,7 +182,7 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(17,17,17,0) 34%, rgba(17,17,17,0.28) 100%);
+    linear-gradient(180deg, rgba(17,17,17,0) 34%, rgba(17,17,17,var(--yo-mobile-drawer-card-overlay-opacity, 0.28)) 100%);
 }
 
 #t4s-menu-drawer .yo-mobile-drawer__card-copy,
@@ -161,22 +195,25 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+  text-align: var(--yo-mobile-drawer-card-text-align, left);
 }
 
 #t4s-menu-drawer .yo-mobile-drawer__card-subtitle {
-  font-size: 11px;
+  font-size: var(--yo-mobile-drawer-card-subtitle-size, 11px);
   line-height: 1;
   letter-spacing: 0.16em;
-  text-transform: uppercase;
+  text-transform: var(--yo-mobile-drawer-card-subtitle-transform, uppercase);
   opacity: 0.76;
   order: 2;
+  font-weight: var(--yo-mobile-drawer-card-text-weight, 500);
 }
 
 #t4s-menu-drawer .yo-mobile-drawer__card-title {
-  font-size: 24px;
+  font-size: var(--yo-mobile-drawer-card-title-size, 24px);
   line-height: 1.05;
-  font-weight: 500;
+  font-weight: var(--yo-mobile-drawer-card-text-weight, 500);
   letter-spacing: -0.03em;
+  text-transform: var(--yo-mobile-drawer-card-title-transform, none);
   order: 1;
 }
 
@@ -366,18 +403,21 @@
 }
 
 #t4s-menu-drawer:has(.yo-mobile-drawer) + .t4s-drawer-menu__close {
-  top: 14px;
-  left: calc(min(calc(100vw - 24px), var(--yo-mobile-drawer-width, 360px)) - 50px);
+  top: 20px;
+  left: calc(min(calc(100vw - 24px), var(--yo-mobile-drawer-width, 360px)) - 48px);
   right: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 40px;
   height: 40px;
   padding: 0;
   box-shadow: none;
   border: 0;
-  border-radius: 10px;
+  border-radius: 0;
   color: var(--yo-mobile-drawer-close-icon, #111111);
-  background: color-mix(in srgb, var(--yo-mobile-drawer-close-bg, #ffffff) 72%, transparent 28%);
-  backdrop-filter: blur(4px);
+  background: transparent;
+  backdrop-filter: none;
 }
 
 #t4s-menu-drawer:has(.yo-mobile-drawer) + .t4s-drawer-menu__close svg.t4s-iconsvg-close {
@@ -400,7 +440,7 @@
   }
 
   #t4s-menu-drawer .yo-mobile-drawer__card {
-    min-height: 108px;
+    min-height: var(--yo-mobile-drawer-card-height, 120px);
   }
 
   #t4s-menu-drawer .yo-mobile-drawer .t4s-mb__menu > li > a,
@@ -427,8 +467,8 @@
   }
 
   #t4s-menu-drawer:has(.yo-mobile-drawer) + .t4s-drawer-menu__close {
-    top: 12px;
-    left: calc(min(calc(100vw - 24px), var(--yo-mobile-drawer-width, 360px)) - 46px);
+    top: 18px;
+    left: calc(min(calc(100vw - 24px), var(--yo-mobile-drawer-width, 360px)) - 44px);
     width: 36px;
     height: 36px;
   }
