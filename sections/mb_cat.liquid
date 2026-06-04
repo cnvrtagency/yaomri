@@ -336,12 +336,121 @@
         },
         {
           "type": "range",
+          "id": "yaomri_mobile_drawer_close_icon_size",
+          "label": "Close icon size",
+          "min": 16,
+          "max": 36,
+          "step": 1,
+          "unit": "px",
+          "default": 24
+        },
+        {
+          "type": "header",
+          "content": "Bottom action panel"
+        },
+        {
+          "type": "checkbox",
+          "id": "yaomri_mobile_drawer_actions_enable",
+          "label": "Show bottom action panel",
+          "default": true
+        },
+        {
+          "type": "color",
+          "id": "yaomri_mobile_drawer_actions_bg_color",
+          "label": "Action panel background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "yaomri_mobile_drawer_actions_text_color",
+          "label": "Action panel text colour",
+          "default": "#111111"
+        },
+        {
+          "type": "color",
+          "id": "yaomri_mobile_drawer_actions_icon_color",
+          "label": "Action panel icon colour",
+          "default": "#111111"
+        },
+        {
+          "type": "color",
+          "id": "yaomri_mobile_drawer_actions_border_color",
+          "label": "Action panel border colour",
+          "default": "#e8e1da"
+        },
+        {
+          "type": "color",
+          "id": "yaomri_mobile_drawer_actions_button_bg",
+          "label": "Action button background",
+          "default": "#f8f6f3"
+        },
+        {
+          "type": "color",
+          "id": "yaomri_mobile_drawer_actions_button_text",
+          "label": "Action button text colour",
+          "default": "#111111"
+        },
+        {
+          "type": "range",
+          "id": "yaomri_mobile_drawer_actions_button_radius",
+          "label": "Action button radius",
+          "min": 0,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "default": 8
+        },
+        {
+          "type": "range",
+          "id": "yaomri_mobile_drawer_actions_icon_size",
+          "label": "Action icon size",
+          "min": 14,
+          "max": 32,
+          "step": 1,
+          "unit": "px",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "yaomri_mobile_drawer_actions_text_size",
+          "label": "Action text size",
+          "min": 10,
+          "max": 18,
+          "step": 1,
+          "unit": "px",
+          "default": 13
+        },
+        {
+          "type": "select",
+          "id": "yaomri_mobile_drawer_actions_text_weight",
+          "label": "Action text weight",
+          "options": [
+            { "value": "400", "label": "400" },
+            { "value": "500", "label": "500" },
+            { "value": "600", "label": "600" },
+            { "value": "700", "label": "700" },
+            { "value": "800", "label": "800" }
+          ],
+          "default": "500"
+        },
+        {
+          "type": "range",
+          "id": "yaomri_mobile_drawer_actions_gap_top",
+          "label": "Space above action panel",
+          "min": 0,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "default": 8
+        },
+        {
+          "type": "range",
           "id": "yaomri_mobile_drawer_width",
           "label": "Drawer width",
-          "min": 280,
-          "max": 420,
-          "step": 2,
-          "default": 360
+          "min": 300,
+          "max": 480,
+          "step": 5,
+          "default": 400
         },
         {
           "type": "range",
@@ -444,6 +553,28 @@
         },
         {
           "type": "select",
+          "id": "yaomri_mobile_drawer_card_subtitle_weight",
+          "label": "Card subtitle font weight",
+          "default": "500",
+          "options": [
+            { "value": "400", "label": "400" },
+            { "value": "500", "label": "500" },
+            { "value": "600", "label": "600" },
+            { "value": "700", "label": "700" },
+            { "value": "800", "label": "800" }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "yaomri_mobile_drawer_card_subtitle_letter_spacing",
+          "label": "Card subtitle letter spacing",
+          "min": 0,
+          "max": 4,
+          "step": 0.1,
+          "default": 1.5
+        },
+        {
+          "type": "select",
           "id": "yaomri_mobile_drawer_card_text_weight",
           "label": "Card text weight",
           "default": "500",
@@ -458,6 +589,12 @@
           "type": "checkbox",
           "id": "yaomri_mobile_drawer_card_heading_uppercase",
           "label": "Uppercase card headings",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "yaomri_mobile_drawer_card_title_italic",
+          "label": "Italic card titles",
           "default": false
         },
         {

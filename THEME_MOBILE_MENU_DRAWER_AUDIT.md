@@ -47,6 +47,137 @@ This document is for future implementation work only. It does not propose code c
   - confirm the close button alignment in both normal and categories-only mobile drawer modes
   - confirm Theme Editor visibility for the new card/search controls and the removal of the old trust-strip controls
 
+## Follow-up fix note
+
+- Search toggle fix:
+  - `yaomri_mobile_drawer_search_enable` was not reliably hiding the search because the snippet used Liquid `| default: true` on a checkbox value, which turns explicit `false` back into `true`
+  - the snippet now treats `false` as authoritative and only defaults to enabled when the setting is absent
+- Image card typography controls added:
+  - `yaomri_mobile_drawer_card_subtitle_weight`
+  - `yaomri_mobile_drawer_card_subtitle_letter_spacing`
+  - `yaomri_mobile_drawer_card_title_italic`
+- Close X alignment:
+  - removed the remaining inline border/background override from the snippet style block
+  - the scoped custom drawer CSS now fully controls the icon-only close button presentation and alignment
+- Files changed in this follow-up:
+  - `snippets/yaomri-mobile-drawer.liquid`
+  - `assets/yaomri-mobile-drawer.css`
+  - `sections/mb_nav.liquid`
+  - `sections/mb_cat.liquid`
+- Testing notes:
+  - verify `Show drawer search` now actually removes the search row and predictive container
+  - verify predictive search still works when enabled
+  - verify subtitle weight/letter spacing and title italic respond in Theme Editor
+  - verify the close X now sits visually centered on the same top row as the search input without a visible box
+
+## Topbar alignment fix note
+
+- Topbar/search/close alignment:
+  - the custom drawer now keeps a permanent `.yo-mobile-drawer__topbar`
+  - the topbar uses a reserved close slot so the real Kalles close button can align visually without overlapping the search field
+- Search-disabled spacer behavior:
+  - when `yaomri_mobile_drawer_search_enable` is off, the search UI does not render
+  - an empty spacer remains in the left side of the topbar, so the close button alignment and top spacing stay stable
+- Close icon color fix:
+  - the scoped close-button CSS now forces the Kalles close svg/path to inherit `currentColor`
+  - `yaomri_mobile_drawer_close_icon_color` now drives the icon through `--yo-mobile-drawer-close-icon`
+- Close icon size control added:
+  - `yaomri_mobile_drawer_close_icon_size`
+- Files changed in this pass:
+  - `snippets/yaomri-mobile-drawer.liquid`
+  - `assets/yaomri-mobile-drawer.css`
+  - `sections/mb_nav.liquid`
+  - `sections/mb_cat.liquid`
+- Testing notes:
+  - verify live preview and Theme Editor both keep the X and search row horizontally separated
+  - verify search-disabled mode keeps the top spacing and close alignment clean
+  - verify close icon size and color both respond in Theme Editor
+
+## Close control sibling fix note
+
+- The close button controls did not work reliably because `.t4s-drawer-menu__close` is an adjacent sibling outside `#t4s-menu-drawer`
+- CSS variables emitted on `#t4s-menu-drawer` do not inherit into that sibling, so the close background, icon color, and icon size controls could not reliably drive the button
+- Fixed by outputting direct Liquid-resolved CSS in `snippets/yaomri-mobile-drawer.liquid` for:
+  - `#t4s-menu-drawer:has(.yo-mobile-drawer) + .t4s-drawer-menu__close`
+  - its `svg`
+  - its `path`
+- Files changed in this fix:
+  - `snippets/yaomri-mobile-drawer.liquid`
+  - `assets/yaomri-mobile-drawer.css`
+  - `THEME_MOBILE_MENU_DRAWER_AUDIT.md`
+- Testing notes:
+  - verify close background color responds in Theme Editor
+  - verify close icon color responds in Theme Editor
+  - verify close icon size responds in Theme Editor
+  - verify the close button still aligns with the topbar and still closes the drawer
+
+## Bottom action panel note
+
+- Bottom action panel added:
+  - replaced the previous loose Sign in / Cart links with a full-width Ya Omri account/action panel
+  - actions now include `Sign in / Account`, `Wishlist`, and `Cart`
+- Wishlist added:
+  - reuses the current theme wishlist route pattern from `mb_nav`
+  - falls back to `/pages/wishlist` when needed
+- Settings added:
+  - `yaomri_mobile_drawer_actions_enable`
+  - `yaomri_mobile_drawer_actions_bg_color`
+  - `yaomri_mobile_drawer_actions_text_color`
+  - `yaomri_mobile_drawer_actions_icon_color`
+  - `yaomri_mobile_drawer_actions_border_color`
+  - `yaomri_mobile_drawer_actions_button_bg`
+  - `yaomri_mobile_drawer_actions_button_text`
+  - `yaomri_mobile_drawer_actions_button_radius`
+  - `yaomri_mobile_drawer_actions_padding`
+- Files changed in this pass:
+  - `snippets/yaomri-mobile-drawer.liquid`
+  - `assets/yaomri-mobile-drawer.css`
+  - `sections/mb_nav.liquid`
+  - `sections/mb_cat.liquid`
+  - `THEME_MOBILE_MENU_DRAWER_AUDIT.md`
+- Testing notes:
+  - verify panel show/hide works
+  - verify Sign in / Account, Wishlist, and Cart all link correctly
+  - verify the new panel styles respond to Theme Editor color/radius/padding controls
+  - verify nested menu behavior is unaffected
+
+## Search simplification and width fix note
+
+- Predictive search removed from the Ya Omri custom drawer:
+  - in-drawer suggestions, product recommendations, and live predictive result panels were removed
+  - the drawer search is now a simple form that submits to the normal Shopify search results page
+  - `assets/yaomri-mobile-drawer-search.js` is no longer loaded by the custom drawer path
+- Topbar / close alignment:
+  - the topbar still reserves a fixed close slot
+  - the search field now lives only as a simple form in the left lane
+  - when search is disabled, the spacer remains so the close alignment and topbar height stay stable
+- Action panel controls:
+  - added `yaomri_mobile_drawer_actions_icon_size`
+  - added `yaomri_mobile_drawer_actions_text_size`
+  - added `yaomri_mobile_drawer_actions_text_weight`
+  - added `yaomri_mobile_drawer_actions_gap_top`
+  - removed visible `yaomri_mobile_drawer_actions_padding` from the section schemas
+- Action panel layout:
+  - moved inside the main content stack so it aligns with menu rows and image cards
+  - removed the previous flex-bottom spacing behavior that caused a large gap above the panel
+- Drawer width:
+  - widened the control range
+  - applied the width override directly to the actual `#t4s-menu-drawer` shell
+  - capped visible width with `calc(100vw - 24px)` to avoid horizontal overflow
+- Files changed in this pass:
+  - `snippets/yaomri-mobile-drawer.liquid`
+  - `assets/yaomri-mobile-drawer.css`
+  - `sections/mb_nav.liquid`
+  - `sections/mb_cat.liquid`
+  - `THEME_MOBILE_MENU_DRAWER_AUDIT.md`
+- Testing notes:
+  - verify search now only submits to the search results page
+  - verify no suggestions or predictive result panel render in the drawer
+  - verify the close X sits in the reserved topbar slot beside the search field
+  - verify search-disabled mode keeps clean topbar spacing
+  - verify the action panel icon size, text size, text weight, and top-gap controls respond in Theme Editor
+  - verify the drawer width control now visibly changes the drawer shell width without horizontal overflow
+
 ## Evidence used
 
 - [theme-audit-data/asset-load-map.txt](/Users/danny/Desktop/shopify-themes/yaomri-kalles-edit/theme-audit-data/asset-load-map.txt)
