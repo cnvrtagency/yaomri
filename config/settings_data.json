@@ -1147,20 +1147,21 @@
         "custom_css": [],
         "settings": {
           "yaomri_mobile_drawer_enable": true,
+          "yaomri_mobile_drawer_search_enable": true,
           "yaomri_mobile_drawer_bg_color": "#ffffff",
           "yaomri_mobile_drawer_text_color": "#111111",
           "yaomri_mobile_drawer_accent_color": "#b88f92",
           "yaomri_mobile_drawer_border_color": "#e1e1e1",
           "yaomri_mobile_drawer_font_family": "Montserrat",
           "yaomri_mobile_drawer_top_item_font_size": 12,
-          "yaomri_mobile_drawer_top_item_weight": "500",
+          "yaomri_mobile_drawer_top_item_weight": "800",
           "yaomri_mobile_drawer_sub_item_font_size": 13,
-          "yaomri_mobile_drawer_sub_item_weight": "500",
-          "yaomri_mobile_drawer_item_italic": false,
-          "yaomri_mobile_drawer_heading_letter_spacing": 0.6,
+          "yaomri_mobile_drawer_sub_item_weight": "600",
+          "yaomri_mobile_drawer_item_italic": true,
+          "yaomri_mobile_drawer_heading_letter_spacing": 0,
           "yaomri_mobile_drawer_item_spacing": 17,
           "yaomri_mobile_drawer_submenu_indent": 18,
-          "yaomri_mobile_drawer_uppercase": false,
+          "yaomri_mobile_drawer_uppercase": true,
           "yaomri_mobile_drawer_close_bg_color": "#ffffff",
           "yaomri_mobile_drawer_close_icon_color": "#111111",
           "yaomri_mobile_drawer_width": 360,
@@ -1174,10 +1175,14 @@
           "yaomri_mobile_drawer_card_2_subtitle": "Explore collection",
           "yaomri_mobile_drawer_card_2_link": "",
           "yaomri_mobile_drawer_card_radius": 8,
-          "yaomri_mobile_drawer_trust_enable": true,
-          "yaomri_mobile_drawer_trust_1": "Free shipping",
-          "yaomri_mobile_drawer_trust_2": "Easy returns",
-          "yaomri_mobile_drawer_trust_3": "Secure checkout"
+          "yaomri_mobile_drawer_card_height": 120,
+          "yaomri_mobile_drawer_card_heading_font_size": 21,
+          "yaomri_mobile_drawer_card_subtitle_font_size": 10,
+          "yaomri_mobile_drawer_card_text_weight": "700",
+          "yaomri_mobile_drawer_card_heading_uppercase": true,
+          "yaomri_mobile_drawer_card_subtitle_uppercase": true,
+          "yaomri_mobile_drawer_card_text_align": "left",
+          "yaomri_mobile_drawer_card_overlay_strength": 21
         }
       },
       "mb_cat": {
@@ -1293,6 +1298,7 @@
         ],
         "settings": {
           "yaomri_mobile_drawer_enable": false,
+          "yaomri_mobile_drawer_search_enable": true,
           "yaomri_mobile_drawer_bg_color": "#ffffff",
           "yaomri_mobile_drawer_text_color": "#111111",
           "yaomri_mobile_drawer_accent_color": "#b88f92",
@@ -1319,10 +1325,14 @@
           "yaomri_mobile_drawer_card_2_subtitle": "Explore collection",
           "yaomri_mobile_drawer_card_2_link": "",
           "yaomri_mobile_drawer_card_radius": 6,
-          "yaomri_mobile_drawer_trust_enable": true,
-          "yaomri_mobile_drawer_trust_1": "Free shipping",
-          "yaomri_mobile_drawer_trust_2": "Easy returns",
-          "yaomri_mobile_drawer_trust_3": "Secure checkout"
+          "yaomri_mobile_drawer_card_height": 120,
+          "yaomri_mobile_drawer_card_heading_font_size": 24,
+          "yaomri_mobile_drawer_card_subtitle_font_size": 11,
+          "yaomri_mobile_drawer_card_text_weight": "500",
+          "yaomri_mobile_drawer_card_heading_uppercase": false,
+          "yaomri_mobile_drawer_card_subtitle_uppercase": true,
+          "yaomri_mobile_drawer_card_text_align": "left",
+          "yaomri_mobile_drawer_card_overlay_strength": 28
         }
       },
       "mini_cart": {
