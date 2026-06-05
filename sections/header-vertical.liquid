@@ -12,6 +12,16 @@
     --h-text-color-rgb  : {{ se_stts.clnav | color_to_rgb | remove: 'rgba(' | remove: 'rgb(' | remove: ')' }};
     --h-text-color-hover: {{ se_stts.clnav_hover }};
     --h-bg-color        : {{ se_stts.bgnav | color_modify: 'alpha', opnav }};
+    --nav-item-font-size: {{ se_stts.nav_item_font_size | default: 14 }}px;
+    --nav-item-font-weight: {{ se_stts.nav_item_font_weight | default: 600 }};
+    --nav-item-letter-spacing: {{ se_stts.nav_item_letter_spacing | default: 0.5 }}px;
+    --nav-item-text-transform: {% if se_stts.nav_item_uppercase != false %}uppercase{% else %}none{% endif %};
+    --nav-item-gap: {{ se_stts.nav_item_gap | default: 24 }}px;
+    --nav-item-pad-x: {{ se_stts.nav_item_pad_x | default: 0 }}px;
+    --nav-item-pad-y: {{ se_stts.nav_item_pad_y | default: 0 }}px;
+    --nav-item-color: {{ se_stts.nav_item_color | default: '#111111' }};
+    --nav-item-hover-color: {{ se_stts.nav_item_hover_color | default: '#111111' }};
+    --nav-item-active-color: {{ se_stts.nav_item_active_color | default: '#111111' }};
     --header-pad-x-desktop: {{ se_stts.header_pad_x_desktop }}px;
     --header-pad-x-tablet: {{ se_stts.header_pad_x_tablet }}px;
     --header-pad-x-mobile: {{ se_stts.header_pad_x_mobile }}px;
@@ -163,18 +173,21 @@
       display: block !important;
       margin: 35px 0 30px;
     }
+    .t4s-nav__ul>li + li {
+      margin-top: var(--nav-item-gap);
+    }
     .t4s-nav__ul>li> a {
-      color: var(--h-text-color);
-      padding: 5px 0;
-      text-transform: none;    
+      color: var(--nav-item-color);
+      padding: var(--nav-item-pad-y) var(--nav-item-pad-x);
+      text-transform: var(--nav-item-text-transform);
       min-height: 50px;
       border-bottom: 1px solid rgba(var(--h-text-color-rgb), 0.15);
       font-family: var(--font-family-{{ se_stts.fm_nav }});
-      font-weight: {{ se_stts.fw_nav }};
-      font-size: {{ se_stts.fs_nav }}px;
-      {%- if se_stts.ls_nav != 0 %}letter-spacing: {{ se_stts.ls_nav }}px;{% endif -%}
+      font-weight: var(--nav-item-font-weight);
+      font-size: var(--nav-item-font-size);
+      letter-spacing: var(--nav-item-letter-spacing);
     }
-    .t4s-nav__ul>li> a:hover { color: var(--h-text-color-hover) !important}
+    .t4s-nav__ul>li> a:hover { color: var(--nav-item-hover-color) !important}
 
     .t4s-layout_vertical .t4s-type__mega> .t4s-sub-menu,
     .t4s-layout_vertical .t4s-type__drop> .t4s-sub-menu {
@@ -192,7 +205,7 @@
     }
     {%- if se_stts.enable_active %}
     .t4s-nav__ul>li.is--nav__active> a {
-      color: var(--h-text-color-hover) !important;
+      color: var(--nav-item-active-color) !important;
       transition: none;
     }
     {%- endif -%}
@@ -549,6 +562,108 @@
         "label": "Letter spacing (in pixel)",
         "info": "set is '0' use to default",
         "default": 0
+      },
+      {
+        "type": "range",
+        "id": "nav_item_font_size",
+        "label": "Navigation item font size",
+        "min": 10,
+        "max": 24,
+        "step": 1,
+        "unit": "px",
+        "default": 14
+      },
+      {
+        "type": "select",
+        "id": "nav_item_font_weight",
+        "label": "Navigation item font weight",
+        "default": "600",
+        "options": [
+          {
+            "value": "400",
+            "label": "400"
+          },
+          {
+            "value": "500",
+            "label": "500"
+          },
+          {
+            "value": "600",
+            "label": "600"
+          },
+          {
+            "value": "700",
+            "label": "700"
+          },
+          {
+            "value": "800",
+            "label": "800"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "nav_item_letter_spacing",
+        "label": "Navigation item letter spacing",
+        "min": 0,
+        "max": 3,
+        "step": 0.1,
+        "unit": "px",
+        "default": 0.5
+      },
+      {
+        "type": "checkbox",
+        "id": "nav_item_uppercase",
+        "label": "Uppercase navigation items",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "nav_item_gap",
+        "label": "Navigation item gap",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "default": 24
+      },
+      {
+        "type": "range",
+        "id": "nav_item_pad_x",
+        "label": "Navigation item horizontal padding",
+        "min": 0,
+        "max": 30,
+        "step": 1,
+        "unit": "px",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "nav_item_pad_y",
+        "label": "Navigation item vertical padding",
+        "min": 0,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "default": 0
+      },
+      {
+        "type": "color",
+        "id": "nav_item_color",
+        "label": "Navigation item text color",
+        "default": "#111111"
+      },
+      {
+        "type": "color",
+        "id": "nav_item_hover_color",
+        "label": "Navigation item hover color",
+        "default": "#111111"
+      },
+      {
+        "type": "color",
+        "id": "nav_item_active_color",
+        "label": "Navigation item active color",
+        "default": "#111111"
       }
    ],
    "blocks": [

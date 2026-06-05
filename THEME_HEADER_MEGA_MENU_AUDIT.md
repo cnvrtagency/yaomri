@@ -460,6 +460,7 @@ For top-level desktop menu items, confirmed block settings include:
 Implemented in:
 - `sections/header-inline.liquid`
 - `sections/header-bottom.liquid`
+- `sections/header-sidebar.liquid`
 - `sections/header-categories-menu.liquid`
 - `sections/header-vertical.liquid`
 
@@ -473,6 +474,9 @@ Existing native settings preserved:
 - `enable_active`
 
 New section-level controls added:
+- `nav_item_font_size`
+- `nav_item_font_weight`
+- `nav_item_letter_spacing`
 - `nav_item_uppercase`
 - `nav_item_gap`
 - `nav_item_pad_x`
@@ -488,14 +492,13 @@ Selectors changed:
 - `.t4s-nav__ul>li.is--nav__active>a`
 
 Implementation notes:
-- Controls are emitted as section CSS variables on `.t4s-header__wrapper`.
+- Controls are emitted as section CSS variables on `.t4s-header__wrapper`: `--nav-item-font-size`, `--nav-item-font-weight`, `--nav-item-letter-spacing`, `--nav-item-text-transform`, `--nav-item-gap`, `--nav-item-pad-x`, `--nav-item-pad-y`, `--nav-item-color`, `--nav-item-hover-color`, and `--nav-item-active-color`.
 - Desktop horizontal headers use `column-gap` on `.t4s-nav__ul`; vertical header uses top margin between list items.
-- Existing font size, weight, and letter spacing controls remain the native `fs_nav`, `fw_nav`, and `ls_nav` settings.
+- `header-sidebar` receives the same schema controls and variables, but it does not render the shared desktop `.t4s-nav__ul` list in the current static path.
 - `snippets/menu_blocks.liquid`, mega-menu structure, mobile drawer behavior, and JS remain untouched.
 
 Testing checklist:
-- Desktop nav font size, weight, and letter spacing still work through the native controls.
-- Uppercase, gap, padding, text color, hover color, and active color controls visibly affect desktop top-level nav items.
+- Desktop nav font size, weight, letter spacing, uppercase, gap, padding, text color, hover color, and active color controls visibly affect desktop top-level nav items.
 - Dropdown and mega menus still open from the same top-level items.
 - Mobile drawer/menu behavior is unchanged.
 
