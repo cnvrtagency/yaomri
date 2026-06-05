@@ -45,11 +45,14 @@
     "hd_ffamily": "1",
     "section_heading_line_enable": true,
     "section_heading_line_width": 200,
-    "section_heading_line_width_mb": 158,
-    "section_heading_line_opacity": 15,
-    "section_heading_line_space_top": 5,
-    "section_heading_line_space_bottom": 10,
-    "section_heading_line_space_top_mb": 3,
+    "section_heading_line_width_mb": 102,
+    "section_heading_line_thickness": 4,
+    "section_heading_line_color": "#6A6A6A",
+    "section_heading_line_opacity": 30,
+    "section_heading_line_space_top": 13,
+    "section_heading_line_space_bottom": 18,
+    "section_heading_line_space_top_mb": 0,
+    "section_heading_line_space_bottom_mb": 0,
     "wishlist_mode": "0",
     "enable_css_wis": false,
     "enable_compe": false,
@@ -656,7 +659,7 @@
           "top_heading": "Accordion",
           "icon_heading": "las la-gem",
           "top_subheading": "",
-          "tophead_mb": 3
+          "tophead_mb": 0
         }
       },
       "pr_item_config": {
