@@ -845,6 +845,80 @@ Testing checklist:
 - Feed still loads real posts.
 - Reel/Album badges and Instagram permalinks still work.
 
+## 21. Implementation Update: Count Simplification And Badge Highlight
+
+Date: 2026-06-05
+
+Files changed:
+
+- `sections/instagram-feed.liquid`
+- `THEME_INSTAGRAM_FEED_AUDIT.md`
+
+Protected behavior preserved:
+
+- Cloudflare Worker `proxyUrl` unchanged
+- `access_token` and `ig_account_id` behavior unchanged
+- fetch URL/query shape unchanged except the `count` value now comes from the responsive posts-shown setting
+- `VIDEO`, `CAROUSEL_ALBUM`, `media_url`, `thumbnail_url`, and `post.permalink` handling unchanged
+- `id="instagram-grid"` preserved
+- old/native Instagram sections untouched
+- global JavaScript untouched
+
+Post count simplification:
+
+- Removed the visible Theme Editor `post_count` / `Number of posts` control.
+- Removed the visible `visible_posts_desktop` and `visible_posts_mobile` controls.
+- Added:
+  - `posts_shown_desktop`, default `8`
+  - `posts_shown_mobile`, default `6`
+- These are total unique posts fetched/rendered for the section.
+- The JS chooses the count once on initial load:
+  - mobile breakpoint: `max-width: 767px`
+  - mobile uses `posts_shown_mobile`
+  - desktop/tablet uses `posts_shown_desktop`
+- Old saved `visible_posts_*` and `post_count` values remain Liquid fallbacks, but are not shown in the schema.
+- `posts_per_row_desktop`, `posts_per_row_tablet`, and `posts_per_row_mobile` remain layout-density controls only.
+
+Marquee count behavior:
+
+- Marquee mode now receives only the selected unique post count from the fetch request.
+- It duplicates only the already-rendered fetched cards for the loop.
+- It does not fetch extra unique posts for marquee mode.
+- Duplicate cards remain marked `aria-hidden` and `tabindex="-1"`.
+
+Title badge highlight:
+
+- Added `title_highlight_style` with:
+  - `text_colour`
+  - `badge`
+- Existing text-colour highlight behavior remains available.
+- Badge style uses the same safe highlighted span and applies badge presentation with CSS.
+- Badge controls added:
+  - `title_badge_text_color`
+  - `title_badge_bg_color`
+  - `title_badge_border_color`
+  - `title_badge_radius`
+  - `title_badge_padding_x`
+  - `title_badge_padding_y`
+  - `title_badge_border_width`
+- Badge text is still generated from escaped title text; merchants do not write HTML.
+- Conditional schema visibility was not used to avoid unsupported-schema upload risk. A clear `Title highlight settings` header groups the controls.
+
+Testing checklist:
+
+- Section schema parses.
+- `Number of posts` no longer appears in the Theme Editor schema.
+- `Posts shown desktop` controls total unique desktop/tablet fetch count.
+- `Posts shown mobile` controls total unique mobile fetch count.
+- Posts-per-row settings affect only grid density.
+- Marquee duplicates only the selected fetched posts for looping.
+- Text-colour title highlight still works.
+- Badge title highlight works and respects text/background/border/radius/padding settings.
+- Title renders safely when highlight text is blank or missing.
+- Feed still loads real posts.
+- Reel/Album badges still work.
+- Instagram item links still work.
+
 ## 18. Implementation Update: Simplified Grid/Split Model
 
 Date: 2026-06-05
@@ -1095,3 +1169,103 @@ Testing checklist:
 - Instagram item links still use post permalinks.
 - No old/native Instagram sections changed.
 - No global JavaScript changed.
+
+## 20. Implementation Update: Title, Marquee, Counts, And Spacing
+
+Date: 2026-06-05
+
+Files changed:
+
+- `sections/instagram-feed.liquid`
+- `THEME_INSTAGRAM_FEED_AUDIT.md`
+
+Protected behavior preserved:
+
+- Cloudflare Worker `proxyUrl` unchanged
+- `access_token`, `ig_account_id`, and `post_count` fetch behavior unchanged
+- fetch URL/query shape unchanged
+- existing `VIDEO`, `CAROUSEL_ALBUM`, `media_url`, `thumbnail_url`, and `post.permalink` field choices preserved
+- `id="instagram-grid"` preserved
+- old/native Instagram sections untouched
+- global JavaScript untouched
+
+Dual-colour title fix:
+
+- Previous matching relied on exact Liquid `contains` / `split`, so capitalization or whitespace mismatches could fail.
+- Title highlight text is now stripped before use.
+- The title renders as escaped plain text with `data-title-highlight` when dual colour is enabled.
+- A section-scoped DOM pass wraps the first case-insensitive match in `.instagram-feed__title-highlight`.
+- Normal title colour uses the existing `text_color` when dual-colour mode is disabled.
+- `title_colour_1` and `title_colour_2` apply only to dual-colour presentation.
+- Dual-colour controls were moved into the Content group directly below `title`.
+
+Spacing and typography controls:
+
+- `eyebrow_spacing_bottom` added and applied to `.instagram-feed__eyebrow`.
+- `body_font_size_mobile` added and applied in the mobile media query.
+- Mobile heading width now sets both `width` and `max-width` on `.instagram-feed__title`, so `heading_width_mobile` has a visible effect with left or centered alignment.
+
+Display counts:
+
+- `visible_posts_desktop` added.
+- `visible_posts_mobile` added.
+- These settings only hide extra rendered cards by breakpoint.
+- They do not change `post_count`, the fetch count, the proxy request, or the data returned by the feed.
+
+Marquee display mode:
+
+- `marquee` added to both `desktop_display_mode` and `mobile_display_mode`.
+- New controls:
+  - `marquee_speed_desktop`
+  - `marquee_speed_mobile`
+  - `marquee_direction`
+  - `marquee_pause_on_hover`
+  - `marquee_fade_edges`
+  - `marquee_fade_width`
+  - `marquee_gap`
+- Marquee mode uses CSS animation on `#instagram-grid`.
+- The existing fetched card markup is duplicated after render only when marquee mode is active, giving the animation a continuous loop.
+- Duplicate cards are marked `aria-hidden` and `tabindex="-1"`.
+- Grid and carousel display modes are unchanged.
+
+Carousel side peek fix:
+
+- Carousel item width no longer subtracts side peek from its flex basis.
+- Side peek is controlled only by carousel padding/scroll padding.
+- When `carousel_peek` is `0`, the peek system adds no intentional side padding.
+
+Theme Editor grouping:
+
+- Conditional visibility was not used because unsupported schema keys would risk Shopify upload errors.
+- The panel uses clear grouping instead:
+  - Content
+  - Instagram feed
+  - Layout
+  - Posts per row
+  - Carousel
+  - Marquee
+  - Visual style
+  - Typography
+
+Autoplay reels investigation:
+
+- Current VIDEO handling deliberately uses `thumbnail_url` as an image source.
+- The current worker image route is used for image proxying, not confirmed video streaming/range requests.
+- Autoplay video would require a reliable playable video URL, `muted`, `autoplay`, `loop`, and `playsinline`, plus a thumbnail fallback.
+- Implementing this now would change VIDEO media handling and could break current Reel thumbnails, so autoplay reels are deferred to a Phase 2 task.
+
+Testing checklist:
+
+- Section schema parses.
+- Dual-colour title works with case-insensitive highlight text.
+- Title renders normally when dual-colour is off.
+- Dual-colour controls appear near title/content settings.
+- Eyebrow spacing setting changes space below the eyebrow row.
+- Body mobile size changes mobile body text only.
+- `heading_width_mobile` visibly changes mobile title width.
+- Grid, carousel, and marquee modes work on desktop and mobile.
+- Carousel side peek set to `0` creates no intentional side peek.
+- Marquee speed, direction, pause, fade edge, fade width, and gap controls work.
+- Desktop/mobile visible post counts can differ without changing fetch count.
+- Feed still loads real posts.
+- Reel/Album badges and Instagram permalinks still work.

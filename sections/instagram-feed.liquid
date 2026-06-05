@@ -12,15 +12,17 @@
     assign handle_display_text = '@' | append: section.settings.handle
   endif
   assign title_text = section.settings.title
-  assign title_highlight_text = section.settings.title_highlight_text
+  assign title_highlight_text = section.settings.title_highlight_text | strip
   assign title_has_highlight = false
-  if section.settings.title_dual_colour_enable and title_text != blank and title_highlight_text != blank and title_text contains title_highlight_text
+  if section.settings.title_dual_colour_enable and title_text != blank and title_highlight_text != blank
     assign title_has_highlight = true
   endif
+  assign posts_shown_desktop = section.settings.posts_shown_desktop | default: section.settings.visible_posts_desktop | default: section.settings.post_count | default: 8 | plus: 0
+  assign posts_shown_mobile = section.settings.posts_shown_mobile | default: section.settings.visible_posts_mobile | default: section.settings.post_count | default: 6 | plus: 0
 -%}
 
 <section
-  class="instagram-feed instagram-feed--{{ section.id }} instagram-feed--layout-{{ layout_style }} instagram-feed--desktop-{{ desktop_display_mode }} instagram-feed--mobile-{{ mobile_display_mode }} instagram-feed--aspect-{{ image_aspect_ratio }} instagram-feed--text-desktop-{{ section.settings.text_align_desktop | default: 'left' }} instagram-feed--text-mobile-{{ section.settings.text_align_mobile | default: 'center' }}{% if section.settings.carousel_snap %} instagram-feed--snap{% endif %}"
+  class="instagram-feed instagram-feed--{{ section.id }} instagram-feed--layout-{{ layout_style }} instagram-feed--desktop-{{ desktop_display_mode }} instagram-feed--mobile-{{ mobile_display_mode }} instagram-feed--aspect-{{ image_aspect_ratio }} instagram-feed--title-highlight-{{ section.settings.title_highlight_style | default: 'text_colour' }} instagram-feed--marquee-{{ section.settings.marquee_direction | default: 'left' }} instagram-feed--text-desktop-{{ section.settings.text_align_desktop | default: 'left' }} instagram-feed--text-mobile-{{ section.settings.text_align_mobile | default: 'center' }}{% if section.settings.carousel_snap %} instagram-feed--snap{% endif %}{% if section.settings.marquee_pause_on_hover != false %} instagram-feed--marquee-pause{% endif %}{% if section.settings.marquee_fade_edges != false %} instagram-feed--marquee-fade{% endif %}"
   style="
     --instagram-posts-desktop: {{ section.settings.posts_per_row_desktop | default: section.settings.columns | default: 4 }};
     --instagram-posts-tablet: {{ section.settings.posts_per_row_tablet | default: 3 }};
@@ -28,6 +30,10 @@
     --instagram-gap: {{ section.settings.gap | default: 4 }}px;
     --instagram-carousel-gap: {{ section.settings.carousel_gap | default: 8 }}px;
     --instagram-carousel-peek: {{ section.settings.carousel_peek | default: 24 }}px;
+    --instagram-marquee-speed-desktop: {{ section.settings.marquee_speed_desktop | default: 28 }}s;
+    --instagram-marquee-speed-mobile: {{ section.settings.marquee_speed_mobile | default: 24 }}s;
+    --instagram-marquee-fade-width: {{ section.settings.marquee_fade_width | default: 48 }}px;
+    --instagram-marquee-gap: {{ section.settings.marquee_gap | default: 12 }}px;
     --instagram-card-radius: {{ section.settings.card_radius | default: 0 }}px;
     --instagram-card-size-desktop: {{ section.settings.card_size_desktop | default: 260 }}px;
     --instagram-card-size-tablet: {{ section.settings.card_size_tablet | default: 220 }}px;
@@ -38,22 +44,31 @@
     --instagram-padding-x-tablet: {{ section.settings.padding_x_tablet | default: 32 }}px;
     --instagram-padding-x-mobile: {{ section.settings.padding_x_mobile | default: 20 }}px;
     --instagram-intro-width: {{ section.settings.intro_width | default: 34 }}%;
-    --instagram-split-gap: {{ section.settings.split_column_gap | default: 10 }}px;
+    --instagram-split-gap: {{ section.settings.split_column_gap | default: 8 }}px;
     --instagram-split-align: {% if section.settings.intro_vertical_align == 'top' %}start{% else %}center{% endif %};
     --instagram-bg: {{ section.settings.background_color | default: '#000000' }};
     --instagram-text: {{ section.settings.text_color | default: '#ffffff' }};
     --instagram-accent: {{ section.settings.accent_color | default: '#fff4f4' }};
-    --instagram-title-color-1: {{ section.settings.title_colour_1 | default: section.settings.text_color | default: '#ffffff' }};
+    --instagram-title-color-1: {% if section.settings.title_dual_colour_enable %}{{ section.settings.title_colour_1 | default: section.settings.text_color | default: '#ffffff' }}{% else %}{{ section.settings.text_color | default: '#ffffff' }}{% endif %};
     --instagram-title-color-2: {{ section.settings.title_colour_2 | default: '#c9a6a0' }};
+    --instagram-title-badge-text: {{ section.settings.title_badge_text_color | default: '#111111' }};
+    --instagram-title-badge-bg: {{ section.settings.title_badge_bg_color | default: '#ffffff' }};
+    --instagram-title-badge-border: {{ section.settings.title_badge_border_color | default: '#ffffff' }};
+    --instagram-title-badge-radius: {{ section.settings.title_badge_radius | default: 24 }}px;
+    --instagram-title-badge-padding-x: {{ section.settings.title_badge_padding_x | default: 10 }}px;
+    --instagram-title-badge-padding-y: {{ section.settings.title_badge_padding_y | default: 4 }}px;
+    --instagram-title-badge-border-width: {{ section.settings.title_badge_border_width | default: 0 }}px;
     --instagram-eyebrow-size: {{ section.settings.eyebrow_font_size | default: 12 }}px;
     --instagram-eyebrow-weight: {{ section.settings.eyebrow_font_weight | default: 700 }};
     --instagram-eyebrow-letter-spacing: {{ section.settings.eyebrow_letter_spacing | default: 2 }}px;
+    --instagram-eyebrow-spacing-bottom: {{ section.settings.eyebrow_spacing_bottom | default: 10 }}px;
     --instagram-title-size-desktop: {{ section.settings.title_font_size_desktop | default: 56 }}px;
     --instagram-title-size-mobile: {{ section.settings.title_font_size_mobile | default: 36 }}px;
     --instagram-title-weight: {{ section.settings.title_font_weight | default: 800 }};
     --instagram-title-line-height: {{ section.settings.title_line_height | default: 1.0 }};
     --instagram-title-letter-spacing: {{ section.settings.title_letter_spacing | default: 0 }}px;
     --instagram-body-size: {{ section.settings.body_font_size | default: 15 }}px;
+    --instagram-body-size-mobile: {{ section.settings.body_font_size_mobile | default: 14 }}px;
     --instagram-body-line-height: {{ section.settings.body_line_height | default: 1.6 }};
     --instagram-body-weight: {{ section.settings.body_font_weight | default: 400 }};
     --instagram-handle-size: {{ section.settings.handle_font_size | default: 13 }}px;
@@ -104,18 +119,11 @@
         {% endif %}
 
         {% if section.settings.title != blank %}
-          <h2 class="instagram-feed__title">
-            {% if title_has_highlight %}
-              {%- assign title_parts = title_text | split: title_highlight_text -%}
-              {%- for title_part in title_parts -%}
-                {{- title_part | escape -}}
-                {%- unless forloop.last -%}
-                  <span class="instagram-feed__title-highlight">{{ title_highlight_text | escape }}</span>
-                {%- endunless -%}
-              {%- endfor -%}
-            {% else %}
-              {{ section.settings.title | escape }}
-            {% endif %}
+          <h2
+            class="instagram-feed__title"
+            {% if title_has_highlight %}data-title-highlight="{{ title_highlight_text | escape }}"{% endif %}
+          >
+            {{ section.settings.title | escape }}
           </h2>
         {% endif %}
 
@@ -217,7 +225,7 @@
   align-items: center;
   justify-content: flex-start;
   gap: var(--instagram-eyebrow-icon-gap);
-  margin: 0 0 10px;
+  margin: 0 0 var(--instagram-eyebrow-spacing-bottom);
   font-size: var(--instagram-eyebrow-size);
   font-weight: var(--instagram-eyebrow-weight);
   letter-spacing: var(--instagram-eyebrow-letter-spacing);
@@ -241,6 +249,7 @@
 }
 .instagram-feed__title {
   margin: 0;
+  width: min(100%, var(--instagram-heading-width-desktop));
   max-width: min(100%, var(--instagram-heading-width-desktop));
   color: var(--instagram-title-color-1);
   font-size: var(--instagram-title-size-desktop);
@@ -255,6 +264,17 @@
 .instagram-feed__title-highlight {
   color: var(--instagram-title-color-2);
 }
+.instagram-feed--title-highlight-badge .instagram-feed__title-highlight {
+  display: inline-flex;
+  align-items: center;
+  color: var(--instagram-title-badge-text);
+  background: var(--instagram-title-badge-bg);
+  border: var(--instagram-title-badge-border-width) solid var(--instagram-title-badge-border);
+  border-radius: var(--instagram-title-badge-radius);
+  padding: var(--instagram-title-badge-padding-y) var(--instagram-title-badge-padding-x);
+  line-height: 1;
+  vertical-align: baseline;
+}
 .instagram-feed--layout-grid .instagram-feed__title {
   max-width: min(100%, var(--instagram-heading-width-desktop));
 }
@@ -267,6 +287,7 @@
   margin-inline: auto;
 }
 .instagram-feed__body {
+  width: min(100%, var(--instagram-body-width-desktop));
   max-width: min(100%, var(--instagram-body-width-desktop));
   margin-top: 18px;
   color: var(--instagram-text);
@@ -448,6 +469,9 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
+  .instagram-feed--desktop-carousel .instagram-feed__grid {
+    margin-inline: 0;
+  }
   .instagram-feed--desktop-carousel .instagram-feed__grid::-webkit-scrollbar {
     display: none;
   }
@@ -455,10 +479,36 @@
     scroll-snap-type: x mandatory;
   }
   .instagram-feed--desktop-carousel .instagram-feed__item {
-    flex: 0 0 min(var(--instagram-card-size-desktop), calc(100% - (var(--instagram-carousel-peek) * 2)));
+    flex: 0 0 min(var(--instagram-card-size-desktop), 100%);
   }
   .instagram-feed--desktop-carousel.instagram-feed--snap .instagram-feed__item {
     scroll-snap-align: start;
+  }
+  .instagram-feed--desktop-marquee .instagram-feed__media {
+    overflow: hidden;
+  }
+  .instagram-feed--desktop-marquee.instagram-feed--marquee-fade .instagram-feed__media {
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--instagram-marquee-fade-width), #000 calc(100% - var(--instagram-marquee-fade-width)), transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 var(--instagram-marquee-fade-width), #000 calc(100% - var(--instagram-marquee-fade-width)), transparent 100%);
+  }
+  .instagram-feed--desktop-marquee .instagram-feed__grid {
+    display: flex;
+    width: max-content;
+    max-width: none;
+    min-width: max-content;
+    gap: var(--instagram-marquee-gap);
+    overflow: visible;
+    animation: instagram-marquee-left var(--instagram-marquee-speed-desktop) linear infinite;
+    will-change: transform;
+  }
+  .instagram-feed--desktop-marquee.instagram-feed--marquee-right .instagram-feed__grid {
+    animation-name: instagram-marquee-right;
+  }
+  .instagram-feed--desktop-marquee.instagram-feed--marquee-pause .instagram-feed__media:hover .instagram-feed__grid {
+    animation-play-state: paused;
+  }
+  .instagram-feed--desktop-marquee .instagram-feed__item {
+    flex: 0 0 min(var(--instagram-card-size-desktop), 80vw);
   }
 }
 @media (max-width: 1024px) and (min-width: 769px) {
@@ -472,7 +522,10 @@
     max-width: none;
   }
   .instagram-feed--desktop-carousel .instagram-feed__item {
-    flex-basis: min(var(--instagram-card-size-tablet), calc(100% - (var(--instagram-carousel-peek) * 2)));
+    flex-basis: min(var(--instagram-card-size-tablet), 100%);
+  }
+  .instagram-feed--desktop-marquee .instagram-feed__item {
+    flex-basis: min(var(--instagram-card-size-tablet), 80vw);
   }
 }
 @media (max-width: 989px) and (min-width: 769px) {
@@ -509,11 +562,14 @@
     justify-content: center;
   }
   .instagram-feed__title {
+    width: min(100%, var(--instagram-heading-width-mobile));
     max-width: min(100%, var(--instagram-heading-width-mobile));
     font-size: var(--instagram-title-size-mobile);
   }
   .instagram-feed__body {
+    width: min(100%, var(--instagram-body-width-mobile));
     max-width: min(100%, var(--instagram-body-width-mobile));
+    font-size: var(--instagram-body-size-mobile);
   }
   .instagram-feed__intro {
     overflow: visible;
@@ -569,10 +625,36 @@
     scroll-snap-type: x mandatory;
   }
   .instagram-feed--mobile-carousel .instagram-feed__item {
-    flex: 0 0 min(var(--instagram-card-size-mobile), calc(100% - (var(--instagram-carousel-peek) * 2)));
+    flex: 0 0 min(var(--instagram-card-size-mobile), 100%);
   }
   .instagram-feed--mobile-carousel.instagram-feed--snap .instagram-feed__item {
     scroll-snap-align: start;
+  }
+  .instagram-feed--mobile-marquee .instagram-feed__media {
+    overflow: hidden;
+  }
+  .instagram-feed--mobile-marquee.instagram-feed--marquee-fade .instagram-feed__media {
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--instagram-marquee-fade-width), #000 calc(100% - var(--instagram-marquee-fade-width)), transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 var(--instagram-marquee-fade-width), #000 calc(100% - var(--instagram-marquee-fade-width)), transparent 100%);
+  }
+  .instagram-feed--mobile-marquee .instagram-feed__grid {
+    display: flex;
+    width: max-content;
+    max-width: none;
+    min-width: max-content;
+    gap: var(--instagram-marquee-gap);
+    overflow: visible;
+    animation: instagram-marquee-left var(--instagram-marquee-speed-mobile) linear infinite;
+    will-change: transform;
+  }
+  .instagram-feed--mobile-marquee.instagram-feed--marquee-right .instagram-feed__grid {
+    animation-name: instagram-marquee-right;
+  }
+  .instagram-feed--mobile-marquee.instagram-feed--marquee-pause .instagram-feed__media:hover .instagram-feed__grid {
+    animation-play-state: paused;
+  }
+  .instagram-feed--mobile-marquee .instagram-feed__item {
+    flex: 0 0 min(var(--instagram-card-size-mobile), 80vw);
   }
 }
 @media (max-width: 480px) {
@@ -580,15 +662,69 @@
     width: 100%;
   }
 }
+@keyframes instagram-marquee-left {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@keyframes instagram-marquee-right {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
 </style>
 
 <script>
 (function() {
+  const section = document.querySelector('.instagram-feed--{{ section.id }}');
+  if (!section) return;
+
+  const title = section.querySelector('[data-title-highlight]');
+  if (!title) return;
+
+  const highlight = title.getAttribute('data-title-highlight').trim();
+  const text = title.textContent;
+  if (!highlight || !text) return;
+
+  const matchIndex = text.toLocaleLowerCase().indexOf(highlight.toLocaleLowerCase());
+  if (matchIndex < 0) return;
+
+  const before = text.slice(0, matchIndex);
+  const matched = text.slice(matchIndex, matchIndex + highlight.length);
+  const after = text.slice(matchIndex + highlight.length);
+  const fragment = document.createDocumentFragment();
+
+  fragment.appendChild(document.createTextNode(before));
+
+  const highlightNode = document.createElement('span');
+  highlightNode.className = 'instagram-feed__title-highlight';
+  highlightNode.textContent = matched;
+  fragment.appendChild(highlightNode);
+
+  fragment.appendChild(document.createTextNode(after));
+  title.textContent = '';
+  title.appendChild(fragment);
+})();
+
+(function() {
   const proxyUrl = 'https://black-darkness-b2ec.danlyons20.workers.dev';
   const token = '{{ section.settings.access_token }}';
   const igId = '{{ section.settings.ig_account_id }}';
-  const count = {{ section.settings.post_count }};
+  const desktopCount = {{ posts_shown_desktop }};
+  const mobileCount = {{ posts_shown_mobile }};
+  const count = window.matchMedia('(max-width: 767px)').matches ? mobileCount : desktopCount;
   const grid = document.getElementById('instagram-grid');
+  const section = grid ? grid.closest('.instagram-feed') : null;
+  const isMarquee = section && (
+    section.classList.contains('instagram-feed--desktop-marquee') ||
+    section.classList.contains('instagram-feed--mobile-marquee')
+  );
 
   if (!token || !igId) {
     grid.innerHTML = '<div class="instagram-feed__loading">Add your Instagram token in section settings.</div>';
@@ -602,7 +738,7 @@
         grid.innerHTML = '<div class="instagram-feed__loading">Could not load feed.</div>';
         return;
       }
-      grid.innerHTML = data.data.map(post => {
+      const renderedItems = data.data.map(post => {
         const rawImg = post.media_type === 'VIDEO' ? post.thumbnail_url : post.media_url;
         const img = `${proxyUrl}/image?url=${encodeURIComponent(rawImg)}`;
         const isVideo = post.media_type === 'VIDEO';
@@ -618,6 +754,8 @@
           </a>
         `;
       }).join('');
+      const duplicatedItems = renderedItems.replace(/class="instagram-feed__item"/g, 'class="instagram-feed__item instagram-feed__item--duplicate" aria-hidden="true" tabindex="-1"');
+      grid.innerHTML = isMarquee ? renderedItems + duplicatedItems : renderedItems;
     })
     .catch(() => {
       grid.innerHTML = '<div class="instagram-feed__loading">Could not load feed.</div>';
@@ -663,16 +801,112 @@
       "default": "Tag us @yaomriswimwear"
     },
     {
+      "type": "header",
+      "content": "Title highlight settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "title_dual_colour_enable",
+      "label": "Enable dual-colour title",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "title_highlight_text",
+      "label": "Title highlighted text",
+      "info": "Text in the title to highlight. Matching ignores capitalization."
+    },
+    {
+      "type": "select",
+      "id": "title_highlight_style",
+      "label": "Title highlight style",
+      "default": "text_colour",
+      "options": [
+        {
+          "value": "text_colour",
+          "label": "Text colour"
+        },
+        {
+          "value": "badge",
+          "label": "Badge"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "title_colour_1",
+      "label": "Title colour 1",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_colour_2",
+      "label": "Title colour 2",
+      "default": "#c9a6a0"
+    },
+    {
+      "type": "color",
+      "id": "title_badge_text_color",
+      "label": "Highlight badge text colour",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "title_badge_bg_color",
+      "label": "Highlight badge background colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_badge_border_color",
+      "label": "Highlight badge border colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "title_badge_radius",
+      "label": "Highlight badge radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "title_badge_padding_x",
+      "label": "Highlight badge horizontal padding",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "title_badge_padding_y",
+      "label": "Highlight badge vertical padding",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "title_badge_border_width",
+      "label": "Highlight badge border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
       "type": "richtext",
       "id": "body_text",
       "label": "Body text",
       "default": "<p>Fresh drops, campaign moments and real swimwear inspiration from the Ya Omri world.</p>"
-    },
-    {
-      "type": "text",
-      "id": "handle",
-      "label": "Instagram handle (without @)",
-      "default": "yaomriswimwear"
     },
     {
       "type": "checkbox",
@@ -685,6 +919,12 @@
       "id": "handle_display_text",
       "label": "Handle display text",
       "default": "@yaomriswimwear"
+    },
+    {
+      "type": "text",
+      "id": "handle",
+      "label": "Instagram handle (without @)",
+      "default": "yaomriswimwear"
     },
     {
       "type": "text",
@@ -714,10 +954,19 @@
     },
     {
       "type": "range",
-      "id": "post_count",
-      "label": "Number of posts",
+      "id": "posts_shown_desktop",
+      "label": "Posts shown desktop",
       "min": 4,
-      "max": 12,
+      "max": 20,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "posts_shown_mobile",
+      "label": "Posts shown mobile",
+      "min": 4,
+      "max": 20,
       "step": 1,
       "default": 6
     },
@@ -754,6 +1003,10 @@
         {
           "value": "carousel",
           "label": "Carousel"
+        },
+        {
+          "value": "marquee",
+          "label": "Marquee"
         }
       ]
     },
@@ -770,6 +1023,10 @@
         {
           "value": "carousel",
           "label": "Carousel"
+        },
+        {
+          "value": "marquee",
+          "label": "Marquee"
         }
       ]
     },
@@ -979,6 +1236,78 @@
     },
     {
       "type": "header",
+      "content": "Marquee"
+    },
+    {
+      "type": "range",
+      "id": "marquee_speed_desktop",
+      "label": "Marquee speed desktop",
+      "min": 8,
+      "max": 80,
+      "step": 2,
+      "unit": "s",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "marquee_speed_mobile",
+      "label": "Marquee speed mobile",
+      "min": 8,
+      "max": 80,
+      "step": 2,
+      "unit": "s",
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "marquee_direction",
+      "label": "Marquee direction",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "marquee_pause_on_hover",
+      "label": "Pause marquee on hover",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "marquee_fade_edges",
+      "label": "Fade marquee edges",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "marquee_fade_width",
+      "label": "Marquee fade width",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "marquee_gap",
+      "label": "Marquee gap",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
       "content": "Visual style"
     },
     {
@@ -1152,6 +1481,16 @@
       "default": 2
     },
     {
+      "type": "range",
+      "id": "eyebrow_spacing_bottom",
+      "label": "Space below eyebrow",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
       "type": "checkbox",
       "id": "show_eyebrow_icon",
       "label": "Show icon beside eyebrow",
@@ -1271,30 +1610,6 @@
       "default": 0
     },
     {
-      "type": "checkbox",
-      "id": "title_dual_colour_enable",
-      "label": "Enable dual-colour title",
-      "default": false
-    },
-    {
-      "type": "color",
-      "id": "title_colour_1",
-      "label": "Title colour 1",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "title_colour_2",
-      "label": "Title colour 2",
-      "default": "#c9a6a0"
-    },
-    {
-      "type": "text",
-      "id": "title_highlight_text",
-      "label": "Title highlighted text",
-      "info": "Text in the title to colour differently. Must match part of the title exactly."
-    },
-    {
       "type": "range",
       "id": "body_font_size",
       "label": "Body font size",
@@ -1303,6 +1618,16 @@
       "step": 1,
       "unit": "px",
       "default": 15
+    },
+    {
+      "type": "range",
+      "id": "body_font_size_mobile",
+      "label": "Body text font size mobile",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 14
     },
     {
       "type": "range",
