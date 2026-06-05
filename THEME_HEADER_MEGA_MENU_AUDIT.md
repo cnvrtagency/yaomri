@@ -455,6 +455,50 @@ For top-level desktop menu items, confirmed block settings include:
 - row spacing
 - menu handle for dropdown content
 
+### Desktop nav item control expansion
+
+Implemented in:
+- `sections/header-inline.liquid`
+- `sections/header-bottom.liquid`
+- `sections/header-categories-menu.liquid`
+- `sections/header-vertical.liquid`
+
+Existing native settings preserved:
+- `fm_nav`
+- `fs_nav`
+- `fw_nav`
+- `ls_nav`
+- `clnav`
+- `clnav_hover`
+- `enable_active`
+
+New section-level controls added:
+- `nav_item_uppercase`
+- `nav_item_gap`
+- `nav_item_pad_x`
+- `nav_item_pad_y`
+- `nav_item_color`
+- `nav_item_hover_color`
+- `nav_item_active_color`
+
+Selectors changed:
+- `.t4s-nav__ul`
+- `.t4s-nav__ul>li>a`
+- `.t4s-nav__ul>li>a:hover`
+- `.t4s-nav__ul>li.is--nav__active>a`
+
+Implementation notes:
+- Controls are emitted as section CSS variables on `.t4s-header__wrapper`.
+- Desktop horizontal headers use `column-gap` on `.t4s-nav__ul`; vertical header uses top margin between list items.
+- Existing font size, weight, and letter spacing controls remain the native `fs_nav`, `fw_nav`, and `ls_nav` settings.
+- `snippets/menu_blocks.liquid`, mega-menu structure, mobile drawer behavior, and JS remain untouched.
+
+Testing checklist:
+- Desktop nav font size, weight, and letter spacing still work through the native controls.
+- Uppercase, gap, padding, text color, hover color, and active color controls visibly affect desktop top-level nav items.
+- Dropdown and mega menus still open from the same top-level items.
+- Mobile drawer/menu behavior is unchanged.
+
 ### Mega-menu section settings
 Confirmed section/block settings include:
 - global mega background

@@ -12,6 +12,13 @@
     --h-text-color-rgb  : {{ se_stts.clnav | color_to_rgb | remove: 'rgba(' | remove: 'rgb(' | remove: ')' }};
     --h-text-color-hover: {{ se_stts.clnav_hover }};
     --h-bg-color        : {{ se_stts.bgnav | color_modify: 'alpha', opnav }};
+    --nav-item-color: {%- if se_stts.nav_item_color != blank -%}{{ se_stts.nav_item_color }}{%- else -%}var(--h-text-color){%- endif -%};
+    --nav-item-hover-color: {%- if se_stts.nav_item_hover_color != blank -%}{{ se_stts.nav_item_hover_color }}{%- else -%}var(--h-text-color-hover){%- endif -%};
+    --nav-item-active-color: {%- if se_stts.nav_item_active_color != blank -%}{{ se_stts.nav_item_active_color }}{%- else -%}var(--nav-item-hover-color){%- endif -%};
+    --nav-item-gap: {{ se_stts.nav_item_gap | default: 0 }}px;
+    --nav-item-pad-x: {{ se_stts.nav_item_pad_x | default: 0 }}px;
+    --nav-item-pad-y: {{ se_stts.nav_item_pad_y | default: 5 }}px;
+    --nav-item-text-transform: {% if se_stts.nav_item_uppercase %}uppercase{% else %}none{% endif %};
     --header-pad-x-desktop: {{ se_stts.header_pad_x_desktop }}px;
     --header-pad-x-tablet: {{ se_stts.header_pad_x_tablet }}px;
     --header-pad-x-mobile: {{ se_stts.header_pad_x_mobile }}px;
@@ -163,18 +170,21 @@
       display: block !important;
       margin: 35px 0 30px;
     }
+    .t4s-nav__ul>li + li {
+      margin-top: var(--nav-item-gap);
+    }
     .t4s-nav__ul>li> a {
-      color: var(--h-text-color);
-      padding: 5px 0;
-      text-transform: none;    
+      color: var(--nav-item-color);
+      padding: var(--nav-item-pad-y) var(--nav-item-pad-x);
+      text-transform: var(--nav-item-text-transform);
       min-height: 50px;
       border-bottom: 1px solid rgba(var(--h-text-color-rgb), 0.15);
       font-family: var(--font-family-{{ se_stts.fm_nav }});
       font-weight: {{ se_stts.fw_nav }};
       font-size: {{ se_stts.fs_nav }}px;
-      {%- if se_stts.ls_nav != 0 %}letter-spacing: {{ se_stts.ls_nav }}px;{% endif -%}
+      letter-spacing: {{ se_stts.ls_nav }}px;
     }
-    .t4s-nav__ul>li> a:hover { color: var(--h-text-color-hover) !important}
+    .t4s-nav__ul>li> a:hover { color: var(--nav-item-hover-color) !important}
 
     .t4s-layout_vertical .t4s-type__mega> .t4s-sub-menu,
     .t4s-layout_vertical .t4s-type__drop> .t4s-sub-menu {
@@ -192,7 +202,7 @@
     }
     {%- if se_stts.enable_active %}
     .t4s-nav__ul>li.is--nav__active> a {
-      color: var(--h-text-color-hover) !important;
+      color: var(--nav-item-active-color) !important;
       transition: none;
     }
     {%- endif -%}
@@ -549,6 +559,57 @@
         "label": "Letter spacing (in pixel)",
         "info": "set is '0' use to default",
         "default": 0
+      },
+      {
+        "type": "checkbox",
+        "id": "nav_item_uppercase",
+        "label": "Uppercase navigation items",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "nav_item_gap",
+        "label": "Navigation item gap",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "nav_item_pad_x",
+        "label": "Navigation item horizontal padding",
+        "min": 0,
+        "max": 30,
+        "step": 1,
+        "unit": "px",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "nav_item_pad_y",
+        "label": "Navigation item vertical padding",
+        "min": 0,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "default": 5
+      },
+      {
+        "type": "color",
+        "id": "nav_item_color",
+        "label": "Navigation item text color"
+      },
+      {
+        "type": "color",
+        "id": "nav_item_hover_color",
+        "label": "Navigation item hover color"
+      },
+      {
+        "type": "color",
+        "id": "nav_item_active_color",
+        "label": "Navigation item active color"
       }
    ],
    "blocks": [
