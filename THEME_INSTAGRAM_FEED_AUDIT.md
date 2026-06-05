@@ -1429,3 +1429,61 @@ Testing checklist:
 - Desktop/mobile visible post counts can differ without changing fetch count.
 - Feed still loads real posts.
 - Reel/Album badges and Instagram permalinks still work.
+
+## 21. Implementation Update: Icons-Only Instagram Post Card Chrome
+
+Date: 2026-06-05
+
+Files changed:
+
+- `sections/instagram-feed.liquid`
+- `THEME_INSTAGRAM_FEED_AUDIT.md`
+
+Protected behavior preserved:
+
+- Cloudflare Worker `proxyUrl` unchanged.
+- `access_token` and `ig_account_id` behavior unchanged.
+- Fetch URL shape unchanged except the existing selected count value remains in use.
+- Existing media field choices are preserved: `VIDEO` still uses `thumbnail_url`, other posts use `media_url`, and every item links to `post.permalink`.
+- `id="instagram-grid"` is unchanged.
+- Old/native Instagram sections and global JavaScript remain untouched.
+
+Card style added:
+
+- `card_style` now supports `image_only` and `instagram_post`.
+- `image_only` keeps the existing image-card rendering.
+- `instagram_post` wraps the same fetched media in optional Instagram-style chrome:
+  - top bar
+  - avatar/monogram
+  - editable handle text
+  - three-dot glyph
+  - heart/comment/share/save icons
+  - optional `View on Instagram` text
+- Reel and Album badges remain visible.
+- No fake like/comment counts were added.
+- No unconfirmed real count/caption/timestamp fields are read or displayed.
+
+Settings added:
+
+- `post_card_bg_color`
+- `post_card_border_color`
+- `post_card_text_color`
+- `post_card_icon_color`
+- `post_card_avatar_bg_color`
+- `post_card_avatar_text`
+- `post_card_handle_text`
+- `post_card_show_topbar`
+- `post_card_show_actions`
+- `post_card_show_view_text`
+- `post_card_view_text`
+- `post_card_padding`
+- `post_card_icon_size`
+
+Testing checklist:
+
+- Section schema parses.
+- `card_style=image_only` matches the existing image-card behavior.
+- `card_style=instagram_post` shows the top bar/action icon chrome without counts.
+- Reel and Album badges remain visible in both card styles.
+- All cards still open `post.permalink`.
+- Grid, carousel, and marquee display modes still render.

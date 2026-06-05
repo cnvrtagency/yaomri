@@ -1,0 +1,259 @@
+@media (max-width: 1024px) {
+  .yo-desktop-side-mega {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  .yo-desktop-side-mega {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    color: var(--yo-side-mega-text);
+  }
+
+  .yo-desktop-side-mega__overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: var(--yo-side-mega-overlay);
+    opacity: 0;
+    cursor: pointer;
+    pointer-events: none;
+    backdrop-filter: blur(0);
+    -webkit-backdrop-filter: blur(0);
+    transition:
+      opacity var(--yo-side-mega-speed) ease,
+      backdrop-filter var(--yo-side-mega-speed) ease,
+      -webkit-backdrop-filter var(--yo-side-mega-speed) ease;
+  }
+
+  .yo-desktop-side-mega__panel {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: min(var(--yo-side-mega-width), calc(100vw - 48px));
+    max-width: calc(100vw - 48px);
+    padding: var(--yo-side-mega-padding);
+    border-radius: 0 var(--yo-side-mega-radius) var(--yo-side-mega-radius) 0;
+    background: var(--yo-side-mega-bg);
+    box-shadow: 18px 0 48px rgba(0, 0, 0, 0.18);
+    transform: translate3d(-104%, 0, 0);
+    transition: transform var(--yo-side-mega-speed) cubic-bezier(.22, .61, .36, 1);
+    overflow: hidden;
+    pointer-events: auto;
+  }
+
+  .yo-desktop-side-mega.is-open {
+    pointer-events: auto;
+  }
+
+  .yo-desktop-side-mega.is-open .yo-desktop-side-mega__overlay {
+    opacity: var(--yo-side-mega-overlay-alpha);
+    pointer-events: auto;
+    backdrop-filter: blur(var(--yo-side-mega-overlay-blur));
+    -webkit-backdrop-filter: blur(var(--yo-side-mega-overlay-blur));
+  }
+
+  .yo-desktop-side-mega.is-open .yo-desktop-side-mega__panel {
+    transform: translate3d(0, 0, 0);
+  }
+
+  .yo-desktop-side-mega__close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border: 1px solid rgba(17, 17, 17, 0.14);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.86);
+    color: var(--yo-side-mega-text);
+    transition: border-color .2s ease, background .2s ease;
+  }
+
+  .yo-desktop-side-mega__close:hover {
+    border-color: var(--yo-side-mega-accent);
+    background: #fff4f4;
+  }
+
+  .yo-desktop-side-mega__close svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .yo-desktop-side-mega__inner {
+    display: grid;
+    grid-template-columns: minmax(0, var(--yo-side-mega-menu-width)) minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 48px);
+    height: 100%;
+    min-width: 0;
+  }
+
+  .yo-desktop-side-mega__menu,
+  .yo-desktop-side-mega__promos {
+    min-width: 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+
+  .yo-desktop-side-mega__menu {
+    display: flex;
+    align-items: center;
+    padding-block: 42px;
+  }
+
+  .yo-desktop-side-mega__list,
+  .yo-desktop-side-mega__sublist {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .yo-desktop-side-mega__item + .yo-desktop-side-mega__item {
+    margin-top: 4px;
+  }
+
+  .yo-desktop-side-mega__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 12px 0;
+    color: var(--yo-side-mega-text);
+    font-size: var(--yo-side-mega-link-size);
+    font-weight: var(--yo-side-mega-link-weight);
+    letter-spacing: var(--yo-side-mega-link-spacing);
+    line-height: 1.1;
+    text-transform: var(--yo-side-mega-link-transform);
+  }
+
+  .yo-desktop-side-mega__link:hover,
+  .yo-desktop-side-mega__link:focus-visible {
+    color: var(--yo-side-mega-accent);
+  }
+
+  .yo-desktop-side-mega__link-mark {
+    color: var(--yo-side-mega-accent);
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  .yo-desktop-side-mega__sublist {
+    padding: 0 0 12px 14px;
+  }
+
+  .yo-desktop-side-mega__sublink {
+    display: block;
+    padding: 5px 0;
+    color: color-mix(in srgb, var(--yo-side-mega-text) 72%, transparent);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .yo-desktop-side-mega__sublink:hover,
+  .yo-desktop-side-mega__sublink:focus-visible {
+    color: var(--yo-side-mega-text);
+  }
+
+  .yo-desktop-side-mega__promos {
+    display: grid;
+    grid-auto-rows: min-content;
+    align-content: center;
+    gap: 14px;
+    padding-block: 42px;
+  }
+
+  .yo-desktop-side-mega__promo-card {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    min-height: var(--yo-side-mega-promo-height, 260px);
+    padding: 22px;
+    overflow: hidden;
+    border: 1px solid rgba(17, 17, 17, 0.1);
+    border-radius: var(--yo-side-mega-promo-radius, 0);
+    background: #fff4f4;
+    color: #111;
+  }
+
+  .yo-desktop-side-mega__promo-card--image {
+    background-image: var(--yo-side-mega-promo-image);
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+  }
+
+  .yo-desktop-side-mega__promo-card--placeholder {
+    background:
+      linear-gradient(135deg, #fff4f4 0%, #fff 58%),
+      #fff4f4;
+  }
+
+  .yo-desktop-side-mega__promo-card[href]:hover .yo-desktop-side-mega__promo-heading {
+    color: var(--yo-side-mega-accent);
+  }
+
+  .yo-desktop-side-mega__promo-overlay {
+    position: absolute;
+    inset: 0;
+    background: #000;
+    opacity: 0;
+  }
+
+  .yo-desktop-side-mega__promo-card--image .yo-desktop-side-mega__promo-overlay {
+    opacity: var(--yo-side-mega-promo-overlay-alpha, .2);
+  }
+
+  .yo-desktop-side-mega__promo-content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 7px;
+    max-width: 240px;
+  }
+
+  .yo-desktop-side-mega__promo-heading {
+    font-size: clamp(22px, 2vw, 34px);
+    font-weight: 800;
+    line-height: .95;
+    text-transform: uppercase;
+    transition: color .2s ease;
+  }
+
+  .yo-desktop-side-mega__promo-text {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  .yo-desktop-side-mega__empty {
+    margin: 0;
+    color: color-mix(in srgb, var(--yo-side-mega-text) 65%, transparent);
+    font-size: 13px;
+  }
+
+  [data-yo-side-mega-trigger] {
+    cursor: pointer;
+  }
+
+  html.yo-side-mega-is-open .t4s-navigation .t4s-sub-menu {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+}

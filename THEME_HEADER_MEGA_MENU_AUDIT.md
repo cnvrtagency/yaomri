@@ -516,6 +516,77 @@ Testing checklist:
 - Dropdown and mega menus still open from the same top-level items.
 - Mobile drawer/menu behavior is unchanged.
 
+### Ya Omri desktop side mega menu Phase 1
+
+Implemented as an opt-in, desktop-only side mega menu shell.
+
+Files created:
+- `sections/yaomri-desktop-side-mega.liquid`
+- `assets/yaomri-desktop-side-mega.css`
+- `assets/yaomri-desktop-side-mega.js`
+
+Files changed:
+- `snippets/render_bottom.liquid`
+- `THEME_HEADER_MEGA_MENU_AUDIT.md`
+
+Settings added in the new static section:
+- `enable_desktop_side_mega_menu`
+- `desktop_side_mega_menu`
+- `open_behavior`
+- `drawer_width`
+- `menu_column_width`
+- `background_color`
+- `text_color`
+- `accent_color`
+- `overlay_color`
+- `overlay_opacity`
+- `overlay_blur`
+- `panel_radius`
+- `panel_padding`
+- `menu_item_font_size`
+- `menu_item_font_weight`
+- `menu_item_letter_spacing`
+- `menu_item_uppercase`
+- `animation_speed`
+
+Optional Phase 1 promo blocks added:
+- block type `promo_card`
+- image, heading, text, link, card height, card radius, and overlay opacity controls
+
+Mount strategy:
+- `snippets/render_bottom.liquid` statically renders `{% section 'yaomri-desktop-side-mega' %}` near the other bottom-mounted UI systems.
+- The new section outputs no shell, CSS, or JS unless `enable_desktop_side_mega_menu` is enabled.
+- The shell ID is `#yo-desktop-side-mega`, avoiding `#t4s-menu-drawer`.
+
+Trigger strategy:
+- No desktop menu snippets were edited in Phase 1.
+- `assets/yaomri-desktop-side-mega.js` adds `data-yo-side-mega-trigger`, `aria-haspopup`, `aria-controls`, and `aria-expanded` to desktop nav anchors from `[data-menu-nav] > .t4s-menu-item > a` at runtime only when the side mega section is enabled.
+- Hover mode opens on hover/focus.
+- Click mode opens on first desktop click; a second click on the same trigger can follow the original link.
+
+Fallback strategy:
+- Existing Kalles mega/dropdown Liquid and payload matching remain unchanged.
+- When the side mega is disabled, no new shell/assets/triggers are output.
+- When the side mega is open, the new CSS temporarily hides native `.t4s-sub-menu` panels through `html.yo-side-mega-is-open` to avoid overlapping panels; it does not remove or alter the native markup.
+
+Drawer/overlay risk notes:
+- The implementation uses a local `.yo-desktop-side-mega__overlay`, not `.t4s-close-overlay`.
+- It does not use `data-drawer-options`, `data-drawer-close`, `#t4s-menu-drawer`, or the shared drawer runtime.
+- It does not body-lock.
+- Cart/search/account drawers remain on the existing Kalles drawer system.
+
+Testing checklist:
+- With `enable_desktop_side_mega_menu` disabled, existing desktop Kalles mega/dropdown behavior works as before.
+- With it enabled at desktop width, nav hover or click opens the left side panel according to `open_behavior`.
+- Overlay click closes.
+- Close button closes.
+- Escape closes and returns focus to the trigger.
+- Selected Shopify Navigation menu links render and navigate.
+- Promo cards render and link when configured.
+- Mobile drawer remains unaffected below `1025px`.
+- Search/cart/account drawers still open and close using the existing runtime.
+- `assets/global.min.js`, `assets/theme.min.js`, `assets/drawer.min.css`, `assets/mega-menu.css`, `assets/t4s-submenu.css`, `snippets/menu_dropdown.liquid`, and mobile drawer files remain untouched.
+
 ### Mega-menu section settings
 Confirmed section/block settings include:
 - global mega background

@@ -1,0 +1,368 @@
+{%- liquid
+  assign enabled = section.settings.enable_desktop_side_mega_menu
+  assign side_menu = linklists[section.settings.desktop_side_mega_menu]
+  assign overlay_alpha = section.settings.overlay_opacity | times: 0.01
+  assign promo_blocks = section.blocks | where: 'type', 'promo_card'
+-%}
+
+{%- if enabled -%}
+  {{ 'yaomri-desktop-side-mega.css' | asset_url | stylesheet_tag }}
+
+  <div
+    id="yo-desktop-side-mega"
+    class="yo-desktop-side-mega"
+    data-yo-side-mega
+    data-open-behavior="{{ section.settings.open_behavior | default: 'hover' }}"
+    aria-hidden="true"
+    style="
+      --yo-side-mega-width: {{ section.settings.drawer_width | default: 520 }}px;
+      --yo-side-mega-menu-width: {{ section.settings.menu_column_width | default: 260 }}px;
+      --yo-side-mega-bg: {{ section.settings.background_color | default: '#ffffff' }};
+      --yo-side-mega-text: {{ section.settings.text_color | default: '#111111' }};
+      --yo-side-mega-accent: {{ section.settings.accent_color | default: '#c9a6a0' }};
+      --yo-side-mega-overlay: {{ section.settings.overlay_color | default: '#000000' }};
+      --yo-side-mega-overlay-alpha: {{ overlay_alpha }};
+      --yo-side-mega-overlay-blur: {{ section.settings.overlay_blur | default: 4 }}px;
+      --yo-side-mega-radius: {{ section.settings.panel_radius | default: 0 }}px;
+      --yo-side-mega-padding: {{ section.settings.panel_padding | default: 32 }}px;
+      --yo-side-mega-link-size: {{ section.settings.menu_item_font_size | default: 16 }}px;
+      --yo-side-mega-link-weight: {{ section.settings.menu_item_font_weight | default: 600 }};
+      --yo-side-mega-link-spacing: {{ section.settings.menu_item_letter_spacing | default: 0.4 }}px;
+      --yo-side-mega-link-transform: {% if section.settings.menu_item_uppercase %}uppercase{% else %}none{% endif %};
+      --yo-side-mega-speed: {{ section.settings.animation_speed | default: 300 }}ms;
+    "
+  >
+    <button class="yo-desktop-side-mega__overlay" type="button" data-yo-side-mega-close aria-label="Close menu"></button>
+
+    <aside class="yo-desktop-side-mega__panel" role="dialog" aria-modal="false" aria-label="Desktop navigation menu" tabindex="-1">
+      <button class="yo-desktop-side-mega__close" type="button" data-yo-side-mega-close aria-label="Close menu">
+        <svg viewBox="0 0 18 17" aria-hidden="true" focusable="false">
+          <path d="M.865 15.978a.5.5 0 0 0 .707.707l7.433-7.431 7.579 7.282a.501.501 0 0 0 .846-.37.5.5 0 0 0-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 1 0-.707-.708L8.991 7.853 1.413.573a.5.5 0 1 0-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor"></path>
+        </svg>
+      </button>
+
+      <div class="yo-desktop-side-mega__inner">
+        <nav class="yo-desktop-side-mega__menu" aria-label="Desktop side navigation">
+          {%- if side_menu.links.size > 0 -%}
+            <ul class="yo-desktop-side-mega__list">
+              {%- for link in side_menu.links -%}
+                <li class="yo-desktop-side-mega__item{% if link.links != blank %} yo-desktop-side-mega__item--has-children{% endif %}">
+                  <a class="yo-desktop-side-mega__link" href="{{ link.url }}">
+                    <span>{{ link.title | escape }}</span>
+                    {%- if link.links != blank -%}
+                      <span class="yo-desktop-side-mega__link-mark" aria-hidden="true">+</span>
+                    {%- endif -%}
+                  </a>
+                  {%- if link.links != blank -%}
+                    <ul class="yo-desktop-side-mega__sublist">
+                      {%- for child_link in link.links -%}
+                        <li>
+                          <a class="yo-desktop-side-mega__sublink" href="{{ child_link.url }}">{{ child_link.title | escape }}</a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- else -%}
+            <p class="yo-desktop-side-mega__empty">Choose a menu in Theme Editor.</p>
+          {%- endif -%}
+        </nav>
+
+        <div class="yo-desktop-side-mega__promos" aria-label="Featured links">
+          {%- if promo_blocks.size > 0 -%}
+            {%- for block in promo_blocks -%}
+              {%- liquid
+                assign promo = block.settings
+                assign promo_overlay_alpha = promo.overlay_opacity | default: 20 | times: 0.01
+                assign promo_tag = 'div'
+                if promo.link != blank
+                  assign promo_tag = 'a'
+                endif
+              -%}
+              <{{ promo_tag }}
+                class="yo-desktop-side-mega__promo-card{% if promo.image != blank %} yo-desktop-side-mega__promo-card--image{% endif %}"
+                {% if promo.link != blank %}href="{{ promo.link }}"{% endif %}
+                {{ block.shopify_attributes }}
+                style="
+                  --yo-side-mega-promo-height: {{ promo.card_height | default: 260 }}px;
+                  --yo-side-mega-promo-radius: {{ promo.card_radius | default: 0 }}px;
+                  --yo-side-mega-promo-overlay-alpha: {{ promo_overlay_alpha }};
+                  {% if promo.image != blank %}--yo-side-mega-promo-image: url({{ promo.image | image_url: width: 900 }});{% endif %}
+                "
+              >
+                <span class="yo-desktop-side-mega__promo-overlay"></span>
+                <span class="yo-desktop-side-mega__promo-content">
+                  {%- if promo.heading != blank -%}
+                    <span class="yo-desktop-side-mega__promo-heading">{{ promo.heading | escape }}</span>
+                  {%- endif -%}
+                  {%- if promo.text != blank -%}
+                    <span class="yo-desktop-side-mega__promo-text">{{ promo.text | escape }}</span>
+                  {%- endif -%}
+                </span>
+              </{{ promo_tag }}>
+            {%- endfor -%}
+          {%- else -%}
+            <div class="yo-desktop-side-mega__promo-card yo-desktop-side-mega__promo-card--placeholder">
+              <span class="yo-desktop-side-mega__promo-content">
+                <span class="yo-desktop-side-mega__promo-heading">New season</span>
+                <span class="yo-desktop-side-mega__promo-text">Add promo cards in Theme Editor.</span>
+              </span>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <script src="{{ 'yaomri-desktop-side-mega.js' | asset_url }}" defer></script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Ya Omri desktop side mega",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_desktop_side_mega_menu",
+      "label": "Enable desktop side mega menu",
+      "default": false
+    },
+    {
+      "type": "link_list",
+      "id": "desktop_side_mega_menu",
+      "label": "Desktop side mega menu"
+    },
+    {
+      "type": "select",
+      "id": "open_behavior",
+      "label": "Open behaviour",
+      "default": "hover",
+      "options": [
+        {
+          "value": "hover",
+          "label": "Hover"
+        },
+        {
+          "value": "click",
+          "label": "Click"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "drawer_width",
+      "label": "Panel width",
+      "min": 320,
+      "max": 720,
+      "step": 20,
+      "unit": "px",
+      "default": 520
+    },
+    {
+      "type": "range",
+      "id": "menu_column_width",
+      "label": "Menu column width",
+      "min": 180,
+      "max": 360,
+      "step": 10,
+      "unit": "px",
+      "default": 260
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Panel background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text colour",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent colour",
+      "default": "#c9a6a0"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay colour",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "overlay_blur",
+      "label": "Overlay blur",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "panel_radius",
+      "label": "Panel radius",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "panel_padding",
+      "label": "Panel padding",
+      "min": 16,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "menu_item_font_size",
+      "label": "Menu item font size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "menu_item_font_weight",
+      "label": "Menu item font weight",
+      "default": "600",
+      "options": [
+        {
+          "value": "400",
+          "label": "400"
+        },
+        {
+          "value": "500",
+          "label": "500"
+        },
+        {
+          "value": "600",
+          "label": "600"
+        },
+        {
+          "value": "700",
+          "label": "700"
+        },
+        {
+          "value": "800",
+          "label": "800"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "menu_item_letter_spacing",
+      "label": "Menu item letter spacing",
+      "min": 0,
+      "max": 4,
+      "step": 0.1,
+      "unit": "px",
+      "default": 0.4
+    },
+    {
+      "type": "checkbox",
+      "id": "menu_item_uppercase",
+      "label": "Uppercase menu items",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "animation_speed",
+      "label": "Animation speed",
+      "min": 100,
+      "max": 600,
+      "step": 50,
+      "unit": "ms",
+      "default": 300
+    }
+  ],
+  "blocks": [
+    {
+      "type": "promo_card",
+      "name": "Promo card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "New arrivals"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Explore the latest Ya Omri edit"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "range",
+          "id": "card_height",
+          "label": "Card height",
+          "min": 160,
+          "max": 420,
+          "step": 20,
+          "unit": "px",
+          "default": 260
+        },
+        {
+          "type": "range",
+          "id": "card_radius",
+          "label": "Card radius",
+          "min": 0,
+          "max": 32,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "label": "Overlay opacity",
+          "min": 0,
+          "max": 80,
+          "step": 5,
+          "unit": "%",
+          "default": 20
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ya Omri desktop side mega"
+    }
+  ]
+}
+{% endschema %}
