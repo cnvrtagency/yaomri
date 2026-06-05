@@ -537,3 +537,245 @@ Implementation:
 - preserve existing settings IDs for compatibility
 
 Report files changed, selectors added, settings added, logic preserved, and browser testing checklist.
+
+## 14. Implementation Update: Layout And Carousel Controls
+
+Date: 2026-06-05
+
+Files changed:
+
+- `sections/instagram-feed.liquid`
+- `THEME_INSTAGRAM_FEED_AUDIT.md`
+
+Protected files left untouched:
+
+- `sections/instagram_feed.liquid`
+- `sections/instagram_feed_api.liquid`
+- `sections/instagram-shop.liquid`
+- `assets/instagram.css`
+- `assets/instagram-pin.css`
+- global JavaScript files
+- `templates/index.json`
+
+Controls added to the active hyphenated section:
+
+- `layout_style`
+  - `grid`
+  - `split`
+- `desktop_display_mode`
+  - `grid`
+  - `carousel`
+- `mobile_display_mode`
+  - `grid`
+  - `carousel`
+- `posts_per_row_desktop`
+- `posts_per_row_tablet`
+- `posts_per_row_mobile`
+- `carousel_gap`
+- `show_carousel_arrows`
+- `carousel_snap`
+- `carousel_peek`
+- `text_color`
+- `accent_color`
+- `card_radius`
+- `image_aspect_ratio`
+  - `square`
+  - `portrait`
+  - `landscape`
+- `section_padding_desktop`
+- `section_padding_mobile`
+- `intro_width`
+- `body_text`
+- `cta_label`
+
+Existing settings preserved:
+
+- `eyebrow`
+- `title`
+- `handle`
+- `access_token`
+- `ig_account_id`
+- `post_count`
+- `columns`
+- `gap`
+- `background_color`
+- `show_follow`
+
+Backward compatibility note:
+
+- `columns` remains in schema as `Columns (desktop, legacy)`.
+- New `posts_per_row_*` settings drive the new layout.
+- The section still falls back to `columns` for desktop posts-per-row if the new setting is absent in existing saved data.
+
+Presentation changes:
+
+- Added section state classes:
+  - `.instagram-feed--layout-grid`
+  - `.instagram-feed--layout-split`
+  - `.instagram-feed--desktop-grid`
+  - `.instagram-feed--desktop-carousel`
+  - `.instagram-feed--mobile-grid`
+  - `.instagram-feed--mobile-carousel`
+  - `.instagram-feed--aspect-square`
+  - `.instagram-feed--aspect-portrait`
+  - `.instagram-feed--aspect-landscape`
+  - `.instagram-feed--snap`
+- Added wrapper structure:
+  - `.instagram-feed__inner`
+  - `.instagram-feed__intro`
+  - `.instagram-feed__media`
+  - `.instagram-feed__arrows`
+  - `.instagram-feed__arrow`
+- Preserved `id="instagram-grid"` as the feed mount.
+
+Carousel behavior:
+
+- Carousel mode is CSS horizontal scroll.
+- `carousel_snap` enables `scroll-snap-type`.
+- `carousel_peek` adds side peek/scroll padding.
+- Desktop item widths are calculated from `posts_per_row_desktop`.
+- Tablet item widths are calculated from `posts_per_row_tablet`.
+- Mobile item widths are calculated from `posts_per_row_mobile`.
+- Optional arrows use a small section-scoped click handler that only calls `scrollBy` on `#instagram-grid`.
+
+Feed logic preserved:
+
+- Cloudflare Worker `proxyUrl` is unchanged.
+- `access_token` behavior is unchanged.
+- `ig_account_id` behavior is unchanged.
+- `post_count` behavior is unchanged.
+- fetch URL/query shape is unchanged.
+- `VIDEO` still uses `thumbnail_url`.
+- non-video media still uses `media_url`.
+- `CAROUSEL_ALBUM` still gets the `Album` badge.
+- `VIDEO` still gets the `Reel` badge.
+- generated item links still use `post.permalink`.
+- feed is still JavaScript/API driven, not static blocks.
+
+Testing checklist:
+
+- Section schema parses.
+- `#instagram-grid` exists in rendered HTML.
+- Feed still loads with valid token/account ID.
+- Missing token/account ID still shows the setup message.
+- Fetch failure still shows the failure message.
+- Video posts render thumbnail and `Reel` badge.
+- Carousel album posts render `Album` badge.
+- Item links still open Instagram permalinks.
+- `layout_style = split` shows intro left and feed right on desktop.
+- `layout_style = grid` keeps a single-column/centered intro layout.
+- `desktop_display_mode = grid` uses `posts_per_row_desktop`.
+- `desktop_display_mode = carousel` scrolls horizontally and respects arrows/snap/peek.
+- Tablet width uses `posts_per_row_tablet`.
+- `mobile_display_mode = grid` uses `posts_per_row_mobile`.
+- `mobile_display_mode = carousel` scrolls horizontally and respects arrows/snap/peek.
+- `card_radius`, `image_aspect_ratio`, colors, and section padding controls visibly apply.
+- No old/native Instagram section behavior changes.
+- No global JS changes.
+
+## 15. Implementation Update: Split Containment And Typography Controls
+
+Date: 2026-06-05
+
+Files changed:
+
+- `sections/instagram-feed.liquid`
+- `THEME_INSTAGRAM_FEED_AUDIT.md`
+
+Protected behavior preserved:
+
+- Cloudflare Worker `proxyUrl` unchanged
+- `access_token` behavior unchanged
+- `ig_account_id` behavior unchanged
+- `post_count` behavior unchanged
+- fetch URL/query shape unchanged
+- `VIDEO` / `CAROUSEL_ALBUM` media branching unchanged
+- `media_url`, `thumbnail_url`, and `post.permalink` usage unchanged
+- `id="instagram-grid"` preserved
+- old/native Instagram sections untouched
+- global JavaScript untouched
+
+Controls added:
+
+- `padding_x_desktop`
+- `padding_x_tablet`
+- `padding_x_mobile`
+- `split_column_gap`
+- `text_align_desktop`
+- `text_align_mobile`
+- `eyebrow_font_size`
+- `eyebrow_font_weight`
+- `eyebrow_letter_spacing`
+- `title_font_size_desktop`
+- `title_font_size_mobile`
+- `title_font_weight`
+- `title_line_height`
+- `title_letter_spacing`
+- `body_font_size`
+- `body_line_height`
+- `body_font_weight`
+- `handle_font_size`
+- `handle_font_weight`
+- `handle_letter_spacing`
+- `cta_font_size`
+- `cta_font_weight`
+- `cta_letter_spacing`
+- `cta_uppercase`
+
+CSS variables added:
+
+- `--instagram-padding-x-desktop`
+- `--instagram-padding-x-tablet`
+- `--instagram-padding-x-mobile`
+- `--instagram-split-gap`
+- `--instagram-eyebrow-size`
+- `--instagram-eyebrow-weight`
+- `--instagram-eyebrow-letter-spacing`
+- `--instagram-title-size-desktop`
+- `--instagram-title-size-mobile`
+- `--instagram-title-weight`
+- `--instagram-title-line-height`
+- `--instagram-title-letter-spacing`
+- `--instagram-body-size`
+- `--instagram-body-line-height`
+- `--instagram-body-weight`
+- `--instagram-handle-size`
+- `--instagram-handle-weight`
+- `--instagram-handle-letter-spacing`
+- `--instagram-cta-size`
+- `--instagram-cta-weight`
+- `--instagram-cta-letter-spacing`
+- `--instagram-cta-text-transform`
+- `--instagram-text-align-desktop`
+- `--instagram-text-align-mobile`
+
+Split overflow fix:
+
+- `.instagram-feed` now hides horizontal overflow at the section boundary.
+- `.instagram-feed > .container` receives responsive side padding from the new padding controls.
+- `.instagram-feed__inner` uses `--instagram-split-gap` instead of a hardcoded clamp gap.
+- split mode uses `grid-template-columns: minmax(0, min(var(--instagram-intro-width), 520px)) minmax(0, 1fr)`.
+- `.instagram-feed__intro` has `min-width: 0`, a real max-width, overflow wrapping, and hidden overflow on desktop to prevent text bleed.
+- `.instagram-feed__media` has `min-width: 0`, `max-width: 100%`, and hidden overflow so grid/carousel content stays inside its column.
+- title/body/handle/footer are capped at `max-width: 100%`.
+- title uses `overflow-wrap: anywhere` to prevent long text from crossing into the media column.
+
+Mobile alignment:
+
+- desktop intro alignment is controlled by `text_align_desktop`.
+- mobile intro and CTA alignment are controlled by `text_align_mobile`.
+- mobile defaults to centered text.
+
+Testing checklist:
+
+- Section schema parses.
+- All new range settings are Shopify-valid.
+- Split desktop layout no longer lets title/body text overlap the feed.
+- Media grid/carousel remains inside the right column.
+- Side padding controls change left/right spacing on desktop, tablet, and mobile.
+- Mobile center alignment centers eyebrow, title, body, handle, and CTA.
+- Typography controls visibly affect eyebrow, title, body, handle, and CTA.
+- Feed still loads real posts.
+- Grid and carousel modes still work.
+- No old/native Instagram sections changed.
+- No global JavaScript changed.
