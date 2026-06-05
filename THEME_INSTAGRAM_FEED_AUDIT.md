@@ -845,6 +845,121 @@ Testing checklist:
 - Feed still loads real posts.
 - Reel/Album badges and Instagram permalinks still work.
 
+## 18. Implementation Update: Simplified Grid/Split Model
+
+Date: 2026-06-05
+
+Files changed:
+
+- `sections/instagram-feed.liquid`
+- `THEME_INSTAGRAM_FEED_AUDIT.md`
+
+Protected behavior preserved:
+
+- Cloudflare Worker `proxyUrl` unchanged
+- `access_token`, `ig_account_id`, and `post_count` behavior unchanged
+- fetch URL/query shape unchanged
+- `VIDEO`, `CAROUSEL_ALBUM`, `media_url`, `thumbnail_url`, and `post.permalink` handling unchanged
+- `id="instagram-grid"` preserved
+- old/native Instagram sections untouched
+- global JavaScript untouched
+
+Layout correction:
+
+- `layout_style = grid` is now the stacked layout:
+  - intro/text first
+  - Instagram feed underneath
+- `layout_style = split` is the only side-by-side desktop layout:
+  - intro/text column
+  - media column containing grid or carousel
+- mobile remains stacked.
+
+Grid/carousel behavior:
+
+- Grid mode uses posts-per-row only for width:
+  - desktop: `posts_per_row_desktop`
+  - tablet: `posts_per_row_tablet`
+  - mobile: `posts_per_row_mobile`
+- Grid mode does not use `card_size_*` for card width.
+- Carousel mode uses `card_size_desktop`, `card_size_tablet`, and `card_size_mobile` for item width.
+- Carousel scroll/peek/snap styles stay scoped to carousel mode.
+- Grid mode uses equal `row-gap` and `column-gap` from `--instagram-gap`.
+- Carousel mode uses `--instagram-carousel-gap`.
+
+Split controls:
+
+- `split_column_gap` now supports `0px` minimum.
+- New range:
+  - min `0`
+  - max `96`
+  - step `4`
+  - default `10`
+- `intro_vertical_align` added with:
+  - `top`
+  - `center`
+- split layout defaults to centered vertical alignment.
+
+Text and width controls:
+
+- `heading_width_desktop`
+- `heading_width_mobile`
+- `body_width_desktop`
+- `body_width_mobile`
+- desktop/mobile alignment classes now drive centering:
+  - `.instagram-feed--text-desktop-left`
+  - `.instagram-feed--text-desktop-center`
+  - `.instagram-feed--text-mobile-left`
+  - `.instagram-feed--text-mobile-center`
+
+Body opacity fix:
+
+- The previous body text opacity was removed.
+- Body text now uses `text_color` at full opacity by default.
+
+Eyebrow icon:
+
+- Optional inline Instagram SVG can render beside eyebrow text.
+- Controls added:
+  - `show_eyebrow_icon`
+  - `eyebrow_icon_style`
+  - `eyebrow_icon_size`
+  - `eyebrow_icon_gap`
+  - `eyebrow_icon_color`
+- Icon uses the same inline section markup; no external icon dependency was added.
+
+CTA controls added:
+
+- `cta_font_size_desktop`
+- `cta_font_size_mobile`
+- `cta_padding_x_desktop`
+- `cta_padding_y_desktop`
+- `cta_padding_x_mobile`
+- `cta_padding_y_mobile`
+- `cta_font_weight`
+- `cta_letter_spacing`
+- `cta_uppercase`
+- `cta_text_color`
+- `cta_border_color`
+- `cta_background_color`
+- `cta_hover_text_color`
+- `cta_hover_background_color`
+- `cta_radius`
+
+Testing checklist:
+
+- `layout_style = grid` renders intro above feed on desktop.
+- `layout_style = split` renders side-by-side only on desktop.
+- desktop grid display mode forms clean rows/columns.
+- desktop carousel display mode uses card size.
+- grid mode ignores card size for width and uses posts-per-row.
+- split gap can be reduced to `0`.
+- desktop center alignment centers eyebrow, title, body, handle, and CTA consistently.
+- body text appears at full selected color opacity.
+- eyebrow icon aligns beside eyebrow text.
+- CTA color, padding, size, weight, radius, uppercase, and hover controls work.
+- feed still loads real posts.
+- Reel/Album badges and Instagram permalinks still work.
+
 ## 16. Implementation Update: Desktop Grid Fix And Card Size Controls
 
 Date: 2026-06-05
