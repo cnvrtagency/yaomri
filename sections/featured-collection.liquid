@@ -104,7 +104,7 @@
       <div class="t4s-featured-collection-heading-main">
         {%- render 'section_tophead', se_stts: se_stts -%}
       </div>
-      <div class="t4s-featured-collection-heading-cta t4s-featured-collection-heading-cta--desktop">
+      <div class="t4s-featured-collection-heading-cta">
         <a class="t4s-featured-collection-heading-button t4s-featured-collection-heading-button--{{ se_stts.heading_cta_style }}" href="{{ se_stts.heading_cta_link }}" {% if se_stts.heading_cta_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ se_stts.heading_cta_label | escape }}</a>
       </div>
     </div>
@@ -176,12 +176,6 @@
     </div>
   {%- endif -%} 
 
-  {%- if has_heading_cta -%}
-    <div class="t4s-featured-collection-heading-cta t4s-featured-collection-heading-cta--mobile" style="--heading-cta-radius: {{ se_stts.heading_cta_radius | default: 24 }}px;">
-      <a class="t4s-featured-collection-heading-button t4s-featured-collection-heading-button--{{ se_stts.heading_cta_style }}" href="{{ se_stts.heading_cta_link }}" {% if se_stts.heading_cta_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ se_stts.heading_cta_label | escape }}</a>
-    </div>
-  {%- endif -%}
-
   {%- if paginate.pages > 1 -%}
     <div class="t4s-prs-footer t4s-has-btn-{{ use_pagination }} {{ se_stts.btn_pos }}">
       {%- if isLoadmore -%} 
@@ -218,7 +212,7 @@
   .t4s_se_{{ sid }} .t4s-featured-collection-heading-bar {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
+    align-items: start;
     column-gap: 24px;
     row-gap: 10px;
     margin-top: var(--tophead_mt);
@@ -244,10 +238,7 @@
     align-items: center;
     justify-content: flex-end;
     justify-self: end;
-    align-self: center;
-  }
-  .t4s_se_{{ sid }} .t4s-featured-collection-heading-cta--mobile {
-    display: none;
+    align-self: start;
   }
   .t4s_se_{{ sid }} .t4s-featured-collection-heading-button {
     display: inline-flex;
@@ -293,24 +284,22 @@
   }
   @media(max-width:767px){
     .t4s_se_{{ sid }} .t4s-featured-collection-heading-bar {
-      grid-template-columns: 1fr;
       column-gap: 12px;
       row-gap: 8px;
-    }
-    .t4s_se_{{ sid }} .t4s-featured-collection-heading-cta--desktop {
-      display: none;
-    }
-    .t4s_se_{{ sid }} .t4s-featured-collection-heading-cta--mobile {
-      display: flex;
-      justify-content: flex-start;
-      justify-self: stretch;
-      margin-top: 16px;
     }
     .t4s_se_{{ sid }} .t4s-featured-collection-heading-button {
       min-height: 34px;
       padding: 9px 14px;
       font-size: 10px;
       letter-spacing: 0.14em;
+    }
+  }
+  @media(max-width:389px){
+    .t4s_se_{{ sid }} .t4s-featured-collection-heading-bar {
+      grid-template-columns: 1fr;
+    }
+    .t4s_se_{{ sid }} .t4s-featured-collection-heading-cta {
+      justify-self: start;
     }
   }
   .t4s-pr-style10 .t4s-product-inner .t4s-product-img{
