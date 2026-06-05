@@ -845,6 +845,166 @@ Testing checklist:
 - Feed still loads real posts.
 - Reel/Album badges and Instagram permalinks still work.
 
+## 23. Implementation Update: Icons-Only Instagram Post Card Style
+
+Date: 2026-06-05
+
+Files changed:
+
+- `sections/instagram-feed.liquid`
+- `THEME_INSTAGRAM_FEED_AUDIT.md`
+
+Protected behavior preserved:
+
+- Cloudflare Worker `proxyUrl` unchanged
+- `access_token` and `ig_account_id` behavior unchanged
+- fetch URL/query shape unchanged
+- `VIDEO`, `CAROUSEL_ALBUM`, `media_url`, `thumbnail_url`, and `post.permalink` handling unchanged
+- `id="instagram-grid"` preserved
+- old/native Instagram sections untouched
+- global JavaScript untouched
+
+Real metadata status:
+
+- The active frontend still only proves these post fields are available:
+  - `media_type`
+  - `thumbnail_url`
+  - `media_url`
+  - `permalink`
+- Real `like_count`, `comments_count`, `caption`, `timestamp`, and `username` remain unconfirmed.
+- No real counts were added.
+- No fake counts were added.
+- Worker/API count fields remain deferred to Phase 2.
+
+Card style added:
+
+- New `card_style` setting:
+  - `image_only`
+  - `instagram_post`
+- `image_only` preserves the current image-card output.
+- `instagram_post` renders each fetched post as a visual Instagram-style card while keeping the whole card linked to `post.permalink`.
+
+Instagram post card chrome:
+
+- Optional top bar with:
+  - circular avatar/monogram
+  - static handle text
+  - three-dot glyph
+- Media area still uses the existing image source behavior.
+- Optional action row with icons only:
+  - heart
+  - comment
+  - share
+  - save
+- Optional `View on Instagram` text.
+- Reel/Album badges remain visible.
+- No captions or counts are rendered.
+
+Settings added:
+
+- `post_card_bg_color`
+- `post_card_border_color`
+- `post_card_text_color`
+- `post_card_icon_color`
+- `post_card_avatar_bg_color`
+- `post_card_avatar_text`
+- `post_card_handle_text`
+- `post_card_show_topbar`
+- `post_card_show_actions`
+- `post_card_show_view_text`
+- `post_card_view_text`
+- `post_card_padding`
+- `post_card_icon_size`
+
+Safety notes:
+
+- Theme Editor text used in the generated card chrome is escaped in JavaScript before insertion.
+- No new API fields are requested.
+- No token/account values are logged or exposed.
+- Marquee duplicates continue to clone only the already-rendered card markup.
+
+Testing checklist:
+
+- Section schema parses.
+- `image_only` card style renders as before.
+- `instagram_post` card style shows the post-style top bar and action icons.
+- No fake counts appear.
+- No real count fields are used.
+- Reel/Album badges still show.
+- Links still open Instagram permalinks.
+- Grid, carousel, and marquee modes still work.
+
+## 22. Implementation Update: Count, CTA Padding, And Card Size Fixes
+
+Date: 2026-06-05
+
+Files changed:
+
+- `sections/instagram-feed.liquid`
+- `THEME_INSTAGRAM_FEED_AUDIT.md`
+
+Protected behavior preserved:
+
+- Cloudflare Worker `proxyUrl` unchanged
+- `access_token` and `ig_account_id` behavior unchanged
+- fetch URL/query shape unchanged except the already intended selected `count` value
+- `VIDEO`, `CAROUSEL_ALBUM`, `media_url`, `thumbnail_url`, and `post.permalink` handling unchanged
+- `id="instagram-grid"` preserved
+- old/native Instagram sections untouched
+- global JavaScript untouched
+
+Posts shown mobile fix:
+
+- The previous Liquid fallback path allowed old saved `visible_posts_mobile` / `post_count` values to override the new mobile count when the new setting was absent or not yet saved.
+- The active count path now resolves directly from:
+  - `posts_shown_desktop`, default `8`
+  - `posts_shown_mobile`, default `6`
+- JavaScript chooses the count once on initial load using `max-width: 768px`.
+- The selected `count` is used in the existing fetch URL.
+- The returned `data.data` array is defensively sliced to `count` before rendering, so the section cannot render more unique posts than selected even if the proxy returns extra posts.
+- Marquee still duplicates only those already-rendered cards for the loop.
+
+CTA mobile padding fix:
+
+- The mobile CTA had a `width: 100%` rule at the smallest breakpoint, so horizontal padding did not visibly change the button width.
+- `.instagram-feed__follow` now uses `box-sizing: border-box`.
+- Mobile CTA now uses:
+  - `padding: var(--instagram-cta-padding-y-mobile) var(--instagram-cta-padding-x-mobile)`
+  - `width: auto`
+  - `max-width: 100%`
+- Desktop CTA padding remains controlled by the desktop variables.
+
+Card size controls fix:
+
+- Previous carousel/marquee item sizing used `min(var(--instagram-card-size-*), 100%)` or `80vw`; in constrained columns this often capped the item before the setting could visibly change it.
+- Carousel and marquee items now set both `flex-basis` and `width` from the card-size variable:
+  - desktop: `--instagram-card-size-desktop`
+  - tablet: `--instagram-card-size-tablet`
+  - mobile: `--instagram-card-size-mobile`
+- `max-width` remains only as an overflow guard.
+- Grid mode remains posts-per-row based and does not use card size for width.
+
+Schema clarity:
+
+- `posts_shown_desktop` label clarified to `Total posts shown desktop`.
+- `posts_shown_mobile` label clarified to `Total posts shown mobile`.
+- `posts_per_row_*` labels now explicitly say `(grid)`.
+- `card_size_*` labels now explicitly say `(carousel/marquee)`.
+
+Testing checklist:
+
+- Section schema parses.
+- `Total posts shown mobile = 6` renders only 6 unique posts on mobile.
+- `Total posts shown desktop` controls desktop/tablet unique fetch/render count.
+- Grid/carousel modes do not duplicate unique posts.
+- Marquee duplicates only selected rendered posts for looping.
+- CTA horizontal padding mobile visibly changes the mobile follow button.
+- Card size desktop/tablet/mobile visibly changes carousel and marquee item width.
+- Grid remains controlled by posts-per-row settings.
+- Feed still loads real posts.
+- Reel/Album badges still work.
+- Instagram links still work.
+
 ## 21. Implementation Update: Count Simplification And Badge Highlight
 
 Date: 2026-06-05
