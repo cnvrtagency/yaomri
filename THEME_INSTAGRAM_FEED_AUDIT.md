@@ -779,3 +779,143 @@ Testing checklist:
 - Grid and carousel modes still work.
 - No old/native Instagram sections changed.
 - No global JavaScript changed.
+
+## 17. Implementation Update: Grid Layout Repair
+
+Date: 2026-06-05
+
+Files changed:
+
+- `sections/instagram-feed.liquid`
+- `THEME_INSTAGRAM_FEED_AUDIT.md`
+
+Protected behavior preserved:
+
+- Cloudflare Worker `proxyUrl` unchanged
+- `access_token`, `ig_account_id`, and `post_count` behavior unchanged
+- fetch URL/query shape unchanged
+- `VIDEO`, `CAROUSEL_ALBUM`, `media_url`, `thumbnail_url`, and `post.permalink` handling unchanged
+- `id="instagram-grid"` preserved
+- old/native Instagram sections untouched
+- global JavaScript untouched
+
+Cause of broken desktop grid:
+
+- Grid mode was using CSS grid columns, but grid items were also constrained by `max-width: min(100%, var(--instagram-card-size-*))` and centered with `justify-self: center`.
+- That made the actual card width smaller than the grid track width, so the visible spacing looked inconsistent and could create large black gaps.
+- The split wrapper also used `align-items: center`, which vertically centered the media column beside a taller intro column and pushed the cards down the section.
+
+Repair:
+
+- `.instagram-feed__inner` now uses `align-items: start` so the intro and feed start together.
+- Desktop grid mode now keeps card width controlled by grid tracks:
+  - `.instagram-feed--desktop-grid .instagram-feed__grid`
+  - `.instagram-feed--desktop-grid .instagram-feed__item`
+- Mobile grid mode uses the same separation:
+  - `.instagram-feed--mobile-grid .instagram-feed__grid`
+  - `.instagram-feed--mobile-grid .instagram-feed__item`
+- Grid items now use:
+  - `width: 100%`
+  - `max-width: none`
+  - `justify-self: stretch`
+- Grid gaps are explicit and equal:
+  - `column-gap: var(--instagram-gap)`
+  - `row-gap: var(--instagram-gap)`
+- Carousel modes remain isolated to:
+  - `.instagram-feed--desktop-carousel ...`
+  - `.instagram-feed--mobile-carousel ...`
+
+Card size behavior after repair:
+
+- Grid mode: card width is controlled by posts-per-row and available media column width. `card_size_*` does not constrain grid card width.
+- Carousel mode: `card_size_*` controls horizontal carousel item width.
+- `image_aspect_ratio` still controls card shape in both modes.
+
+Testing checklist:
+
+- Desktop split + grid starts cards at the top of the media column.
+- Desktop split + grid has equal row and column gaps.
+- Desktop grid layout + grid has equal row and column gaps.
+- Desktop split + carousel still scrolls cleanly.
+- Desktop grid layout + carousel still scrolls cleanly.
+- Mobile grid has equal gaps.
+- Mobile carousel scrolls cleanly.
+- No large empty black area appears above the cards.
+- No page-level horizontal overflow.
+- Feed still loads real posts.
+- Reel/Album badges and Instagram permalinks still work.
+
+## 16. Implementation Update: Desktop Grid Fix And Card Size Controls
+
+Date: 2026-06-05
+
+Files changed:
+
+- `sections/instagram-feed.liquid`
+- `THEME_INSTAGRAM_FEED_AUDIT.md`
+
+Protected behavior preserved:
+
+- Cloudflare Worker `proxyUrl` unchanged
+- `access_token`, `ig_account_id`, and `post_count` behavior unchanged
+- fetch URL/query shape unchanged
+- `VIDEO`, `CAROUSEL_ALBUM`, `media_url`, `thumbnail_url`, and `post.permalink` handling unchanged
+- `id="instagram-grid"` preserved
+- old/native Instagram sections untouched
+- global JavaScript untouched
+- `templates/index.json` untouched
+
+Desktop grid mode fix:
+
+- Grid and carousel display rules are now separated by state class.
+- Grid layout rules apply through:
+  - `.instagram-feed--desktop-grid .instagram-feed__grid`
+  - `.instagram-feed--mobile-grid .instagram-feed__grid`
+- Carousel layout rules remain scoped to:
+  - `.instagram-feed--desktop-carousel .instagram-feed__grid`
+  - `.instagram-feed--mobile-carousel .instagram-feed__grid`
+- Carousel item width rules no longer apply to grid mode.
+- Grid item sizing stays inside columns with `max-width: min(100%, var(--instagram-card-size-*))`.
+- Media containment remains on `.instagram-feed__media` with `min-width: 0`, `max-width: 100%`, and hidden overflow.
+
+Intro width change:
+
+- `intro_width` range max increased from `45%` to `60%`.
+- Split grid now uses:
+  - `grid-template-columns: minmax(0, var(--instagram-intro-width)) minmax(0, 1fr)`
+- The old 520px intro cap was removed so wider intro settings can take effect.
+- Split layout stacks at the tablet/narrow desktop breakpoint before the two columns become cramped.
+
+Card size controls added:
+
+- `card_size_desktop`
+- `card_size_tablet`
+- `card_size_mobile`
+
+CSS variables added:
+
+- `--instagram-card-size-desktop`
+- `--instagram-card-size-tablet`
+- `--instagram-card-size-mobile`
+
+How card size interacts with posts per row:
+
+- In grid mode, posts-per-row remains the primary column control.
+- Card size acts as a safe max width on each card and cannot force overflow because it is capped with `min(100%, var(--instagram-card-size-*))`.
+- In carousel mode, card size drives the horizontal card width using responsive `flex-basis` values.
+- The existing `image_aspect_ratio` setting still controls card shape in both grid and carousel modes.
+
+Testing checklist:
+
+- Section schema parses.
+- `intro_width` max is `60`.
+- Desktop split + grid renders posts as a contained grid.
+- Desktop split + carousel scrolls cleanly.
+- Desktop grid layout + grid renders posts as a contained grid.
+- Mobile grid uses mobile posts-per-row.
+- Mobile carousel uses mobile card size and scrolls cleanly.
+- Large card sizes do not cause page-level horizontal overflow.
+- Reel/Album badges still render.
+- Instagram item links still use post permalinks.
+- No old/native Instagram sections changed.
+- No global JavaScript changed.
