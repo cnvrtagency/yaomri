@@ -28,6 +28,21 @@
     {%- assign font_1 = settings.fnt_fm_sp1 -%}
     {%- assign font_2 = settings.fnt_fm_sp2 | default: font_1 -%}
     {%- assign font_3 = settings.fnt_fm_sp3 | default: font_1 -%}
+    {%- if t_name == 'index' -%}
+      {%- liquid
+        assign hero_font_source = font_1
+        if settings.hd_ffamily == '2'
+          assign hero_font_source = font_2
+        elsif settings.hd_ffamily == '3'
+          assign hero_font_source = font_3
+        endif
+      -%}
+      {%- unless hero_font_source.system? -%}
+        {%- assign hero_font = hero_font_source | font_modify: 'weight', '800' | font_modify: 'style', 'italic' -%}
+        {%- style -%}{{ hero_font | font_face: font_display: 'swap' }}{%- endstyle -%}
+        <link rel="preload" as="font" href="{{ hero_font | font_url }}" type="font/woff2" crossorigin>
+      {%- endunless -%}
+    {%- endif -%}
     {%- unless font_1.system? -%}
       <link rel="preload" as="font" href="{{ font_1 | font_url }}" type="font/woff2" crossorigin>
     {%- endunless -%}

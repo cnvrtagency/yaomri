@@ -9,7 +9,7 @@
 - js	
 
 ## snippets/render_bottom.liquid
-- css	colors.css, custom.css, drawer.min.css, line-awesome.min.css, login-sidebar.css, main-product.css, mini-cart.css, mobile_nav.css, pre_flickityt4s.min.css, qs-product.css, qv-product.css, search-hidden.css, theme.css
+- css	colors.css, drawer.min.css, line-awesome.min.css, login-sidebar.css, main-product.css, mini-cart.css, mobile_nav.css, pre_flickityt4s.min.css, qs-product.css, qv-product.css, search-hidden.css, theme.css
 - js	custom.js, des_adm.min.js, facets.min.js, interactable.min.js, nouislider.min.js, polyfill.min.js, predictive-search.min.js, reviewOther.js, t4s-currencies.min.js, t4s-instant-page.min.js, t4s_zoom.min.js, theme.min.js, threesixty.min.js
 
 ## Direct section/snippet asset loads
@@ -171,5 +171,5 @@
 - snippets/product-360.liquid	CSS: product-360.css	JS: (none)
 - snippets/product-form.liquid	CSS: ani-atc.min.css, base_drop.min.css, button-style.css, custom-effect.css, swatch.css	JS: (none)
 - snippets/product_tabs.liquid	CSS: pre_flickityt4s.min.css, product-tabs.css	JS: (none)
-- snippets/render_bottom.liquid	CSS: colors.css, custom.css, drawer.min.css, line-awesome.min.css, login-sidebar.css, main-product.css, mini-cart.css, mobile_nav.css, pre_flickityt4s.min.css, qs-product.css, qv-product.css, search-hidden.css, theme.css	JS: custom.js, des_adm.min.js, facets.min.js, interactable.min.js, nouislider.min.js, polyfill.min.js, predictive-search.min.js, reviewOther.js, t4s-currencies.min.js, t4s-instant-page.min.js, t4s_zoom.min.js, theme.min.js, threesixty.min.js
+- snippets/render_bottom.liquid	CSS: colors.css, drawer.min.css, line-awesome.min.css, login-sidebar.css, main-product.css, mini-cart.css, mobile_nav.css, pre_flickityt4s.min.css, qs-product.css, qv-product.css, search-hidden.css, theme.css	JS: custom.js, des_adm.min.js, facets.min.js, interactable.min.js, nouislider.min.js, polyfill.min.js, predictive-search.min.js, reviewOther.js, t4s-currencies.min.js, t4s-instant-page.min.js, t4s_zoom.min.js, theme.min.js, threesixty.min.js
 - snippets/section_tophead.liquid	CSS: button-style.css, top-head.css	JS: (none)

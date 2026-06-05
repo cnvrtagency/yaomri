@@ -33,7 +33,7 @@ Confirmed from `theme-audit-data/asset-load-map.txt`:
 ### Early/global CSS
 
 - `layout/theme.liquid`
-  - `custom.css`
+  - `custom.css` preload and stylesheet when `settings.custom_css_t4s` is enabled
   - `theme.css`
 - `snippets/head_assets.liquid`
   - `base.css`
@@ -45,7 +45,6 @@ Confirmed from `theme-audit-data/asset-load-map.txt`:
 
 - `snippets/render_bottom.liquid`
   - `colors.css`
-  - `custom.css`
   - `drawer.min.css`
   - `line-awesome.min.css`
   - `login-sidebar.css`
@@ -61,7 +60,7 @@ Confirmed from `theme-audit-data/asset-load-map.txt`:
 ### CSS risk notes
 
 - `theme.css` appears in both global and late load paths; do not assume one inclusion point
-- `custom.css` is also present in more than one load path
+- `custom.css` is generated from `assets/custom.css.liquid`, which renders Theme Editor CSS settings
 - section-level styling may be injected through shared snippets rather than static CSS files alone
 - late-loaded CSS can override earlier assumptions about drawer, product, search, and mobile surfaces
 
@@ -286,3 +285,46 @@ Dependencies usually span:
 - verify variant state
 - verify add to cart
 - verify price/image/snippet output
+
+## 10. Homepage hero font loading note
+
+### Finding
+
+- The active custom stylesheet is `assets/custom.css.liquid`, which renders Theme Editor CSS settings into the requested `custom.css` asset.
+- Before this fix, `layout/theme.liquid` preloaded `custom.css`, but the actual stylesheet tag was emitted late from `snippets/render_bottom.liquid`.
+- The homepage hero copy comes from `templates/index.json` and uses `.hero-title-spaced` with `.sun-word`.
+- The Theme Editor custom CSS for `.hero-title-spaced` sets the visible hero display style to `font-weight: 800` and `font-style: italic`, but did not declare its own `font-family`.
+- The hero previously inherited the configured heading family from `snippets/head_assets.liquid`.
+- Current settings use Shopify theme fonts with `settings.font_source == '1'`, `settings.hd_ffamily == '1'`, and `settings.fnt_fm_sp1 == 'montserrat_n4'`, so the hero display face is Montserrat 800 italic.
+
+### Fix Added
+
+- `layout/theme.liquid` now preloads `custom.css` early and loads it in the head after `head_assets` when `settings.custom_css_t4s` is enabled.
+- `snippets/render_bottom.liquid` no longer emits the late `custom.css` stylesheet tag, avoiding duplicate stylesheet output.
+- `.hero-title-spaced` now explicitly uses `font-family: "Montserrat", Arial, sans-serif !important;` in `assets/custom.css.liquid`, after Theme Editor `global_css` is rendered.
+- `snippets/head_assets.liquid` now adds a homepage-only `font_face` and preload for the configured heading font modified to `weight: 800` and `style: italic`.
+- The preload uses Shopify's `font_url` filter for the exact generated WOFF2 font URL, from the same valid Shopify font object used for `font_face`.
+- No new external font service was added.
+- No hero copy, layout, or visual styling was changed.
+- Existing theme font picker settings and global typography declarations are preserved.
+
+### Files Changed
+
+- `layout/theme.liquid`
+  - Adds the early `custom.css` preload and head stylesheet load after `head_assets`.
+- `snippets/head_assets.liquid`
+  - Adds the targeted homepage hero font face and font preload.
+- `snippets/render_bottom.liquid`
+  - Removes the late duplicate `custom.css` stylesheet output.
+- `assets/custom.css.liquid`
+  - Adds the explicit hero-only Montserrat font stack without editing Theme Editor generated settings.
+- `THEME_FRONTEND_SYSTEM_AUDIT.md`
+  - Records the hero font finding, preload fix, and validation notes.
+
+### Testing Notes
+
+- Check the homepage network waterfall for early `custom.css` preload and stylesheet requests, with no late duplicate stylesheet tag.
+- Check the homepage network waterfall for one additional font preload from the Shopify font URL generated for Montserrat 800 italic.
+- Confirm `custom.css` returns 200.
+- Confirm there is no 404 for the preloaded WOFF2 request.
+- Confirm `.hero-title-spaced` still renders as uppercase, white, 800 italic text and that the visible font swap is reduced or removed.

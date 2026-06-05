@@ -55,7 +55,9 @@ t4sp-theme t4s-wrapper__{{ settings.general_layout }}{% if settings.animations_r
       Preload critical CSS/JS/font assets
     {%- endcomment -%}
     <link rel="preload" as="style" href="{{ 'theme.css' | asset_url }}">
-    <link rel="preload" href="{{ 'custom.css' | asset_url }}" as="style">
+    {%- if settings.custom_css_t4s -%}
+      <link rel="preload" href="{{ 'custom.css' | asset_url }}" as="style">
+    {%- endif -%}
     <link rel="preload" as="script" href="{{ 'global.min.js' | asset_url }}">
     <link rel="preload" as="font" type="font/woff2" crossorigin href="https://www.yaomriswimwear.com/cdn/fonts/montserrat/montserrat_n4.81949fa0ac9fd2021e16436151e8eaa539321637.woff2?hmac=ef1d6a1742a627b1b17612b272beb25667706972195888dd8b08c6fd8f3aaf04">
 
@@ -122,6 +124,9 @@ t4sp-theme t4s-wrapper__{{ settings.general_layout }}{% if settings.animations_r
     {%- render 'meta-tags', t_name: t_name -%}
 
     {%- render 'head_assets', t_name: t_name, isRTL: isRTL -%}
+    {%- if settings.custom_css_t4s -%}
+      {{- 'custom.css' | asset_url | stylesheet_tag -}}
+    {%- endif -%}
   
 
   </head>
