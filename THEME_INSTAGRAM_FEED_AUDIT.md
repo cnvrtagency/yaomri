@@ -960,6 +960,67 @@ Testing checklist:
 - feed still loads real posts.
 - Reel/Album badges and Instagram permalinks still work.
 
+## 19. Implementation Update: Handle Display And Dual-Colour Title
+
+Date: 2026-06-05
+
+Files changed:
+
+- `sections/instagram-feed.liquid`
+- `THEME_INSTAGRAM_FEED_AUDIT.md`
+
+Protected behavior preserved:
+
+- Cloudflare Worker `proxyUrl` unchanged
+- `access_token`, `ig_account_id`, and `post_count` behavior unchanged
+- fetch URL/query shape unchanged
+- `VIDEO`, `CAROUSEL_ALBUM`, `media_url`, `thumbnail_url`, and `post.permalink` handling unchanged
+- `id="instagram-grid"` preserved
+- old/native Instagram sections untouched
+- global JavaScript untouched
+
+Schema note:
+
+- `split_column_gap` already had a valid `default` of `8` for `min: 0`, `max: 96`, `step: 4`.
+
+Handle display separation:
+
+- Existing `handle` remains the Instagram profile handle used by the follow CTA URL:
+  - `https://instagram.com/{{ section.settings.handle }}`
+- New visible handle controls:
+  - `show_handle_text`
+  - `handle_display_text`
+- If `show_handle_text` is enabled, the section renders `handle_display_text`.
+- If `handle_display_text` is blank, the visible fallback is `@` plus the existing `handle`.
+- If `show_handle_text` is disabled, no standalone handle text renders.
+- `cta_label` behavior is preserved.
+
+Dual-colour title:
+
+- New controls:
+  - `title_dual_colour_enable`
+  - `title_colour_1`
+  - `title_colour_2`
+  - `title_highlight_text`
+- When enabled and `title_highlight_text` exactly matches part of the title, matching text is wrapped with:
+  - `.instagram-feed__title-highlight`
+- Normal title text uses `--instagram-title-color-1`.
+- Highlight text uses `--instagram-title-color-2`.
+- Merchant title and highlight text are escaped before output; merchants do not need to write HTML.
+- If dual colour is disabled, the highlight text is blank, or no exact match exists, the title renders normally.
+
+Testing checklist:
+
+- Section schema parses.
+- Existing `handle` still controls the follow CTA URL.
+- `show_handle_text` hides and shows standalone handle text.
+- `handle_display_text` changes only the visible handle text.
+- Blank `handle_display_text` falls back to `@` plus `handle`.
+- Dual-colour title applies only when enabled and exact highlight text matches.
+- Title typography, alignment, and width controls still apply.
+- Feed still loads real posts.
+- Reel/Album badges and Instagram permalinks still work.
+
 ## 16. Implementation Update: Desktop Grid Fix And Card Size Controls
 
 Date: 2026-06-05

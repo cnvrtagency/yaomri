@@ -7,6 +7,16 @@
   if cta_label == blank
     assign cta_label = 'Follow @' | append: section.settings.handle
   endif
+  assign handle_display_text = section.settings.handle_display_text
+  if handle_display_text == blank and section.settings.handle != blank
+    assign handle_display_text = '@' | append: section.settings.handle
+  endif
+  assign title_text = section.settings.title
+  assign title_highlight_text = section.settings.title_highlight_text
+  assign title_has_highlight = false
+  if section.settings.title_dual_colour_enable and title_text != blank and title_highlight_text != blank and title_text contains title_highlight_text
+    assign title_has_highlight = true
+  endif
 -%}
 
 <section
@@ -33,6 +43,8 @@
     --instagram-bg: {{ section.settings.background_color | default: '#000000' }};
     --instagram-text: {{ section.settings.text_color | default: '#ffffff' }};
     --instagram-accent: {{ section.settings.accent_color | default: '#fff4f4' }};
+    --instagram-title-color-1: {{ section.settings.title_colour_1 | default: section.settings.text_color | default: '#ffffff' }};
+    --instagram-title-color-2: {{ section.settings.title_colour_2 | default: '#c9a6a0' }};
     --instagram-eyebrow-size: {{ section.settings.eyebrow_font_size | default: 12 }}px;
     --instagram-eyebrow-weight: {{ section.settings.eyebrow_font_weight | default: 700 }};
     --instagram-eyebrow-letter-spacing: {{ section.settings.eyebrow_letter_spacing | default: 2 }}px;
@@ -92,15 +104,27 @@
         {% endif %}
 
         {% if section.settings.title != blank %}
-          <h2 class="instagram-feed__title">{{ section.settings.title }}</h2>
+          <h2 class="instagram-feed__title">
+            {% if title_has_highlight %}
+              {%- assign title_parts = title_text | split: title_highlight_text -%}
+              {%- for title_part in title_parts -%}
+                {{- title_part | escape -}}
+                {%- unless forloop.last -%}
+                  <span class="instagram-feed__title-highlight">{{ title_highlight_text | escape }}</span>
+                {%- endunless -%}
+              {%- endfor -%}
+            {% else %}
+              {{ section.settings.title | escape }}
+            {% endif %}
+          </h2>
         {% endif %}
 
         {% if section.settings.body_text != blank %}
           <div class="instagram-feed__body">{{ section.settings.body_text }}</div>
         {% endif %}
 
-        {% if section.settings.handle != blank %}
-          <p class="instagram-feed__handle">@{{ section.settings.handle }}</p>
+        {% if section.settings.show_handle_text != false and handle_display_text != blank %}
+          <p class="instagram-feed__handle">{{ handle_display_text | escape }}</p>
         {% endif %}
 
         {% if section.settings.show_follow %}
@@ -218,7 +242,7 @@
 .instagram-feed__title {
   margin: 0;
   max-width: min(100%, var(--instagram-heading-width-desktop));
-  color: var(--instagram-text);
+  color: var(--instagram-title-color-1);
   font-size: var(--instagram-title-size-desktop);
   font-weight: var(--instagram-title-weight);
   font-style: italic;
@@ -227,6 +251,9 @@
   text-transform: uppercase;
   overflow-wrap: anywhere;
   word-break: normal;
+}
+.instagram-feed__title-highlight {
+  color: var(--instagram-title-color-2);
 }
 .instagram-feed--layout-grid .instagram-feed__title {
   max-width: min(100%, var(--instagram-heading-width-desktop));
@@ -646,6 +673,18 @@
       "id": "handle",
       "label": "Instagram handle (without @)",
       "default": "yaomriswimwear"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_handle_text",
+      "label": "Show handle text",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "handle_display_text",
+      "label": "Handle display text",
+      "default": "@yaomriswimwear"
     },
     {
       "type": "text",
@@ -1230,6 +1269,30 @@
       "step": 0.1,
       "unit": "px",
       "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "title_dual_colour_enable",
+      "label": "Enable dual-colour title",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "title_colour_1",
+      "label": "Title colour 1",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_colour_2",
+      "label": "Title colour 2",
+      "default": "#c9a6a0"
+    },
+    {
+      "type": "text",
+      "id": "title_highlight_text",
+      "label": "Title highlighted text",
+      "info": "Text in the title to colour differently. Must match part of the title exactly."
     },
     {
       "type": "range",
