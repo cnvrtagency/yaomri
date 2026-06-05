@@ -317,6 +317,22 @@
         "code_cus_css": ""
       }
     },
+    "instagram_feed_PzgAaw": {
+      "type": "instagram-feed",
+      "name": "Instagram Feed",
+      "settings": {
+        "eyebrow": "Follow our journey",
+        "title": "Tag us @yaomriswimwear",
+        "handle": "yaomriswimwear",
+        "access_token": "EAAdPyVODq5IBRjMTXHUpEu6W7zD45uyosaZCrzrpvt5DuveBaKUTLx2oAdgMA0pKQ6g9wjKNXoZCWQZA6rVQIAiZCDctg3wFpxCA1jxCFHxun826xu7Bf9E33GnTf4Y03SG94q58ceK9hZA8jW958y2GBgAfBkvK6yB1ZBGlKfZCLYDvFc6XIxAugoYRaWgwEhCMuVcCWF6I6OM",
+        "ig_account_id": "17841403550958066",
+        "post_count": 4,
+        "columns": 4,
+        "gap": 4,
+        "background_color": "#000000",
+        "show_follow": true
+      }
+    },
     "featured_collection_eCFnCq": {
       "type": "featured-collection",
       "name": "Featured collection",
@@ -739,6 +755,7 @@
     "slideshow_qJpxTy",
     "custom_scrolling_text_WzNQQb",
     "featured_collection_RYCjmA",
+    "instagram_feed_PzgAaw",
     "featured_collection_eCFnCq",
     "custom_section_bVmNWp",
     "custom_liquid_gLL9yT",

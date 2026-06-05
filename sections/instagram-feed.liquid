@@ -1,0 +1,263 @@
+<section class="instagram-feed" style="padding: 60px 0; background: {{ section.settings.background_color }}">
+  <div class="container">
+    {% if section.settings.title != blank %}
+      <div class="instagram-feed__header">
+        <p class="instagram-feed__eyebrow">{{ section.settings.eyebrow }}</p>
+        <h2 class="instagram-feed__title">{{ section.settings.title }}</h2>
+      </div>
+    {% endif %}
+
+    <div class="instagram-feed__grid" id="instagram-grid">
+      <div class="instagram-feed__loading">Loading...</div>
+    </div>
+
+    {% if section.settings.show_follow %}
+      <div class="instagram-feed__footer">
+        <a href="https://instagram.com/{{ section.settings.handle }}" target="_blank" class="instagram-feed__follow">
+          Follow @{{ section.settings.handle }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+.instagram-feed__header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.instagram-feed__eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: #a08060;
+  margin-bottom: 8px;
+}
+.instagram-feed__title {
+  font-size: 28px;
+  font-weight: 900;
+  font-style: italic;
+  color: #1a1208;
+}
+.instagram-feed__grid {
+  display: grid;
+  grid-template-columns: repeat({{ section.settings.columns }}, 1fr);
+  gap: {{ section.settings.gap }}px;
+}
+@media (max-width: 768px) {
+  .instagram-feed__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .instagram-feed__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.instagram-feed__item {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1;
+  background: #f0ebe3;
+}
+.instagram-feed__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.instagram-feed__item:hover img {
+  transform: scale(1.04);
+}
+.instagram-feed__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 18, 8, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+.instagram-feed__item:hover .instagram-feed__overlay {
+  background: rgba(26, 18, 8, 0.45);
+}
+.instagram-feed__overlay-icon {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.3s ease;
+  color: #fff;
+  font-size: 28px;
+}
+.instagram-feed__item:hover .instagram-feed__overlay-icon {
+  opacity: 1;
+  transform: scale(1);
+}
+.instagram-feed__video-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 7px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.instagram-feed__footer {
+  text-align: center;
+  margin-top: 32px;
+}
+.instagram-feed__follow {
+  display: inline-block;
+  border: 1px solid #1a1208;
+  color: #1a1208;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.instagram-feed__follow:hover {
+  background: #1a1208;
+  color: #fff;
+}
+.instagram-feed__loading {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  color: #a08060;
+  font-size: 13px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+</style>
+
+<script>
+(function() {
+  const proxyUrl = 'https://black-darkness-b2ec.danlyons20.workers.dev';
+  const token = '{{ section.settings.access_token }}';
+  const igId = '{{ section.settings.ig_account_id }}';
+  const count = {{ section.settings.post_count }};
+  const grid = document.getElementById('instagram-grid');
+
+  if (!token || !igId) {
+    grid.innerHTML = '<div class="instagram-feed__loading">Add your Instagram token in section settings.</div>';
+    return;
+  }
+
+  fetch(`${proxyUrl}/?token=${encodeURIComponent(token)}&ig_id=${igId}&count=${count}`)
+    .then(r => r.json())
+    .then(data => {
+      if (!data.data || data.error) {
+        grid.innerHTML = '<div class="instagram-feed__loading">Could not load feed.</div>';
+        return;
+      }
+      grid.innerHTML = data.data.map(post => {
+        const rawImg = post.media_type === 'VIDEO' ? post.thumbnail_url : post.media_url;
+        const img = `${proxyUrl}/image?url=${encodeURIComponent(rawImg)}`;
+        const isVideo = post.media_type === 'VIDEO';
+        const isCarousel = post.media_type === 'CAROUSEL_ALBUM';
+        return `
+          <a href="${post.permalink}" target="_blank" class="instagram-feed__item">
+            <img src="${img}" alt="Instagram" loading="lazy">
+            <div class="instagram-feed__overlay">
+              <svg class="instagram-feed__overlay-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            </div>
+            ${isVideo ? '<span class="instagram-feed__video-badge">Reel</span>' : ''}
+            ${isCarousel ? '<span class="instagram-feed__video-badge">Album</span>' : ''}
+          </a>
+        `;
+      }).join('');
+    })
+    .catch(() => {
+      grid.innerHTML = '<div class="instagram-feed__loading">Could not load feed.</div>';
+    });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Instagram Feed",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Follow our journey"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Tag us @yaomriswimwear"
+    },
+    {
+      "type": "text",
+      "id": "handle",
+      "label": "Instagram handle (without @)",
+      "default": "yaomriswimwear"
+    },
+    {
+      "type": "textarea",
+      "id": "access_token",
+      "label": "Instagram access token"
+    },
+    {
+      "type": "text",
+      "id": "ig_account_id",
+      "label": "Instagram Business Account ID",
+      "default": "17841403550958066"
+    },
+    {
+      "type": "range",
+      "id": "post_count",
+      "label": "Number of posts",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Columns (desktop)",
+      "min": 3,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap between posts (px)",
+      "min": 0,
+      "max": 16,
+      "step": 2,
+      "default": 4
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_follow",
+      "label": "Show follow button",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Instagram Feed"
+    }
+  ]
+}
+{% endschema %}
