@@ -312,6 +312,8 @@
     --nav-item-color: {{ se_stts.nav_item_color | default: '#111111' }};
     --nav-item-hover-color: {{ se_stts.nav_item_hover_color | default: '#111111' }};
     --nav-item-active-color: {{ se_stts.nav_item_active_color | default: '#111111' }};
+    --nav-item-transparent-color: {{ se_stts.nav_item_transparent_color | default: '#ffffff' }};
+    --nav-item-transparent-hover-color: {{ se_stts.nav_item_transparent_hover_color | default: '#ffffff' }};
     background-color: var(--h-bg-color);
   }
   .t4s-count-box {
@@ -336,6 +338,9 @@
       --h-text-color-rgb  : {{ se_stts.clnavtr | color_to_rgb | remove: 'rgba(' | remove: 'rgb(' | remove: ')' }};
       --h-text-color-hover: {{ se_stts.clnavtr_hover }};
       --h-bg-color        : {{ se_stts.bgnavtr | color_modify: 'alpha', opnavtr }};
+      --nav-item-color: var(--nav-item-transparent-color);
+      --nav-item-hover-color: var(--nav-item-transparent-hover-color);
+      --nav-item-active-color: var(--nav-item-transparent-hover-color);
     }
     .t4s-section-header {
         margin-top: var(--h-space-tr);
@@ -376,6 +381,9 @@
       --h-text-color-rgb  : {{ se_stts.clnavst | color_to_rgb | remove: 'rgba(' | remove: 'rgb(' | remove: ')' }};
       --h-text-color-hover: {{ se_stts.clnavst_hover }};
       --h-bg-color        : {{ se_stts.bgnavst | color_modify: 'alpha', opnavst }};
+      --nav-item-color: {{ se_stts.nav_item_color | default: '#111111' }};
+      --nav-item-hover-color: {{ se_stts.nav_item_hover_color | default: '#111111' }};
+      --nav-item-active-color: {{ se_stts.nav_item_active_color | default: '#111111' }};
     }
     .is-header--stuck .header__sticky-logo {
       display:block !important
@@ -723,6 +731,18 @@ document.documentElement.style.setProperty('--header-height', document.getElemen
         "id": "nav_item_active_color",
         "label": "Navigation item active color",
         "default": "#111111"
+      },
+      {
+        "type": "color",
+        "id": "nav_item_transparent_color",
+        "label": "Navigation item color on transparent header",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "nav_item_transparent_hover_color",
+        "label": "Navigation item hover color on transparent header",
+        "default": "#ffffff"
       },
       {
         "type": "color",

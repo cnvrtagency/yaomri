@@ -464,14 +464,22 @@ Implemented in:
 - `sections/header-categories-menu.liquid`
 - `sections/header-vertical.liquid`
 
-Existing native settings preserved:
+Native settings kept because they still control non-duplicate behavior:
 - `fm_nav`
-- `fs_nav`
-- `fw_nav`
-- `ls_nav`
 - `clnav`
 - `clnav_hover`
 - `enable_active`
+- transparent/sticky header color settings such as `clnavtr`, `clnavtr_hover`, `clnavst`, and `clnavst_hover`
+
+Redundant native desktop-nav controls removed from the header section schemas:
+- `fs_nav`
+- `fw_nav`
+- `ls_nav`
+
+Reason:
+- the new `nav_item_font_size`, `nav_item_font_weight`, and `nav_item_letter_spacing` controls fully replace those desktop nav item controls
+- `fm_nav` remains because the nav still uses the existing theme font-family variable
+- `clnav` / `clnav_hover` and the transparent/sticky color variants remain because they also affect general header text/icons and state behavior
 
 New section-level controls added:
 - `nav_item_font_size`
@@ -484,6 +492,8 @@ New section-level controls added:
 - `nav_item_color`
 - `nav_item_hover_color`
 - `nav_item_active_color`
+- `nav_item_transparent_color`
+- `nav_item_transparent_hover_color`
 
 Selectors changed:
 - `.t4s-nav__ul`
@@ -492,13 +502,17 @@ Selectors changed:
 - `.t4s-nav__ul>li.is--nav__active>a`
 
 Implementation notes:
-- Controls are emitted as section CSS variables on `.t4s-header__wrapper`: `--nav-item-font-size`, `--nav-item-font-weight`, `--nav-item-letter-spacing`, `--nav-item-text-transform`, `--nav-item-gap`, `--nav-item-pad-x`, `--nav-item-pad-y`, `--nav-item-color`, `--nav-item-hover-color`, and `--nav-item-active-color`.
+- Controls are emitted as section CSS variables on `.t4s-header__wrapper`: `--nav-item-font-size`, `--nav-item-font-weight`, `--nav-item-letter-spacing`, `--nav-item-text-transform`, `--nav-item-gap`, `--nav-item-pad-x`, `--nav-item-pad-y`, `--nav-item-color`, `--nav-item-hover-color`, `--nav-item-active-color`, `--nav-item-transparent-color`, and `--nav-item-transparent-hover-color`.
 - Desktop horizontal headers use `column-gap` on `.t4s-nav__ul`; vertical header uses top margin between list items.
 - `header-sidebar` receives the same schema controls and variables, but it does not render the shared desktop `.t4s-nav__ul` list in the current static path.
+- Transparent-capable headers override `--nav-item-color`, `--nav-item-hover-color`, and `--nav-item-active-color` inside the existing homepage transparent header branch; sticky state resets those variables to the normal nav color controls.
+- The transparent state is the existing `h_transparent` Liquid branch and `document.documentElement.classList.add('is--header-transparent')`; no new JS state was added.
 - `snippets/menu_blocks.liquid`, mega-menu structure, mobile drawer behavior, and JS remain untouched.
 
 Testing checklist:
 - Desktop nav font size, weight, letter spacing, uppercase, gap, padding, text color, hover color, and active color controls visibly affect desktop top-level nav items.
+- On a transparent homepage header, nav item color and hover color come from the new transparent nav controls.
+- Sticky/non-transparent header state returns to the normal nav item color controls.
 - Dropdown and mega menus still open from the same top-level items.
 - Mobile drawer/menu behavior is unchanged.
 
