@@ -100,11 +100,11 @@
   {{- html_layout[0] -}}
   {%- if stt_layout == 't4s-se-container' -%}<div class="t4s-container-inner {% if stt_image_bg != blank %} t4s-has-imgbg lazyloadt4s {% endif %}"  {% if stt_image_bg != blank %}  data-bgset="{{ stt_image_bg | image_url: width: 1 }}" data-sizes="auto"  data-optimumx="2" {% endif %} > {%- endif -%}
   {%- if has_heading_cta -%}
-    <div class="t4s-featured-collection-heading-bar" style="--tophead_mb: {{ se_stts.tophead_mb | default: 30 }}px;--tophead_mt: {{ se_stts.tophead_mt | default: 0 }}px;--heading-cta-radius: {{ se_stts.heading_cta_radius | default: 24 }}px;">
+    <div class="t4s-featured-collection-heading-bar" style="--tophead_mb: {{ se_stts.tophead_mb | default: 30 }}px;--tophead_mt: {{ se_stts.tophead_mt | default: 0 }}px;--heading-cta-radius: {{ se_stts.heading_cta_radius | default: 24 }}px;--heading-cta-font-size-desktop: {{ se_stts.heading_cta_font_size_desktop | default: 12 }}px;--heading-cta-font-size-mobile: {{ se_stts.heading_cta_font_size_mobile | default: 11 }}px;--heading-cta-padding-x-desktop: {{ se_stts.heading_cta_padding_x_desktop | default: 28 }}px;--heading-cta-padding-y-desktop: {{ se_stts.heading_cta_padding_y_desktop | default: 11 }}px;--heading-cta-padding-x-mobile: {{ se_stts.heading_cta_padding_x_mobile | default: 22 }}px;--heading-cta-padding-y-mobile: {{ se_stts.heading_cta_padding_y_mobile | default: 10 }}px;--heading-cta-font-weight: {{ se_stts.heading_cta_font_weight | default: 600 }};--heading-cta-letter-spacing: {{ se_stts.heading_cta_letter_spacing | default: 1.2 }}px;--heading-cta-text-transform: {% if se_stts.heading_cta_uppercase != false %}uppercase{% else %}none{% endif %};--heading-cta-text-color: {{ se_stts.heading_cta_text_color | default: '#111111' }};--heading-cta-border-color: {{ se_stts.heading_cta_border_color | default: '#111111' }};--heading-cta-bg-color: {{ se_stts.heading_cta_background_color | default: '#ffffff' }};--heading-cta-hover-text-color: {{ se_stts.heading_cta_hover_text_color | default: '#ffffff' }};--heading-cta-hover-bg-color: {{ se_stts.heading_cta_hover_background_color | default: '#111111' }};">
       <div class="t4s-featured-collection-heading-main">
         {%- render 'section_tophead', se_stts: se_stts -%}
       </div>
-      <div class="t4s-featured-collection-heading-cta">
+      <div class="t4s-featured-collection-heading-cta t4s-featured-collection-heading-cta--desktop">
         <a class="t4s-featured-collection-heading-button t4s-featured-collection-heading-button--{{ se_stts.heading_cta_style }}" href="{{ se_stts.heading_cta_link }}" {% if se_stts.heading_cta_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ se_stts.heading_cta_label | escape }}</a>
       </div>
     </div>
@@ -176,6 +176,12 @@
     </div>
   {%- endif -%} 
 
+  {%- if has_heading_cta -%}
+    <div class="t4s-featured-collection-heading-cta t4s-featured-collection-heading-cta--mobile" style="--heading-cta-radius: {{ se_stts.heading_cta_radius | default: 24 }}px;--heading-cta-font-size-desktop: {{ se_stts.heading_cta_font_size_desktop | default: 12 }}px;--heading-cta-font-size-mobile: {{ se_stts.heading_cta_font_size_mobile | default: 11 }}px;--heading-cta-padding-x-desktop: {{ se_stts.heading_cta_padding_x_desktop | default: 28 }}px;--heading-cta-padding-y-desktop: {{ se_stts.heading_cta_padding_y_desktop | default: 11 }}px;--heading-cta-padding-x-mobile: {{ se_stts.heading_cta_padding_x_mobile | default: 22 }}px;--heading-cta-padding-y-mobile: {{ se_stts.heading_cta_padding_y_mobile | default: 10 }}px;--heading-cta-font-weight: {{ se_stts.heading_cta_font_weight | default: 600 }};--heading-cta-letter-spacing: {{ se_stts.heading_cta_letter_spacing | default: 1.2 }}px;--heading-cta-text-transform: {% if se_stts.heading_cta_uppercase != false %}uppercase{% else %}none{% endif %};--heading-cta-text-color: {{ se_stts.heading_cta_text_color | default: '#111111' }};--heading-cta-border-color: {{ se_stts.heading_cta_border_color | default: '#111111' }};--heading-cta-bg-color: {{ se_stts.heading_cta_background_color | default: '#ffffff' }};--heading-cta-hover-text-color: {{ se_stts.heading_cta_hover_text_color | default: '#ffffff' }};--heading-cta-hover-bg-color: {{ se_stts.heading_cta_hover_background_color | default: '#111111' }};">
+      <a class="t4s-featured-collection-heading-button t4s-featured-collection-heading-button--{{ se_stts.heading_cta_style }}" href="{{ se_stts.heading_cta_link }}" {% if se_stts.heading_cta_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ se_stts.heading_cta_label | escape }}</a>
+    </div>
+  {%- endif -%}
+
   {%- if paginate.pages > 1 -%}
     <div class="t4s-prs-footer t4s-has-btn-{{ use_pagination }} {{ se_stts.btn_pos }}">
       {%- if isLoadmore -%} 
@@ -212,7 +218,7 @@
   .t4s_se_{{ sid }} .t4s-featured-collection-heading-bar {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    align-items: start;
+    align-items: center;
     column-gap: 24px;
     row-gap: 10px;
     margin-top: var(--tophead_mt);
@@ -230,76 +236,96 @@
     margin-left: 0;
     margin-right: auto;
   }
-  .t4s_se_{{ sid }} .t4s-featured-collection-heading-main .t4s-head-btn {
-    display: none;
+  .t4s_se_{{ sid }} .t4s-top-heading.t4s-heading-has-btn {
+    display: block !important;
+  }
+  .t4s_se_{{ sid }} .t4s-top-heading .t4s-head-btn {
+    display: none !important;
   }
   .t4s_se_{{ sid }} .t4s-featured-collection-heading-cta {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     justify-self: end;
-    align-self: start;
+    align-self: center;
+  }
+  .t4s_se_{{ sid }} .t4s-featured-collection-heading-cta--mobile {
+    display: none;
   }
   .t4s_se_{{ sid }} .t4s-featured-collection-heading-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 38px;
-    padding: 10px 18px;
+    padding: var(--heading-cta-padding-y-desktop) var(--heading-cta-padding-x-desktop);
     border: 1px solid #000;
     border-radius: var(--heading-cta-radius);
-    background: transparent;
-    color: #000;
-    font-size: 11px;
+    border-color: var(--heading-cta-border-color);
+    background: var(--heading-cta-bg-color);
+    color: var(--heading-cta-text-color);
+    font-size: var(--heading-cta-font-size-desktop);
     line-height: 1;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
+    font-weight: var(--heading-cta-font-weight);
+    letter-spacing: var(--heading-cta-letter-spacing);
+    text-transform: var(--heading-cta-text-transform);
     text-decoration: none;
     white-space: nowrap;
     transition: background-color .2s ease, border-color .2s ease, color .2s ease;
   }
   .t4s_se_{{ sid }} .t4s-featured-collection-heading-button:hover {
-    border-color: #000;
-    background: #000;
-    color: #fff;
+    border-color: var(--heading-cta-hover-bg-color);
+    background: var(--heading-cta-hover-bg-color);
+    color: var(--heading-cta-hover-text-color);
   }
   .t4s_se_{{ sid }} .t4s-featured-collection-heading-button--solid {
-    background: #000;
-    color: #fff;
+    border-color: var(--heading-cta-border-color);
+    background: var(--heading-cta-bg-color);
+    color: var(--heading-cta-text-color);
   }
   .t4s_se_{{ sid }} .t4s-featured-collection-heading-button--solid:hover {
-    background: transparent;
-    color: #000;
+    border-color: var(--heading-cta-hover-bg-color);
+    background: var(--heading-cta-hover-bg-color);
+    color: var(--heading-cta-hover-text-color);
+  }
+  .t4s_se_{{ sid }} .t4s-featured-collection-heading-button--outline {
+    border-color: var(--heading-cta-border-color);
+    background: var(--heading-cta-bg-color);
+    color: var(--heading-cta-text-color);
+  }
+  .t4s_se_{{ sid }} .t4s-featured-collection-heading-button--outline:hover {
+    border-color: var(--heading-cta-hover-bg-color);
+    background: var(--heading-cta-hover-bg-color);
+    color: var(--heading-cta-hover-text-color);
   }
   .t4s_se_{{ sid }} .t4s-featured-collection-heading-button--text {
-    min-height: auto;
-    padding: 0 0 4px;
+    padding-right: 0;
+    padding-left: 0;
     border-width: 0 0 1px;
     background: transparent;
+    color: var(--heading-cta-text-color);
   }
   .t4s_se_{{ sid }} .t4s-featured-collection-heading-button--text:hover {
     background: transparent;
-    color: #000;
+    border-color: var(--heading-cta-hover-bg-color);
+    color: var(--heading-cta-hover-bg-color);
   }
   @media(max-width:767px){
     .t4s_se_{{ sid }} .t4s-featured-collection-heading-bar {
+      grid-template-columns: 1fr;
       column-gap: 12px;
       row-gap: 8px;
     }
+    .t4s_se_{{ sid }} .t4s-featured-collection-heading-cta--desktop {
+      display: none;
+    }
+    .t4s_se_{{ sid }} .t4s-featured-collection-heading-cta--mobile {
+      display: flex;
+      justify-content: flex-start;
+      justify-self: stretch;
+      margin-top: 16px;
+    }
     .t4s_se_{{ sid }} .t4s-featured-collection-heading-button {
-      min-height: 34px;
-      padding: 9px 14px;
-      font-size: 10px;
-      letter-spacing: 0.14em;
-    }
-  }
-  @media(max-width:389px){
-    .t4s_se_{{ sid }} .t4s-featured-collection-heading-bar {
-      grid-template-columns: 1fr;
-    }
-    .t4s_se_{{ sid }} .t4s-featured-collection-heading-cta {
-      justify-self: start;
+      padding: var(--heading-cta-padding-y-mobile) var(--heading-cta-padding-x-mobile);
+      font-size: var(--heading-cta-font-size-mobile);
     }
   }
   .t4s-pr-style10 .t4s-product-inner .t4s-product-img{
@@ -498,151 +524,138 @@
         "default": 24
       },
       {
-        "type": "header",
-        "content": "+ Heading button"
+        "type": "range",
+        "id": "heading_cta_font_size_desktop",
+        "label": "Heading button font size desktop",
+        "min": 10,
+        "max": 24,
+        "step": 1,
+        "unit": "px",
+        "default": 12
       },
       {
-        "type": "text",
-        "id": "head_btn_label",
-        "label": "Button label",
-        "default": "View All"
+        "type": "range",
+        "id": "heading_cta_font_size_mobile",
+        "label": "Heading button font size mobile",
+        "min": 10,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "default": 11
       },
       {
-        "type": "url",
-        "id": "head_btn_url",
-        "label": "Button link"
+        "type": "range",
+        "id": "heading_cta_padding_x_desktop",
+        "label": "Heading button horizontal padding desktop",
+        "min": 8,
+        "max": 48,
+        "step": 1,
+        "unit": "px",
+        "default": 28
       },
       {
-        "type":"checkbox",
-        "id":"head_btn_icon",
-        "label":"Enable button icon",
-        "default":false
+        "type": "range",
+        "id": "heading_cta_padding_y_desktop",
+        "label": "Heading button vertical padding desktop",
+        "min": 4,
+        "max": 24,
+        "step": 1,
+        "unit": "px",
+        "default": 11
       },
       {
-        "type": "select",
-        "id": "head_btn_style",
-        "label": "Button style",
-        "options": [
-            {
-                "label": "Default",
-                "value": "default"
-            },
-            {
-                "label": "Outline",
-                "value": "outline"
-            },
-            {
-                "label": "Bordered bottom",
-                "value": "bordered"
-            },
-            {
-                "label": "Link",
-                "value": "link"
-            }
-        ]
+        "type": "range",
+        "id": "heading_cta_padding_x_mobile",
+        "label": "Heading button horizontal padding mobile",
+        "min": 8,
+        "max": 40,
+        "step": 1,
+        "unit": "px",
+        "default": 22
       },
       {
-        "type": "select",
-        "id": "head_btn_size",
-        "label": "Button size",
-        "default":"medium",
-        "options": [
-            {
-                "label": "Small",
-                "value": "small"
-            },
-            {
-                "label": "Medium",
-                "value": "medium"
-            },
-            {
-                "label": "Large",
-                "value": "large"
-            }
-        ]
+        "type": "range",
+        "id": "heading_cta_padding_y_mobile",
+        "label": "Heading button vertical padding mobile",
+        "min": 4,
+        "max": 22,
+        "step": 1,
+        "unit": "px",
+        "default": 10
       },
       {
         "type": "select",
-        "id": "head_btn_cl",
-        "label": "Button color",
-        "default": "dark",
+        "id": "heading_cta_font_weight",
+        "label": "Heading button font weight",
+        "default": "600",
         "options": [
           {
-              "value": "light",
-              "label": "Light"
+            "value": "400",
+            "label": "400"
           },
           {
-              "value": "dark",
-              "label": "Dark"
+            "value": "500",
+            "label": "500"
           },
           {
-              "value": "primary",
-              "label": "Primary"
+            "value": "600",
+            "label": "600"
           },
           {
-              "value": "custom1",
-              "label": "Custom color 1"
+            "value": "700",
+            "label": "700"
           },
           {
-              "value": "custom2",
-              "label": "Custom color 2"
+            "value": "800",
+            "label": "800"
           }
         ]
       },
       {
-          "type":"select",
-          "id":"head_btn_effect",
-          "label":"Button hover effect",
-          "default":"default",
-          "info":"Only working button style default, outline",
-          "options":[
-              {
-                  "label":"Default",
-                  "value":"default"
-              },
-              {
-                  "label":"Fade",
-                  "value":"fade"
-              },
-              {
-                  "label":"Rectangle out",
-                  "value":"rectangle-out"
-              },
-              {
-                  "label":"Sweep to right",
-                  "value":"sweep-to-right"
-              },
-              {
-                  "label":"Sweep to left",
-                  "value":"sweep-to-left"
-              },
-              {
-                  "label":"Sweep to bottom",
-                  "value":"sweep-to-bottom"
-              },
-              {
-                  "label":"Sweep to top",
-                  "value":"sweep-to-top"
-              },
-              {
-                  "label":"Shutter out horizontal",
-                  "value":"shutter-out-horizontal"
-              },
-              {
-                  "label":"Outline",
-                  "value":"outline"
-              },
-              {
-                  "label":"Shadow",
-                  "value":"shadow"
-              }
-          ]
+        "type": "range",
+        "id": "heading_cta_letter_spacing",
+        "label": "Heading button letter spacing",
+        "min": 0,
+        "max": 3,
+        "step": 0.1,
+        "unit": "px",
+        "default": 1.2
       },
       {
         "type": "checkbox",
-        "id": "head_btn_hidden_mb",
-        "label": "Hidden head button on Mobile",
-        "default": false
+        "id": "heading_cta_uppercase",
+        "label": "Uppercase heading button text",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "heading_cta_text_color",
+        "label": "Heading button text colour",
+        "default": "#111111"
+      },
+      {
+        "type": "color",
+        "id": "heading_cta_border_color",
+        "label": "Heading button border colour",
+        "default": "#111111"
+      },
+      {
+        "type": "color",
+        "id": "heading_cta_background_color",
+        "label": "Heading button background colour",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "heading_cta_hover_text_color",
+        "label": "Heading button hover text colour",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "heading_cta_hover_background_color",
+        "label": "Heading button hover background colour",
+        "default": "#111111"
       },
       
       {

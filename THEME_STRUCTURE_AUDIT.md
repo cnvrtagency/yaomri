@@ -149,7 +149,7 @@ This means many section-level changes are not local. The rendered output or styl
   - cart root section
 - `sections/featured-collection.liquid`
   - frequent homepage/merchandising entry point
-  - optional heading CTA button is implemented locally in this section with `heading_cta_*` settings and a section-level radius control; desktop CTA is centered against the heading block, mobile CTA renders below the product grid/carousel, and `snippets/section_tophead.liquid` remains untouched
+  - optional heading CTA button is implemented locally in this section with `heading_cta_*` settings and custom sizing, spacing, colour, typography, radius, and hover controls; the old shared `head_btn_*` heading button controls are removed/disabled for Featured Collection, desktop CTA is centered against the heading block, mobile CTA renders below the product grid/carousel, and `snippets/section_tophead.liquid` remains untouched
 
 ## 7. Theme Editor and schema guidance
 
