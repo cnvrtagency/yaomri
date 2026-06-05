@@ -59,6 +59,10 @@
 
   assign price_varies_style = settings.price_varies_style
   assign use_countdown = se_stts.use_cdt
+  assign has_heading_cta = false
+  if se_stts.heading_cta_label != blank and se_stts.heading_cta_link != blank
+    assign has_heading_cta = true
+  endif
 
   
   assign isLoadmore = false
@@ -95,7 +99,18 @@
 <div data-not-main data-ntajax-options='{"id":"{{ sid }}","type":"{{ typeAjax }}","isProduct":true}' class="t4s-section-inner t4s_nt_se_{{ sid }} t4s_se_{{ sid }} {{ stt_layout }} {% if stt_image_bg != blank and stt_layout != 't4s-se-container' %} t4s-has-imgbg lazyloadt4s {% endif %}"  {% if stt_image_bg != blank and stt_layout != 't4s-se-container' %}  data-bgset="{{ stt_image_bg | image_url: width: 1 }}" data-sizes="auto"  data-optimumx="2" {% endif %} {% render 'section_style', se_stts: se_stts %} >
   {{- html_layout[0] -}}
   {%- if stt_layout == 't4s-se-container' -%}<div class="t4s-container-inner {% if stt_image_bg != blank %} t4s-has-imgbg lazyloadt4s {% endif %}"  {% if stt_image_bg != blank %}  data-bgset="{{ stt_image_bg | image_url: width: 1 }}" data-sizes="auto"  data-optimumx="2" {% endif %} > {%- endif -%}
-  {%- render 'section_tophead', se_stts: se_stts -%}
+  {%- if has_heading_cta -%}
+    <div class="t4s-featured-collection-heading-bar" style="--tophead_mb: {{ se_stts.tophead_mb | default: 30 }}px;--tophead_mt: {{ se_stts.tophead_mt | default: 0 }}px;--heading-cta-radius: {{ se_stts.heading_cta_radius | default: 24 }}px;">
+      <div class="t4s-featured-collection-heading-main">
+        {%- render 'section_tophead', se_stts: se_stts -%}
+      </div>
+      <div class="t4s-featured-collection-heading-cta t4s-featured-collection-heading-cta--desktop">
+        <a class="t4s-featured-collection-heading-button t4s-featured-collection-heading-button--{{ se_stts.heading_cta_style }}" href="{{ se_stts.heading_cta_link }}" {% if se_stts.heading_cta_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ se_stts.heading_cta_label | escape }}</a>
+      </div>
+    </div>
+  {%- else -%}
+    {%- render 'section_tophead', se_stts: se_stts -%}
+  {%- endif -%}
 
 
   {%- if layout_des == "1" -%} 
@@ -161,6 +176,12 @@
     </div>
   {%- endif -%} 
 
+  {%- if has_heading_cta -%}
+    <div class="t4s-featured-collection-heading-cta t4s-featured-collection-heading-cta--mobile" style="--heading-cta-radius: {{ se_stts.heading_cta_radius | default: 24 }}px;">
+      <a class="t4s-featured-collection-heading-button t4s-featured-collection-heading-button--{{ se_stts.heading_cta_style }}" href="{{ se_stts.heading_cta_link }}" {% if se_stts.heading_cta_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ se_stts.heading_cta_label | escape }}</a>
+    </div>
+  {%- endif -%}
+
   {%- if paginate.pages > 1 -%}
     <div class="t4s-prs-footer t4s-has-btn-{{ use_pagination }} {{ se_stts.btn_pos }}">
       {%- if isLoadmore -%} 
@@ -194,6 +215,104 @@
 
 {%- endpaginate -%}
 <style>
+  .t4s_se_{{ sid }} .t4s-featured-collection-heading-bar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: 24px;
+    row-gap: 10px;
+    margin-top: var(--tophead_mt);
+    margin-bottom: var(--tophead_mb);
+  }
+  .t4s_se_{{ sid }} .t4s-featured-collection-heading-main {
+    min-width: 0;
+  }
+  .t4s_se_{{ sid }} .t4s-featured-collection-heading-main .t4s-top-heading {
+    text-align: left !important;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .t4s_se_{{ sid }} .t4s-featured-collection-heading-main .t4s-section-heading-decor-line {
+    margin-left: 0;
+    margin-right: auto;
+  }
+  .t4s_se_{{ sid }} .t4s-featured-collection-heading-main .t4s-head-btn {
+    display: none;
+  }
+  .t4s_se_{{ sid }} .t4s-featured-collection-heading-cta {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    justify-self: end;
+    align-self: center;
+  }
+  .t4s_se_{{ sid }} .t4s-featured-collection-heading-cta--mobile {
+    display: none;
+  }
+  .t4s_se_{{ sid }} .t4s-featured-collection-heading-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 10px 18px;
+    border: 1px solid #000;
+    border-radius: var(--heading-cta-radius);
+    background: transparent;
+    color: #000;
+    font-size: 11px;
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+  }
+  .t4s_se_{{ sid }} .t4s-featured-collection-heading-button:hover {
+    border-color: #000;
+    background: #000;
+    color: #fff;
+  }
+  .t4s_se_{{ sid }} .t4s-featured-collection-heading-button--solid {
+    background: #000;
+    color: #fff;
+  }
+  .t4s_se_{{ sid }} .t4s-featured-collection-heading-button--solid:hover {
+    background: transparent;
+    color: #000;
+  }
+  .t4s_se_{{ sid }} .t4s-featured-collection-heading-button--text {
+    min-height: auto;
+    padding: 0 0 4px;
+    border-width: 0 0 1px;
+    background: transparent;
+  }
+  .t4s_se_{{ sid }} .t4s-featured-collection-heading-button--text:hover {
+    background: transparent;
+    color: #000;
+  }
+  @media(max-width:767px){
+    .t4s_se_{{ sid }} .t4s-featured-collection-heading-bar {
+      grid-template-columns: 1fr;
+      column-gap: 12px;
+      row-gap: 8px;
+    }
+    .t4s_se_{{ sid }} .t4s-featured-collection-heading-cta--desktop {
+      display: none;
+    }
+    .t4s_se_{{ sid }} .t4s-featured-collection-heading-cta--mobile {
+      display: flex;
+      justify-content: flex-start;
+      justify-self: stretch;
+      margin-top: 16px;
+    }
+    .t4s_se_{{ sid }} .t4s-featured-collection-heading-button {
+      min-height: 34px;
+      padding: 9px 14px;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+    }
+  }
   .t4s-pr-style10 .t4s-product-inner .t4s-product-img{
     border-radius: 50%;
     overflow: hidden;
@@ -342,6 +461,52 @@
         "label": "+ Space bottom (px)",
         "info": "The vertical spacing between heading and content",
         "default": 30
+      },
+      {
+        "type": "text",
+        "id": "heading_cta_label",
+        "label": "Heading button label"
+      },
+      {
+        "type": "url",
+        "id": "heading_cta_link",
+        "label": "Heading button link"
+      },
+      {
+        "type": "select",
+        "id": "heading_cta_style",
+        "label": "Heading button style",
+        "default": "outline",
+        "options": [
+          {
+            "value": "outline",
+            "label": "Outline"
+          },
+          {
+            "value": "solid",
+            "label": "Solid"
+          },
+          {
+            "value": "text",
+            "label": "Text"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "heading_cta_new_tab",
+        "label": "Open heading button in new tab",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "heading_cta_radius",
+        "label": "Heading button radius",
+        "min": 0,
+        "max": 40,
+        "step": 1,
+        "unit": "px",
+        "default": 24
       },
       {
         "type": "header",

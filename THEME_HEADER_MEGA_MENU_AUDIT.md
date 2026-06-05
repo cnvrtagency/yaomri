@@ -555,6 +555,30 @@ Confirmed path:
 
 This means logo behavior already has a mature variant system and likely does not need new settings unless the desired redesign changes layout rather than source assets.
 
+### Desktop logo width fix note
+
+Finding:
+- The native desktop logo width setting is `settings.logo_width`.
+- Sticky logo width is separately controlled by `settings.logos_width`.
+- Mobile logo width is separately controlled by `settings.logo_mb_width`.
+- Transparent logo width is separately controlled by `settings.logo_tr_width`.
+- The active header design is selected by `settings.header_design`; current settings use `inline`.
+- `snippets/t4s_logo.liquid` already passed `settings.logo_width` into the normal desktop logo image width.
+- The visible desktop logo size was still capped by header section CSS that applies `max-width: 100%` to `.t4s-header__logo img`, which constrains the image inside the active header grid column.
+
+Fix:
+- `snippets/t4s_logo.liquid` now adds `max-width: none` only to desktop normal and sticky logo image inline styles.
+- The native `settings.logo_width` value remains the source of truth for the normal desktop logo.
+- Mobile logo markup remains unchanged, preserving `settings.logo_mb_width`.
+- Sticky and transparent logo paths remain intact because they continue using their existing width settings and image selection logic.
+
+Validation:
+- Desktop: changing Custom logo width should visibly resize `.header__normal-logo`.
+- Mobile: changing mobile logo width should still resize `.header__mobile-logo`.
+- Sticky: sticky header should still swap to `.header__sticky-logo` and use `settings.logos_width`.
+- Transparent: transparent homepage header should still use the transparent logo asset/width when configured.
+- Mega menu/dropdown rendering is unaffected; no menu logic or JS changed.
+
 ## 12. Sticky / transparent header system
 
 ### Liquid hooks
