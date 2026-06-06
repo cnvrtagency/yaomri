@@ -43,6 +43,7 @@
     "bd_ffamily": "2",
     "bd_fsize": 14,
     "hd_ffamily": "1",
+    "fs_h1": 9.5,
     "section_heading_line_enable": true,
     "section_heading_line_width": 200,
     "section_heading_line_width_mb": 102,
@@ -607,9 +608,6 @@
           "clnavtr": "#ffffff",
           "clnavtr_hover": "#fff4f4",
           "fm_nav": "1",
-          "fs_nav": 14,
-          "fw_nav": 400,
-          "ls_nav": 0,
           "nav_item_font_size": 12,
           "nav_item_font_weight": "500",
           "nav_item_letter_spacing": 2.6,
@@ -619,7 +617,9 @@
           "nav_item_pad_y": 0,
           "nav_item_color": "#ffffff",
           "nav_item_hover_color": "#111111",
-          "nav_item_active_color": "#111111"
+          "nav_item_active_color": "#111111",
+          "nav_item_transparent_color": "#ffffff",
+          "nav_item_transparent_hover_color": "#ffffff"
         }
       },
       "title_config": {
@@ -1903,10 +1903,7 @@
           "source": "2",
           "txt": "<p>Welcome to our store!</p>",
           "h_navmb": 62,
-          "fm_nav": "1",
-          "fs_nav": 14,
-          "fw_nav": 500,
-          "ls_nav": 0.2
+          "fm_nav": "1"
         }
       },
       "popups": {
@@ -2058,6 +2055,30 @@
       "extras": {
         "type": "extras",
         "settings": {}
+      },
+      "yaomri-desktop-side-mega": {
+        "type": "yaomri-desktop-side-mega",
+        "settings": {
+          "enable_desktop_side_mega_menu": false,
+          "desktop_side_mega_menu": "",
+          "use_fallback_menu": true,
+          "open_behavior": "hover",
+          "drawer_width": 520,
+          "menu_column_width": 260,
+          "background_color": "#ffffff",
+          "text_color": "#111111",
+          "accent_color": "#c9a6a0",
+          "overlay_color": "#000000",
+          "overlay_opacity": 45,
+          "overlay_blur": 4,
+          "panel_radius": 0,
+          "panel_padding": 32,
+          "menu_item_font_size": 16,
+          "menu_item_font_weight": "600",
+          "menu_item_letter_spacing": 0.4,
+          "menu_item_uppercase": false,
+          "animation_speed": 300
+        }
       }
     },
     "content_for_index": [],

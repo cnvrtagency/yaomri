@@ -33,11 +33,7 @@
     --ecc-section-eyebrow-color: {{ st.eyebrow_text_color }};
     --ecc-heading-color: {{ st.heading_text_color }};
     --ecc-subheading-color: {{ st.subheading_text_color }};
-    --ecc-eyebrow-size-desktop: {{ st.eyebrow_font_size_desktop }}px;
-    --ecc-eyebrow-size-mobile: {{ st.eyebrow_font_size_mobile }}px;
-    --ecc-eyebrow-weight: {{ st.eyebrow_font_weight }};
-    --ecc-eyebrow-letter-spacing: {{ st.eyebrow_letter_spacing }}px;
-    --ecc-eyebrow-text-transform: {{ st.eyebrow_text_transform }};
+    --ecc-eyebrow-size: {{ st.eyebrow_font_size }}px;
     --ecc-heading-size-desktop: {{ st.heading_font_size_desktop }}px;
     --ecc-heading-size-mobile: {{ st.heading_font_size_mobile }}px;
     --ecc-subheading-size: {{ st.subheading_font_size }}px;
@@ -57,27 +53,9 @@
     --ecc-border-width: {{ st.border_width }}px;
     --ecc-content-padding-desktop: {{ st.card_content_padding_desktop }}px;
     --ecc-content-padding-mobile: {{ st.card_content_padding_mobile }}px;
-    --ecc-card-title-cta-gap-desktop: {{ st.card_title_cta_gap_desktop }}px;
-    --ecc-card-title-cta-gap-mobile: {{ st.card_title_cta_gap_mobile }}px;
     --ecc-transition-speed: {{ st.transition_speed }}ms;
     --ecc-card-eyebrow-color: {{ st.card_eyebrow_text_color }};
     --ecc-card-title-color: {{ st.card_title_color }};
-    --ecc-card-eyebrow-size-desktop: {{ st.card_eyebrow_font_size_desktop }}px;
-    --ecc-card-eyebrow-size-mobile: {{ st.card_eyebrow_font_size_mobile }}px;
-    --ecc-card-eyebrow-weight: {{ st.card_eyebrow_font_weight }};
-    --ecc-card-eyebrow-letter-spacing: {{ st.card_eyebrow_letter_spacing }}px;
-    --ecc-card-eyebrow-text-transform: {{ st.card_eyebrow_text_transform }};
-    --ecc-card-title-size-desktop: {{ st.card_title_font_size_desktop }}px;
-    --ecc-card-title-size-mobile: {{ st.card_title_font_size_mobile }}px;
-    --ecc-card-title-weight: {{ st.card_title_font_weight }};
-    --ecc-card-title-line-height: {{ st.card_title_line_height }};
-    --ecc-card-title-letter-spacing: {{ st.card_title_letter_spacing }}px;
-    --ecc-card-title-text-transform: {{ st.card_title_text_transform }};
-    --ecc-card-cta-size-desktop: {{ st.card_cta_font_size_desktop }}px;
-    --ecc-card-cta-size-mobile: {{ st.card_cta_font_size_mobile }}px;
-    --ecc-card-cta-weight: {{ st.card_cta_font_weight }};
-    --ecc-card-cta-letter-spacing: {{ st.card_cta_letter_spacing }}px;
-    --ecc-card-cta-text-transform: {{ st.card_cta_text_transform }};
     --ecc-card-button-text: {{ st.card_button_text_color }};
     --ecc-card-button-bg: {{ st.card_button_background_color }};
     --ecc-card-button-border: {{ st.card_button_border_color }};
@@ -263,67 +241,21 @@
     },
     {
       "type": "range",
-      "id": "eyebrow_font_size_desktop",
-      "label": "Eyebrow font size desktop",
-      "min": 1,
-      "max": 40,
+      "id": "eyebrow_font_size",
+      "label": "Eyebrow font size",
+      "min": 10,
+      "max": 20,
       "step": 1,
       "unit": "px",
       "default": 12
     },
     {
       "type": "range",
-      "id": "eyebrow_font_size_mobile",
-      "label": "Eyebrow font size mobile",
-      "min": 1,
-      "max": 36,
-      "step": 1,
-      "unit": "px",
-      "default": 11
-    },
-    {
-      "type": "select",
-      "id": "eyebrow_font_weight",
-      "label": "Eyebrow font weight",
-      "default": "700",
-      "options": [
-        { "value": "300", "label": "300" },
-        { "value": "400", "label": "400" },
-        { "value": "500", "label": "500" },
-        { "value": "600", "label": "600" },
-        { "value": "700", "label": "700" },
-        { "value": "800", "label": "800" },
-        { "value": "900", "label": "900" }
-      ]
-    },
-    {
-      "type": "range",
-      "id": "eyebrow_letter_spacing",
-      "label": "Eyebrow letter spacing",
-      "min": 0,
-      "max": 6,
-      "step": 0.1,
-      "unit": "px",
-      "default": 1.4
-    },
-    {
-      "type": "select",
-      "id": "eyebrow_text_transform",
-      "label": "Eyebrow text transform",
-      "default": "uppercase",
-      "options": [
-        { "value": "none", "label": "None" },
-        { "value": "uppercase", "label": "Uppercase" },
-        { "value": "capitalize", "label": "Capitalize" }
-      ]
-    },
-    {
-      "type": "range",
       "id": "heading_font_size_desktop",
       "label": "Heading font size desktop",
-      "min": 1,
-      "max": 100,
-      "step": 1,
+      "min": 28,
+      "max": 72,
+      "step": 2,
       "unit": "px",
       "default": 52
     },
@@ -331,9 +263,9 @@
       "type": "range",
       "id": "heading_font_size_mobile",
       "label": "Heading font size mobile",
-      "min": 1,
-      "max": 80,
-      "step": 1,
+      "min": 24,
+      "max": 48,
+      "step": 2,
       "unit": "px",
       "default": 32
     },
@@ -341,7 +273,7 @@
       "type": "range",
       "id": "subheading_font_size",
       "label": "Subheading font size",
-      "min": 1,
+      "min": 12,
       "max": 22,
       "step": 1,
       "unit": "px",
@@ -586,26 +518,6 @@
       "default": 20
     },
     {
-      "type": "range",
-      "id": "card_title_cta_gap_desktop",
-      "label": "Card title to CTA gap desktop",
-      "min": 0,
-      "max": 80,
-      "step": 2,
-      "unit": "px",
-      "default": 22
-    },
-    {
-      "type": "range",
-      "id": "card_title_cta_gap_mobile",
-      "label": "Card title to CTA gap mobile",
-      "min": 0,
-      "max": 64,
-      "step": 2,
-      "unit": "px",
-      "default": 18
-    },
-    {
       "type": "select",
       "id": "content_position",
       "label": "Content position for active cards",
@@ -664,187 +576,6 @@
       "id": "card_title_color",
       "label": "Card title colour",
       "default": "#ffffff"
-    },
-    {
-      "type": "header",
-      "content": "Card typography"
-    },
-    {
-      "type": "range",
-      "id": "card_eyebrow_font_size_desktop",
-      "label": "Card eyebrow font size desktop",
-      "min": 1,
-      "max": 40,
-      "step": 1,
-      "unit": "px",
-      "default": 12
-    },
-    {
-      "type": "range",
-      "id": "card_eyebrow_font_size_mobile",
-      "label": "Card eyebrow font size mobile",
-      "min": 1,
-      "max": 36,
-      "step": 1,
-      "unit": "px",
-      "default": 11
-    },
-    {
-      "type": "select",
-      "id": "card_eyebrow_font_weight",
-      "label": "Card eyebrow font weight",
-      "default": "700",
-      "options": [
-        { "value": "300", "label": "300" },
-        { "value": "400", "label": "400" },
-        { "value": "500", "label": "500" },
-        { "value": "600", "label": "600" },
-        { "value": "700", "label": "700" },
-        { "value": "800", "label": "800" },
-        { "value": "900", "label": "900" }
-      ]
-    },
-    {
-      "type": "range",
-      "id": "card_eyebrow_letter_spacing",
-      "label": "Card eyebrow letter spacing",
-      "min": 0,
-      "max": 6,
-      "step": 0.1,
-      "unit": "px",
-      "default": 1.4
-    },
-    {
-      "type": "select",
-      "id": "card_eyebrow_text_transform",
-      "label": "Card eyebrow text transform",
-      "default": "uppercase",
-      "options": [
-        { "value": "none", "label": "None" },
-        { "value": "uppercase", "label": "Uppercase" },
-        { "value": "capitalize", "label": "Capitalize" }
-      ]
-    },
-    {
-      "type": "range",
-      "id": "card_title_font_size_desktop",
-      "label": "Card title font size desktop",
-      "min": 1,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "default": 42
-    },
-    {
-      "type": "range",
-      "id": "card_title_font_size_mobile",
-      "label": "Card title font size mobile",
-      "min": 1,
-      "max": 80,
-      "step": 1,
-      "unit": "px",
-      "default": 30
-    },
-    {
-      "type": "select",
-      "id": "card_title_font_weight",
-      "label": "Card title font weight",
-      "default": "700",
-      "options": [
-        { "value": "300", "label": "300" },
-        { "value": "400", "label": "400" },
-        { "value": "500", "label": "500" },
-        { "value": "600", "label": "600" },
-        { "value": "700", "label": "700" },
-        { "value": "800", "label": "800" },
-        { "value": "900", "label": "900" }
-      ]
-    },
-    {
-      "type": "range",
-      "id": "card_title_line_height",
-      "label": "Card title line height",
-      "min": 0.8,
-      "max": 2,
-      "step": 0.1,
-      "default": 1
-    },
-    {
-      "type": "range",
-      "id": "card_title_letter_spacing",
-      "label": "Card title letter spacing",
-      "min": 0,
-      "max": 4,
-      "step": 0.1,
-      "unit": "px",
-      "default": 0
-    },
-    {
-      "type": "select",
-      "id": "card_title_text_transform",
-      "label": "Card title text transform",
-      "default": "none",
-      "options": [
-        { "value": "none", "label": "None" },
-        { "value": "uppercase", "label": "Uppercase" },
-        { "value": "capitalize", "label": "Capitalize" }
-      ]
-    },
-    {
-      "type": "range",
-      "id": "card_cta_font_size_desktop",
-      "label": "Card CTA font size desktop",
-      "min": 1,
-      "max": 40,
-      "step": 1,
-      "unit": "px",
-      "default": 13
-    },
-    {
-      "type": "range",
-      "id": "card_cta_font_size_mobile",
-      "label": "Card CTA font size mobile",
-      "min": 1,
-      "max": 36,
-      "step": 1,
-      "unit": "px",
-      "default": 12
-    },
-    {
-      "type": "select",
-      "id": "card_cta_font_weight",
-      "label": "Card CTA font weight",
-      "default": "700",
-      "options": [
-        { "value": "300", "label": "300" },
-        { "value": "400", "label": "400" },
-        { "value": "500", "label": "500" },
-        { "value": "600", "label": "600" },
-        { "value": "700", "label": "700" },
-        { "value": "800", "label": "800" },
-        { "value": "900", "label": "900" }
-      ]
-    },
-    {
-      "type": "range",
-      "id": "card_cta_letter_spacing",
-      "label": "Card CTA letter spacing",
-      "min": 0,
-      "max": 4,
-      "step": 0.1,
-      "unit": "px",
-      "default": 0
-    },
-    {
-      "type": "select",
-      "id": "card_cta_text_transform",
-      "label": "Card CTA text transform",
-      "default": "none",
-      "options": [
-        { "value": "none", "label": "None" },
-        { "value": "uppercase", "label": "Uppercase" },
-        { "value": "capitalize", "label": "Capitalize" }
-      ]
     },
     {
       "type": "header",
@@ -949,7 +680,7 @@
     {
       "type": "range",
       "id": "card_closed_height_mobile",
-      "label": "Closed card height mobile",
+      "label": "Card closed height mobile",
       "min": 100,
       "max": 260,
       "step": 20,
@@ -959,7 +690,7 @@
     {
       "type": "range",
       "id": "card_expanded_height_mobile",
-      "label": "Open card height mobile",
+      "label": "Card expanded height mobile",
       "min": 320,
       "max": 720,
       "step": 20,

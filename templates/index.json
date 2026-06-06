@@ -232,15 +232,169 @@
         "mobile_padding_bottom": 24
       }
     },
+    "expandable_collection_cards_i8tLiB": {
+      "type": "expandable-collection-cards",
+      "blocks": {
+        "collection_card_UhtwT8": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "bikinis",
+            "image": "shopify://shop_images/luxury-swimwear-dubai_1_8e9243bc-ee0c-4b8f-8ef9-cf874c803684.jpg",
+            "image_position": "center center",
+            "badge": "",
+            "title": "BIKINIS",
+            "button_label": "SHOP BIKINIS",
+            "button_link": ""
+          }
+        },
+        "collection_card_HKn8NA": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "belted-swimsuits",
+            "image_position": "center center",
+            "badge": "",
+            "title": "",
+            "button_label": "Shop collection",
+            "button_link": ""
+          }
+        },
+        "collection_card_hbrMJJ": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "resort-wear",
+            "image": "shopify://shop_images/solar-swimsuit_c0fab17d-82cd-42a0-b203-19829fa0f9a5.png",
+            "image_position": "center center",
+            "badge": "Limited edit",
+            "title": "",
+            "button_label": "Shop collection",
+            "button_link": ""
+          }
+        },
+        "collection_card_KfAPbL": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "belted-swimsuits",
+            "image_position": "center center",
+            "badge": "Essentials",
+            "title": "",
+            "button_label": "Shop collection",
+            "button_link": ""
+          }
+        },
+        "collection_card_VEYYa4": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "bandeau-bikinis",
+            "image_position": "center center",
+            "badge": "",
+            "title": "",
+            "button_label": "Shop collection",
+            "button_link": ""
+          }
+        },
+        "collection_card_bhNfLL": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "multiway-swimsuits",
+            "image": "shopify://shop_images/46_182d8d2c-2753-48b0-895b-97e42db8a708.png",
+            "image_position": "center center",
+            "badge": "",
+            "title": "",
+            "button_label": "Shop collection",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_card_UhtwT8",
+        "collection_card_HKn8NA",
+        "collection_card_hbrMJJ",
+        "collection_card_KfAPbL",
+        "collection_card_VEYYa4",
+        "collection_card_bhNfLL"
+      ],
+      "name": "Expandable cards",
+      "settings": {
+        "eyebrow": "kkk",
+        "heading": "kkk",
+        "subheading": "",
+        "heading_alignment_desktop": "left",
+        "heading_alignment_mobile": "left",
+        "heading_max_width": 760,
+        "heading_spacing_bottom": 24,
+        "eyebrow_font_size": 11,
+        "heading_font_size_desktop": 28,
+        "heading_font_size_mobile": 24,
+        "subheading_font_size": 16,
+        "section_width": "full",
+        "container_max_width": 1600,
+        "padding_top_desktop": 72,
+        "padding_bottom_desktop": 80,
+        "padding_left_desktop": 60,
+        "padding_right_desktop": 60,
+        "padding_top_mobile": 44,
+        "padding_bottom_mobile": 44,
+        "padding_left_mobile": 12,
+        "padding_right_mobile": 12,
+        "section_background": "#ffffff",
+        "eyebrow_text_color": "#222222",
+        "heading_text_color": "#111111",
+        "subheading_text_color": "#555555",
+        "card_height_desktop": 480,
+        "active_card_width_desktop": 440,
+        "inactive_card_width_desktop": 220,
+        "card_gap_desktop": 10,
+        "card_gap_mobile": 8,
+        "card_radius": 18,
+        "card_shadow": false,
+        "border_color": "#ffffff",
+        "border_width": 0,
+        "card_content_padding_desktop": 16,
+        "card_content_padding_mobile": 20,
+        "content_position": "bottom-left",
+        "overlay_color": "#111111",
+        "inactive_overlay_opacity": 50,
+        "active_overlay_opacity": 0,
+        "card_eyebrow_text_color": "#ffffff",
+        "card_title_color": "#222222",
+        "card_button_text_color": "#111111",
+        "card_button_background_color": "#ffffff",
+        "card_button_border_color": "#ffffff",
+        "card_button_hover_text_color": "#ffffff",
+        "card_button_hover_background_color": "rgba(0,0,0,0)",
+        "card_button_hover_border_color": "#ffffff",
+        "desktop_behaviour": "click",
+        "default_active_card": 1,
+        "transition_speed": 450,
+        "auto_rotate": false,
+        "auto_rotate_delay": 5,
+        "pause_auto_rotate_on_hover": true,
+        "card_closed_height_mobile": 140,
+        "card_expanded_height_mobile": 460,
+        "mobile_default_open_card": 1,
+        "allow_multiple_open": false
+      }
+    },
     "featured_collection_RYCjmA": {
       "type": "featured-collection",
       "name": "Featured collection",
       "settings": {
         "design_heading": "1",
         "heading_align": "t4s-text-start",
+        "heading_align_mobile": "center",
         "top_heading": "Our Latest Drop",
         "icon_heading": "las la-gem",
         "top_subheading": "The Amalfi Collection",
+        "heading_font_size_desktop": 24,
+        "heading_font_size_mobile": 19,
+        "heading_font_weight": "800",
+        "heading_line_height": 1.1,
+        "heading_letter_spacing": 0,
+        "heading_text_color": "#111111",
+        "subheading_font_size_desktop": 12,
+        "subheading_font_size_mobile": 10,
+        "subheading_line_height": 1.2,
+        "subheading_text_color": "#111111",
         "tophead_mb": 25,
         "heading_cta_label": "SHOP THE COLLECTION",
         "heading_cta_link": "shopify://collections/the-amalfi-collection",
@@ -251,7 +405,7 @@
         "heading_cta_font_size_mobile": 10,
         "heading_cta_padding_x_desktop": 30,
         "heading_cta_padding_y_desktop": 17,
-        "heading_cta_padding_x_mobile": 17,
+        "heading_cta_padding_x_mobile": 16,
         "heading_cta_padding_y_mobile": 11,
         "heading_cta_font_weight": "500",
         "heading_cta_letter_spacing": 1.3,
@@ -444,9 +598,20 @@
       "settings": {
         "design_heading": "1",
         "heading_align": "t4s-text-start",
+        "heading_align_mobile": "center",
         "top_heading": "INSPIRED BY DUBAI",
         "icon_heading": "las la-gem",
         "top_subheading": "The Layali Collection",
+        "heading_font_size_desktop": 24,
+        "heading_font_size_mobile": 19,
+        "heading_font_weight": "800",
+        "heading_line_height": 1.1,
+        "heading_letter_spacing": 0,
+        "heading_text_color": "#111111",
+        "subheading_font_size_desktop": 12,
+        "subheading_font_size_mobile": 10,
+        "subheading_line_height": 1.2,
+        "subheading_text_color": "#111111",
         "tophead_mb": 25,
         "heading_cta_label": "SHOP THE COLLECTION",
         "heading_cta_link": "shopify://collections/the-layali-dubai-collection",
@@ -859,6 +1024,7 @@
   "order": [
     "slideshow_qJpxTy",
     "custom_scrolling_text_WzNQQb",
+    "expandable_collection_cards_i8tLiB",
     "featured_collection_RYCjmA",
     "instagram_feed_PzgAaw",
     "featured_collection_eCFnCq",
