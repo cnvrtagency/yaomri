@@ -118,8 +118,7 @@
 }
 
 .expandable-collections__placeholder {
-  background: #d8d8d8;
-  fill: #f3f3f3;
+  background: color-mix(in srgb, var(--ecc-overlay-color, #111111) 12%, transparent);
 }
 
 .expandable-collections__card::after {
@@ -128,7 +127,7 @@
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background-color: var(--ecc-overlay-color, #111111);
+  background-color: var(--ecc-overlay-color, transparent);
   opacity: var(--ecc-overlay-opacity-inactive, 0);
   transition: opacity var(--ecc-transition-speed) ease;
 }
@@ -139,7 +138,7 @@
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  background-color: var(--ecc-hover-overlay-color, #000000);
+  background-color: var(--ecc-hover-overlay-color, transparent);
   opacity: 0;
   transition: opacity var(--ecc-transition-speed) ease;
 }
@@ -150,8 +149,7 @@
 }
 
 .expandable-collections[data-hover-overlay="true"] .expandable-collections__card:hover::before,
-.expandable-collections[data-hover-overlay="true"] .expandable-collections__card:has(.expandable-collections__trigger:focus-visible)::before,
-.expandable-collections[data-hover-overlay="true"] .expandable-collections__card:has(.expandable-collections__button:focus-visible)::before {
+.expandable-collections[data-hover-overlay="true"] .expandable-collections__card:focus-within::before {
   opacity: var(--ecc-hover-overlay-opacity, 0);
 }
 

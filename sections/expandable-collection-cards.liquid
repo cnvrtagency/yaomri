@@ -59,7 +59,7 @@
     --ecc-overlay-opacity-inactive: {{ st.inactive_overlay_opacity | divided_by: 100.0 }};
     --ecc-overlay-opacity-active: {{ st.active_overlay_opacity | divided_by: 100.0 }};
     --ecc-hover-overlay-color: {{ st.hover_overlay_color | default: '#000000' }};
-    --ecc-hover-overlay-opacity: {{ st.hover_overlay_opacity | divided_by: 100.0 }};
+    --ecc-hover-overlay-opacity: {% if st.enable_hover_overlay %}{{ st.hover_overlay_opacity | divided_by: 100.0 }}{% else %}0{% endif %};
     --ecc-card-height: {{ st.card_height_desktop }}px;
     --ecc-card-closed-height-mobile: {{ st.card_closed_height_mobile }}px;
     --ecc-card-expanded-height-mobile: {{ st.card_expanded_height_mobile }}px;
@@ -168,7 +168,7 @@
                 {{ card_image | image_url: width: 1600 | image_tag: loading: 'lazy', class: 'expandable-collections__image', alt: card_title }}
               </picture>
             {%- else -%}
-              {{ 'collection-1' | placeholder_svg_tag: 'expandable-collections__placeholder' }}
+              <div class="expandable-collections__placeholder" aria-hidden="true"></div>
             {%- endif -%}
           </div>
 
