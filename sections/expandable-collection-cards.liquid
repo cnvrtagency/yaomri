@@ -3,22 +3,15 @@
 
 {%- liquid
   assign st = section.settings
-  assign active_index = st.default_active_card
-  for block in section.blocks
-    if block.settings.set_as_default_active
-      assign active_index = forloop.index
-      break
-    endif
-  endfor
 -%}
 
 <section
   id="ExpandableCollections-{{ section.id }}"
-  class="expandable-collections expandable-collections--width-{{ st.section_width }} expandable-collections--heading-{{ st.heading_alignment }} expandable-collections--content-{{ st.content_position }} expandable-collections--collapsed-{{ st.collapsed_content_position }}"
+  class="expandable-collections expandable-collections--width-{{ st.section_width }} expandable-collections--heading-desktop-{{ st.heading_alignment_desktop }} expandable-collections--heading-mobile-{{ st.heading_alignment_mobile }} expandable-collections--content-{{ st.content_position }}"
   data-expandable-collections
   data-section-id="{{ section.id }}"
   data-desktop-behaviour="{{ st.desktop_behaviour }}"
-  data-default-active="{{ active_index }}"
+  data-default-active="{{ st.default_active_card }}"
   data-mobile-default-open="{{ st.mobile_default_open_card }}"
   data-allow-multiple="{{ st.allow_multiple_open }}"
   data-auto-rotate="{{ st.auto_rotate }}"
@@ -28,13 +21,22 @@
     --ecc-section-bg: {{ st.section_background }};
     --ecc-container-max-width: {{ st.container_max_width }}px;
     --ecc-heading-max-width: {{ st.heading_max_width }}px;
-    --ecc-padding-desktop: {{ st.padding_desktop }}px;
-    --ecc-padding-mobile: {{ st.padding_mobile }}px;
-    --ecc-header-gap: {{ st.heading_spacing_bottom }}px;
+    --ecc-padding-top-desktop: {{ st.padding_top_desktop }}px;
+    --ecc-padding-bottom-desktop: {{ st.padding_bottom_desktop }}px;
+    --ecc-padding-left-desktop: {{ st.padding_left_desktop }}px;
+    --ecc-padding-right-desktop: {{ st.padding_right_desktop }}px;
+    --ecc-padding-top-mobile: {{ st.padding_top_mobile }}px;
+    --ecc-padding-bottom-mobile: {{ st.padding_bottom_mobile }}px;
+    --ecc-padding-left-mobile: {{ st.padding_left_mobile }}px;
+    --ecc-padding-right-mobile: {{ st.padding_right_mobile }}px;
+    --ecc-heading-gap: {{ st.heading_spacing_bottom }}px;
     --ecc-section-eyebrow-color: {{ st.eyebrow_text_color }};
-    --ecc-section-eyebrow-bg: {{ st.eyebrow_background_color }};
     --ecc-heading-color: {{ st.heading_text_color }};
     --ecc-subheading-color: {{ st.subheading_text_color }};
+    --ecc-eyebrow-size: {{ st.eyebrow_font_size }}px;
+    --ecc-heading-size-desktop: {{ st.heading_font_size_desktop }}px;
+    --ecc-heading-size-mobile: {{ st.heading_font_size_mobile }}px;
+    --ecc-subheading-size: {{ st.subheading_font_size }}px;
     --ecc-overlay-color: {{ st.overlay_color }};
     --ecc-overlay-opacity: {{ st.inactive_overlay_opacity | divided_by: 100.0 }};
     --ecc-overlay-active-opacity: {{ st.active_overlay_opacity | divided_by: 100.0 }};
@@ -53,16 +55,13 @@
     --ecc-content-padding-mobile: {{ st.card_content_padding_mobile }}px;
     --ecc-transition-speed: {{ st.transition_speed }}ms;
     --ecc-card-eyebrow-color: {{ st.card_eyebrow_text_color }};
-    --ecc-card-eyebrow-bg: {{ st.card_eyebrow_background_color }};
     --ecc-card-title-color: {{ st.card_title_color }};
-    --ecc-card-description-color: {{ st.card_description_color }};
     --ecc-card-button-text: {{ st.card_button_text_color }};
     --ecc-card-button-bg: {{ st.card_button_background_color }};
     --ecc-card-button-border: {{ st.card_button_border_color }};
     --ecc-card-button-hover-text: {{ st.card_button_hover_text_color }};
     --ecc-card-button-hover-bg: {{ st.card_button_hover_background_color }};
     --ecc-card-button-hover-border: {{ st.card_button_hover_border_color }};
-    --ecc-card-arrow-color: {{ st.card_arrow_color }};
   "
 >
   <div class="expandable-collections__inner">
@@ -89,6 +88,9 @@
           if card_url == blank and card_collection != blank
             assign card_url = card_collection.url
           endif
+          if card_url == blank
+            assign card_url = '#'
+          endif
 
           assign card_title = bst.title
           if card_title == blank and card_collection != blank
@@ -106,20 +108,10 @@
           if mobile_image == blank
             assign mobile_image = card_image
           endif
-
-          assign card_description = bst.description
-          if card_description == blank and card_collection != blank
-            assign card_description = card_collection.description
-          endif
-
-          assign is_active = false
-          if forloop.index == active_index
-            assign is_active = true
-          endif
         -%}
 
         <article
-          class="expandable-collections__card{% if is_active %} is-active{% endif %}"
+          class="expandable-collections__card{% if forloop.index == st.default_active_card %} is-active{% endif %}"
           role="listitem"
           data-expandable-card
           data-card-index="{{ forloop.index }}"
@@ -127,7 +119,7 @@
           style="--ecc-image-position: {{ bst.image_position }};"
           {{ block.shopify_attributes }}
         >
-          <div class="expandable-collections__media">
+          <div class="expandable-collections__media" aria-hidden="true">
             {%- if card_image != blank -%}
               <picture>
                 {%- if mobile_image != blank -%}
@@ -141,24 +133,13 @@
           </div>
 
           <button
-            class="expandable-collections__toggle"
+            class="expandable-collections__trigger"
             type="button"
-            aria-expanded="{% if is_active %}true{% else %}false{% endif %}"
+            aria-expanded="{% if forloop.index == st.default_active_card %}true{% else %}false{% endif %}"
             aria-controls="ExpandableCollectionsPanel-{{ section.id }}-{{ block.id }}"
             data-expandable-toggle
           >
-            <span class="expandable-collections__collapsed-copy">
-              {%- if bst.badge != blank -%}
-                <span class="expandable-collections__badge">{{ bst.badge | escape }}</span>
-              {%- endif -%}
-              <span class="expandable-collections__collapsed-title">{{ card_title | escape }}</span>
-              {%- if st.show_collapsed_description and card_description != blank -%}
-                <span class="expandable-collections__collapsed-description">{{ card_description | strip_html | truncate: 90 }}</span>
-              {%- endif -%}
-            </span>
-            {%- if st.show_collapsed_arrow -%}
-              <span class="expandable-collections__arrow" aria-hidden="true"></span>
-            {%- endif -%}
+            <span class="expandable-collections__inactive-title">{{ card_title | escape }}</span>
           </button>
 
           <div
@@ -167,37 +148,17 @@
             data-expandable-panel
           >
             <div class="expandable-collections__content">
-              {%- if bst.icon != blank -%}
-                {{ bst.icon | image_url: width: 96 | image_tag: loading: 'lazy', class: 'expandable-collections__icon', alt: '' }}
-              {%- endif -%}
               {%- if bst.badge != blank -%}
                 <p class="expandable-collections__card-eyebrow">{{ bst.badge | escape }}</p>
               {%- endif -%}
               <h3 class="expandable-collections__title">{{ card_title | escape }}</h3>
-              {%- if card_description != blank -%}
-                <div class="expandable-collections__description">{{ card_description }}</div>
-              {%- endif -%}
-              {%- if bst.button_label != blank and card_url != blank -%}
-                <a
-                  class="expandable-collections__button"
-                  href="{{ card_url }}"
-                  {% if bst.open_in_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
-                >
+              {%- if bst.button_label != blank -%}
+                <a class="expandable-collections__button" href="{{ card_url }}">
                   {{ bst.button_label | escape }}
                 </a>
               {%- endif -%}
             </div>
           </div>
-
-          {%- if st.show_mobile_closed_cta and bst.button_label != blank and card_url != blank -%}
-            <a
-              class="expandable-collections__mobile-closed-link"
-              href="{{ card_url }}"
-              {% if bst.open_in_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
-            >
-              {{ bst.button_label | escape }}
-            </a>
-          {%- endif -%}
         </article>
       {%- endfor -%}
     </div>
@@ -230,12 +191,23 @@
       "type": "richtext",
       "id": "subheading",
       "label": "Subheading",
-      "default": "<p>Highlight key collections with an interactive card layout.</p>"
+      "default": "<p>Highlight key collections with expandable cards.</p>"
     },
     {
       "type": "select",
-      "id": "heading_alignment",
-      "label": "Heading alignment",
+      "id": "heading_alignment_desktop",
+      "label": "Heading alignment desktop",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment_mobile",
+      "label": "Heading alignment mobile",
       "default": "center",
       "options": [
         { "value": "left", "label": "Left" },
@@ -265,6 +237,50 @@
     },
     {
       "type": "header",
+      "content": "Heading typography"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_font_size",
+      "label": "Eyebrow font size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_desktop",
+      "label": "Heading font size desktop",
+      "min": 28,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_mobile",
+      "label": "Heading font size mobile",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "subheading_font_size",
+      "label": "Subheading font size",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
       "content": "Section layout"
     },
     {
@@ -289,23 +305,83 @@
     },
     {
       "type": "range",
-      "id": "padding_desktop",
-      "label": "Section padding desktop",
+      "id": "padding_top_desktop",
+      "label": "Padding top desktop",
       "min": 0,
-      "max": 160,
+      "max": 180,
       "step": 4,
       "unit": "px",
       "default": 72
     },
     {
       "type": "range",
-      "id": "padding_mobile",
-      "label": "Section padding mobile",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom desktop",
       "min": 0,
-      "max": 96,
+      "max": 180,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_left_desktop",
+      "label": "Padding left desktop",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_right_desktop",
+      "label": "Padding right desktop",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top mobile",
+      "min": 0,
+      "max": 120,
       "step": 4,
       "unit": "px",
       "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_left_mobile",
+      "label": "Padding left mobile",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding_right_mobile",
+      "label": "Padding right mobile",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 12
     },
     {
       "type": "color",
@@ -322,12 +398,6 @@
       "id": "eyebrow_text_color",
       "label": "Eyebrow text colour",
       "default": "#8a5a3c"
-    },
-    {
-      "type": "color",
-      "id": "eyebrow_background_color",
-      "label": "Eyebrow background colour",
-      "default": "rgba(0,0,0,0)"
     },
     {
       "type": "color",
@@ -360,20 +430,20 @@
       "id": "active_card_width_desktop",
       "label": "Active card width desktop",
       "min": 320,
-      "max": 760,
+      "max": 900,
       "step": 20,
       "unit": "px",
-      "default": 560
+      "default": 620
     },
     {
       "type": "range",
       "id": "inactive_card_width_desktop",
       "label": "Inactive card width desktop",
-      "min": 140,
+      "min": 120,
       "max": 360,
       "step": 20,
       "unit": "px",
-      "default": 220
+      "default": 180
     },
     {
       "type": "range",
@@ -450,7 +520,7 @@
     {
       "type": "select",
       "id": "content_position",
-      "label": "Content position for expanded cards",
+      "label": "Content position for active cards",
       "default": "bottom-left",
       "options": [
         { "value": "top-left", "label": "Top left" },
@@ -459,17 +529,6 @@
         { "value": "bottom-left", "label": "Bottom left" },
         { "value": "bottom-center", "label": "Bottom center" },
         { "value": "bottom-right", "label": "Bottom right" }
-      ]
-    },
-    {
-      "type": "select",
-      "id": "collapsed_content_position",
-      "label": "Content position for collapsed cards",
-      "default": "bottom",
-      "options": [
-        { "value": "top", "label": "Top" },
-        { "value": "center", "label": "Center" },
-        { "value": "bottom", "label": "Bottom" }
       ]
     },
     {
@@ -509,31 +568,13 @@
     {
       "type": "color",
       "id": "card_eyebrow_text_color",
-      "label": "Card eyebrow text colour",
+      "label": "Card eyebrow colour",
       "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "card_eyebrow_background_color",
-      "label": "Card eyebrow background colour",
-      "default": "rgba(0,0,0,0)"
     },
     {
       "type": "color",
       "id": "card_title_color",
       "label": "Card title colour",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "card_description_color",
-      "label": "Card description colour",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "card_arrow_color",
-      "label": "Card arrow colour",
       "default": "#ffffff"
     },
     {
@@ -584,10 +625,10 @@
       "type": "select",
       "id": "desktop_behaviour",
       "label": "Desktop behaviour",
-      "default": "hover",
+      "default": "click",
       "options": [
-        { "value": "hover", "label": "Hover to expand" },
         { "value": "click", "label": "Click to expand" },
+        { "value": "hover", "label": "Hover to expand" },
         { "value": "equal", "label": "No expand, equal cards" }
       ]
     },
@@ -671,24 +712,6 @@
       "id": "allow_multiple_open",
       "label": "Allow multiple open cards",
       "default": false
-    },
-    {
-      "type": "checkbox",
-      "id": "show_collapsed_description",
-      "label": "Show collapsed description",
-      "default": false
-    },
-    {
-      "type": "checkbox",
-      "id": "show_collapsed_arrow",
-      "label": "Show collapsed arrow",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_mobile_closed_cta",
-      "label": "Show CTA on mobile closed state",
-      "default": false
     }
   ],
   "blocks": [
@@ -712,43 +735,6 @@
           "label": "Mobile image override"
         },
         {
-          "type": "text",
-          "id": "title",
-          "label": "Title override"
-        },
-        {
-          "type": "text",
-          "id": "badge",
-          "label": "Eyebrow or badge text"
-        },
-        {
-          "type": "richtext",
-          "id": "description",
-          "label": "Description"
-        },
-        {
-          "type": "text",
-          "id": "button_label",
-          "label": "Button label",
-          "default": "Shop collection"
-        },
-        {
-          "type": "url",
-          "id": "button_link",
-          "label": "Button link override"
-        },
-        {
-          "type": "checkbox",
-          "id": "open_in_new_tab",
-          "label": "Open in new tab",
-          "default": false
-        },
-        {
-          "type": "image_picker",
-          "id": "icon",
-          "label": "Icon or small image"
-        },
-        {
           "type": "select",
           "id": "image_position",
           "label": "Image position",
@@ -762,10 +748,25 @@
           ]
         },
         {
-          "type": "checkbox",
-          "id": "set_as_default_active",
-          "label": "Set as default active",
-          "default": false
+          "type": "text",
+          "id": "badge",
+          "label": "Eyebrow or badge text"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title override"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "CTA label",
+          "default": "Shop collection"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "CTA link override"
         }
       ]
     }
@@ -778,24 +779,21 @@
           "type": "collection_card",
           "settings": {
             "title": "Collection one",
-            "badge": "New arrivals",
-            "description": "<p>Add a short description for this featured collection.</p>"
+            "badge": "New arrivals"
           }
         },
         {
           "type": "collection_card",
           "settings": {
             "title": "Collection two",
-            "badge": "Essentials",
-            "description": "<p>Use collection cards to guide shoppers into curated edits.</p>"
+            "badge": "Essentials"
           }
         },
         {
           "type": "collection_card",
           "settings": {
             "title": "Collection three",
-            "badge": "Limited edit",
-            "description": "<p>Pair imagery, copy, and a clear call to action.</p>"
+            "badge": "Limited edit"
           }
         }
       ]

@@ -29,6 +29,7 @@
     this.isPaused = false;
 
     this.handleClick = this.handleClick.bind(this);
+    this.handleCardClick = this.handleCardClick.bind(this);
     this.handlePointerEnter = this.handlePointerEnter.bind(this);
     this.handleSectionEnter = this.handleSectionEnter.bind(this);
     this.handleSectionLeave = this.handleSectionLeave.bind(this);
@@ -47,6 +48,7 @@
         toggle.addEventListener('click', this.handleClick);
       }
 
+      card.addEventListener('click', this.handleCardClick);
       card.addEventListener('mouseenter', this.handlePointerEnter);
     }, this);
 
@@ -75,6 +77,7 @@
       }
 
       card.removeEventListener('mouseenter', this.handlePointerEnter);
+      card.removeEventListener('click', this.handleCardClick);
     }, this);
 
     this.section.removeEventListener('mouseenter', this.handleSectionEnter);
@@ -93,9 +96,32 @@
   };
 
   ExpandableCollections.prototype.handleClick = function (event) {
+    event.stopPropagation();
+
     var card = event.currentTarget.closest(cardSelector);
 
     if (!card) {
+      return;
+    }
+
+    if (mobileQuery.matches) {
+      this.toggleMobileCard(card);
+      return;
+    }
+
+    if (this.behaviour === 'click') {
+      this.activateDesktopCard(card);
+    }
+  };
+
+  ExpandableCollections.prototype.handleCardClick = function (event) {
+    var card = event.currentTarget;
+
+    if (event.target.closest('a')) {
+      return;
+    }
+
+    if (event.target.closest(toggleSelector)) {
       return;
     }
 
