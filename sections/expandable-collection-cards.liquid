@@ -2,8 +2,8 @@
 <script src="{{ 'section-expandable-collection-cards.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
-  assign settings = section.settings
-  assign active_index = settings.default_active_card
+  assign st = section.settings
+  assign active_index = st.default_active_card
   for block in section.blocks
     if block.settings.set_as_default_active
       assign active_index = forloop.index
@@ -14,50 +14,68 @@
 
 <section
   id="ExpandableCollections-{{ section.id }}"
-  class="expandable-collections expandable-collections--align-{{ settings.heading_alignment }} expandable-collections--content-{{ settings.content_position }} expandable-collections--collapsed-{{ settings.collapsed_content_position }}{% if settings.full_width == false %} expandable-collections--contained{% endif %}"
+  class="expandable-collections expandable-collections--width-{{ st.section_width }} expandable-collections--heading-{{ st.heading_alignment }} expandable-collections--content-{{ st.content_position }} expandable-collections--collapsed-{{ st.collapsed_content_position }}"
   data-expandable-collections
   data-section-id="{{ section.id }}"
-  data-desktop-behaviour="{{ settings.desktop_behaviour }}"
+  data-desktop-behaviour="{{ st.desktop_behaviour }}"
   data-default-active="{{ active_index }}"
-  data-auto-rotate="{{ settings.auto_rotate }}"
-  data-auto-rotate-delay="{{ settings.auto_rotate_delay | times: 1000 }}"
-  data-pause-on-hover="{{ settings.pause_auto_rotate_on_hover }}"
-  data-mobile-default-open="{{ settings.mobile_default_open_card }}"
-  data-allow-multiple="{{ settings.allow_multiple_open }}"
+  data-mobile-default-open="{{ st.mobile_default_open_card }}"
+  data-allow-multiple="{{ st.allow_multiple_open }}"
+  data-auto-rotate="{{ st.auto_rotate }}"
+  data-auto-rotate-delay="{{ st.auto_rotate_delay | times: 1000 }}"
+  data-pause-on-hover="{{ st.pause_auto_rotate_on_hover }}"
   style="
-    --expandable-collections-bg: {{ settings.section_background }};
-    --expandable-collections-text: {{ settings.text_color }};
-    --expandable-collections-accent: {{ settings.accent_color }};
-    --expandable-collections-overlay: {{ settings.overlay_color }};
-    --expandable-collections-overlay-opacity: {{ settings.overlay_opacity | divided_by: 100.0 }};
-    --expandable-collections-padding-desktop: {{ settings.padding_desktop }}px;
-    --expandable-collections-padding-mobile: {{ settings.padding_mobile }}px;
-    --expandable-collections-card-height: {{ settings.card_height_desktop }}px;
-    --expandable-collections-mobile-closed-height: {{ settings.card_closed_height_mobile }}px;
-    --expandable-collections-mobile-expanded-height: {{ settings.card_expanded_height_mobile }}px;
-    --expandable-collections-active-width: {{ settings.active_card_width_desktop }}fr;
-    --expandable-collections-inactive-width: {{ settings.inactive_card_width_desktop }}fr;
-    --expandable-collections-gap-desktop: {{ settings.card_gap_desktop }}px;
-    --expandable-collections-gap-mobile: {{ settings.card_gap_mobile }}px;
-    --expandable-collections-radius: {{ settings.card_radius }}px;
-    --expandable-collections-shadow: {% if settings.card_shadow %}0 24px 60px rgba(0, 0, 0, 0.18){% else %}none{% endif %};
-    --expandable-collections-border-color: {{ settings.border_color }};
-    --expandable-collections-border-width: {{ settings.border_width }}px;
-    --expandable-collections-transition: {{ settings.transition_speed }}ms;
-    --expandable-collections-max-width: {{ settings.max_width }}px;
+    --ecc-section-bg: {{ st.section_background }};
+    --ecc-container-max-width: {{ st.container_max_width }}px;
+    --ecc-heading-max-width: {{ st.heading_max_width }}px;
+    --ecc-padding-desktop: {{ st.padding_desktop }}px;
+    --ecc-padding-mobile: {{ st.padding_mobile }}px;
+    --ecc-header-gap: {{ st.heading_spacing_bottom }}px;
+    --ecc-section-eyebrow-color: {{ st.eyebrow_text_color }};
+    --ecc-section-eyebrow-bg: {{ st.eyebrow_background_color }};
+    --ecc-heading-color: {{ st.heading_text_color }};
+    --ecc-subheading-color: {{ st.subheading_text_color }};
+    --ecc-overlay-color: {{ st.overlay_color }};
+    --ecc-overlay-opacity: {{ st.inactive_overlay_opacity | divided_by: 100.0 }};
+    --ecc-overlay-active-opacity: {{ st.active_overlay_opacity | divided_by: 100.0 }};
+    --ecc-card-height: {{ st.card_height_desktop }}px;
+    --ecc-card-closed-height-mobile: {{ st.card_closed_height_mobile }}px;
+    --ecc-card-expanded-height-mobile: {{ st.card_expanded_height_mobile }}px;
+    --ecc-active-card-width: {{ st.active_card_width_desktop }}px;
+    --ecc-inactive-card-width: {{ st.inactive_card_width_desktop }}px;
+    --ecc-gap-desktop: {{ st.card_gap_desktop }}px;
+    --ecc-gap-mobile: {{ st.card_gap_mobile }}px;
+    --ecc-card-radius: {{ st.card_radius }}px;
+    --ecc-card-shadow: {% if st.card_shadow %}0 24px 60px rgba(0, 0, 0, 0.18){% else %}none{% endif %};
+    --ecc-border-color: {{ st.border_color }};
+    --ecc-border-width: {{ st.border_width }}px;
+    --ecc-content-padding-desktop: {{ st.card_content_padding_desktop }}px;
+    --ecc-content-padding-mobile: {{ st.card_content_padding_mobile }}px;
+    --ecc-transition-speed: {{ st.transition_speed }}ms;
+    --ecc-card-eyebrow-color: {{ st.card_eyebrow_text_color }};
+    --ecc-card-eyebrow-bg: {{ st.card_eyebrow_background_color }};
+    --ecc-card-title-color: {{ st.card_title_color }};
+    --ecc-card-description-color: {{ st.card_description_color }};
+    --ecc-card-button-text: {{ st.card_button_text_color }};
+    --ecc-card-button-bg: {{ st.card_button_background_color }};
+    --ecc-card-button-border: {{ st.card_button_border_color }};
+    --ecc-card-button-hover-text: {{ st.card_button_hover_text_color }};
+    --ecc-card-button-hover-bg: {{ st.card_button_hover_background_color }};
+    --ecc-card-button-hover-border: {{ st.card_button_hover_border_color }};
+    --ecc-card-arrow-color: {{ st.card_arrow_color }};
   "
 >
   <div class="expandable-collections__inner">
-    {%- if settings.eyebrow != blank or settings.heading != blank or settings.subheading != blank -%}
+    {%- if st.eyebrow != blank or st.heading != blank or st.subheading != blank -%}
       <div class="expandable-collections__header">
-        {%- if settings.eyebrow != blank -%}
-          <p class="expandable-collections__eyebrow">{{ settings.eyebrow | escape }}</p>
+        {%- if st.eyebrow != blank -%}
+          <p class="expandable-collections__eyebrow">{{ st.eyebrow | escape }}</p>
         {%- endif -%}
-        {%- if settings.heading != blank -%}
-          <h2 class="expandable-collections__heading">{{ settings.heading | escape }}</h2>
+        {%- if st.heading != blank -%}
+          <h2 class="expandable-collections__heading">{{ st.heading | escape }}</h2>
         {%- endif -%}
-        {%- if settings.subheading != blank -%}
-          <div class="expandable-collections__subheading">{{ settings.subheading }}</div>
+        {%- if st.subheading != blank -%}
+          <div class="expandable-collections__subheading">{{ st.subheading }}</div>
         {%- endif -%}
       </div>
     {%- endif -%}
@@ -65,14 +83,14 @@
     <div class="expandable-collections__cards" role="list">
       {%- for block in section.blocks -%}
         {%- liquid
-          assign block_settings = block.settings
-          assign card_collection = block_settings.collection
-          assign card_url = block_settings.button_link
+          assign bst = block.settings
+          assign card_collection = bst.collection
+          assign card_url = bst.button_link
           if card_url == blank and card_collection != blank
             assign card_url = card_collection.url
           endif
 
-          assign card_title = block_settings.title
+          assign card_title = bst.title
           if card_title == blank and card_collection != blank
             assign card_title = card_collection.title
           endif
@@ -80,28 +98,18 @@
             assign card_title = 'Collection'
           endif
 
-          assign card_image = block_settings.image
+          assign card_image = bst.image
           if card_image == blank and card_collection != blank
             assign card_image = card_collection.featured_image
           endif
-          assign mobile_image = block_settings.mobile_image
+          assign mobile_image = bst.mobile_image
           if mobile_image == blank
             assign mobile_image = card_image
           endif
 
-          assign card_description = block_settings.description
+          assign card_description = bst.description
           if card_description == blank and card_collection != blank
             assign card_description = card_collection.description
-          endif
-
-          assign card_overlay_opacity = settings.overlay_opacity | divided_by: 100.0
-          if block_settings.overlay_opacity_override >= 0
-            assign card_overlay_opacity = block_settings.overlay_opacity_override | divided_by: 100.0
-          endif
-
-          assign card_text_color = settings.text_color
-          if block_settings.text_color_override != blank
-            assign card_text_color = block_settings.text_color_override
           endif
 
           assign is_active = false
@@ -115,7 +123,8 @@
           role="listitem"
           data-expandable-card
           data-card-index="{{ forloop.index }}"
-          style="--expandable-collections-card-overlay-opacity: {{ card_overlay_opacity }}; --expandable-collections-card-text: {{ card_text_color }}; --expandable-collections-image-position: {{ block_settings.image_position }};"
+          data-block-id="{{ block.id }}"
+          style="--ecc-image-position: {{ bst.image_position }};"
           {{ block.shopify_attributes }}
         >
           <div class="expandable-collections__media">
@@ -139,15 +148,15 @@
             data-expandable-toggle
           >
             <span class="expandable-collections__collapsed-copy">
-              {%- if block_settings.badge != blank -%}
-                <span class="expandable-collections__badge">{{ block_settings.badge | escape }}</span>
+              {%- if bst.badge != blank -%}
+                <span class="expandable-collections__badge">{{ bst.badge | escape }}</span>
               {%- endif -%}
               <span class="expandable-collections__collapsed-title">{{ card_title | escape }}</span>
-              {%- if settings.show_collapsed_description and card_description != blank -%}
+              {%- if st.show_collapsed_description and card_description != blank -%}
                 <span class="expandable-collections__collapsed-description">{{ card_description | strip_html | truncate: 90 }}</span>
               {%- endif -%}
             </span>
-            {%- if settings.show_collapsed_arrow -%}
+            {%- if st.show_collapsed_arrow -%}
               <span class="expandable-collections__arrow" aria-hidden="true"></span>
             {%- endif -%}
           </button>
@@ -158,36 +167,35 @@
             data-expandable-panel
           >
             <div class="expandable-collections__content">
-              {%- if block_settings.icon != blank -%}
-                {{ block_settings.icon | image_url: width: 96 | image_tag: loading: 'lazy', class: 'expandable-collections__icon', alt: '' }}
+              {%- if bst.icon != blank -%}
+                {{ bst.icon | image_url: width: 96 | image_tag: loading: 'lazy', class: 'expandable-collections__icon', alt: '' }}
               {%- endif -%}
-              {%- if block_settings.badge != blank -%}
-                <p class="expandable-collections__card-eyebrow">{{ block_settings.badge | escape }}</p>
+              {%- if bst.badge != blank -%}
+                <p class="expandable-collections__card-eyebrow">{{ bst.badge | escape }}</p>
               {%- endif -%}
               <h3 class="expandable-collections__title">{{ card_title | escape }}</h3>
               {%- if card_description != blank -%}
                 <div class="expandable-collections__description">{{ card_description }}</div>
               {%- endif -%}
-              {%- if block_settings.button_label != blank and card_url != blank -%}
+              {%- if bst.button_label != blank and card_url != blank -%}
                 <a
                   class="expandable-collections__button"
                   href="{{ card_url }}"
-                  {% if block_settings.open_in_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
-                  data-expandable-link
+                  {% if bst.open_in_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
                 >
-                  {{ block_settings.button_label | escape }}
+                  {{ bst.button_label | escape }}
                 </a>
               {%- endif -%}
             </div>
           </div>
 
-          {%- if settings.show_mobile_closed_cta and block_settings.button_label != blank and card_url != blank -%}
+          {%- if st.show_mobile_closed_cta and bst.button_label != blank and card_url != blank -%}
             <a
               class="expandable-collections__mobile-closed-link"
               href="{{ card_url }}"
-              {% if block_settings.open_in_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+              {% if bst.open_in_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
             >
-              {{ block_settings.button_label | escape }}
+              {{ bst.button_label | escape }}
             </a>
           {%- endif -%}
         </article>
@@ -204,7 +212,7 @@
   "settings": [
     {
       "type": "header",
-      "content": "Heading"
+      "content": "Heading content"
     },
     {
       "type": "text",
@@ -236,62 +244,48 @@
       ]
     },
     {
-      "type": "checkbox",
-      "id": "full_width",
-      "label": "Full width",
-      "default": false
+      "type": "range",
+      "id": "heading_max_width",
+      "label": "Heading max width",
+      "min": 360,
+      "max": 960,
+      "step": 20,
+      "unit": "px",
+      "default": 760
     },
     {
       "type": "range",
-      "id": "max_width",
-      "label": "Content max width",
-      "min": 900,
+      "id": "heading_spacing_bottom",
+      "label": "Heading spacing bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Section layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "default": "contained",
+      "options": [
+        { "value": "contained", "label": "Contained" },
+        { "value": "full", "label": "Full width" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "container_max_width",
+      "label": "Container max width",
+      "min": 960,
       "max": 1600,
       "step": 20,
       "unit": "px",
-      "default": 1200
-    },
-    {
-      "type": "header",
-      "content": "Colours"
-    },
-    {
-      "type": "color",
-      "id": "section_background",
-      "label": "Section background colour",
-      "default": "#f7f3ef"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text colour",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "accent_color",
-      "label": "Accent colour",
-      "default": "#c58b68"
-    },
-    {
-      "type": "color",
-      "id": "overlay_color",
-      "label": "Overlay colour",
-      "default": "#111111"
-    },
-    {
-      "type": "range",
-      "id": "overlay_opacity",
-      "label": "Overlay opacity",
-      "min": 0,
-      "max": 90,
-      "step": 5,
-      "unit": "%",
-      "default": 35
-    },
-    {
-      "type": "header",
-      "content": "Layout"
+      "default": 1240
     },
     {
       "type": "range",
@@ -314,6 +308,44 @@
       "default": 44
     },
     {
+      "type": "color",
+      "id": "section_background",
+      "label": "Section background colour",
+      "default": "#f7f3ef"
+    },
+    {
+      "type": "header",
+      "content": "Heading colours"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_text_color",
+      "label": "Eyebrow text colour",
+      "default": "#8a5a3c"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_background_color",
+      "label": "Eyebrow background colour",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "heading_text_color",
+      "label": "Heading text colour",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "subheading_text_color",
+      "label": "Subheading text colour",
+      "default": "#555555"
+    },
+    {
+      "type": "header",
+      "content": "Card layout"
+    },
+    {
       "type": "range",
       "id": "card_height_desktop",
       "label": "Card height desktop",
@@ -325,41 +357,23 @@
     },
     {
       "type": "range",
-      "id": "card_closed_height_mobile",
-      "label": "Card closed height mobile",
-      "min": 96,
-      "max": 260,
-      "step": 8,
-      "unit": "px",
-      "default": 148
-    },
-    {
-      "type": "range",
-      "id": "card_expanded_height_mobile",
-      "label": "Card expanded height mobile",
-      "min": 320,
-      "max": 720,
-      "step": 20,
-      "unit": "px",
-      "default": 460
-    },
-    {
-      "type": "range",
       "id": "active_card_width_desktop",
       "label": "Active card width desktop",
-      "min": 2,
-      "max": 8,
-      "step": 1,
-      "default": 5
+      "min": 320,
+      "max": 760,
+      "step": 20,
+      "unit": "px",
+      "default": 560
     },
     {
       "type": "range",
       "id": "inactive_card_width_desktop",
       "label": "Inactive card width desktop",
-      "min": 1,
-      "max": 4,
-      "step": 1,
-      "default": 2
+      "min": 140,
+      "max": 360,
+      "step": 20,
+      "unit": "px",
+      "default": 220
     },
     {
       "type": "range",
@@ -414,6 +428,26 @@
       "default": 1
     },
     {
+      "type": "range",
+      "id": "card_content_padding_desktop",
+      "label": "Card content padding desktop",
+      "min": 16,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "card_content_padding_mobile",
+      "label": "Card content padding mobile",
+      "min": 12,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
       "type": "select",
       "id": "content_position",
       "label": "Content position for expanded cards",
@@ -437,6 +471,110 @@
         { "value": "center", "label": "Center" },
         { "value": "bottom", "label": "Bottom" }
       ]
+    },
+    {
+      "type": "header",
+      "content": "Card overlay"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay colour",
+      "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "inactive_overlay_opacity",
+      "label": "Inactive overlay opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "default": 35
+    },
+    {
+      "type": "range",
+      "id": "active_overlay_opacity",
+      "label": "Active overlay opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "default": 45
+    },
+    {
+      "type": "header",
+      "content": "Card colours"
+    },
+    {
+      "type": "color",
+      "id": "card_eyebrow_text_color",
+      "label": "Card eyebrow text colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_eyebrow_background_color",
+      "label": "Card eyebrow background colour",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card title colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_description_color",
+      "label": "Card description colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_arrow_color",
+      "label": "Card arrow colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Card button colours"
+    },
+    {
+      "type": "color",
+      "id": "card_button_text_color",
+      "label": "Button text colour",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "card_button_background_color",
+      "label": "Button background colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_button_border_color",
+      "label": "Button border colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_button_hover_text_color",
+      "label": "Button hover text colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_button_hover_background_color",
+      "label": "Button hover background colour",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "card_button_hover_border_color",
+      "label": "Button hover border colour",
+      "default": "#ffffff"
     },
     {
       "type": "header",
@@ -497,6 +635,26 @@
     {
       "type": "header",
       "content": "Mobile accordion"
+    },
+    {
+      "type": "range",
+      "id": "card_closed_height_mobile",
+      "label": "Card closed height mobile",
+      "min": 100,
+      "max": 260,
+      "step": 20,
+      "unit": "px",
+      "default": 140
+    },
+    {
+      "type": "range",
+      "id": "card_expanded_height_mobile",
+      "label": "Card expanded height mobile",
+      "min": 320,
+      "max": 720,
+      "step": 20,
+      "unit": "px",
+      "default": 460
     },
     {
       "type": "range",
@@ -602,22 +760,6 @@
             { "value": "left center", "label": "Left" },
             { "value": "right center", "label": "Right" }
           ]
-        },
-        {
-          "type": "range",
-          "id": "overlay_opacity_override",
-          "label": "Overlay opacity override",
-          "min": 0,
-          "max": 90,
-          "step": 5,
-          "unit": "%",
-          "default": 35
-        },
-        {
-          "type": "color",
-          "id": "text_color_override",
-          "label": "Text colour override",
-          "default": "#ffffff"
         },
         {
           "type": "checkbox",

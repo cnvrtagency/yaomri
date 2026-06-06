@@ -526,12 +526,13 @@ Files created:
 - `assets/yaomri-desktop-side-mega.js`
 
 Files changed:
-- `snippets/render_bottom.liquid`
+- `layout/theme.liquid`
 - `THEME_HEADER_MEGA_MENU_AUDIT.md`
 
 Settings added in the new static section:
 - `enable_desktop_side_mega_menu`
 - `desktop_side_mega_menu`
+- `use_fallback_menu`
 - `open_behavior`
 - `drawer_width`
 - `menu_column_width`
@@ -553,20 +554,32 @@ Optional Phase 1 promo blocks added:
 - block type `promo_card`
 - image, heading, text, link, card height, card radius, and overlay opacity controls
 
+Phase 1.5 nav mapping added:
+- block type `menu_mapping`
+- `trigger_label` stores the desktop nav item text to match, normalized by the section JS
+- `menu` selects the Shopify Navigation link list shown for that nav item
+- `heading` optionally renders a small panel heading above the mapped menu
+- `desktop_side_mega_menu` remains as a fallback menu only
+
 Mount strategy:
-- `snippets/render_bottom.liquid` statically renders `{% section 'yaomri-desktop-side-mega' %}` near the other bottom-mounted UI systems.
+- `layout/theme.liquid` statically renders `{% section 'yaomri-desktop-side-mega' %}` immediately after the existing `{% render 'header' %}` call so the section is available as a global Theme Editor section near the header.
 - The new section outputs no shell, CSS, or JS unless `enable_desktop_side_mega_menu` is enabled.
 - The shell ID is `#yo-desktop-side-mega`, avoiding `#t4s-menu-drawer`.
+- The section JS calculates the current visible header bottom and writes `--yo-side-mega-top-offset` on `#yo-desktop-side-mega`; panel and overlay start at that offset so the header/top bar remain visible.
 
 Trigger strategy:
 - No desktop menu snippets were edited in Phase 1.
 - `assets/yaomri-desktop-side-mega.js` adds `data-yo-side-mega-trigger`, `aria-haspopup`, `aria-controls`, and `aria-expanded` to desktop nav anchors from `[data-menu-nav] > .t4s-menu-item > a` at runtime only when the side mega section is enabled.
+- Nav trigger text is normalized with trim, lowercase, whitespace collapse, and non-alphanumeric hyphen handling, matching Liquid `handleize` output from `menu_mapping.trigger_label`.
+- Matching mapped menus are pre-rendered as hidden `.yo-desktop-side-mega__menu-panel` elements and switched client-side; no dynamic menu fetch is used.
 - Hover mode opens on hover/focus.
 - Click mode opens on first desktop click; a second click on the same trigger can follow the original link.
 
 Fallback strategy:
 - Existing Kalles mega/dropdown Liquid and payload matching remain unchanged.
 - When the side mega is disabled, no new shell/assets/triggers are output.
+- When no nav-specific `menu_mapping` matches, `use_fallback_menu` controls whether the fallback `desktop_side_mega_menu` opens.
+- If no matching panel exists and fallback is disabled or empty, the side mega does not open and the normal nav link behavior is allowed.
 - When the side mega is open, the new CSS temporarily hides native `.t4s-sub-menu` panels through `html.yo-side-mega-is-open` to avoid overlapping panels; it does not remove or alter the native markup.
 
 Drawer/overlay risk notes:
@@ -578,6 +591,10 @@ Drawer/overlay risk notes:
 Testing checklist:
 - With `enable_desktop_side_mega_menu` disabled, existing desktop Kalles mega/dropdown behavior works as before.
 - With it enabled at desktop width, nav hover or click opens the left side panel according to `open_behavior`.
+- Header/top bar remain visible above the panel and local overlay.
+- `menu_mapping` blocks show the mapped link list for matching desktop nav labels.
+- The fallback menu opens only when enabled and no nav-specific mapping matches.
+- With fallback disabled and no mapping, the normal nav link remains usable.
 - Overlay click closes.
 - Close button closes.
 - Escape closes and returns focus to the trigger.

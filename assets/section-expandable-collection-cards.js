@@ -33,6 +33,7 @@
     this.handleSectionEnter = this.handleSectionEnter.bind(this);
     this.handleSectionLeave = this.handleSectionLeave.bind(this);
     this.handleMediaChange = this.handleMediaChange.bind(this);
+    this.handleBlockSelect = this.handleBlockSelect.bind(this);
 
     this.init();
   }
@@ -51,6 +52,7 @@
 
     this.section.addEventListener('mouseenter', this.handleSectionEnter);
     this.section.addEventListener('mouseleave', this.handleSectionLeave);
+    this.section.addEventListener('shopify:block:select', this.handleBlockSelect);
 
     if (mobileQuery.addEventListener) {
       mobileQuery.addEventListener('change', this.handleMediaChange);
@@ -77,6 +79,7 @@
 
     this.section.removeEventListener('mouseenter', this.handleSectionEnter);
     this.section.removeEventListener('mouseleave', this.handleSectionLeave);
+    this.section.removeEventListener('shopify:block:select', this.handleBlockSelect);
 
     if (mobileQuery.removeEventListener) {
       mobileQuery.removeEventListener('change', this.handleMediaChange);
@@ -123,6 +126,33 @@
   ExpandableCollections.prototype.handleSectionLeave = function () {
     if (this.pauseOnHover) {
       this.isPaused = false;
+    }
+  };
+
+  ExpandableCollections.prototype.handleBlockSelect = function (event) {
+    var blockId = event.detail && event.detail.blockId;
+
+    if (!blockId) {
+      return;
+    }
+
+    for (var i = 0; i < this.cards.length; i += 1) {
+      if (this.cards[i].dataset.blockId === blockId) {
+        var targetCard = this.cards[i];
+
+        if (mobileQuery.matches) {
+          if (!this.allowMultiple) {
+            this.cards.forEach(function (card) {
+              this.setCardState(card, card === targetCard, false);
+            }, this);
+          } else {
+            this.setCardState(targetCard, true, false);
+          }
+        } else {
+          this.activateDesktopCard(targetCard);
+        }
+        break;
+      }
     }
   };
 
