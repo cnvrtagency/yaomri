@@ -30,6 +30,7 @@
   data-auto-rotate-delay="{{ st.auto_rotate_delay | times: 1000 }}"
   data-pause-on-hover="{{ st.pause_auto_rotate_on_hover }}"
   data-transition-speed="{{ st.transition_speed }}"
+  data-hover-overlay="{{ st.enable_hover_overlay }}"
   style="
     --ecc-section-bg: {{ st.section_background }};
     --ecc-container-max-width: {{ st.container_max_width }}px;
@@ -54,11 +55,11 @@
     --ecc-heading-size-desktop: {{ st.heading_font_size_desktop }}px;
     --ecc-heading-size-mobile: {{ st.heading_font_size_mobile }}px;
     --ecc-subheading-size: {{ st.subheading_font_size }}px;
-    --ecc-overlay-color: {{ st.overlay_color }};
+    --ecc-overlay-color: {{ st.overlay_color | default: '#111111' }};
     --ecc-overlay-opacity-inactive: {{ st.inactive_overlay_opacity | divided_by: 100.0 }};
     --ecc-overlay-opacity-active: {{ st.active_overlay_opacity | divided_by: 100.0 }};
-    --ecc-hover-overlay-color: {{ st.hover_overlay_color }};
-    --ecc-hover-overlay-opacity: {% if st.enable_hover_overlay %}{{ st.hover_overlay_opacity | divided_by: 100.0 }}{% else %}0{% endif %};
+    --ecc-hover-overlay-color: {{ st.hover_overlay_color | default: '#000000' }};
+    --ecc-hover-overlay-opacity: {{ st.hover_overlay_opacity | divided_by: 100.0 }};
     --ecc-card-height: {{ st.card_height_desktop }}px;
     --ecc-card-closed-height-mobile: {{ st.card_closed_height_mobile }}px;
     --ecc-card-expanded-height-mobile: {{ st.card_expanded_height_mobile }}px;
