@@ -23,6 +23,7 @@
     this.autoRotate = toBool(section.dataset.autoRotate);
     this.pauseOnHover = toBool(section.dataset.pauseOnHover);
     this.autoRotateDelay = Math.max(toInt(section.dataset.autoRotateDelay, 5000), 1000);
+    this.transitionSpeed = Math.max(toInt(section.dataset.transitionSpeed, 450), 0);
     this.defaultActive = toInt(section.dataset.defaultActive, 1);
     this.mobileDefaultOpen = toInt(section.dataset.mobileDefaultOpen, 1);
     this.rotationTimer = null;
@@ -70,6 +71,9 @@
 
     this.cards.forEach(function (card) {
       var toggle = card.querySelector(toggleSelector);
+
+      this.clearContentTimer(card);
+      card.classList.remove('is-content-visible');
 
       if (toggle) {
         toggle.removeEventListener('click', this.handleClick);
@@ -222,6 +226,10 @@
       return;
     }
 
+    if (activeCard.classList.contains('is-active')) {
+      return;
+    }
+
     this.cards.forEach(function (card) {
       this.setCardState(card, card === activeCard, false);
     }, this);
@@ -243,6 +251,8 @@
   ExpandableCollections.prototype.setCardState = function (card, isOpen, isEqualMode) {
     var toggle = card.querySelector(toggleSelector);
 
+    this.clearContentTimer(card);
+    card.classList.remove('is-content-visible');
     card.classList.toggle('is-active', isOpen);
 
     if (toggle) {
@@ -254,6 +264,34 @@
         toggle.removeAttribute('tabindex');
       }
     }
+
+    if (isOpen) {
+      this.scheduleContentReveal(card, isEqualMode);
+    }
+  };
+
+  ExpandableCollections.prototype.clearContentTimer = function (card) {
+    if (card._expandableCollectionsContentTimer) {
+      window.clearTimeout(card._expandableCollectionsContentTimer);
+      card._expandableCollectionsContentTimer = null;
+    }
+  };
+
+  ExpandableCollections.prototype.scheduleContentReveal = function (card, isEqualMode) {
+    var delay = reducedMotionQuery.matches || isEqualMode ? 0 : this.transitionSpeed;
+
+    if (delay <= 1) {
+      card.classList.add('is-content-visible');
+      return;
+    }
+
+    card._expandableCollectionsContentTimer = window.setTimeout(function () {
+      card._expandableCollectionsContentTimer = null;
+
+      if (card.classList.contains('is-active')) {
+        card.classList.add('is-content-visible');
+      }
+    }, delay);
   };
 
   ExpandableCollections.prototype.getCardByIndex = function (index) {

@@ -29,6 +29,7 @@
   data-auto-rotate="{{ st.auto_rotate }}"
   data-auto-rotate-delay="{{ st.auto_rotate_delay | times: 1000 }}"
   data-pause-on-hover="{{ st.pause_auto_rotate_on_hover }}"
+  data-transition-speed="{{ st.transition_speed }}"
   style="
     --ecc-section-bg: {{ st.section_background }};
     --ecc-container-max-width: {{ st.container_max_width }}px;
@@ -56,6 +57,8 @@
     --ecc-overlay-color: {{ st.overlay_color }};
     --ecc-overlay-opacity-inactive: {{ st.inactive_overlay_opacity | divided_by: 100.0 }};
     --ecc-overlay-opacity-active: {{ st.active_overlay_opacity | divided_by: 100.0 }};
+    --ecc-hover-overlay-color: {{ st.hover_overlay_color }};
+    --ecc-hover-overlay-opacity: {% if st.enable_hover_overlay %}{{ st.hover_overlay_opacity | divided_by: 100.0 }}{% else %}0{% endif %};
     --ecc-card-height: {{ st.card_height_desktop }}px;
     --ecc-card-closed-height-mobile: {{ st.card_closed_height_mobile }}px;
     --ecc-card-expanded-height-mobile: {{ st.card_expanded_height_mobile }}px;
@@ -663,6 +666,28 @@
       "default": 45
     },
     {
+      "type": "checkbox",
+      "id": "enable_hover_overlay",
+      "label": "Enable hover overlay",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "hover_overlay_color",
+      "label": "Hover overlay colour",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "hover_overlay_opacity",
+      "label": "Hover overlay opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 10
+    },
+    {
       "type": "header",
       "content": "Card colours"
     },
@@ -877,6 +902,7 @@
       "options": [
         { "value": "none", "label": "None" },
         { "value": "uppercase", "label": "Uppercase" },
+        { "value": "lowercase", "label": "Lowercase" },
         { "value": "capitalize", "label": "Capitalize" }
       ]
     },
