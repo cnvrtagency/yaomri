@@ -873,8 +873,8 @@
   const mobileCount = Number({{ posts_shown_mobile }}) || 6;
   const isMobile = window.matchMedia('(max-width: 768px)').matches;
   const count = isMobile ? mobileCount : desktopCount;
-  const grid = document.getElementById('instagram-grid');
-  const section = grid ? grid.closest('.instagram-feed') : null;
+  const section = document.querySelector('.instagram-feed--{{ section.id }}');
+  const grid = section ? section.querySelector('#instagram-grid') : null;
   const cardStyle = {{ section.settings.card_style | default: 'image_only' | json }};
   const avatarText = {{ section.settings.post_card_avatar_text | default: 'YO' | json }};
   const handleText = {{ section.settings.post_card_handle_text | default: '@yaomriswimwear' | json }};
@@ -894,19 +894,55 @@
     '"': '&quot;',
     "'": '&#39;'
   }[char]));
+  const showMessage = (message) => {
+    if (!grid) return;
+    grid.innerHTML = `<div class="instagram-feed__loading">${escapeHtml(message)}</div>`;
+  };
+  const getFeedErrorMessage = (data) => {
+    const apiMessage = data && data.error && data.error.message ? String(data.error.message) : '';
+    if (apiMessage) {
+      return typeof Shopify !== 'undefined' && Shopify.designMode
+        ? `Instagram feed unavailable: ${apiMessage}`
+        : 'Instagram feed unavailable.';
+    }
+    return 'Could not load feed.';
+  };
+
+  if (!grid) return;
 
   if (!token || !igId) {
-    grid.innerHTML = '<div class="instagram-feed__loading">Add your Instagram token in section settings.</div>';
+    showMessage('Add your Instagram token and Business Account ID in section settings.');
     return;
   }
 
   fetch(`${proxyUrl}/?token=${encodeURIComponent(token)}&ig_id=${igId}&count=${count}`)
-    .then(r => r.json())
+    .then(async (response) => {
+      const text = await response.text();
+      let data;
+
+      try {
+        data = JSON.parse(text);
+      } catch (error) {
+        throw new Error('The Instagram proxy returned an invalid response.');
+      }
+
+      if (!response.ok) {
+        throw new Error(getFeedErrorMessage(data));
+      }
+
+      return data;
+    })
     .then(data => {
       if (!data.data || data.error) {
-        grid.innerHTML = '<div class="instagram-feed__loading">Could not load feed.</div>';
+        showMessage(getFeedErrorMessage(data));
         return;
       }
+
+      if (!Array.isArray(data.data) || !data.data.length) {
+        showMessage('No Instagram posts were returned.');
+        return;
+      }
+
       const posts = data.data.slice(0, count);
       const renderPost = (post, isClone = false) => {
         const rawImg = post.media_type === 'VIDEO' ? post.thumbnail_url : post.media_url;
@@ -969,8 +1005,8 @@
       grid.innerHTML = '';
       grid.innerHTML = isMarquee ? renderedItems + duplicatedItems : renderedItems;
     })
-    .catch(() => {
-      grid.innerHTML = '<div class="instagram-feed__loading">Could not load feed.</div>';
+    .catch((error) => {
+      showMessage(typeof Shopify !== 'undefined' && Shopify.designMode ? error.message : 'Could not load feed.');
     });
 })();
 
