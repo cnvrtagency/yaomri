@@ -88,9 +88,9 @@
     --lc-card-radius: {{ se_stts.logo_card_radius }}px;
     --lc-card-padding-desktop: {{ se_stts.logo_card_padding_desktop }}px;
     --lc-card-padding-mobile: {{ se_stts.logo_card_padding_mobile }}px;
-    --lc-card-size-desktop: {{ se_stts.logo_card_size_desktop }}px;
-    --lc-card-size-tablet: {{ se_stts.logo_card_size_tablet }}px;
-    --lc-card-size-mobile: {{ se_stts.logo_card_size_mobile }}px;
+    --lc-logo-item-width-desktop: {{ se_stts.logo_card_size_desktop }}px;
+    --lc-logo-item-width-tablet: {{ se_stts.logo_card_size_tablet }}px;
+    --lc-logo-item-width-mobile: {{ se_stts.logo_card_size_mobile }}px;
     --lc-logo-fit: {{ se_stts.logo_image_fit }};
     --lc-logo-max-height-desktop: {{ se_stts.logo_max_height_desktop }}px;
     --lc-logo-max-height-mobile: {{ se_stts.logo_max_height_mobile }}px;
@@ -295,7 +295,7 @@
   }
 
   .logo-carousel--{{ section_id }}.logo-carousel--desktop-carousel .logo-carousel__item {
-    flex: 0 0 var(--lc-card-size-desktop);
+    flex: 0 0 var(--lc-logo-item-width-desktop);
     {%- if se_stts.carousel_snap -%}
       scroll-snap-align: start;
     {%- endif -%}
@@ -315,7 +315,7 @@
   }
 
   .logo-carousel--{{ section_id }}.logo-carousel--desktop-marquee .logo-carousel__item {
-    flex: 0 0 var(--lc-card-size-desktop);
+    flex: 0 0 var(--lc-logo-item-width-desktop);
   }
 
   .logo-carousel--{{ section_id }}.logo-carousel--desktop-marquee.logo-carousel--pause .logo-carousel__viewport:hover .logo-carousel__track,
@@ -327,12 +327,12 @@
     min-width: 0;
   }
 
-  .logo-carousel--{{ section_id }} .logo-carousel__card {
+  .logo-carousel--{{ section_id }} .logo-carousel__logo-wrap {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: var(--lc-card-size-desktop);
+    min-height: 0;
     padding: var(--lc-card-padding-desktop);
     border: var(--lc-card-border-width) solid var(--lc-card-border);
     border-radius: var(--lc-card-radius);
@@ -342,8 +342,8 @@
     transition: transform 240ms ease, opacity 240ms ease, border-color 240ms ease;
   }
 
-  .logo-carousel--{{ section_id }} .logo-carousel__card:hover,
-  .logo-carousel--{{ section_id }} .logo-carousel__card:focus-visible {
+  .logo-carousel--{{ section_id }} .logo-carousel__logo-wrap:hover,
+  .logo-carousel--{{ section_id }} .logo-carousel__logo-wrap:focus-visible {
     opacity: var(--lc-logo-hover-opacity);
     transform: translateY(calc(var(--lc-logo-hover-lift) * -1)) scale(var(--lc-logo-hover-scale));
   }
@@ -365,8 +365,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: calc(var(--lc-card-size-desktop) - (var(--lc-card-padding-desktop) * 2));
-    border: 1px dashed color-mix(in srgb, var(--lc-text) 24%, transparent);
+    min-height: var(--lc-logo-max-height-desktop);
     color: color-mix(in srgb, var(--lc-text) 62%, transparent);
     font-size: 12px;
     font-weight: 500;
@@ -425,7 +424,7 @@
 
     .logo-carousel--{{ section_id }}.logo-carousel--desktop-carousel .logo-carousel__item,
     .logo-carousel--{{ section_id }}.logo-carousel--desktop-marquee .logo-carousel__item {
-      flex-basis: var(--lc-card-size-tablet);
+      flex-basis: var(--lc-logo-item-width-tablet);
     }
   }
 
@@ -489,7 +488,7 @@
     }
 
     .logo-carousel--{{ section_id }}.logo-carousel--mobile-carousel .logo-carousel__item {
-      flex: 0 0 var(--lc-card-size-mobile);
+      flex: 0 0 var(--lc-logo-item-width-mobile);
       {%- if se_stts.carousel_snap -%}
         scroll-snap-align: start;
       {%- endif -%}
@@ -504,7 +503,7 @@
     }
 
     .logo-carousel--{{ section_id }}.logo-carousel--mobile-marquee .logo-carousel__item {
-      flex: 0 0 var(--lc-card-size-mobile);
+      flex: 0 0 var(--lc-logo-item-width-mobile);
     }
 
     .logo-carousel--{{ section_id }}.logo-carousel--mobile-marquee.logo-carousel--pause .logo-carousel__viewport:hover .logo-carousel__track,
@@ -517,8 +516,8 @@
       display: none;
     }
 
-    .logo-carousel--{{ section_id }} .logo-carousel__card {
-      min-height: var(--lc-card-size-mobile);
+    .logo-carousel--{{ section_id }} .logo-carousel__logo-wrap {
+      min-height: 0;
       padding: var(--lc-card-padding-mobile);
     }
 
@@ -528,7 +527,7 @@
     }
 
     .logo-carousel--{{ section_id }} .logo-carousel__placeholder {
-      min-height: calc(var(--lc-card-size-mobile) - (var(--lc-card-padding-mobile) * 2));
+      min-height: var(--lc-logo-max-height-mobile);
     }
 
     .logo-carousel--{{ section_id }}.logo-carousel--mobile-grid .logo-carousel__arrows,
@@ -558,7 +557,7 @@
       width: auto;
     }
 
-    .logo-carousel--{{ section_id }} .logo-carousel__card,
+    .logo-carousel--{{ section_id }} .logo-carousel__logo-wrap,
     .logo-carousel--{{ section_id }} .logo-carousel__cta,
     .logo-carousel--{{ section_id }} .logo-carousel__arrow {
       transition: none !important;
@@ -669,14 +668,14 @@
               <div class="logo-carousel__item" {{ block.shopify_attributes }}>
                 {%- if block.settings.link != blank -%}
                   <a
-                    class="logo-carousel__card"
+                    class="logo-carousel__logo-wrap"
                     href="{{ block.settings.link }}"
                     {% if block.settings.open_in_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
                     style="--lc-card-bg: {{ block_bg }}; --lc-card-padding-desktop: {{ block.settings.logo_padding }}px; --lc-card-padding-mobile: {{ block.settings.logo_padding }}px;"
                   >
                 {%- else -%}
                   <div
-                    class="logo-carousel__card"
+                    class="logo-carousel__logo-wrap"
                     style="--lc-card-bg: {{ block_bg }}; --lc-card-padding-desktop: {{ block.settings.logo_padding }}px; --lc-card-padding-mobile: {{ block.settings.logo_padding }}px;"
                   >
                 {%- endif -%}
@@ -745,7 +744,7 @@
                 <div class="logo-carousel__item logo-carousel__clone" aria-hidden="true">
                   {%- if block.settings.link != blank -%}
                     <a
-                      class="logo-carousel__card"
+                      class="logo-carousel__logo-wrap"
                       href="{{ block.settings.link }}"
                       tabindex="-1"
                       {% if block.settings.open_in_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
@@ -753,7 +752,7 @@
                     >
                   {%- else -%}
                     <div
-                      class="logo-carousel__card"
+                      class="logo-carousel__logo-wrap"
                       style="--lc-card-bg: {{ block_bg }}; --lc-card-padding-desktop: {{ block.settings.logo_padding }}px; --lc-card-padding-mobile: {{ block.settings.logo_padding }}px;"
                     >
                   {%- endif -%}
@@ -1642,39 +1641,39 @@
       "min": 0,
       "max": 60,
       "step": 1,
-      "default": 12,
+      "default": 48,
       "unit": "px"
     },
     {
       "type": "header",
-      "content": "Logo cards"
+      "content": "Logo wrappers"
     },
     {
       "type": "color",
       "id": "logo_card_background_color",
-      "label": "Card background colour",
-      "default": "#0f0f0f"
+      "label": "Logo wrapper background",
+      "default": "rgba(0,0,0,0)"
     },
     {
       "type": "color",
       "id": "logo_card_border_color",
-      "label": "Card border colour",
-      "default": "#2a2a2a"
+      "label": "Logo wrapper border colour",
+      "default": "rgba(0,0,0,0)"
     },
     {
       "type": "range",
       "id": "logo_card_border_width",
-      "label": "Card border width",
+      "label": "Logo wrapper border width",
       "min": 0,
       "max": 8,
       "step": 1,
-      "default": 1,
+      "default": 0,
       "unit": "px"
     },
     {
       "type": "range",
       "id": "logo_card_radius",
-      "label": "Card radius",
+      "label": "Logo wrapper radius",
       "min": 0,
       "max": 60,
       "step": 1,
@@ -1684,51 +1683,51 @@
     {
       "type": "range",
       "id": "logo_card_padding_desktop",
-      "label": "Card padding desktop",
+      "label": "Logo wrapper padding desktop",
       "min": 0,
       "max": 80,
       "step": 1,
-      "default": 28,
+      "default": 0,
       "unit": "px"
     },
     {
       "type": "range",
       "id": "logo_card_padding_mobile",
-      "label": "Card padding mobile",
+      "label": "Logo wrapper padding mobile",
       "min": 0,
       "max": 60,
       "step": 1,
-      "default": 22,
+      "default": 0,
       "unit": "px"
     },
     {
       "type": "range",
       "id": "logo_card_size_desktop",
-      "label": "Card size desktop",
+      "label": "Logo item width desktop",
       "min": 120,
       "max": 420,
       "step": 5,
-      "default": 230,
+      "default": 160,
       "unit": "px"
     },
     {
       "type": "range",
       "id": "logo_card_size_tablet",
-      "label": "Card size tablet",
+      "label": "Logo item width tablet",
       "min": 120,
       "max": 360,
       "step": 5,
-      "default": 230,
+      "default": 150,
       "unit": "px"
     },
     {
       "type": "range",
       "id": "logo_card_size_mobile",
-      "label": "Card size mobile",
+      "label": "Logo item width mobile",
       "min": 90,
       "max": 260,
       "step": 5,
-      "default": 150,
+      "default": 110,
       "unit": "px"
     },
     {
@@ -1748,7 +1747,7 @@
       "min": 20,
       "max": 180,
       "step": 2,
-      "default": 72,
+      "default": 70,
       "unit": "px"
     },
     {
@@ -1758,7 +1757,7 @@
       "min": 20,
       "max": 140,
       "step": 2,
-      "default": 56,
+      "default": 48,
       "unit": "px"
     },
     {
@@ -1853,7 +1852,7 @@
           "min": 40,
           "max": 320,
           "step": 4,
-          "default": 180,
+          "default": 160,
           "unit": "px"
         },
         {
@@ -1862,8 +1861,8 @@
           "label": "Logo max width mobile",
           "min": 40,
           "max": 220,
-          "step": 4,
-          "default": 132,
+          "step": 2,
+          "default": 110,
           "unit": "px"
         },
         {
@@ -1873,7 +1872,7 @@
           "min": 20,
           "max": 180,
           "step": 2,
-          "default": 72,
+          "default": 70,
           "unit": "px"
         },
         {
@@ -1883,7 +1882,7 @@
           "min": 20,
           "max": 140,
           "step": 2,
-          "default": 56,
+          "default": 48,
           "unit": "px"
         },
         {
@@ -1912,23 +1911,22 @@
           "type": "color",
           "id": "logo_background_color",
           "label": "Logo background colour",
-          "default": "#0f0f0f"
+          "default": "rgba(0,0,0,0)"
         },
         {
           "type": "range",
           "id": "logo_padding",
-          "label": "Logo padding",
+          "label": "Logo wrapper padding",
           "min": 0,
           "max": 80,
           "step": 1,
-          "default": 28,
+          "default": 0,
           "unit": "px"
         },
         {
           "type": "color",
           "id": "logo_card_background_override",
-          "label": "Card background override",
-          "default": "#0f0f0f"
+          "label": "Logo wrapper background override"
         }
       ]
     }
