@@ -169,6 +169,8 @@
           "type": "text",
           "settings": {
             "text": "10% off your first Ya Omri order",
+            "link": "",
+            "open_in_new_tab": false,
             "font_family": "'Montserrat', Arial, sans-serif",
             "font_weight": "400",
             "italic_override": "inherit"
@@ -178,6 +180,8 @@
           "type": "text",
           "settings": {
             "text": "Free worldwide shipping on orders over $100",
+            "link": "",
+            "open_in_new_tab": false,
             "font_family": "inherit",
             "font_weight": "inherit",
             "italic_override": "inherit"
@@ -187,6 +191,8 @@
           "type": "text",
           "settings": {
             "text": "Fast & free shipping within the UAE",
+            "link": "",
+            "open_in_new_tab": false,
             "font_family": "inherit",
             "font_weight": "400",
             "italic_override": "inherit"
@@ -196,6 +202,8 @@
           "type": "text",
           "settings": {
             "text": "Fast & free shipping within the UAE",
+            "link": "",
+            "open_in_new_tab": false,
             "font_family": "inherit",
             "font_weight": "700",
             "italic_override": "italic"
@@ -220,16 +228,30 @@
         "mobile_font_size": 15,
         "letter_spacing": 0,
         "speed": 18,
+        "direction": "left",
+        "mobile_speed": 18,
         "item_gap": 36,
         "mobile_item_gap": 24,
-        "show_separator": false,
-        "separator_color": "#222222",
-        "separator_size": 5,
+        "show_separator": true,
+        "separator_color": "#ffffff",
+        "separator_size": 2,
         "pause_on_hover": false,
         "padding_top": 20,
         "padding_bottom": 20,
         "mobile_padding_top": 24,
-        "mobile_padding_bottom": 24
+        "mobile_padding_bottom": 24,
+        "min_height_desktop": 48,
+        "min_height_mobile": 44,
+        "border_top_width": 0,
+        "border_bottom_width": 0,
+        "border_color": "#ffffff",
+        "enable_edge_fade": true,
+        "edge_fade_width": 48,
+        "enable_glass_effect": false,
+        "glass_background_opacity": 43,
+        "glass_blur": 30,
+        "glass_saturation": 100,
+        "glass_border_opacity": 0
       }
     },
     "featured_collection_RYCjmA": {
@@ -317,7 +339,7 @@
         "button_effect": "default",
         "btn_pos": "t4s-text-center",
         "layout": "t4s-container-fluid",
-        "cl_bg": "#fff4f4",
+        "cl_bg": "#ffffff",
         "cl_bg_gradient": "",
         "mg": "",
         "pd": "60PX,60PX,60PX,60PX",
@@ -437,7 +459,7 @@
         "padding_bottom_mobile": 44,
         "padding_left_mobile": 12,
         "padding_right_mobile": 12,
-        "section_background": "#ffffff",
+        "section_background": "#fff4f4",
         "eyebrow_text_color": "#222222",
         "heading_text_color": "#ffffff",
         "subheading_text_color": "#555555",
@@ -476,6 +498,8 @@
         "card_title_line_height": 1,
         "card_title_letter_spacing": 0,
         "card_title_text_transform": "uppercase",
+        "card_title_width_desktop": 67,
+        "card_title_width_mobile": 67,
         "card_cta_font_family": "montserrat_n4",
         "card_cta_font_size_desktop": 11,
         "card_cta_font_size_mobile": 11,

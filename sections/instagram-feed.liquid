@@ -23,8 +23,6 @@
 
 <section
   class="instagram-feed instagram-feed--{{ section.id }} instagram-feed--layout-{{ layout_style }} instagram-feed--desktop-{{ desktop_display_mode }} instagram-feed--mobile-{{ mobile_display_mode }} instagram-feed--aspect-{{ image_aspect_ratio }} instagram-feed--card-{{ section.settings.card_style | default: 'image_only' }} instagram-feed--title-highlight-{{ section.settings.title_highlight_style | default: 'text_colour' }} instagram-feed--marquee-{{ section.settings.marquee_direction | default: 'left' }} instagram-feed--text-desktop-{{ section.settings.text_align_desktop | default: 'left' }} instagram-feed--text-mobile-{{ section.settings.text_align_mobile | default: 'center' }}{% if section.settings.carousel_snap %} instagram-feed--snap{% endif %}{% if section.settings.marquee_pause_on_hover != false %} instagram-feed--marquee-pause{% endif %}{% if section.settings.marquee_fade_edges != false %} instagram-feed--marquee-fade{% endif %}"
-  timeline
-  hdt-reveal="slide-in"
   style="
     --instagram-posts-desktop: {{ section.settings.posts_per_row_desktop | default: section.settings.columns | default: 4 }};
     --instagram-posts-tablet: {{ section.settings.posts_per_row_tablet | default: 3 }};
