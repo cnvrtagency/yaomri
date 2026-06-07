@@ -98,25 +98,6 @@
         --font-family-1   : {{ t4s_font_fm1 }};
         --font-family-2   : {{ t4s_font_fm2 }};
         --font-family-3   : {{ t4s_font_fm3 }};
-        --motion-enabled  : {% if settings.enable_animations %}1{% else %}0{% endif %};
-        --motion-speed-multiplier: {{ settings.motion_speed_multiplier | default: 100 | divided_by: 100.0 }};
-        --motion-duration-instant: 1ms;
-        --motion-duration-fast: 150ms;
-        --motion-duration-base: 250ms;
-        --motion-duration-slow: 450ms;
-        --motion-duration-extra-slow: 600ms;
-        --motion-ease-standard: cubic-bezier(.2, 0, 0, 1);
-        --motion-ease-soft: cubic-bezier(.25, .1, .25, 1);
-        --motion-ease-sharp: cubic-bezier(.4, 0, .2, 1);
-        --motion-ease-luxury: cubic-bezier(.19, 1, .22, 1);
-        --motion-ease-active: var(--motion-ease-{{ settings.motion_easing_style | default: 'luxury' }});
-        --motion-hover-enabled: {% if settings.enable_hover_motion %}1{% else %}0{% endif %};
-        --motion-marquee-enabled: {% if settings.enable_marquee_motion %}1{% else %}0{% endif %};
-        --motion-autoplay-enabled: {% if settings.enable_autoplay_motion %}1{% else %}0{% endif %};
-        --motion-reveal-enabled: {% if settings.animations_reveal_on_scroll %}1{% else %}0{% endif %};
-        --motion-reveal-distance: {{ settings.reveal_distance | default: 24 }}px;
-        --motion-reveal-duration: {{ settings.reveal_duration | default: 450 }}ms;
-        --motion-reveal-stagger: {{ settings.reveal_stagger | default: 80 }}ms;
         --font-body-family   : {% if settings.bd_ffamily == '1' %}{{ t4s_font_fm1 }}{% elsif settings.bd_ffamily == '2' %}{{ t4s_font_fm2 }}{% else %}{{ t4s_font_fm3 }}{% endif %};
         --font-heading-family: {% if settings.hd_ffamily == '1' %}{{ t4s_font_fm1 }}{% elsif settings.hd_ffamily == '2' %}{{ t4s_font_fm2 }}{% else %}{{ t4s_font_fm3 }}{% endif %};
        {% comment %} --font-button-family : {% if settings.fnt_fm_button == '1' %}{{ t4s_font_fm1 }}{% elsif settings.fnt_fm_button == '2' %}{{ t4s_font_fm2 }}{% else %}{{ t4s_font_fm3 }}{% endif %};{% endcomment %}
@@ -195,51 +176,6 @@
         --lz-size-cus: {{ size_cus_lz }}px;
         {%- endif -%}
     }
-
-    {%- if settings.reduce_motion_mode == 'respect_system' -%}
-      @media (prefers-reduced-motion: reduce) {
-        :root {
-          --motion-enabled: 0;
-          --motion-hover-enabled: 0;
-          --motion-marquee-enabled: 0;
-          --motion-autoplay-enabled: 0;
-          --motion-reveal-enabled: 0;
-          --motion-duration-instant: 1ms;
-          --motion-duration-fast: 1ms;
-          --motion-duration-base: 1ms;
-          --motion-duration-slow: 1ms;
-          --motion-duration-extra-slow: 1ms;
-          --motion-reveal-distance: 0px;
-          --motion-reveal-duration: 1ms;
-          --motion-reveal-stagger: 0ms;
-        }
-      }
-    {%- elsif settings.reduce_motion_mode == 'minimise' -%}
-      :root {
-        --motion-hover-enabled: 0;
-        --motion-marquee-enabled: 0;
-        --motion-autoplay-enabled: 0;
-        --motion-reveal-distance: 0px;
-        --motion-reveal-duration: 1ms;
-        --motion-reveal-stagger: 0ms;
-      }
-    {%- elsif settings.reduce_motion_mode == 'disable' -%}
-      :root {
-        --motion-enabled: 0;
-        --motion-hover-enabled: 0;
-        --motion-marquee-enabled: 0;
-        --motion-autoplay-enabled: 0;
-        --motion-reveal-enabled: 0;
-        --motion-duration-instant: 1ms;
-        --motion-duration-fast: 1ms;
-        --motion-duration-base: 1ms;
-        --motion-duration-slow: 1ms;
-        --motion-duration-extra-slow: 1ms;
-        --motion-reveal-distance: 0px;
-        --motion-reveal-duration: 1ms;
-        --motion-reveal-stagger: 0ms;
-      }
-    {%- endif -%}
 
     html {
       font-size: 62.5%;

@@ -15,23 +15,15 @@
     return isNaN(parsed) ? fallback : parsed;
   }
 
-  function getMotionMultiplier() {
-    var raw = window.getComputedStyle(document.documentElement).getPropertyValue('--motion-speed-multiplier');
-    var parsed = parseFloat(raw);
-    return isNaN(parsed) || parsed <= 0 ? 1 : parsed;
-  }
-
   function ExpandableCollections(section) {
     this.section = section;
     this.cards = Array.prototype.slice.call(section.querySelectorAll(cardSelector));
     this.behaviour = section.dataset.desktopBehaviour || 'hover';
     this.allowMultiple = toBool(section.dataset.allowMultiple);
-    this.motionEnabled = toBool(section.dataset.motionEnabled) && !reducedMotionQuery.matches;
-    this.autoplayMotionEnabled = toBool(section.dataset.autoplayMotionEnabled) && this.motionEnabled;
-    this.autoRotate = toBool(section.dataset.autoRotate) && this.autoplayMotionEnabled;
+    this.autoRotate = toBool(section.dataset.autoRotate);
     this.pauseOnHover = toBool(section.dataset.pauseOnHover);
     this.autoRotateDelay = Math.max(toInt(section.dataset.autoRotateDelay, 5000), 1000);
-    this.transitionSpeed = this.motionEnabled ? Math.max(Math.round(toInt(section.dataset.transitionSpeed, 450) / getMotionMultiplier()), 0) : 0;
+    this.transitionSpeed = Math.max(toInt(section.dataset.transitionSpeed, 450), 0);
     this.defaultActive = toInt(section.dataset.defaultActive, 1);
     this.mobileDefaultOpen = toInt(section.dataset.mobileDefaultOpen, 1);
     this.rotationTimer = null;
