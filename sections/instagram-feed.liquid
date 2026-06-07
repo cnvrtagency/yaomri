@@ -74,7 +74,6 @@
     --instagram-title-weight: {{ section.settings.title_font_weight | default: 800 }};
     --instagram-title-line-height: {{ section.settings.title_line_height | default: 1.0 }};
     --instagram-title-letter-spacing: {{ section.settings.title_letter_spacing | default: 0 }}px;
-    --instagram-heading-text-gap: {{ section.settings.heading_text_gap | default: 16 }}px;
     --instagram-body-size: {{ section.settings.body_font_size | default: 15 }}px;
     --instagram-body-size-mobile: {{ section.settings.body_font_size_mobile | default: 14 }}px;
     --instagram-body-line-height: {{ section.settings.body_line_height | default: 1.6 }};
@@ -297,7 +296,7 @@
 .instagram-feed__body {
   width: min(100%, var(--instagram-body-width-desktop));
   max-width: min(100%, var(--instagram-body-width-desktop));
-  margin-top: var(--instagram-heading-text-gap);
+  margin-top: 18px;
   color: var(--instagram-text);
   font-size: var(--instagram-body-size);
   font-weight: var(--instagram-body-weight);
@@ -1156,16 +1155,6 @@
       "id": "body_text",
       "label": "Body text",
       "default": "<p>Fresh drops, campaign moments and real swimwear inspiration from the Ya Omri world.</p>"
-    },
-    {
-      "type": "range",
-      "id": "heading_text_gap",
-      "label": "Heading text gap",
-      "min": 0,
-      "max": 80,
-      "step": 1,
-      "unit": "px",
-      "default": 16
     },
     {
       "type": "checkbox",
