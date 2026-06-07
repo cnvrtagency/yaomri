@@ -90,6 +90,8 @@
     --ecc-card-title-line-height: {{ st.card_title_line_height }};
     --ecc-card-title-letter-spacing: {{ st.card_title_letter_spacing }}px;
     --ecc-card-title-text-transform: {{ st.card_title_text_transform }};
+    --ecc-card-title-width-desktop: {{ st.card_title_width_desktop }}%;
+    --ecc-card-title-width-mobile: {{ st.card_title_width_mobile }}%;
     --ecc-card-cta-size-desktop: {{ st.card_cta_font_size_desktop }}px;
     --ecc-card-cta-size-mobile: {{ st.card_cta_font_size_mobile }}px;
     --ecc-card-cta-weight: {{ st.card_cta_font_weight }};
@@ -845,6 +847,26 @@
         { "value": "uppercase", "label": "Uppercase" },
         { "value": "capitalize", "label": "Capitalize" }
       ]
+    },
+    {
+      "type": "range",
+      "id": "card_title_width_desktop",
+      "label": "Card title width desktop",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "card_title_width_mobile",
+      "label": "Card title width mobile",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 100
     },
     {
       "type": "font_picker",

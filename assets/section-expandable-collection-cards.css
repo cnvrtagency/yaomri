@@ -283,6 +283,7 @@
   line-height: var(--ecc-card-title-line-height);
   letter-spacing: var(--ecc-card-title-letter-spacing);
   text-transform: var(--ecc-card-title-text-transform);
+  max-width: var(--ecc-card-title-width-desktop);
 }
 
 .expandable-collections__button {
@@ -380,6 +381,7 @@
 
   .expandable-collections__title {
     font-size: var(--ecc-card-title-size-mobile);
+    max-width: var(--ecc-card-title-width-mobile);
   }
 
   .expandable-collections__card-eyebrow {
