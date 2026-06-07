@@ -1,0 +1,1949 @@
+{%- liquid
+  assign section_id = section.id
+  assign se_stts = section.settings
+  assign title_text = se_stts.title | default: 'Logo Carousel'
+  assign highlight_text = se_stts.title_highlight_text
+  assign desktop_mode = se_stts.desktop_display_mode
+  assign mobile_mode = se_stts.mobile_display_mode
+-%}
+
+{%- style -%}
+  .logo-carousel--{{ section_id }} {
+    --lc-bg: {{ se_stts.background_color }};
+    --lc-text: {{ se_stts.text_color }};
+    --lc-accent: {{ se_stts.accent_color }};
+    --lc-padding-y-desktop: {{ se_stts.section_padding_desktop }}px;
+    --lc-padding-y-mobile: {{ se_stts.section_padding_mobile }}px;
+    --lc-padding-x-desktop: {{ se_stts.padding_x_desktop }}px;
+    --lc-padding-x-tablet: {{ se_stts.padding_x_tablet }}px;
+    --lc-padding-x-mobile: {{ se_stts.padding_x_mobile }}px;
+    --lc-intro-width: {{ se_stts.intro_width }}%;
+    --lc-split-gap: {{ se_stts.split_column_gap }}px;
+    --lc-heading-width-desktop: {{ se_stts.heading_width_desktop }}px;
+    --lc-heading-width-mobile: {{ se_stts.heading_width_mobile }}px;
+    --lc-body-width-desktop: {{ se_stts.body_width_desktop }}px;
+    --lc-body-width-mobile: {{ se_stts.body_width_mobile }}px;
+    --lc-align-desktop: {{ se_stts.text_align_desktop }};
+    --lc-align-mobile: {{ se_stts.text_align_mobile }};
+
+    --lc-eyebrow-size: {{ se_stts.eyebrow_font_size }}px;
+    --lc-eyebrow-weight: {{ se_stts.eyebrow_font_weight }};
+    --lc-eyebrow-spacing: {{ se_stts.eyebrow_letter_spacing }}px;
+    --lc-eyebrow-margin: {{ se_stts.eyebrow_spacing_bottom }}px;
+    --lc-eyebrow-icon-size: {{ se_stts.eyebrow_icon_size }}px;
+    --lc-eyebrow-icon-gap: {{ se_stts.eyebrow_icon_gap }}px;
+    --lc-eyebrow-icon-color: {{ se_stts.eyebrow_icon_color }};
+
+    --lc-title-size-desktop: {{ se_stts.title_font_size_desktop }}px;
+    --lc-title-size-mobile: {{ se_stts.title_font_size_mobile }}px;
+    --lc-title-weight: {{ se_stts.title_font_weight }};
+    --lc-title-line-height: {{ se_stts.title_line_height }};
+    --lc-title-letter-spacing: {{ se_stts.title_letter_spacing }}px;
+    --lc-title-color-1: {{ se_stts.title_colour_1 }};
+    --lc-title-color-2: {{ se_stts.title_colour_2 }};
+    --lc-title-badge-text: {{ se_stts.title_badge_text_color }};
+    --lc-title-badge-bg: {{ se_stts.title_badge_bg_color }};
+    --lc-title-badge-border: {{ se_stts.title_badge_border_color }};
+    --lc-title-badge-radius: {{ se_stts.title_badge_radius }}px;
+    --lc-title-badge-px: {{ se_stts.title_badge_padding_x }}px;
+    --lc-title-badge-py: {{ se_stts.title_badge_padding_y }}px;
+    --lc-title-badge-border-width: {{ se_stts.title_badge_border_width }}px;
+
+    --lc-body-size-desktop: {{ se_stts.body_font_size_desktop }}px;
+    --lc-body-size-mobile: {{ se_stts.body_font_size_mobile }}px;
+    --lc-body-line-height: {{ se_stts.body_line_height }};
+    --lc-body-weight: {{ se_stts.body_font_weight }};
+
+    --lc-cta-size-desktop: {{ se_stts.cta_font_size_desktop }}px;
+    --lc-cta-size-mobile: {{ se_stts.cta_font_size_mobile }}px;
+    --lc-cta-weight: {{ se_stts.cta_font_weight }};
+    --lc-cta-letter-spacing: {{ se_stts.cta_letter_spacing }}px;
+    --lc-cta-px-desktop: {{ se_stts.cta_padding_x_desktop }}px;
+    --lc-cta-py-desktop: {{ se_stts.cta_padding_y_desktop }}px;
+    --lc-cta-px-mobile: {{ se_stts.cta_padding_x_mobile }}px;
+    --lc-cta-py-mobile: {{ se_stts.cta_padding_y_mobile }}px;
+    --lc-cta-radius: {{ se_stts.cta_radius }}px;
+    --lc-cta-bg: {{ se_stts.cta_background_color }};
+    --lc-cta-text: {{ se_stts.cta_text_color }};
+    --lc-cta-border: {{ se_stts.cta_border_color }};
+    --lc-cta-hover-bg: {{ se_stts.cta_hover_background_color }};
+    --lc-cta-hover-text: {{ se_stts.cta_hover_text_color }};
+    --lc-cta-hover-border: {{ se_stts.cta_hover_border_color }};
+
+    --lc-grid-columns-desktop: {{ se_stts.logos_per_row_desktop }};
+    --lc-grid-columns-tablet: {{ se_stts.logos_per_row_tablet }};
+    --lc-grid-columns-mobile: {{ se_stts.logos_per_row_mobile }};
+    --lc-grid-gap: {{ se_stts.grid_gap }}px;
+    --lc-carousel-gap: {{ se_stts.carousel_gap }}px;
+    --lc-carousel-peek: {{ se_stts.carousel_peek }}px;
+    --lc-marquee-speed-desktop: {{ se_stts.marquee_speed_desktop }}s;
+    --lc-marquee-speed-mobile: {{ se_stts.marquee_speed_mobile }}s;
+    --lc-marquee-gap: {{ se_stts.marquee_gap }}px;
+    --lc-marquee-direction: {%- if se_stts.marquee_direction == 'right' -%}reverse{%- else -%}normal{%- endif -%};
+    --lc-fade-width: {{ se_stts.marquee_fade_width }}px;
+
+    --lc-card-bg: {{ se_stts.logo_card_background_color }};
+    --lc-card-border: {{ se_stts.logo_card_border_color }};
+    --lc-card-border-width: {{ se_stts.logo_card_border_width }}px;
+    --lc-card-radius: {{ se_stts.logo_card_radius }}px;
+    --lc-card-padding-desktop: {{ se_stts.logo_card_padding_desktop }}px;
+    --lc-card-padding-mobile: {{ se_stts.logo_card_padding_mobile }}px;
+    --lc-card-size-desktop: {{ se_stts.logo_card_size_desktop }}px;
+    --lc-card-size-tablet: {{ se_stts.logo_card_size_tablet }}px;
+    --lc-card-size-mobile: {{ se_stts.logo_card_size_mobile }}px;
+    --lc-logo-fit: {{ se_stts.logo_image_fit }};
+    --lc-logo-max-height-desktop: {{ se_stts.logo_max_height_desktop }}px;
+    --lc-logo-max-height-mobile: {{ se_stts.logo_max_height_mobile }}px;
+    --lc-logo-opacity: {{ se_stts.logo_opacity | divided_by: 100.0 }};
+    --lc-logo-grayscale: {%- if se_stts.logo_grayscale -%}100%{%- else -%}0%{%- endif -%};
+    --lc-logo-invert: {%- if se_stts.logo_invert -%}100%{%- else -%}0%{%- endif -%};
+    --lc-logo-hover-opacity: {{ se_stts.logo_hover_opacity | divided_by: 100.0 }};
+    --lc-logo-hover-scale: {{ se_stts.logo_hover_scale | divided_by: 100.0 | plus: 1 }};
+    --lc-logo-hover-lift: {{ se_stts.logo_hover_lift }}px;
+  }
+
+  .logo-carousel--{{ section_id }} {
+    background: var(--lc-bg);
+    color: var(--lc-text);
+    overflow: hidden;
+    padding: var(--lc-padding-y-desktop) var(--lc-padding-x-desktop);
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__inner {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__layout {
+    display: grid;
+    gap: var(--lc-split-gap);
+    align-items: {{ se_stts.intro_vertical_align }};
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__layout--split {
+    grid-template-columns: minmax(0, var(--lc-intro-width)) minmax(0, 1fr);
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__intro {
+    text-align: var(--lc-align-desktop);
+    margin: 0 auto;
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__layout--split .logo-carousel__intro {
+    margin: 0;
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--lc-eyebrow-icon-gap);
+    margin: 0 0 var(--lc-eyebrow-margin);
+    color: var(--lc-text);
+    font-size: var(--lc-eyebrow-size);
+    font-weight: var(--lc-eyebrow-weight);
+    letter-spacing: var(--lc-eyebrow-spacing);
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__eyebrow-icon {
+    display: inline-flex;
+    width: var(--lc-eyebrow-icon-size);
+    height: var(--lc-eyebrow-icon-size);
+    color: var(--lc-eyebrow-icon-color);
+    flex: 0 0 auto;
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__eyebrow-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__title {
+    max-width: var(--lc-heading-width-desktop);
+    margin: 0 auto;
+    color: var(--lc-title-color-1);
+    font-size: var(--lc-title-size-desktop);
+    font-weight: var(--lc-title-weight);
+    font-style: italic;
+    line-height: var(--lc-title-line-height);
+    letter-spacing: var(--lc-title-letter-spacing);
+    text-transform: uppercase;
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__layout--split .logo-carousel__title {
+    margin-inline: 0;
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__title-highlight {
+    color: var(--lc-title-color-2);
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__title-highlight--badge {
+    display: inline-block;
+    color: var(--lc-title-badge-text);
+    background: var(--lc-title-badge-bg);
+    border: var(--lc-title-badge-border-width) solid var(--lc-title-badge-border);
+    border-radius: var(--lc-title-badge-radius);
+    padding: var(--lc-title-badge-py) var(--lc-title-badge-px);
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__body {
+    max-width: var(--lc-body-width-desktop);
+    margin: 22px auto 0;
+    color: var(--lc-text);
+    font-size: var(--lc-body-size-desktop);
+    font-weight: var(--lc-body-weight);
+    line-height: var(--lc-body-line-height);
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__layout--split .logo-carousel__body {
+    margin-inline: 0;
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 28px;
+    padding: var(--lc-cta-py-desktop) var(--lc-cta-px-desktop);
+    border: 1px solid var(--lc-cta-border);
+    border-radius: var(--lc-cta-radius);
+    background: var(--lc-cta-bg);
+    color: var(--lc-cta-text);
+    font-size: var(--lc-cta-size-desktop);
+    font-weight: var(--lc-cta-weight);
+    letter-spacing: var(--lc-cta-letter-spacing);
+    line-height: 1;
+    text-decoration: none;
+    transition: color 220ms ease, background 220ms ease, border-color 220ms ease;
+    {%- if se_stts.cta_uppercase -%}
+      text-transform: uppercase;
+    {%- endif -%}
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__cta:hover,
+  .logo-carousel--{{ section_id }} .logo-carousel__cta:focus-visible {
+    color: var(--lc-cta-hover-text);
+    background: var(--lc-cta-hover-bg);
+    border-color: var(--lc-cta-hover-border);
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__media {
+    position: relative;
+    margin-top: 42px;
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__layout--split .logo-carousel__media {
+    margin-top: 0;
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__viewport {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__viewport--fade::before,
+  .logo-carousel--{{ section_id }} .logo-carousel__viewport--fade::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 3;
+    width: var(--lc-fade-width);
+    pointer-events: none;
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__viewport--fade::before {
+    left: 0;
+    background: linear-gradient(90deg, var(--lc-bg), transparent);
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__viewport--fade::after {
+    right: 0;
+    background: linear-gradient(270deg, var(--lc-bg), transparent);
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__track {
+    display: grid;
+    gap: var(--lc-grid-gap);
+  }
+
+  .logo-carousel--{{ section_id }}.logo-carousel--desktop-grid .logo-carousel__track {
+    grid-template-columns: repeat(var(--lc-grid-columns-desktop), minmax(0, 1fr));
+  }
+
+  .logo-carousel--{{ section_id }}.logo-carousel--desktop-carousel .logo-carousel__track {
+    display: flex;
+    gap: var(--lc-carousel-gap);
+    overflow-x: auto;
+    scroll-padding-inline: var(--lc-carousel-peek);
+    padding-inline: var(--lc-carousel-peek);
+    scrollbar-width: none;
+    {%- if se_stts.carousel_snap -%}
+      scroll-snap-type: x mandatory;
+    {%- endif -%}
+  }
+
+  .logo-carousel--{{ section_id }}.logo-carousel--desktop-carousel .logo-carousel__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .logo-carousel--{{ section_id }}.logo-carousel--desktop-carousel .logo-carousel__item {
+    flex: 0 0 var(--lc-card-size-desktop);
+    {%- if se_stts.carousel_snap -%}
+      scroll-snap-align: start;
+    {%- endif -%}
+  }
+
+  .logo-carousel--{{ section_id }}.logo-carousel--desktop-grid .logo-carousel__clone,
+  .logo-carousel--{{ section_id }}.logo-carousel--desktop-carousel .logo-carousel__clone {
+    display: none;
+  }
+
+  .logo-carousel--{{ section_id }}.logo-carousel--desktop-marquee .logo-carousel__track {
+    display: flex;
+    width: max-content;
+    gap: var(--lc-marquee-gap);
+    animation: logo-carousel-marquee var(--lc-marquee-speed-desktop) linear infinite;
+    animation-direction: var(--lc-marquee-direction);
+  }
+
+  .logo-carousel--{{ section_id }}.logo-carousel--desktop-marquee .logo-carousel__item {
+    flex: 0 0 var(--lc-card-size-desktop);
+  }
+
+  .logo-carousel--{{ section_id }}.logo-carousel--desktop-marquee.logo-carousel--pause .logo-carousel__viewport:hover .logo-carousel__track,
+  .logo-carousel--{{ section_id }}.logo-carousel--desktop-marquee.logo-carousel--pause .logo-carousel__viewport:focus-within .logo-carousel__track {
+    animation-play-state: paused;
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__item {
+    min-width: 0;
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: var(--lc-card-size-desktop);
+    padding: var(--lc-card-padding-desktop);
+    border: var(--lc-card-border-width) solid var(--lc-card-border);
+    border-radius: var(--lc-card-radius);
+    background: var(--lc-card-bg);
+    color: inherit;
+    text-decoration: none;
+    transition: transform 240ms ease, opacity 240ms ease, border-color 240ms ease;
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__card:hover,
+  .logo-carousel--{{ section_id }} .logo-carousel__card:focus-visible {
+    opacity: var(--lc-logo-hover-opacity);
+    transform: translateY(calc(var(--lc-logo-hover-lift) * -1)) scale(var(--lc-logo-hover-scale));
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__logo {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--lc-logo-bg, transparent);
+    max-height: var(--lc-logo-max-height-desktop);
+    max-width: var(--lc-logo-max-width-desktop, 100%);
+    object-fit: var(--lc-logo-fit);
+    opacity: var(--lc-logo-opacity);
+    filter: grayscale(var(--lc-logo-grayscale)) invert(var(--lc-logo-invert));
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: calc(var(--lc-card-size-desktop) - (var(--lc-card-padding-desktop) * 2));
+    border: 1px dashed color-mix(in srgb, var(--lc-text) 24%, transparent);
+    color: color-mix(in srgb, var(--lc-text) 62%, transparent);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    line-height: 1.2;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__arrows {
+    display: {%- if se_stts.show_carousel_arrows -%}flex{%- else -%}none{%- endif -%};
+    justify-content: center;
+    gap: 10px;
+    margin-top: 22px;
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid color-mix(in srgb, var(--lc-text) 30%, transparent);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--lc-text);
+    cursor: pointer;
+    transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__arrow:hover,
+  .logo-carousel--{{ section_id }} .logo-carousel__arrow:focus-visible {
+    border-color: var(--lc-text);
+    background: var(--lc-text);
+    color: var(--lc-bg);
+  }
+
+  .logo-carousel--{{ section_id }}.logo-carousel--desktop-grid .logo-carousel__arrows,
+  .logo-carousel--{{ section_id }}.logo-carousel--desktop-marquee .logo-carousel__arrows {
+    display: none;
+  }
+
+  @keyframes logo-carousel-marquee {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
+  }
+
+  @media (max-width: 1199px) {
+    .logo-carousel--{{ section_id }} {
+      padding-inline: var(--lc-padding-x-tablet);
+    }
+
+    .logo-carousel--{{ section_id }}.logo-carousel--desktop-grid .logo-carousel__track {
+      grid-template-columns: repeat(var(--lc-grid-columns-tablet), minmax(0, 1fr));
+    }
+
+    .logo-carousel--{{ section_id }}.logo-carousel--desktop-carousel .logo-carousel__item,
+    .logo-carousel--{{ section_id }}.logo-carousel--desktop-marquee .logo-carousel__item {
+      flex-basis: var(--lc-card-size-tablet);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .logo-carousel--{{ section_id }} {
+      padding: var(--lc-padding-y-mobile) var(--lc-padding-x-mobile);
+      text-align: var(--lc-align-mobile);
+    }
+
+    .logo-carousel--{{ section_id }} .logo-carousel__layout,
+    .logo-carousel--{{ section_id }} .logo-carousel__layout--split {
+      display: block;
+    }
+
+    .logo-carousel--{{ section_id }} .logo-carousel__intro {
+      text-align: var(--lc-align-mobile);
+      margin: 0 auto;
+    }
+
+    .logo-carousel--{{ section_id }} .logo-carousel__title {
+      max-width: var(--lc-heading-width-mobile);
+      margin-inline: auto;
+      font-size: var(--lc-title-size-mobile);
+    }
+
+    .logo-carousel--{{ section_id }} .logo-carousel__body {
+      max-width: var(--lc-body-width-mobile);
+      margin-inline: auto;
+      font-size: var(--lc-body-size-mobile);
+    }
+
+    .logo-carousel--{{ section_id }} .logo-carousel__cta {
+      padding: var(--lc-cta-py-mobile) var(--lc-cta-px-mobile);
+      font-size: var(--lc-cta-size-mobile);
+    }
+
+    .logo-carousel--{{ section_id }} .logo-carousel__media {
+      margin-top: 34px;
+    }
+
+    .logo-carousel--{{ section_id }}.logo-carousel--mobile-grid .logo-carousel__track {
+      display: grid;
+      grid-template-columns: repeat(var(--lc-grid-columns-mobile), minmax(0, 1fr));
+      gap: var(--lc-grid-gap);
+      width: auto;
+      animation: none;
+    }
+
+    .logo-carousel--{{ section_id }}.logo-carousel--mobile-carousel .logo-carousel__track {
+      display: flex;
+      gap: var(--lc-carousel-gap);
+      overflow-x: auto;
+      scroll-padding-inline: var(--lc-carousel-peek);
+      padding-inline: var(--lc-carousel-peek);
+      scrollbar-width: none;
+      animation: none;
+    }
+
+    .logo-carousel--{{ section_id }}.logo-carousel--mobile-carousel .logo-carousel__track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .logo-carousel--{{ section_id }}.logo-carousel--mobile-carousel .logo-carousel__item {
+      flex: 0 0 var(--lc-card-size-mobile);
+      {%- if se_stts.carousel_snap -%}
+        scroll-snap-align: start;
+      {%- endif -%}
+    }
+
+    .logo-carousel--{{ section_id }}.logo-carousel--mobile-marquee .logo-carousel__track {
+      display: flex;
+      width: max-content;
+      gap: var(--lc-marquee-gap);
+      animation: logo-carousel-marquee var(--lc-marquee-speed-mobile) linear infinite;
+      animation-direction: var(--lc-marquee-direction);
+    }
+
+    .logo-carousel--{{ section_id }}.logo-carousel--mobile-marquee .logo-carousel__item {
+      flex: 0 0 var(--lc-card-size-mobile);
+    }
+
+    .logo-carousel--{{ section_id }}.logo-carousel--mobile-marquee.logo-carousel--pause .logo-carousel__viewport:hover .logo-carousel__track,
+    .logo-carousel--{{ section_id }}.logo-carousel--mobile-marquee.logo-carousel--pause .logo-carousel__viewport:focus-within .logo-carousel__track {
+      animation-play-state: paused;
+    }
+
+    .logo-carousel--{{ section_id }}.logo-carousel--mobile-grid .logo-carousel__clone,
+    .logo-carousel--{{ section_id }}.logo-carousel--mobile-carousel .logo-carousel__clone {
+      display: none;
+    }
+
+    .logo-carousel--{{ section_id }} .logo-carousel__card {
+      min-height: var(--lc-card-size-mobile);
+      padding: var(--lc-card-padding-mobile);
+    }
+
+    .logo-carousel--{{ section_id }} .logo-carousel__logo {
+      max-height: var(--lc-logo-max-height-mobile);
+      max-width: var(--lc-logo-max-width-mobile, 100%);
+    }
+
+    .logo-carousel--{{ section_id }} .logo-carousel__placeholder {
+      min-height: calc(var(--lc-card-size-mobile) - (var(--lc-card-padding-mobile) * 2));
+    }
+
+    .logo-carousel--{{ section_id }}.logo-carousel--mobile-grid .logo-carousel__arrows,
+    .logo-carousel--{{ section_id }}.logo-carousel--mobile-marquee .logo-carousel__arrows {
+      display: none;
+    }
+
+    .logo-carousel--{{ section_id }}.logo-carousel--mobile-carousel .logo-carousel__arrows {
+      display: {%- if se_stts.show_carousel_arrows -%}flex{%- else -%}none{%- endif -%};
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-carousel--{{ section_id }} .logo-carousel__track {
+      animation: none !important;
+      transform: none !important;
+    }
+
+    .logo-carousel--{{ section_id }} .logo-carousel__clone {
+      display: none !important;
+    }
+
+    .logo-carousel--{{ section_id }}.logo-carousel--desktop-marquee .logo-carousel__track,
+    .logo-carousel--{{ section_id }}.logo-carousel--mobile-marquee .logo-carousel__track {
+      display: flex;
+      flex-wrap: wrap;
+      width: auto;
+    }
+
+    .logo-carousel--{{ section_id }} .logo-carousel__card,
+    .logo-carousel--{{ section_id }} .logo-carousel__cta,
+    .logo-carousel--{{ section_id }} .logo-carousel__arrow {
+      transition: none !important;
+    }
+  }
+{%- endstyle -%}
+
+<section
+  class="logo-carousel logo-carousel--{{ section_id }} logo-carousel--desktop-{{ desktop_mode }} logo-carousel--mobile-{{ mobile_mode }}{% if se_stts.marquee_pause_on_hover %} logo-carousel--pause{% endif %}"
+  data-section-id="{{ section_id }}"
+  timeline
+  hdt-reveal="slide-in"
+  {{ section.shopify_attributes }}
+>
+  <div class="logo-carousel__inner">
+    <div class="logo-carousel__layout logo-carousel__layout--{{ se_stts.layout_style }}">
+      <div class="logo-carousel__intro">
+        {%- if se_stts.eyebrow != blank -%}
+          <p class="logo-carousel__eyebrow">
+            {%- if se_stts.show_eyebrow_icon and se_stts.eyebrow_icon_style != 'none' -%}
+              <span class="logo-carousel__eyebrow-icon" aria-hidden="true">
+                {%- case se_stts.eyebrow_icon_style -%}
+                  {%- when 'sparkle' -%}
+                    <svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3Z"/><path d="M18 15l.8 2.2L21 18l-2.2.8L18 21l-.8-2.2L15 18l2.2-.8L18 15Z"/></svg>
+                  {%- when 'star' -%}
+                    <svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.8-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.2 5.9-.8L12 3.5Z"/></svg>
+                  {%- when 'circle' -%}
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/></svg>
+                  {%- when 'plus' -%}
+                    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                {%- endcase -%}
+              </span>
+            {%- endif -%}
+            <span>{{ se_stts.eyebrow }}</span>
+          </p>
+        {%- endif -%}
+
+        {%- if title_text != blank -%}
+          <h2 class="logo-carousel__title" data-highlight="{{ highlight_text | escape }}" data-highlight-enabled="{{ se_stts.title_dual_colour_enable }}">
+            {%- if se_stts.title_dual_colour_enable and highlight_text != blank and title_text contains highlight_text -%}
+              {%- assign title_parts = title_text | split: highlight_text -%}
+              {{ title_parts[0] }}
+              <span class="logo-carousel__title-highlight logo-carousel__title-highlight--{{ se_stts.title_highlight_style }}">{{ highlight_text }}</span>
+              {{ title_parts[1] }}
+            {%- else -%}
+              {{ title_text }}
+            {%- endif -%}
+          </h2>
+        {%- endif -%}
+
+        {%- if se_stts.body_text != blank -%}
+          <div class="logo-carousel__body">{{ se_stts.body_text }}</div>
+        {%- endif -%}
+
+        {%- if se_stts.show_cta and se_stts.cta_label != blank -%}
+          <a
+            class="logo-carousel__cta"
+            href="{{ se_stts.cta_link | default: '#' }}"
+            {% if se_stts.cta_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+          >
+            {{ se_stts.cta_label }}
+          </a>
+        {%- endif -%}
+      </div>
+
+      <div class="logo-carousel__media">
+        <div class="logo-carousel__viewport{% if se_stts.marquee_fade_edges %} logo-carousel__viewport--fade{% endif %}">
+          <div class="logo-carousel__track" data-logo-carousel-track>
+            {%- for block in section.blocks -%}
+              {%- liquid
+                assign logo_label = block.settings.logo_label | default: 'Logo'
+                assign logo_alt = block.settings.logo_alt_text | default: logo_label
+                assign block_bg = block.settings.logo_card_background_override | default: se_stts.logo_card_background_color
+                assign logo_width_desktop = block.settings.logo_max_width_desktop
+                assign logo_width_mobile = block.settings.logo_max_width_mobile
+                assign logo_height_desktop = block.settings.block_logo_max_height_desktop
+                assign logo_height_mobile = block.settings.block_logo_max_height_mobile
+                assign logo_bg = block.settings.logo_background_color
+                assign block_opacity = block.settings.block_logo_opacity | divided_by: 100.0
+                assign block_grayscale = '0%'
+                assign block_invert = '0%'
+                if block.settings.block_logo_grayscale
+                  assign block_grayscale = '100%'
+                endif
+                if block.settings.block_logo_invert
+                  assign block_invert = '100%'
+                endif
+                capture logo_style
+                  echo '--lc-logo-bg: '
+                  echo logo_bg
+                  echo '; --lc-logo-max-width-desktop: '
+                  echo logo_width_desktop
+                  echo 'px; --lc-logo-max-width-mobile: '
+                  echo logo_width_mobile
+                  echo 'px; --lc-logo-max-height-desktop: '
+                  echo logo_height_desktop
+                  echo 'px; --lc-logo-max-height-mobile: '
+                  echo logo_height_mobile
+                  echo 'px; --lc-logo-opacity: '
+                  echo block_opacity
+                  echo '; --lc-logo-grayscale: '
+                  echo block_grayscale
+                  echo '; --lc-logo-invert: '
+                  echo block_invert
+                  echo ';'
+                endcapture
+              -%}
+              <div class="logo-carousel__item" {{ block.shopify_attributes }}>
+                {%- if block.settings.link != blank -%}
+                  <a
+                    class="logo-carousel__card"
+                    href="{{ block.settings.link }}"
+                    {% if block.settings.open_in_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+                    style="--lc-card-bg: {{ block_bg }}; --lc-card-padding-desktop: {{ block.settings.logo_padding }}px; --lc-card-padding-mobile: {{ block.settings.logo_padding }}px;"
+                  >
+                {%- else -%}
+                  <div
+                    class="logo-carousel__card"
+                    style="--lc-card-bg: {{ block_bg }}; --lc-card-padding-desktop: {{ block.settings.logo_padding }}px; --lc-card-padding-mobile: {{ block.settings.logo_padding }}px;"
+                  >
+                {%- endif -%}
+                  {%- if block.settings.logo_image != blank -%}
+                    {{
+                      block.settings.logo_image
+                      | image_url: width: 700
+                      | image_tag:
+                        class: 'logo-carousel__logo',
+                        loading: 'lazy',
+                        alt: logo_alt,
+                        widths: '120, 180, 240, 320, 480, 700',
+                        style: logo_style
+                    }}
+                  {%- else -%}
+                    <span class="logo-carousel__placeholder">{{ logo_label }}</span>
+                  {%- endif -%}
+                {%- if block.settings.link != blank -%}
+                  </a>
+                {%- else -%}
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+
+            {%- if section.blocks.size > 0 -%}
+              {%- for block in section.blocks -%}
+                {%- liquid
+                  assign logo_label = block.settings.logo_label | default: 'Logo'
+                  assign logo_alt = block.settings.logo_alt_text | default: logo_label
+                  assign block_bg = block.settings.logo_card_background_override | default: se_stts.logo_card_background_color
+                  assign logo_width_desktop = block.settings.logo_max_width_desktop
+                  assign logo_width_mobile = block.settings.logo_max_width_mobile
+                  assign logo_height_desktop = block.settings.block_logo_max_height_desktop
+                  assign logo_height_mobile = block.settings.block_logo_max_height_mobile
+                  assign logo_bg = block.settings.logo_background_color
+                  assign block_opacity = block.settings.block_logo_opacity | divided_by: 100.0
+                  assign block_grayscale = '0%'
+                  assign block_invert = '0%'
+                  if block.settings.block_logo_grayscale
+                    assign block_grayscale = '100%'
+                  endif
+                  if block.settings.block_logo_invert
+                    assign block_invert = '100%'
+                  endif
+                  capture logo_style
+                    echo '--lc-logo-bg: '
+                    echo logo_bg
+                    echo '; --lc-logo-max-width-desktop: '
+                    echo logo_width_desktop
+                    echo 'px; --lc-logo-max-width-mobile: '
+                    echo logo_width_mobile
+                    echo 'px; --lc-logo-max-height-desktop: '
+                    echo logo_height_desktop
+                    echo 'px; --lc-logo-max-height-mobile: '
+                    echo logo_height_mobile
+                    echo 'px; --lc-logo-opacity: '
+                    echo block_opacity
+                    echo '; --lc-logo-grayscale: '
+                    echo block_grayscale
+                    echo '; --lc-logo-invert: '
+                    echo block_invert
+                    echo ';'
+                  endcapture
+                -%}
+                <div class="logo-carousel__item logo-carousel__clone" aria-hidden="true">
+                  {%- if block.settings.link != blank -%}
+                    <a
+                      class="logo-carousel__card"
+                      href="{{ block.settings.link }}"
+                      tabindex="-1"
+                      {% if block.settings.open_in_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+                      style="--lc-card-bg: {{ block_bg }}; --lc-card-padding-desktop: {{ block.settings.logo_padding }}px; --lc-card-padding-mobile: {{ block.settings.logo_padding }}px;"
+                    >
+                  {%- else -%}
+                    <div
+                      class="logo-carousel__card"
+                      style="--lc-card-bg: {{ block_bg }}; --lc-card-padding-desktop: {{ block.settings.logo_padding }}px; --lc-card-padding-mobile: {{ block.settings.logo_padding }}px;"
+                    >
+                  {%- endif -%}
+                    {%- if block.settings.logo_image != blank -%}
+                      {{
+                        block.settings.logo_image
+                        | image_url: width: 700
+                        | image_tag:
+                          class: 'logo-carousel__logo',
+                          loading: 'lazy',
+                          alt: logo_alt,
+                          widths: '120, 180, 240, 320, 480, 700',
+                          style: logo_style
+                      }}
+                    {%- else -%}
+                      <span class="logo-carousel__placeholder">{{ logo_label }}</span>
+                    {%- endif -%}
+                  {%- if block.settings.link != blank -%}
+                    </a>
+                  {%- else -%}
+                    </div>
+                  {%- endif -%}
+                </div>
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
+        </div>
+
+        <div class="logo-carousel__arrows" aria-hidden="false">
+          <button class="logo-carousel__arrow" type="button" data-logo-carousel-prev aria-label="Previous logos">
+            <span aria-hidden="true">&#8592;</span>
+          </button>
+          <button class="logo-carousel__arrow" type="button" data-logo-carousel-next aria-label="Next logos">
+            <span aria-hidden="true">&#8594;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    var root = document.querySelector('.logo-carousel--{{ section_id }}');
+    if (!root || root.dataset.logoCarouselReady === 'true') return;
+    root.dataset.logoCarouselReady = 'true';
+
+    var title = root.querySelector('.logo-carousel__title[data-highlight-enabled="true"]');
+    if (title) {
+      var term = title.getAttribute('data-highlight');
+      if (term && title.textContent.indexOf(term) !== -1 && !title.querySelector('.logo-carousel__title-highlight')) {
+        var text = title.textContent;
+        var index = text.indexOf(term);
+        title.textContent = '';
+        title.appendChild(document.createTextNode(text.slice(0, index)));
+        var span = document.createElement('span');
+        span.className = 'logo-carousel__title-highlight logo-carousel__title-highlight--{{ se_stts.title_highlight_style }}';
+        span.textContent = term;
+        title.appendChild(span);
+        title.appendChild(document.createTextNode(text.slice(index + term.length)));
+      }
+    }
+
+    var track = root.querySelector('[data-logo-carousel-track]');
+    var prev = root.querySelector('[data-logo-carousel-prev]');
+    var next = root.querySelector('[data-logo-carousel-next]');
+    if (!track || !prev || !next) return;
+
+    var scrollTrack = function(direction) {
+      var firstItem = track.querySelector('.logo-carousel__item:not(.logo-carousel__clone)');
+      var amount = firstItem ? firstItem.getBoundingClientRect().width + 24 : 260;
+      track.scrollBy({ left: amount * direction, behavior: 'smooth' });
+    };
+
+    prev.addEventListener('click', function() {
+      scrollTrack(-1);
+    });
+
+    next.addEventListener('click', function() {
+      scrollTrack(1);
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Logo Carousel",
+  "tag": "section",
+  "class": "shopify-section-logo-carousel",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Featured partners"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_eyebrow_icon",
+      "label": "Show eyebrow icon",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "eyebrow_icon_style",
+      "label": "Eyebrow icon style",
+      "default": "sparkle",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "sparkle", "label": "Sparkle" },
+        { "value": "star", "label": "Star" },
+        { "value": "circle", "label": "Circle" },
+        { "value": "plus", "label": "Plus" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_icon_size",
+      "label": "Eyebrow icon size",
+      "min": 8,
+      "max": 32,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_icon_gap",
+      "label": "Eyebrow icon gap",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_icon_color",
+      "label": "Eyebrow icon colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Logo Carousel"
+    },
+    {
+      "type": "checkbox",
+      "id": "title_dual_colour_enable",
+      "label": "Enable highlighted title text",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title_highlight_text",
+      "label": "Highlighted title text",
+      "default": "Carousel"
+    },
+    {
+      "type": "select",
+      "id": "title_highlight_style",
+      "label": "Highlighted title style",
+      "default": "badge",
+      "options": [
+        { "value": "text", "label": "Text colour" },
+        { "value": "badge", "label": "Badge" }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "body_text",
+      "label": "Body text",
+      "default": "<p>Showcase trusted logos, press mentions, partners or stockists in a polished moving strip.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show CTA",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA label",
+      "default": "Explore more"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA link"
+    },
+    {
+      "type": "checkbox",
+      "id": "cta_new_tab",
+      "label": "Open CTA in new tab",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Heading colours"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background colour",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent colour",
+      "default": "#fff4f4"
+    },
+    {
+      "type": "color",
+      "id": "title_colour_1",
+      "label": "Title colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_colour_2",
+      "label": "Highlighted title colour",
+      "default": "#fff4f4"
+    },
+    {
+      "type": "color",
+      "id": "title_badge_text_color",
+      "label": "Badge text colour",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "title_badge_bg_color",
+      "label": "Badge background colour",
+      "default": "#fff4f4"
+    },
+    {
+      "type": "color",
+      "id": "title_badge_border_color",
+      "label": "Badge border colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "title_badge_radius",
+      "label": "Badge radius",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "title_badge_padding_x",
+      "label": "Badge horizontal padding",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "default": 4,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "title_badge_padding_y",
+      "label": "Badge vertical padding",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "title_badge_border_width",
+      "label": "Badge border width",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Heading typography"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_font_size",
+      "label": "Eyebrow font size",
+      "min": 8,
+      "max": 32,
+      "step": 1,
+      "default": 11,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "eyebrow_font_weight",
+      "label": "Eyebrow font weight",
+      "default": "500",
+      "options": [
+        { "value": "300", "label": "300" },
+        { "value": "400", "label": "400" },
+        { "value": "500", "label": "500" },
+        { "value": "600", "label": "600" },
+        { "value": "700", "label": "700" },
+        { "value": "800", "label": "800" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_letter_spacing",
+      "label": "Eyebrow letter spacing",
+      "min": 0,
+      "max": 8,
+      "step": 0.1,
+      "default": 4,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_spacing_bottom",
+      "label": "Eyebrow bottom spacing",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_desktop",
+      "label": "Title font size desktop",
+      "min": 16,
+      "max": 96,
+      "step": 1,
+      "default": 62,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_mobile",
+      "label": "Title font size mobile",
+      "min": 16,
+      "max": 64,
+      "step": 1,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "title_font_weight",
+      "label": "Title font weight",
+      "default": "800",
+      "options": [
+        { "value": "400", "label": "400" },
+        { "value": "500", "label": "500" },
+        { "value": "600", "label": "600" },
+        { "value": "700", "label": "700" },
+        { "value": "800", "label": "800" },
+        { "value": "900", "label": "900" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "title_line_height",
+      "label": "Title line height",
+      "min": 0.8,
+      "max": 1.4,
+      "step": 0.1,
+      "default": 1,
+      "unit": "em"
+    },
+    {
+      "type": "range",
+      "id": "title_letter_spacing",
+      "label": "Title letter spacing",
+      "min": 0,
+      "max": 3,
+      "step": 0.1,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "body_font_size_desktop",
+      "label": "Body font size desktop",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "body_font_size_mobile",
+      "label": "Body font size mobile",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "default": 15,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "body_line_height",
+      "label": "Body line height",
+      "min": 1.2,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.6,
+      "unit": "em"
+    },
+    {
+      "type": "select",
+      "id": "body_font_weight",
+      "label": "Body font weight",
+      "default": "300",
+      "options": [
+        { "value": "300", "label": "300" },
+        { "value": "400", "label": "400" },
+        { "value": "500", "label": "500" },
+        { "value": "600", "label": "600" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "CTA style"
+    },
+    {
+      "type": "range",
+      "id": "cta_font_size_desktop",
+      "label": "CTA font size desktop",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "cta_font_size_mobile",
+      "label": "CTA font size mobile",
+      "min": 10,
+      "max": 22,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "cta_font_weight",
+      "label": "CTA font weight",
+      "default": "400",
+      "options": [
+        { "value": "300", "label": "300" },
+        { "value": "400", "label": "400" },
+        { "value": "500", "label": "500" },
+        { "value": "600", "label": "600" },
+        { "value": "700", "label": "700" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "cta_letter_spacing",
+      "label": "CTA letter spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "default": 1.8,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "cta_uppercase",
+      "label": "Uppercase CTA",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "cta_padding_x_desktop",
+      "label": "CTA horizontal padding desktop",
+      "min": 8,
+      "max": 60,
+      "step": 1,
+      "default": 29,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "cta_padding_y_desktop",
+      "label": "CTA vertical padding desktop",
+      "min": 6,
+      "max": 36,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "cta_padding_x_mobile",
+      "label": "CTA horizontal padding mobile",
+      "min": 8,
+      "max": 50,
+      "step": 1,
+      "default": 22,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "cta_padding_y_mobile",
+      "label": "CTA vertical padding mobile",
+      "min": 6,
+      "max": 32,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "cta_radius",
+      "label": "CTA radius",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 7,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "cta_background_color",
+      "label": "CTA background colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "CTA text colour",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "cta_border_color",
+      "label": "CTA border colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_background_color",
+      "label": "CTA hover background colour",
+      "default": "#fff4f4"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_text_color",
+      "label": "CTA hover text colour",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_border_color",
+      "label": "CTA hover border colour",
+      "default": "#fff4f4"
+    },
+    {
+      "type": "header",
+      "content": "Section layout"
+    },
+    {
+      "type": "select",
+      "id": "layout_style",
+      "label": "Layout style",
+      "default": "grid",
+      "options": [
+        { "value": "grid", "label": "Stacked" },
+        { "value": "split", "label": "Split" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "intro_width",
+      "label": "Intro width",
+      "min": 30,
+      "max": 75,
+      "step": 1,
+      "default": 60,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "split_column_gap",
+      "label": "Split column gap",
+      "min": 16,
+      "max": 120,
+      "step": 2,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "intro_vertical_align",
+      "label": "Intro vertical alignment",
+      "default": "center",
+      "options": [
+        { "value": "start", "label": "Top" },
+        { "value": "center", "label": "Middle" },
+        { "value": "end", "label": "Bottom" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_align_desktop",
+      "label": "Text alignment desktop",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_align_mobile",
+      "label": "Text alignment mobile",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "section_padding_desktop",
+      "label": "Section vertical padding desktop",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "default": 80,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_mobile",
+      "label": "Section vertical padding mobile",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "default": 56,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_x_desktop",
+      "label": "Side padding desktop",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_x_tablet",
+      "label": "Side padding tablet",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_x_mobile",
+      "label": "Side padding mobile",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "heading_width_desktop",
+      "label": "Heading width desktop",
+      "min": 280,
+      "max": 1200,
+      "step": 10,
+      "default": 820,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "heading_width_mobile",
+      "label": "Heading width mobile",
+      "min": 180,
+      "max": 420,
+      "step": 5,
+      "default": 310,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "body_width_desktop",
+      "label": "Body width desktop",
+      "min": 240,
+      "max": 900,
+      "step": 10,
+      "default": 580,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "body_width_mobile",
+      "label": "Body width mobile",
+      "min": 180,
+      "max": 420,
+      "step": 5,
+      "default": 260,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Display"
+    },
+    {
+      "type": "select",
+      "id": "desktop_display_mode",
+      "label": "Desktop display mode",
+      "default": "marquee",
+      "options": [
+        { "value": "grid", "label": "Grid" },
+        { "value": "carousel", "label": "Carousel" },
+        { "value": "marquee", "label": "Marquee" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "mobile_display_mode",
+      "label": "Mobile display mode",
+      "default": "marquee",
+      "options": [
+        { "value": "grid", "label": "Grid" },
+        { "value": "carousel", "label": "Carousel" },
+        { "value": "marquee", "label": "Marquee" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "logos_per_row_desktop",
+      "label": "Logos per row desktop",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "logos_per_row_tablet",
+      "label": "Logos per row tablet",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "logos_per_row_mobile",
+      "label": "Logos per row mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Grid gap",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "carousel_gap",
+      "label": "Carousel gap",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_carousel_arrows",
+      "label": "Show carousel arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "carousel_snap",
+      "label": "Enable carousel snap",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "carousel_peek",
+      "label": "Carousel side peek",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "marquee_speed_desktop",
+      "label": "Marquee speed desktop",
+      "min": 5,
+      "max": 80,
+      "step": 1,
+      "default": 28,
+      "unit": "s"
+    },
+    {
+      "type": "range",
+      "id": "marquee_speed_mobile",
+      "label": "Marquee speed mobile",
+      "min": 5,
+      "max": 80,
+      "step": 1,
+      "default": 30,
+      "unit": "s"
+    },
+    {
+      "type": "select",
+      "id": "marquee_direction",
+      "label": "Marquee direction",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "marquee_pause_on_hover",
+      "label": "Pause marquee on hover",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "marquee_fade_edges",
+      "label": "Fade marquee edges",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "marquee_fade_width",
+      "label": "Marquee fade width",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 48,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "marquee_gap",
+      "label": "Marquee gap",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Logo cards"
+    },
+    {
+      "type": "color",
+      "id": "logo_card_background_color",
+      "label": "Card background colour",
+      "default": "#0f0f0f"
+    },
+    {
+      "type": "color",
+      "id": "logo_card_border_color",
+      "label": "Card border colour",
+      "default": "#2a2a2a"
+    },
+    {
+      "type": "range",
+      "id": "logo_card_border_width",
+      "label": "Card border width",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "default": 1,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "logo_card_radius",
+      "label": "Card radius",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 4,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "logo_card_padding_desktop",
+      "label": "Card padding desktop",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "logo_card_padding_mobile",
+      "label": "Card padding mobile",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 22,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "logo_card_size_desktop",
+      "label": "Card size desktop",
+      "min": 120,
+      "max": 420,
+      "step": 5,
+      "default": 230,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "logo_card_size_tablet",
+      "label": "Card size tablet",
+      "min": 120,
+      "max": 360,
+      "step": 5,
+      "default": 230,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "logo_card_size_mobile",
+      "label": "Card size mobile",
+      "min": 90,
+      "max": 260,
+      "step": 5,
+      "default": 150,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "logo_image_fit",
+      "label": "Logo image fit",
+      "default": "contain",
+      "options": [
+        { "value": "contain", "label": "Contain" },
+        { "value": "cover", "label": "Cover" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "logo_max_height_desktop",
+      "label": "Logo max height desktop",
+      "min": 20,
+      "max": 180,
+      "step": 2,
+      "default": 72,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "logo_max_height_mobile",
+      "label": "Logo max height mobile",
+      "min": 20,
+      "max": 140,
+      "step": 2,
+      "default": 56,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "logo_opacity",
+      "label": "Logo opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 100,
+      "unit": "%"
+    },
+    {
+      "type": "checkbox",
+      "id": "logo_grayscale",
+      "label": "Make logos grayscale",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "logo_invert",
+      "label": "Invert logos",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "logo_hover_opacity",
+      "label": "Logo hover opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 100,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "logo_hover_scale",
+      "label": "Logo hover scale",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 2,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "logo_hover_lift",
+      "label": "Logo hover lift",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 0,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo_image",
+          "label": "Logo image"
+        },
+        {
+          "type": "text",
+          "id": "logo_alt_text",
+          "label": "Logo alt text"
+        },
+        {
+          "type": "text",
+          "id": "logo_label",
+          "label": "Logo label",
+          "default": "Logo"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_in_new_tab",
+          "label": "Open in new tab",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "logo_max_width_desktop",
+          "label": "Logo max width desktop",
+          "min": 40,
+          "max": 320,
+          "step": 4,
+          "default": 180,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "logo_max_width_mobile",
+          "label": "Logo max width mobile",
+          "min": 40,
+          "max": 220,
+          "step": 4,
+          "default": 132,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "block_logo_max_height_desktop",
+          "label": "Logo max height desktop",
+          "min": 20,
+          "max": 180,
+          "step": 2,
+          "default": 72,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "block_logo_max_height_mobile",
+          "label": "Logo max height mobile",
+          "min": 20,
+          "max": 140,
+          "step": 2,
+          "default": 56,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "block_logo_opacity",
+          "label": "Logo opacity",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 100,
+          "unit": "%"
+        },
+        {
+          "type": "checkbox",
+          "id": "block_logo_grayscale",
+          "label": "Make logo grayscale",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "block_logo_invert",
+          "label": "Invert logo",
+          "default": false
+        },
+        {
+          "type": "color",
+          "id": "logo_background_color",
+          "label": "Logo background colour",
+          "default": "#0f0f0f"
+        },
+        {
+          "type": "range",
+          "id": "logo_padding",
+          "label": "Logo padding",
+          "min": 0,
+          "max": 80,
+          "step": 1,
+          "default": 28,
+          "unit": "px"
+        },
+        {
+          "type": "color",
+          "id": "logo_card_background_override",
+          "label": "Card background override",
+          "default": "#0f0f0f"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Logo Carousel",
+      "blocks": [
+        { "type": "logo", "settings": { "logo_label": "Logo one" } },
+        { "type": "logo", "settings": { "logo_label": "Logo two" } },
+        { "type": "logo", "settings": { "logo_label": "Logo three" } },
+        { "type": "logo", "settings": { "logo_label": "Logo four" } },
+        { "type": "logo", "settings": { "logo_label": "Logo five" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
