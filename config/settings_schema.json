@@ -327,6 +327,119 @@
     ]
   },
   {
+    "name": "Motion & Animation",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_animations",
+        "label": "Enable animations",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "motion_speed_multiplier",
+        "label": "Motion speed multiplier",
+        "min": 50,
+        "max": 200,
+        "step": 5,
+        "unit": "%",
+        "default": 100
+      },
+      {
+        "type": "select",
+        "id": "motion_easing_style",
+        "label": "Motion easing style",
+        "options": [
+          {
+            "value": "standard",
+            "label": "Standard"
+          },
+          {
+            "value": "soft",
+            "label": "Soft"
+          },
+          {
+            "value": "sharp",
+            "label": "Sharp"
+          },
+          {
+            "value": "luxury",
+            "label": "Luxury"
+          }
+        ],
+        "default": "luxury"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_hover_motion",
+        "label": "Enable hover motion",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_marquee_motion",
+        "label": "Enable marquee motion",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_autoplay_motion",
+        "label": "Enable autoplay motion",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "reduce_motion_mode",
+        "label": "Reduced motion behaviour",
+        "options": [
+          {
+            "value": "respect_system",
+            "label": "Respect system"
+          },
+          {
+            "value": "minimise",
+            "label": "Minimise"
+          },
+          {
+            "value": "disable",
+            "label": "Disable"
+          }
+        ],
+        "default": "respect_system"
+      },
+      {
+        "type": "range",
+        "id": "reveal_distance",
+        "label": "Reveal distance",
+        "min": 0,
+        "max": 80,
+        "step": 1,
+        "unit": "px",
+        "default": 24
+      },
+      {
+        "type": "range",
+        "id": "reveal_duration",
+        "label": "Reveal duration",
+        "min": 100,
+        "max": 1200,
+        "step": 50,
+        "unit": "ms",
+        "default": 450
+      },
+      {
+        "type": "range",
+        "id": "reveal_stagger",
+        "label": "Reveal stagger",
+        "min": 0,
+        "max": 300,
+        "step": 10,
+        "unit": "ms",
+        "default": 80
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.general.name",
     "settings": [
       {
