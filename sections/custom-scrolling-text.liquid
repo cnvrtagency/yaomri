@@ -71,6 +71,31 @@
     outline-offset: 4px;
   }
 
+  #shopify-section-{{ section.id }} .custom-scroll-highlight {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--scroll-highlight-padding-y) var(--scroll-highlight-padding-x);
+    border: var(--scroll-highlight-border-width) solid var(--scroll-highlight-border);
+    border-radius: var(--scroll-highlight-radius);
+    line-height: 1;
+    vertical-align: baseline;
+  }
+
+  #shopify-section-{{ section.id }} .custom-scroll-highlight--background {
+    color: var(--scroll-highlight-text);
+    background: var(--scroll-highlight-bg);
+  }
+
+  #shopify-section-{{ section.id }} .custom-scroll-highlight--text_colour {
+    color: var(--scroll-highlight-text);
+    background: transparent;
+  }
+
+  #shopify-section-{{ section.id }} .custom-scroll-highlight--outline {
+    color: var(--scroll-highlight-text);
+    background: transparent;
+  }
+
   #shopify-section-{{ section.id }} .custom-scroll-separator {
     display: {% if section.settings.show_separator %}inline-flex{% else %}none{% endif %};
     width: {{ section.settings.separator_size }}px;
@@ -122,7 +147,7 @@
       transform: translateX(0);
     }
     to {
-      transform: translateX(-50%);
+      transform: translateX(-12.5%);
     }
   }
 
@@ -154,129 +179,94 @@
       display: none;
     }
   }
-
-  {% unless settings.enable_animations and settings.enable_marquee_motion and settings.reduce_motion_mode == 'respect_system' %}
-    #shopify-section-{{ section.id }} .custom-scroll-track {
-      animation: none;
-      flex-wrap: wrap;
-      width: auto;
-    }
-
-    #shopify-section-{{ section.id }} .custom-scroll-group[aria-hidden="true"] {
-      display: none;
-    }
-  {% endunless %}
 {% endstyle %}
 
 <div class="custom-scroll-bar"{% if settings.enable_animations and settings.animations_reveal_on_scroll and settings.reduce_motion_mode == 'respect_system' %} timeline hdt-reveal="slide-in"{% endif %}>
   <div class="custom-scroll-track">
-    <div class="custom-scroll-group">
-      {% for block in section.blocks %}
-        {% liquid
-          assign item_font = section.settings.font_family
-          assign item_weight = section.settings.font_weight
-          assign item_style = 'normal'
+    {% for group_index in (1..8) %}
+      {% assign is_clone_group = false %}
+      {% if group_index > 1 %}
+        {% assign is_clone_group = true %}
+      {% endif %}
 
-          if section.settings.italic
-            assign item_style = 'italic'
-          endif
-
-          if block.settings.font_family != 'inherit'
-            assign item_font = block.settings.font_family
-          endif
-
-          if block.settings.font_weight != 'inherit'
-            assign item_weight = block.settings.font_weight
-          endif
-
-          if block.settings.italic_override == 'italic'
-            assign item_style = 'italic'
-          elsif block.settings.italic_override == 'normal'
+      <div class="custom-scroll-group"{% if is_clone_group %} aria-hidden="true"{% endif %}>
+        {% for block in section.blocks %}
+          {% liquid
+            assign item_font = section.settings.font_family
+            assign item_weight = section.settings.font_weight
             assign item_style = 'normal'
-          endif
-        %}
-        {% assign item_link = block.settings.link %}
+            assign item_link = block.settings.link
+            assign item_text = block.settings.text | default: ''
+            assign highlight_text = block.settings.highlight_text | default: ''
+            assign escaped_item_text = item_text | escape
+            assign rendered_item_text = escaped_item_text
 
-        <div
-          class="custom-scroll-item"
-          style="
-            --item-font-family: {{ item_font }};
-            --item-font-weight: {{ item_weight }};
-            --item-font-style: {{ item_style }};
-          "
-          {{ block.shopify_attributes }}
-        >
-          {% if item_link != blank %}
-            <a
-              class="custom-scroll-item-text custom-scroll-item-link"
-              href="{{ item_link }}"
-              {% if block.settings.open_in_new_tab %}
-                target="_blank" rel="noopener noreferrer"
-              {% endif %}
-            >
-              {{ block.settings.text }}
-            </a>
-          {% else %}
-            <span class="custom-scroll-item-text">{{ block.settings.text }}</span>
-          {% endif %}
-          <span class="custom-scroll-separator"></span>
-        </div>
-      {% endfor %}
-    </div>
+            if section.settings.italic
+              assign item_style = 'italic'
+            endif
 
-    <div class="custom-scroll-group" aria-hidden="true">
-      {% for block in section.blocks %}
-        {% liquid
-          assign item_font = section.settings.font_family
-          assign item_weight = section.settings.font_weight
-          assign item_style = 'normal'
+            if block.settings.font_family != 'inherit'
+              assign item_font = block.settings.font_family
+            endif
 
-          if section.settings.italic
-            assign item_style = 'italic'
-          endif
+            if block.settings.font_weight != 'inherit'
+              assign item_weight = block.settings.font_weight
+            endif
 
-          if block.settings.font_family != 'inherit'
-            assign item_font = block.settings.font_family
-          endif
+            if block.settings.italic_override == 'italic'
+              assign item_style = 'italic'
+            elsif block.settings.italic_override == 'normal'
+              assign item_style = 'normal'
+            endif
 
-          if block.settings.font_weight != 'inherit'
-            assign item_weight = block.settings.font_weight
-          endif
+            if highlight_text != blank and item_text contains highlight_text
+              assign escaped_highlight_text = highlight_text | escape
+              capture highlight_markup
+                echo '<span class="custom-scroll-highlight custom-scroll-highlight--'
+                echo block.settings.highlight_style
+                echo '">'
+                echo escaped_highlight_text
+                echo '</span>'
+              endcapture
+              assign rendered_item_text = escaped_item_text | replace_first: escaped_highlight_text, highlight_markup
+            endif
+          %}
 
-          if block.settings.italic_override == 'italic'
-            assign item_style = 'italic'
-          elsif block.settings.italic_override == 'normal'
-            assign item_style = 'normal'
-          endif
-        %}
-        {% assign item_link = block.settings.link %}
-
-        <div
-          class="custom-scroll-item"
-          style="
-            --item-font-family: {{ item_font }};
-            --item-font-weight: {{ item_weight }};
-            --item-font-style: {{ item_style }};
-          "
-        >
-          {% if item_link != blank %}
-            <a
-              class="custom-scroll-item-text custom-scroll-item-link"
-              href="{{ item_link }}"
-              tabindex="-1"
-              {% if block.settings.open_in_new_tab %}
-                target="_blank" rel="noopener noreferrer"
-              {% endif %}
-            >
-              {{ block.settings.text }}
-            </a>
-          {% else %}
-            <span class="custom-scroll-item-text">{{ block.settings.text }}</span>
-          {% endif %}
-          <span class="custom-scroll-separator"></span>
-        </div>
-      {% endfor %}
-    </div>
+          <div
+            class="custom-scroll-item"
+            style="
+              --item-font-family: {{ item_font }};
+              --item-font-weight: {{ item_weight }};
+              --item-font-style: {{ item_style }};
+              --scroll-highlight-text: {{ block.settings.highlight_text_color }};
+              --scroll-highlight-bg: {{ block.settings.highlight_background_color }};
+              --scroll-highlight-border: {{ block.settings.highlight_border_color }};
+              --scroll-highlight-border-width: {{ block.settings.highlight_border_width }}px;
+              --scroll-highlight-radius: {{ block.settings.highlight_radius }}px;
+              --scroll-highlight-padding-x: {{ block.settings.highlight_padding_x }}px;
+              --scroll-highlight-padding-y: {{ block.settings.highlight_padding_y }}px;
+            "
+            {% unless is_clone_group %}{{ block.shopify_attributes }}{% endunless %}
+          >
+            {% if item_link != blank %}
+              <a
+                class="custom-scroll-item-text custom-scroll-item-link"
+                href="{{ item_link }}"
+                {% if is_clone_group %}tabindex="-1"{% endif %}
+                {% if block.settings.open_in_new_tab %}
+                  target="_blank" rel="noopener noreferrer"
+                {% endif %}
+              >
+                {{ rendered_item_text }}
+              </a>
+            {% else %}
+              <span class="custom-scroll-item-text">{{ rendered_item_text }}</span>
+            {% endif %}
+            <span class="custom-scroll-separator"></span>
+          </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
   </div>
 </div>
 
@@ -657,6 +647,90 @@
           "id": "text",
           "label": "Text",
           "default": "Free worldwide shipping on orders over $100"
+        },
+        {
+          "type": "text",
+          "id": "highlight_text",
+          "label": "Highlight text",
+          "info": "Text inside this item to highlight. Leave blank for no highlight."
+        },
+        {
+          "type": "select",
+          "id": "highlight_style",
+          "label": "Highlight style",
+          "default": "background",
+          "options": [
+            {
+              "value": "background",
+              "label": "Background"
+            },
+            {
+              "value": "text_colour",
+              "label": "Text colour"
+            },
+            {
+              "value": "outline",
+              "label": "Outline"
+            }
+          ]
+        },
+        {
+          "type": "color",
+          "id": "highlight_text_color",
+          "label": "Highlight text colour",
+          "default": "#111111"
+        },
+        {
+          "type": "color",
+          "id": "highlight_background_color",
+          "label": "Highlight background colour",
+          "default": "#fff4f4"
+        },
+        {
+          "type": "color",
+          "id": "highlight_border_color",
+          "label": "Highlight border colour",
+          "default": "#fff4f4"
+        },
+        {
+          "type": "range",
+          "id": "highlight_border_width",
+          "label": "Highlight border width",
+          "min": 0,
+          "max": 4,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "highlight_radius",
+          "label": "Highlight radius",
+          "min": 0,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "highlight_padding_x",
+          "label": "Highlight padding left/right",
+          "min": 0,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "default": 4
+        },
+        {
+          "type": "range",
+          "id": "highlight_padding_y",
+          "label": "Highlight padding top/bottom",
+          "min": 0,
+          "max": 16,
+          "step": 1,
+          "unit": "px",
+          "default": 0
         },
         {
           "type": "url",
