@@ -86,6 +86,7 @@
     --ecc-card-title-size-desktop: {{ st.card_title_font_size_desktop }}px;
     --ecc-card-title-size-mobile: {{ st.card_title_font_size_mobile }}px;
     --ecc-card-title-weight: {{ st.card_title_font_weight }};
+    --ecc-card-title-font-style: {{ st.card_title_font_style }};
     --ecc-card-title-line-height: {{ st.card_title_line_height }};
     --ecc-card-title-letter-spacing: {{ st.card_title_letter_spacing }}px;
     --ecc-card-title-text-transform: {{ st.card_title_text_transform }};
@@ -803,6 +804,16 @@
         { "value": "700", "label": "700" },
         { "value": "800", "label": "800" },
         { "value": "900", "label": "900" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "card_title_font_style",
+      "label": "Card title font style",
+      "default": "normal",
+      "options": [
+        { "value": "normal", "label": "Normal" },
+        { "value": "italic", "label": "Italic" }
       ]
     },
     {

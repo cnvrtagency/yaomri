@@ -279,6 +279,7 @@
   font-family: var(--ecc-card-title-font-family);
   font-size: var(--ecc-card-title-size-desktop);
   font-weight: var(--ecc-card-title-weight);
+  font-style: var(--ecc-card-title-font-style);
   line-height: var(--ecc-card-title-line-height);
   letter-spacing: var(--ecc-card-title-letter-spacing);
   text-transform: var(--ecc-card-title-text-transform);

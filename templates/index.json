@@ -347,6 +347,7 @@
           "type": "collection_card",
           "settings": {
             "collection": "belted-swimsuits",
+            "image": "shopify://shop_images/BEIGE_5.jpg",
             "image_position": "center center",
             "badge": "",
             "title": "",
@@ -358,7 +359,7 @@
           "type": "collection_card",
           "settings": {
             "collection": "resort-wear",
-            "image": "shopify://shop_images/solar-swimsuit_c0fab17d-82cd-42a0-b203-19829fa0f9a5.png",
+            "image": "shopify://shop_images/blue.jpg",
             "image_position": "center center",
             "badge": "Limited edit",
             "title": "",
