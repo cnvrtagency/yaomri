@@ -88,12 +88,10 @@
     --lc-card-radius: {{ se_stts.logo_card_radius }}px;
     --lc-card-padding-desktop: {{ se_stts.logo_card_padding_desktop }}px;
     --lc-card-padding-mobile: {{ se_stts.logo_card_padding_mobile }}px;
-    --lc-logo-item-width-desktop: {{ se_stts.logo_card_size_desktop }}px;
-    --lc-logo-item-width-tablet: {{ se_stts.logo_card_size_tablet }}px;
-    --lc-logo-item-width-mobile: {{ se_stts.logo_card_size_mobile }}px;
+    --lc-logo-width-desktop: {{ se_stts.logo_width_desktop }}px;
+    --lc-logo-width-tablet: {{ se_stts.logo_width_tablet }}px;
+    --lc-logo-width-mobile: {{ se_stts.logo_width_mobile }}px;
     --lc-logo-fit: {{ se_stts.logo_image_fit }};
-    --lc-logo-max-height-desktop: {{ se_stts.logo_max_height_desktop }}px;
-    --lc-logo-max-height-mobile: {{ se_stts.logo_max_height_mobile }}px;
     --lc-logo-opacity: {{ se_stts.logo_opacity | divided_by: 100.0 }};
     --lc-logo-grayscale: {%- if se_stts.logo_grayscale -%}100%{%- else -%}0%{%- endif -%};
     --lc-logo-invert: {%- if se_stts.logo_invert -%}100%{%- else -%}0%{%- endif -%};
@@ -365,7 +363,7 @@
   }
 
   .logo-carousel--{{ section_id }}.logo-carousel--desktop-carousel .logo-carousel__item {
-    flex: 0 0 var(--lc-logo-item-width-desktop);
+    flex: 0 0 var(--lc-logo-width-desktop);
     {%- if se_stts.carousel_snap -%}
       scroll-snap-align: start;
     {%- endif -%}
@@ -385,7 +383,7 @@
   }
 
   .logo-carousel--{{ section_id }}.logo-carousel--desktop-marquee .logo-carousel__item {
-    flex: 0 0 var(--lc-logo-item-width-desktop);
+    flex: 0 0 var(--lc-logo-width-desktop);
   }
 
   .logo-carousel--{{ section_id }}.logo-carousel--desktop-marquee.logo-carousel--pause .logo-carousel__viewport:hover .logo-carousel__track,
@@ -394,6 +392,9 @@
   }
 
   .logo-carousel--{{ section_id }} .logo-carousel__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     min-width: 0;
   }
 
@@ -401,7 +402,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: var(--lc-logo-width-desktop);
+    max-width: 100%;
     min-height: 0;
     padding: var(--lc-card-padding-desktop);
     border: var(--lc-card-border-width) solid var(--lc-card-border);
@@ -410,6 +412,8 @@
     color: inherit;
     text-decoration: none;
     transition: transform 240ms ease, opacity 240ms ease, border-color 240ms ease;
+    backface-visibility: hidden;
+    transform: translateZ(0);
   }
 
   .logo-carousel--{{ section_id }} .logo-carousel__logo-wrap:hover,
@@ -421,13 +425,14 @@
   .logo-carousel--{{ section_id }} .logo-carousel__logo {
     display: block;
     width: 100%;
+    max-width: 100%;
     height: auto;
     background: var(--lc-logo-bg, transparent);
-    max-height: var(--lc-logo-max-height-desktop);
-    max-width: var(--lc-logo-max-width-desktop, 100%);
     object-fit: var(--lc-logo-fit);
     opacity: var(--lc-logo-opacity);
     filter: grayscale(var(--lc-logo-grayscale)) invert(var(--lc-logo-invert));
+    backface-visibility: hidden;
+    transform: translateZ(0);
   }
 
   .logo-carousel--{{ section_id }} .logo-carousel__placeholder {
@@ -435,7 +440,6 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: var(--lc-logo-max-height-desktop);
     color: color-mix(in srgb, var(--lc-text) 62%, transparent);
     font-size: 12px;
     font-weight: 500;
@@ -494,7 +498,11 @@
 
     .logo-carousel--{{ section_id }}.logo-carousel--desktop-carousel .logo-carousel__item,
     .logo-carousel--{{ section_id }}.logo-carousel--desktop-marquee .logo-carousel__item {
-      flex-basis: var(--lc-logo-item-width-tablet);
+      flex-basis: var(--lc-logo-width-tablet);
+    }
+
+    .logo-carousel--{{ section_id }} .logo-carousel__logo-wrap {
+      width: var(--lc-logo-width-tablet);
     }
   }
 
@@ -576,7 +584,7 @@
     }
 
     .logo-carousel--{{ section_id }}.logo-carousel--mobile-carousel .logo-carousel__item {
-      flex: 0 0 var(--lc-logo-item-width-mobile);
+      flex: 0 0 var(--lc-logo-width-mobile);
       {%- if se_stts.carousel_snap -%}
         scroll-snap-align: start;
       {%- endif -%}
@@ -591,7 +599,7 @@
     }
 
     .logo-carousel--{{ section_id }}.logo-carousel--mobile-marquee .logo-carousel__item {
-      flex: 0 0 var(--lc-logo-item-width-mobile);
+      flex: 0 0 var(--lc-logo-width-mobile);
     }
 
     .logo-carousel--{{ section_id }}.logo-carousel--mobile-marquee.logo-carousel--pause .logo-carousel__viewport:hover .logo-carousel__track,
@@ -605,17 +613,14 @@
     }
 
     .logo-carousel--{{ section_id }} .logo-carousel__logo-wrap {
+      width: var(--lc-logo-width-mobile);
       min-height: 0;
       padding: var(--lc-card-padding-mobile);
     }
 
     .logo-carousel--{{ section_id }} .logo-carousel__logo {
-      max-height: var(--lc-logo-max-height-mobile);
-      max-width: var(--lc-logo-max-width-mobile, 100%);
-    }
-
-    .logo-carousel--{{ section_id }} .logo-carousel__placeholder {
-      min-height: var(--lc-logo-max-height-mobile);
+      width: 100%;
+      max-width: 100%;
     }
 
     .logo-carousel--{{ section_id }}.logo-carousel--mobile-grid .logo-carousel__arrows,
@@ -719,39 +724,6 @@
                 assign logo_label = block.settings.logo_label | default: 'Logo'
                 assign logo_alt = block.settings.logo_alt_text | default: logo_label
                 assign block_bg = block.settings.logo_card_background_override | default: se_stts.logo_card_background_color
-                assign logo_width_desktop = block.settings.logo_max_width_desktop
-                assign logo_width_mobile = block.settings.logo_max_width_mobile
-                assign logo_height_desktop = block.settings.block_logo_max_height_desktop
-                assign logo_height_mobile = block.settings.block_logo_max_height_mobile
-                assign logo_bg = block.settings.logo_background_color
-                assign block_opacity = block.settings.block_logo_opacity | divided_by: 100.0
-                assign block_grayscale = '0%'
-                assign block_invert = '0%'
-                if block.settings.block_logo_grayscale
-                  assign block_grayscale = '100%'
-                endif
-                if block.settings.block_logo_invert
-                  assign block_invert = '100%'
-                endif
-                capture logo_style
-                  echo '--lc-logo-bg: '
-                  echo logo_bg
-                  echo '; --lc-logo-max-width-desktop: '
-                  echo logo_width_desktop
-                  echo 'px; --lc-logo-max-width-mobile: '
-                  echo logo_width_mobile
-                  echo 'px; --lc-logo-max-height-desktop: '
-                  echo logo_height_desktop
-                  echo 'px; --lc-logo-max-height-mobile: '
-                  echo logo_height_mobile
-                  echo 'px; --lc-logo-opacity: '
-                  echo block_opacity
-                  echo '; --lc-logo-grayscale: '
-                  echo block_grayscale
-                  echo '; --lc-logo-invert: '
-                  echo block_invert
-                  echo ';'
-                endcapture
               -%}
               <div class="logo-carousel__item" {{ block.shopify_attributes }}>
                 {%- if block.settings.link != blank -%}
@@ -775,8 +747,7 @@
                         class: 'logo-carousel__logo',
                         loading: 'lazy',
                         alt: logo_alt,
-                        widths: '120, 180, 240, 320, 480, 700',
-                        style: logo_style
+                        widths: '120, 180, 240, 320, 480, 700'
                     }}
                   {%- else -%}
                     <span class="logo-carousel__placeholder">{{ logo_label }}</span>
@@ -795,39 +766,6 @@
                   assign logo_label = block.settings.logo_label | default: 'Logo'
                   assign logo_alt = block.settings.logo_alt_text | default: logo_label
                   assign block_bg = block.settings.logo_card_background_override | default: se_stts.logo_card_background_color
-                  assign logo_width_desktop = block.settings.logo_max_width_desktop
-                  assign logo_width_mobile = block.settings.logo_max_width_mobile
-                  assign logo_height_desktop = block.settings.block_logo_max_height_desktop
-                  assign logo_height_mobile = block.settings.block_logo_max_height_mobile
-                  assign logo_bg = block.settings.logo_background_color
-                  assign block_opacity = block.settings.block_logo_opacity | divided_by: 100.0
-                  assign block_grayscale = '0%'
-                  assign block_invert = '0%'
-                  if block.settings.block_logo_grayscale
-                    assign block_grayscale = '100%'
-                  endif
-                  if block.settings.block_logo_invert
-                    assign block_invert = '100%'
-                  endif
-                  capture logo_style
-                    echo '--lc-logo-bg: '
-                    echo logo_bg
-                    echo '; --lc-logo-max-width-desktop: '
-                    echo logo_width_desktop
-                    echo 'px; --lc-logo-max-width-mobile: '
-                    echo logo_width_mobile
-                    echo 'px; --lc-logo-max-height-desktop: '
-                    echo logo_height_desktop
-                    echo 'px; --lc-logo-max-height-mobile: '
-                    echo logo_height_mobile
-                    echo 'px; --lc-logo-opacity: '
-                    echo block_opacity
-                    echo '; --lc-logo-grayscale: '
-                    echo block_grayscale
-                    echo '; --lc-logo-invert: '
-                    echo block_invert
-                    echo ';'
-                  endcapture
                 -%}
                 <div class="logo-carousel__item logo-carousel__clone" aria-hidden="true">
                   {%- if block.settings.link != blank -%}
@@ -852,8 +790,7 @@
                           class: 'logo-carousel__logo',
                           loading: 'lazy',
                           alt: logo_alt,
-                          widths: '120, 180, 240, 320, 480, 700',
-                          style: logo_style
+                          widths: '120, 180, 240, 320, 480, 700'
                       }}
                     {%- else -%}
                       <span class="logo-carousel__placeholder">{{ logo_label }}</span>
@@ -1790,31 +1727,31 @@
     },
     {
       "type": "range",
-      "id": "logo_card_size_desktop",
-      "label": "Logo item width desktop",
-      "min": 120,
-      "max": 420,
-      "step": 5,
+      "id": "logo_width_desktop",
+      "label": "Logo width desktop",
+      "min": 40,
+      "max": 320,
+      "step": 4,
       "default": 160,
       "unit": "px"
     },
     {
       "type": "range",
-      "id": "logo_card_size_tablet",
-      "label": "Logo item width tablet",
-      "min": 120,
-      "max": 360,
-      "step": 5,
-      "default": 150,
+      "id": "logo_width_tablet",
+      "label": "Logo width tablet",
+      "min": 40,
+      "max": 260,
+      "step": 4,
+      "default": 140,
       "unit": "px"
     },
     {
       "type": "range",
-      "id": "logo_card_size_mobile",
-      "label": "Logo item width mobile",
-      "min": 90,
-      "max": 260,
-      "step": 5,
+      "id": "logo_width_mobile",
+      "label": "Logo width mobile",
+      "min": 30,
+      "max": 220,
+      "step": 2,
       "default": 110,
       "unit": "px"
     },
@@ -1827,26 +1764,6 @@
         { "value": "contain", "label": "Contain" },
         { "value": "cover", "label": "Cover" }
       ]
-    },
-    {
-      "type": "range",
-      "id": "logo_max_height_desktop",
-      "label": "Logo max height desktop",
-      "min": 20,
-      "max": 180,
-      "step": 2,
-      "default": 70,
-      "unit": "px"
-    },
-    {
-      "type": "range",
-      "id": "logo_max_height_mobile",
-      "label": "Logo max height mobile",
-      "min": 20,
-      "max": 140,
-      "step": 2,
-      "default": 48,
-      "unit": "px"
     },
     {
       "type": "range",
@@ -1932,74 +1849,6 @@
           "id": "open_in_new_tab",
           "label": "Open in new tab",
           "default": false
-        },
-        {
-          "type": "range",
-          "id": "logo_max_width_desktop",
-          "label": "Logo max width desktop",
-          "min": 40,
-          "max": 320,
-          "step": 4,
-          "default": 160,
-          "unit": "px"
-        },
-        {
-          "type": "range",
-          "id": "logo_max_width_mobile",
-          "label": "Logo max width mobile",
-          "min": 40,
-          "max": 220,
-          "step": 2,
-          "default": 110,
-          "unit": "px"
-        },
-        {
-          "type": "range",
-          "id": "block_logo_max_height_desktop",
-          "label": "Logo max height desktop",
-          "min": 20,
-          "max": 180,
-          "step": 2,
-          "default": 70,
-          "unit": "px"
-        },
-        {
-          "type": "range",
-          "id": "block_logo_max_height_mobile",
-          "label": "Logo max height mobile",
-          "min": 20,
-          "max": 140,
-          "step": 2,
-          "default": 48,
-          "unit": "px"
-        },
-        {
-          "type": "range",
-          "id": "block_logo_opacity",
-          "label": "Logo opacity",
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "default": 100,
-          "unit": "%"
-        },
-        {
-          "type": "checkbox",
-          "id": "block_logo_grayscale",
-          "label": "Make logo grayscale",
-          "default": false
-        },
-        {
-          "type": "checkbox",
-          "id": "block_logo_invert",
-          "label": "Invert logo",
-          "default": false
-        },
-        {
-          "type": "color",
-          "id": "logo_background_color",
-          "label": "Logo background colour",
-          "default": "rgba(0,0,0,0)"
         },
         {
           "type": "range",
