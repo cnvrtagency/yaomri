@@ -102,6 +102,10 @@
     --lc-logo-hover-lift: {{ se_stts.logo_hover_lift }}px;
   }
 
+  #shopify-section-{{ section_id }} {
+    background: {{ se_stts.background_color }};
+  }
+
   .logo-carousel--{{ section_id }} {
     background: var(--lc-bg);
     color: var(--lc-text);
@@ -112,31 +116,45 @@
   .logo-carousel--{{ section_id }} .logo-carousel__inner {
     width: 100%;
     margin: 0 auto;
+    background: transparent;
   }
 
   .logo-carousel--{{ section_id }} .logo-carousel__layout {
     display: grid;
-    gap: var(--lc-split-gap);
-    align-items: {{ se_stts.intro_vertical_align }};
+    grid-template-columns: minmax(0, 1fr);
+    gap: 42px;
+    align-items: start;
+    min-width: 0;
   }
 
   .logo-carousel--{{ section_id }} .logo-carousel__layout--split {
     grid-template-columns: minmax(0, var(--lc-intro-width)) minmax(0, 1fr);
+    gap: var(--lc-split-gap);
+    align-items: {{ se_stts.intro_vertical_align }};
   }
 
   .logo-carousel--{{ section_id }} .logo-carousel__intro {
+    width: 100%;
+    max-width: var(--lc-heading-width-desktop);
     text-align: var(--lc-align-desktop);
-    margin: 0 auto;
+    margin-inline: auto;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    background: transparent;
   }
 
   .logo-carousel--{{ section_id }} .logo-carousel__layout--split .logo-carousel__intro {
     margin: 0;
   }
 
+  .logo-carousel--{{ section_id }} .logo-carousel__intro > * {
+    min-width: 0;
+  }
+
   .logo-carousel--{{ section_id }} .logo-carousel__eyebrow {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: var(--lc-eyebrow-icon-gap);
     margin: 0 0 var(--lc-eyebrow-margin);
     color: var(--lc-text);
@@ -145,6 +163,14 @@
     letter-spacing: var(--lc-eyebrow-spacing);
     line-height: 1.2;
     text-transform: uppercase;
+  }
+
+  .logo-carousel--{{ section_id }}.logo-carousel--text-desktop-center .logo-carousel__eyebrow {
+    justify-content: center;
+  }
+
+  .logo-carousel--{{ section_id }}.logo-carousel--text-desktop-right .logo-carousel__eyebrow {
+    justify-content: flex-end;
   }
 
   .logo-carousel--{{ section_id }} .logo-carousel__eyebrow-icon {
@@ -165,8 +191,9 @@
   }
 
   .logo-carousel--{{ section_id }} .logo-carousel__title {
-    max-width: var(--lc-heading-width-desktop);
-    margin: 0 auto;
+    width: min(100%, var(--lc-heading-width-desktop));
+    max-width: min(100%, var(--lc-heading-width-desktop));
+    margin: 0;
     color: var(--lc-title-color-1);
     font-size: var(--lc-title-size-desktop);
     font-weight: var(--lc-title-weight);
@@ -174,10 +201,23 @@
     line-height: var(--lc-title-line-height);
     letter-spacing: var(--lc-title-letter-spacing);
     text-transform: uppercase;
+    overflow-wrap: anywhere;
+    word-break: normal;
   }
 
   .logo-carousel--{{ section_id }} .logo-carousel__layout--split .logo-carousel__title {
     margin-inline: 0;
+  }
+
+  .logo-carousel--{{ section_id }}.logo-carousel--text-desktop-center .logo-carousel__title,
+  .logo-carousel--{{ section_id }}.logo-carousel--text-desktop-center .logo-carousel__body {
+    margin-inline: auto;
+  }
+
+  .logo-carousel--{{ section_id }}.logo-carousel--text-desktop-right .logo-carousel__title,
+  .logo-carousel--{{ section_id }}.logo-carousel--text-desktop-right .logo-carousel__body {
+    margin-left: auto;
+    margin-right: 0;
   }
 
   .logo-carousel--{{ section_id }} .logo-carousel__title-highlight {
@@ -194,12 +234,39 @@
   }
 
   .logo-carousel--{{ section_id }} .logo-carousel__body {
-    max-width: var(--lc-body-width-desktop);
-    margin: 22px auto 0;
+    width: min(100%, var(--lc-body-width-desktop));
+    max-width: min(100%, var(--lc-body-width-desktop));
+    margin: 22px 0 0;
     color: var(--lc-text);
     font-size: var(--lc-body-size-desktop);
     font-weight: var(--lc-body-weight);
     line-height: var(--lc-body-line-height);
+    overflow-wrap: anywhere;
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__body p {
+    margin: 0 0 12px;
+  }
+
+  .logo-carousel--{{ section_id }} .logo-carousel__body p:last-child {
+    margin-bottom: 0;
+  }
+
+  .logo-carousel--{{ section_id }}.logo-carousel--text-desktop-center .logo-carousel__title {
+    margin-inline: auto;
+  }
+
+  .logo-carousel--{{ section_id }}.logo-carousel--text-desktop-center .logo-carousel__body {
+    margin: 22px auto 0;
+  }
+
+  .logo-carousel--{{ section_id }}.logo-carousel--text-desktop-right .logo-carousel__title {
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  .logo-carousel--{{ section_id }}.logo-carousel--text-desktop-right .logo-carousel__body {
+    margin: 22px 0 0 auto;
   }
 
   .logo-carousel--{{ section_id }} .logo-carousel__layout--split .logo-carousel__body {
@@ -236,7 +303,10 @@
 
   .logo-carousel--{{ section_id }} .logo-carousel__media {
     position: relative;
-    margin-top: 42px;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    background: transparent;
   }
 
   .logo-carousel--{{ section_id }} .logo-carousel__layout--split .logo-carousel__media {
@@ -441,19 +511,37 @@
 
     .logo-carousel--{{ section_id }} .logo-carousel__intro {
       text-align: var(--lc-align-mobile);
-      margin: 0 auto;
+      margin-inline: auto;
+      max-width: var(--lc-heading-width-mobile);
     }
 
     .logo-carousel--{{ section_id }} .logo-carousel__title {
-      max-width: var(--lc-heading-width-mobile);
-      margin-inline: auto;
+      width: min(100%, var(--lc-heading-width-mobile));
+      max-width: min(100%, var(--lc-heading-width-mobile));
       font-size: var(--lc-title-size-mobile);
     }
 
     .logo-carousel--{{ section_id }} .logo-carousel__body {
-      max-width: var(--lc-body-width-mobile);
-      margin-inline: auto;
+      width: min(100%, var(--lc-body-width-mobile));
+      max-width: min(100%, var(--lc-body-width-mobile));
       font-size: var(--lc-body-size-mobile);
+    }
+
+    .logo-carousel--{{ section_id }}.logo-carousel--text-mobile-center .logo-carousel__title {
+      margin-inline: auto;
+    }
+
+    .logo-carousel--{{ section_id }}.logo-carousel--text-mobile-center .logo-carousel__body {
+      margin: 22px auto 0;
+    }
+
+    .logo-carousel--{{ section_id }}.logo-carousel--text-mobile-right .logo-carousel__title {
+      margin-left: auto;
+      margin-right: 0;
+    }
+
+    .logo-carousel--{{ section_id }}.logo-carousel--text-mobile-right .logo-carousel__body {
+      margin: 22px 0 0 auto;
     }
 
     .logo-carousel--{{ section_id }} .logo-carousel__cta {
@@ -566,7 +654,7 @@
 {%- endstyle -%}
 
 <section
-  class="logo-carousel logo-carousel--{{ section_id }} logo-carousel--desktop-{{ desktop_mode }} logo-carousel--mobile-{{ mobile_mode }}{% if se_stts.marquee_pause_on_hover %} logo-carousel--pause{% endif %}"
+  class="logo-carousel logo-carousel--{{ section_id }} logo-carousel--layout-{{ se_stts.layout_style }} logo-carousel--desktop-{{ desktop_mode }} logo-carousel--mobile-{{ mobile_mode }} logo-carousel--text-desktop-{{ se_stts.text_align_desktop }} logo-carousel--text-mobile-{{ se_stts.text_align_mobile }}{% if se_stts.marquee_pause_on_hover %} logo-carousel--pause{% endif %}"
   data-section-id="{{ section_id }}"
   timeline
   hdt-reveal="slide-in"
